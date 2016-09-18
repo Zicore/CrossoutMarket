@@ -1,5 +1,6 @@
 ﻿using Nancy;
 using Nancy.Conventions;
+using Nancy.Diagnostics;
 
 namespace Crossout.Web
 {
@@ -9,8 +10,6 @@ namespace Crossout.Web
         {
 
         }
-
-
 
         protected override void ConfigureConventions(NancyConventions nancyConventions)
         {
