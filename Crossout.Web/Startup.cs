@@ -23,7 +23,7 @@ namespace Crossout.Web
         
         public void Configuration(IAppBuilder app)
         {
-            app.MapSignalR(new HubConfiguration { EnableJSONP = true});
+            //app.MapSignalR(new HubConfiguration { EnableJSONP = true});
             app.UseNancy();
         }
     }
