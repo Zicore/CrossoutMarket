@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossout.Web", "Crossout.Web\Crossout.Web.csproj", "{68F5F5F3-B8BB-4911-875F-6F00AAE04EA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossout.Recipes", "Crossout.Recipes\Crossout.Recipes.csproj", "{3190735C-2992-4680-BE8E-3CEE6FADE527}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossout.Model", "Crossout.Model\Crossout.Model.csproj", "{F064BEB2-588B-44FD-BE7C-1480882A9B21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zicore.Settings.Json", "Zicore.Settings.Json\Zicore.Settings.Json.csproj", "{831D83A0-7348-4D8C-9857-7B336F7D91EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZicoreConnector", "ZicoreConnector\ZicoreConnector.csproj", "{C0B5A170-E453-4F2C-8532-E0BEF831E586}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_Client|Any CPU = Debug_Client|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68F5F5F3-B8BB-4911-875F-6F00AAE04EA6}.Debug_Client|Any CPU.ActiveCfg = Debug|Any CPU
+		{68F5F5F3-B8BB-4911-875F-6F00AAE04EA6}.Debug_Client|Any CPU.Build.0 = Debug|Any CPU
+		{68F5F5F3-B8BB-4911-875F-6F00AAE04EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68F5F5F3-B8BB-4911-875F-6F00AAE04EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68F5F5F3-B8BB-4911-875F-6F00AAE04EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68F5F5F3-B8BB-4911-875F-6F00AAE04EA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3190735C-2992-4680-BE8E-3CEE6FADE527}.Debug_Client|Any CPU.ActiveCfg = Debug|Any CPU
+		{3190735C-2992-4680-BE8E-3CEE6FADE527}.Debug_Client|Any CPU.Build.0 = Debug|Any CPU
+		{3190735C-2992-4680-BE8E-3CEE6FADE527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3190735C-2992-4680-BE8E-3CEE6FADE527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3190735C-2992-4680-BE8E-3CEE6FADE527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3190735C-2992-4680-BE8E-3CEE6FADE527}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F064BEB2-588B-44FD-BE7C-1480882A9B21}.Debug_Client|Any CPU.ActiveCfg = Debug|Any CPU
+		{F064BEB2-588B-44FD-BE7C-1480882A9B21}.Debug_Client|Any CPU.Build.0 = Debug|Any CPU
+		{F064BEB2-588B-44FD-BE7C-1480882A9B21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F064BEB2-588B-44FD-BE7C-1480882A9B21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F064BEB2-588B-44FD-BE7C-1480882A9B21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F064BEB2-588B-44FD-BE7C-1480882A9B21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{831D83A0-7348-4D8C-9857-7B336F7D91EA}.Debug_Client|Any CPU.ActiveCfg = Debug|Any CPU
+		{831D83A0-7348-4D8C-9857-7B336F7D91EA}.Debug_Client|Any CPU.Build.0 = Debug|Any CPU
+		{831D83A0-7348-4D8C-9857-7B336F7D91EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{831D83A0-7348-4D8C-9857-7B336F7D91EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{831D83A0-7348-4D8C-9857-7B336F7D91EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{831D83A0-7348-4D8C-9857-7B336F7D91EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0B5A170-E453-4F2C-8532-E0BEF831E586}.Debug_Client|Any CPU.ActiveCfg = Debug_Client|Any CPU
+		{C0B5A170-E453-4F2C-8532-E0BEF831E586}.Debug_Client|Any CPU.Build.0 = Debug_Client|Any CPU
+		{C0B5A170-E453-4F2C-8532-E0BEF831E586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0B5A170-E453-4F2C-8532-E0BEF831E586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0B5A170-E453-4F2C-8532-E0BEF831E586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0B5A170-E453-4F2C-8532-E0BEF831E586}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

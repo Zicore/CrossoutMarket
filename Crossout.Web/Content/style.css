@@ -1,0 +1,115 @@
+﻿/* Most of this is probably not used, it was reused from another project */
+
+.main {
+  padding: 0;
+}
+
+.main .page-header {
+  margin-top: 0;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+
+td {
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: left;
+}
+
+.modal-title {
+    font-size: 18px;
+}
+
+
+html {
+  position: relative;
+  height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 0px;
+  background: white;
+  height: 100%;
+}
+
+.blue {
+    color: #44BBFF;
+}
+
+.form-group {
+    margin: 4px;
+}
+
+.fill {
+    display: block;
+    height: 100%;
+    
+    margin-top: 0px;
+    padding-bottom: 0px;
+}
+
+.fillFull {
+    display: block;
+    height: 100%;
+    
+    margin-top: 0px;
+    padding-bottom: 20px;
+}
+
+.header-title li{
+    color: white;
+}
+
+.navbar-inverse {
+    color: white;
+    padding: 8px;
+}
+
+/* Rarity Labels */
+
+.label-Common{
+  background: #696969;
+}
+
+.label-Rare {
+  background: #0040fd;
+}
+
+.label-Epic {
+  background: #6a0082;
+}
+
+.label-Legendary {
+  background: #daa520;
+}
+
+.label-Relic {
+  background: #d2691e;
+}
+
+.label-md {
+  display: inline;
+  padding: .3em .5em .4em;
+  font-size: 100%;
+  font-weight: bold;
+  line-height: 1;
+  color: #595959;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .35em;
+}

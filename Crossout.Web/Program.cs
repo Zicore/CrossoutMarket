@@ -1,0 +1,45 @@
+﻿using System;
+using Microsoft.Owin.Hosting;
+
+namespace Crossout.Web
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            WebSettings.Settings.Load();
+            WebSettings.Settings.Save(); // Saving defaults
+            var url = "http://+:" + WebSettings.Settings.WebserverPort;
+
+            using (WebApp.Start<Startup>(url))
+            {
+                Console.WriteLine("Running on {0}", url);
+                string command = "";
+                do
+                {
+                    Console.WriteLine("Enter save to save the config file");
+                    Console.WriteLine("Enter load to load the config file");
+                    Console.WriteLine("Enter exit to shut down the server");
+                    command = Console.ReadLine();
+
+                    if (command == "save")
+                    {
+                        Console.WriteLine("Saving config");
+                        WebSettings.Settings.Save();
+                    }
+                    if (command == "load")
+                    {
+                        Console.WriteLine("Saving config");
+                        WebSettings.Settings.Load();
+                    }
+
+                } while (command != "exit" && command != "quit");
+            }
+        }
+
+        private static void UnhandledExceptionCallback(Exception exception)
+        {
+
+        }
+    }
+}

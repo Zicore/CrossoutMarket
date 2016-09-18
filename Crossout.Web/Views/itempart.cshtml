@@ -1,0 +1,36 @@
+﻿@using Crossout.Web
+@using Crossout.Model.Items;
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Model.Items.Item>
+<tr>
+    <td>
+        <div class="clearfix content-heading">
+            <a href="~/item/@Model.Id"><img class="pull-left" style="margin-right: 8px;" src="~/img/items/@Model.Image" /></a>
+            <a href="~/item/@Model.Id"><h4 style="font-weight: bold;">@Model.Name</h4></a>
+            <div style="font-weight: bold;">@Model.TypeName</div>
+        </div>
+    </td>
+    <td>
+        <span class="label label-@Model.RarityName">@Model.RarityName</span>
+    </td>
+    <td>
+        <div class="label-md">@Model.FormatSellPrice <img height="14" src="~/img/Coin.png" /></div>
+    </td>
+    <td>
+        <div class="label-md">@Model.SellOffers</div>
+    </td>
+    <td>
+        <div class="label-md">@Model.FormatBuyPrice <img height="14" src="~/img/Coin.png" /></div>
+    </td>
+    <td>
+        <div class="label-md">@Model.BuyOrders</div>
+    </td>
+    <td>
+        <div class="label-md">@Model.FormatMargin <img height="14" src="~/img/Coin.png" /></div>
+    </td>
+    <td>
+        @if (Model.RecipeId > 0)
+        {
+            <a href="~/recipe/@Model.RecipeId" style="font-weight: bold;"><span class="glyphicon glyphicon-new-window"></span></a>
+        }
+    </td>
+</tr>
