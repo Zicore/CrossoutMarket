@@ -1,0 +1,27 @@
+﻿@using Crossout.Web
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.SearchModel>
+
+
+<div class="col-xs-3">
+    <ul class="pagination pagination-sm">
+        @{
+            Model.Pager.CalculatePage(15);
+        }
+
+        @if (Model.Pager.CurrentPage - 1 > 0)
+        {
+
+            <li><a href="~/search/@Model.UriPage(Model.Pager.CurrentPage - 1)">&laquo;</a></li>
+        }
+        <li><a href="~/search/1">First</a></li>
+        @for (int i = Model.Pager.MinPage; i <= Model.Pager.MaxPages; i++)
+        {
+            <li @(Model.Pager.CurrentPage == i ? "class=active" : "")><a href="~/search/@Model.UriPage(i)">@i</a></li>
+        }
+        <li><a href="~/search/@Model.UriPage(Model.Pager.MaxPages)">Last</a></li>
+        @if (Model.Pager.CurrentPage < Model.Pager.MaxPages)
+        {
+            <li><a href="~/search/@Model.UriPage(Model.Pager.CurrentPage + 1)">&raquo;</a></li>
+        }
+    </ul>
+</div>
