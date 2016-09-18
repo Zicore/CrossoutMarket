@@ -12,14 +12,14 @@ namespace Crossout.Web
         public IEnumerable<string> GetAssemblyNames()
         {
             yield return "Zicore.Settings.Json";
-            yield return "DatabaseConnector";
+            yield return "ZicoreConnector";
             yield return "Crossout.Model";
         }
 
         public IEnumerable<string> GetDefaultNamespaces()
         {
             yield return "Zicore.Settings.Json";
-            yield return "DatabaseConnector";
+            yield return "ZicoreConnector";
             yield return "Crossout.Model";
         }
 
