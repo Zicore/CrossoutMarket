@@ -7,6 +7,7 @@ using Crossout.Model.Items;
 using Crossout.Web.Models;
 using Crossout.Web.Models.Filter;
 using Crossout.Web.Models.Pagination;
+using Crossout.Web.Services;
 using Nancy;
 using Nancy.Responses;
 using ZicoreConnector.Zicore.Connector.Base;
@@ -75,7 +76,7 @@ namespace Crossout.Web.Modules.Search
 
             
             
-            string sqlQuery = BuildSearchQuery(hasFilter, true,false,false, rarityItem != null, categoryItem != null);
+            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true,false,false, rarityItem != null, categoryItem != null);
 
             if (hasFilter)
             {
@@ -134,7 +135,7 @@ namespace Crossout.Web.Modules.Search
 
         public static int GetCount(SqlConnector sql,bool hasFilter, List<Parameter> parameter, FilterItem rarityItem, FilterItem categoryItem)
         {
-            string countQuery = BuildSearchQuery(hasFilter, false, true, false, rarityItem != null, categoryItem != null);
+            string countQuery = DataService.BuildSearchQuery(hasFilter, false, true, false, rarityItem != null, categoryItem != null);
             var countDS = sql.SelectDataSet(countQuery, parameter);
             int count = 0;
             if (countDS != null && countDS.Count > 0)
@@ -144,53 +145,6 @@ namespace Crossout.Web.Modules.Search
             return count;
         }
 
-        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory)
-        {
-            string selectColumns = "item.id,item.name,m1.sellprice,m1.buyprice,m1.selloffers,m1.buyorders,m1.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id ";
-            if (count)
-            {
-                selectColumns = "count(*)";
-            }
-            string query = $"SELECT {selectColumns} FROM market m1 JOIN(SELECT itemnumber, MAX(datetime) datetime FROM market GROUP BY itemnumber) m2 ON m1.itemnumber = m2.itemnumber AND m1.datetime = m2.datetime LEFT JOIN item on item.id = m1.itemnumber  LEFT JOIN rarity on rarity.id = item.raritynumber LEFT JOIN category on category.id = item.categorynumber LEFT JOIN type on type.id = item.typenumber LEFT JOIN recipe ON recipe.itemnumber = item.id ";
-
-            if (!hasId)
-            {
-                if (hasFilter)
-                {
-                    query += "WHERE item.name LIKE @filter ";
-                }
-                else
-                {
-                    query += "WHERE 1=1 ";
-                }
-            }
-            else
-            {
-                query += "WHERE item.id = @id ";
-            }
-
-            if (hasRarity)
-            {
-                query += " AND rarity.id = @rarity ";
-            }
-
-            if (hasCategory)
-            {
-                query += " AND category.id = @category ";
-            }
-
-            if (!count)
-            {
-                query += "ORDER BY item.id asc, item.name asc ";
-            }
-
-            if (limit)
-            {
-                query += "LIMIT @from,@to";
-            }
-
-            return query;
-        }
 
         public static List<FilterItem> SelectRarities(SqlConnector sql)
         {

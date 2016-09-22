@@ -10,6 +10,6 @@ namespace Crossout.Web.Models
     public class ItemModel
     {
         public Item Item { get; set; } = new Item() {};
-        //public RecipeModel Recipe { get; set; } = new RecipeModel();
+        public RecipeModel Recipe { get; set; } = new RecipeModel();
     }
 }

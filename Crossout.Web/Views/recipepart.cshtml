@@ -1,0 +1,54 @@
+﻿@using Crossout.Web
+@using Crossout.Model.Items;
+@using Crossout.Model.Recipes
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Model.Recipes.RecipeItem>
+
+@{
+    Item item = Model.Item;
+}
+
+<tr class="@(Model.Depth > 0 ? "collapse" : "") @Model.ParentId">
+    <td>
+        <div class="clearfix content-heading">
+            <div class="clearfix vertical-center pull-left">
+                @for (int i = 0; i < Model.Depth; i++)
+                {
+                    <div style="margin-left: 32px;">&nbsp;</div>
+                }
+                @*@if (Model.Ingredients.Count > 0)
+                {
+                    <div class="tree-icon glyphicon glyphicon-plus" id="@item.Id"></div>
+                }*@
+                <div>
+                    <a href="~/item/@item.Id"><img style="margin-right: 8px;" src="~/img/items/@item.Image"/></a>
+                </div>
+            </div>
+            <a href="~/item/@item.Id"><h4 style="font-weight: bold;">@item.Name</h4></a>
+            <div style="font-weight: bold;">@item.TypeName</div>
+        </div>
+    </td>
+    <td>
+        <span class="label label-@item.RarityName">@item.RarityName</span>
+    </td>
+    <td>
+        <div class="label-md">
+            @item.FormatSellPrice <img height="14" src="~/img/Coin.png"/>
+        </div>
+    </td>
+    <td>
+        <div class="label-md">@item.SellOffers</div>
+    </td>
+    <td>
+        <div class="label-md">
+            @item.FormatBuyPrice <img height="14" src="~/img/Coin.png"/>
+        </div>
+    </td>
+    <td>
+        <div class="label-md">@item.BuyOrders</div>
+    </td>
+    <td>
+        <div class="label-md">
+            @item.FormatMargin <img height="14" src="~/img/Coin.png"/>
+        </div>
+    </td>
+</tr>

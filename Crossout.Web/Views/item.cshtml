@@ -2,6 +2,9 @@
     Layout = "layout.cshtml";
 }
 
+@using System.Collections.Generic
+@using System.Linq
+@using Crossout.Model.Recipes
 @using Crossout.Web
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.ItemModel>
 
@@ -33,17 +36,32 @@
                 <th>
                     Margin
                 </th>
-                <th>
-                    Recipe
-                </th>
             </tr>
             </thead>
 
             <tbody>
-            @Html.Partial("itempart", Model.Item)
+            @Html.Partial("recipepart", Model.Recipe.Recipe)
+
+            @ShowTree(Model.Recipe.Recipe.Ingredients)
+
+            @helper ShowTree(List<RecipeItem> items)
+            {
+                foreach (RecipeItem item in items)
+                {
+                    @Html.Partial("recipepart", item)
+                    if (item != null && item.Ingredients.Count > 0)
+                    {
+                        @ShowTree(item.Ingredients);
+                    }
+                }
+            }
             </tbody>
         </table>
     </div>
 </div>
+
+<script>
+    
+</script>
 
 @Html.Partial("chart", Model)

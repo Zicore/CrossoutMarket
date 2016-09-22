@@ -113,3 +113,12 @@ body {
   vertical-align: baseline;
   border-radius: .35em;
 }
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.tree-icon {
+    margin: 3px;
+}

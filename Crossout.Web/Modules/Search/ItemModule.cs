@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Crossout.Model.Items;
 using Crossout.Web.Models;
+using Crossout.Web.Services;
 using Nancy;
 using ZicoreConnector.Zicore.Connector.Base;
 
@@ -25,25 +26,23 @@ namespace Crossout.Web.Modules.Search
 
         private dynamic RouteItem(int id)
         {
-            ItemModel itemModel = new ItemModel ();
-
-            sql.Open(WebSettings.Settings.CreateDescription());
-
-            var parmeter = new List<Parameter>();
-            parmeter.Add(new Parameter {Identifier = "id", Value = id});
-
-            string query = SearchModule.BuildSearchQuery(false, false, false, true, false,false);
-
-            var ds = sql.SelectDataSet(query, parmeter);
-            
-            if (ds != null && ds.Count > 0)
+            try
             {
-                var item = Item.Create(ds[0]);
-                itemModel.Item = item;
+                sql.Open(WebSettings.Settings.CreateDescription());
+
+                DataService db = new DataService(sql);
+
+                var itemModel = db.SelectItem(id);
+                var recipeModel = db.SelectRecipeModel(itemModel.Item);
+
+                itemModel.Recipe = recipeModel;
 
                 return View["item", itemModel];
             }
-            return Response.AsRedirect("/");
+            catch
+            {
+                return Response.AsRedirect("/");
+            }
         }
     }
 }
