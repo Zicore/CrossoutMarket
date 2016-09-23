@@ -16,7 +16,7 @@ You will need a few things to setup first:
 * Visual Studio with .Net 4.6 installed.
 * Some experience with Web Development.
 
-Start with downloading the MySQL dump crossout_dump.zip and import it on your machine.
+Start with Forking the repo and import the MySQL dump crossout_dump.zip and on your machine.
 
 Then create the settings file in %appdata%/CrossoutWeb/WebSettings.json or start the project once since the file is created then and edit the file.
 ```json
@@ -31,3 +31,5 @@ Then create the settings file in %appdata%/CrossoutWeb/WebSettings.json or start
 	"DataHost" : "localhost"
 }
 ```
+
+You may need to start Visual Studio as Administrator for Nancy or Owins Selfhost to work.
