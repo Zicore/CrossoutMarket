@@ -122,3 +122,15 @@ body {
 .tree-icon {
     margin: 3px;
 }
+
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
+}
+.btn-main {
+    
+}
+
+.btn-sub {
+    margin-left: -26px;
+}

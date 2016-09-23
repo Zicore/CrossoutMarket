@@ -26,7 +26,19 @@ namespace Crossout.Model.Recipes
                 return 0;
             }
         }
-        
+
+        public int ParentRecipe
+        {
+            get
+            {
+                if (Parent != null)
+                {
+                    return Parent.Item.RecipeId;
+                }
+                return 0;
+            }
+        }
+
         public static List<RecipeItem> Create(RecipeItem item, List<object[]> dataSet)
         {
             List<RecipeItem> items = new List<RecipeItem>();
