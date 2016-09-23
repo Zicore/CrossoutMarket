@@ -22,7 +22,67 @@
             $('#container').highcharts('StockChart', {
                 
                 rangeSelector: {
-                    selected: 6
+                    allButtonsEnabled: true,
+                    buttons: [{
+                        type: 'hour',
+                        count: 6,
+                        text: '6h',
+                        dataGrouping: {
+                            forced: true,
+                            units: [['minute', [1]]]
+                        }
+                    }, {
+                        type: 'hour',
+                        count: 12,
+                        text: '12h',
+                        dataGrouping: {
+                            forced: true,
+                            units: [['minute', [1]]]
+                        }
+                    }, {
+                        type: 'hour',
+                        count: 24,
+                        text: '1d',
+                        dataGrouping: {
+                            forced: true,
+                            units: [['minute', [30]]]
+                        }
+                    }, {
+                        type: 'hour',
+                        count: 72,
+                        text: '3d',
+                        dataGrouping: {
+                            forced: true,
+                            units: [['hour', [1]]]
+                        }
+                    }, {
+                        type: 'hour',
+                        count: 168,
+                        text: '1w',
+                        dataGrouping: {
+                            forced: true,
+                            units: [['hour', [6]]]
+                        }
+                    }, {
+                        type: 'day',
+                        count: 30,
+                        text: '1m',
+                        dataGrouping: {
+                            forced: true,
+                            units: [['hour', [12]]]
+                        }
+                    }, {
+                        type: 'all',
+                        text: 'all',
+                        dataGrouping: {
+                            forced: true,
+                            units: [['hour', [12]]]
+                        }
+                    }],
+                    buttonTheme: {
+                        width: 20
+                    },
+                    selected: 2
                 },
                 title: {
                     text: 'Item Chart Data',
