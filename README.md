@@ -16,7 +16,7 @@ You will need a few things to setup first:
 * Visual Studio with .Net 4.6 installed.
 * Some experience with Web Development.
 
-Start with Forking the repo and import the MySQL dump crossout_dump.zip and on your machine.
+Start with Forking the repo and import the MySQL dump crossout_dump.zip on your machine.
 
 Then create the settings file in %appdata%/CrossoutWeb/WebSettings.json or start the project once since the file is created then and edit the file.
 ```json
