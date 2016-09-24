@@ -49,6 +49,7 @@ namespace Crossout.Web.Services
         {
             foreach (var ingredient in parent.Ingredients)
             {
+                ingredient.Parent = parent;
                 ingredient.Depth = depth;
                 if (ingredient.Item.RecipeId > 0)
                 {

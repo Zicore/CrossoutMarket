@@ -59,4 +59,26 @@
         </table>
     </div>
 </div>
+
+<script>
+    function updateTree(classname,recipe, parentRecipe ,superParentRecipe, show) {
+        if(classname !== 'recipe-0'){
+            $('.' + classname).each(function (i, obj) {
+                var currentSuperParentRecipe = $(this).data('superparentrecipe');
+                var currentParentRecipe = $(this).data('parentrecipe');
+                var currentRecipe = $(this).data('recipe');
+                var classname2 = 'recipe-' + $(this).data('recipe');
+                if (currentParentRecipe === recipe && (currentSuperParentRecipe === parentRecipe)) {
+                    if (show) {
+                        $(this).collapse('show');
+                    } else {
+                        $(this).collapse('hide');
+                    }
+                    updateTree(classname2, currentRecipe, currentParentRecipe, currentSuperParentRecipe, show);
+                }
+            });
+        }
+    }
+</script>
+
 @Html.Partial("chart", Model)
