@@ -1,15 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using Crossout.Model.Formatter;
 using Crossout.Model.Items;
 
 namespace Crossout.Model.Recipes
 {
     public class RecipeItem
     {
+        public int Id { get; set; }
+
         public int Depth { get; set; } = 0;
 
         public Item Item { get; set; }
         public int Number { get; set; }
+        
+        public decimal SumBuy { get; set; }
+        public decimal SumSell { get; set; }
+
+        public string SumBuyFormat => PriceFormatter.FormatPrice(SumBuy);
+        public string SumSellFormat => PriceFormatter.FormatPrice(SumSell);
+
+        public decimal BuyPriceTimesNumber => CalculatePriceByNumber(Item.BuyPrice, Number, Item.Id);
+        public decimal SellPriceTimesNumber => CalculatePriceByNumber(Item.SellPrice, Number, Item.Id);
+
+        public string FormatBuyPriceTimesNumber
+        {
+            get
+            {
+                return PriceFormatter.FormatPrice(BuyPriceTimesNumber);
+            }
+        }
+
+        public string FormatSellPriceTimesNumber
+        {
+            get
+            {
+                return PriceFormatter.FormatPrice(SellPriceTimesNumber);
+            }
+        }
+
+        private static decimal CalculatePriceByNumber(int price,int number, int id)
+        {
+            if (id == 43 || id == 53 || id == 85 || id == 168) // Kupfer x100, Scrap x100, Wires x100, Electronics x100
+            {
+                return price * number / 100m;
+            }
+            return price * number;
+        }
 
         public RecipeItem Parent { get; set; }
 
@@ -94,7 +131,9 @@ namespace Crossout.Model.Recipes
                 item.RecipeId = Convert.ToInt32(row[i]);
             }
             i++;
-            recipeItem.Number = Convert.ToInt32(row[i]);
+            recipeItem.Number = Convert.ToInt32(row[i++]);
+            
+            recipeItem.Id = Convert.ToInt32(row[i]);
             recipeItem.Item = item;
             return recipeItem;
         }

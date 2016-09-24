@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Crossout.Model.Formatter;
 using Newtonsoft.Json;
 
 namespace Crossout.Model.Items
@@ -25,7 +26,7 @@ namespace Crossout.Model.Items
         
         public string FormatMargin
         {
-            get { return FormatPrice(Margin); }
+            get { return PriceFormatter.FormatPrice(Margin); }
         }
 
         public DateTime Timestamp { get; set; }
@@ -41,7 +42,7 @@ namespace Crossout.Model.Items
         {
             get
             {
-                return FormatPrice(BuyPrice);
+                return PriceFormatter.FormatPrice(BuyPrice);
             }
         }
         
@@ -49,7 +50,7 @@ namespace Crossout.Model.Items
         {
             get
             {
-                return FormatPrice(SellPrice);
+                return PriceFormatter.FormatPrice(SellPrice);
             }
         }
         
@@ -58,10 +59,7 @@ namespace Crossout.Model.Items
             get { return $"{Id}.png"; }
         }
         
-        public string FormatPrice(int price)
-        {
-            return string.Format(CultureInfo.InvariantCulture,"{0:0.00}", price/100m);
-        }
+        
 
         public override string ToString()
         {

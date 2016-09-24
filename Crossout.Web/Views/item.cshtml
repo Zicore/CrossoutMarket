@@ -22,13 +22,22 @@
                     Rarity
                 </th>
                 <th>
+                    Number
+                </th>
+                <th>
                     Sell Price
+                </th>
+                <th>
+                    Sell Sum
                 </th>
                 <th>
                     Sell Offers
                 </th>
                 <th>
                     Buy Price
+                </th>
+                <th>
+                    Buy Sum
                 </th>
                 <th>
                     Buy Orders
@@ -70,11 +79,12 @@
                 var classname2 = 'recipe-' + $(this).data('recipe');
                 if (currentParentRecipe === recipe && (currentSuperParentRecipe === parentRecipe)) {
                     if (show) {
-                        $(this).collapse('show');
+                        $(this).show();
                     } else {
-                        $(this).collapse('hide');
+                        $(this).hide();
+                        $(this).find('button').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+                        window.updateTree(classname2, currentRecipe, currentParentRecipe, currentSuperParentRecipe, show);
                     }
-                    updateTree(classname2, currentRecipe, currentParentRecipe, currentSuperParentRecipe, show);
                 }
             });
         }
