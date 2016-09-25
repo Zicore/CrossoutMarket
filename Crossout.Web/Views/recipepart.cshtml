@@ -53,29 +53,47 @@
         <span class="label label-@item.RarityName">@item.RarityName</span>
     </td>
     <td class="col-md-2">
-        <div class="label-md pull-left">
-            @Model.Number x
-        </div>
-        <div class="recipe-price label-md rec-right">
-            @Model.Item.FormatSellPrice <img height="14" src="~/img/Coin.png"/>
-        </div>
-        <div class="recipe-price label-md rec-right">
-            = @Model.FormatSellPriceTimesNumber <img height="14" src="~/img/Coin.png"/>
-        </div>
+        @if (Model.IsSumRow || Model.Depth == 0)
+        {
+            <div class="recipe-price label-md rec-right">
+                @Model.Item.FormatSellPrice <img height="14" src="~/img/Coin.png"/>
+            </div>
+        }
+        else
+        {
+            <div class="label-md pull-left">
+                @Model.Number x
+            </div>
+            <div class="recipe-price label-md rec-right">
+                @Model.Item.FormatSellPrice <img height="14" src="~/img/Coin.png" />
+            </div>
+            <div class="recipe-price label-md rec-right">
+                = @Model.FormatSellPriceTimesNumber <img height="14" src="~/img/Coin.png" />
+            </div>
+        }
     </td>
     <td>
         
     </td>
     <td class="col-md-2">
-        <div class="label-md pull-left">
-            @Model.Number x
-        </div>
-        <div class="recipe-price label-md rec-right">
-            @Model.Item.FormatBuyPrice <img height="14" src="~/img/Coin.png"/>
-        </div>
-        <div class="recipe-price label-md rec-right">
-            = @Model.FormatBuyPriceTimesNumber <img height="14" src="~/img/Coin.png"/>
-        </div>
+        @if (Model.IsSumRow || Model.Depth == 0)
+        {
+            <div class="recipe-price label-md rec-right">
+                @Model.Item.FormatBuyPrice <img height="14" src="~/img/Coin.png" />
+            </div>
+        }
+        else
+        {
+            <div class="label-md pull-left">
+                @Model.Number x
+            </div>
+            <div class="recipe-price label-md rec-right">
+                @Model.Item.FormatBuyPrice <img height="14" src="~/img/Coin.png" />
+            </div>
+            <div class="recipe-price label-md rec-right">
+                = @Model.FormatBuyPriceTimesNumber <img height="14" src="~/img/Coin.png" />
+            </div>
+        }
     </td>
 </tr>
 

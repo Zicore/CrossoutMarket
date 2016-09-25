@@ -23,6 +23,8 @@ namespace Crossout.Model.Recipes
         public decimal BuyPriceTimesNumber => CalculatePriceByNumber(Item.BuyPrice, Number, Item.Id);
         public decimal SellPriceTimesNumber => CalculatePriceByNumber(Item.SellPrice, Number, Item.Id);
 
+        public bool IsSumRow { get; set; } = false;
+
         public string FormatBuyPriceTimesNumber
         {
             get
@@ -39,7 +41,7 @@ namespace Crossout.Model.Recipes
             }
         }
 
-        private static decimal CalculatePriceByNumber(int price,int number, int id)
+        private static decimal CalculatePriceByNumber(decimal price,int number, int id)
         {
             if (id == 43 || id == 53 || id == 85 || id == 168) // Kupfer x100, Scrap x100, Wires x100, Electronics x100
             {
@@ -49,6 +51,8 @@ namespace Crossout.Model.Recipes
         }
 
         public RecipeItem Parent { get; set; }
+
+        public RecipeItem IngredientSum { get; set; }
 
         public List<RecipeItem> Ingredients { get; set; } = new List<RecipeItem>();
 
