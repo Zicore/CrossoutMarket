@@ -36,6 +36,10 @@
 
             <tbody>
             @Html.Partial("recipepart", Model.Recipe.Recipe)
+            @if (Model.Recipe.Recipe.IngredientSum != null)
+            {
+                @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
+            }
 
             @ShowTree(Model.Recipe.Recipe.Ingredients)
 
@@ -44,6 +48,12 @@
                 foreach (RecipeItem item in items)
                 {
                     @Html.Partial("recipepart", item)
+                    @if (item.IngredientSum != null)
+                    {
+                        @Html.Partial("recipepart", item.IngredientSum)
+                    }
+                    
+
                     if (item != null && item.Ingredients.Count > 0)
                     {
                         @ShowTree(item.Ingredients);

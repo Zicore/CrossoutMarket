@@ -42,6 +42,8 @@ namespace Crossout.Web.Services
             
             ResolveRecipe(recipeModel.Recipe, 1);
 
+            recipeModel.Recipe.IngredientSum = CreateIngredientItem(recipeModel.Recipe);
+
             return recipeModel;
         }
 
@@ -57,15 +59,53 @@ namespace Crossout.Web.Services
                     ++depth;
                     ResolveRecipe(ingredient, depth);
                     CalculateRecipe(parent,ingredient);
+                    if (ingredient.Depth > 0)
+                    {
+                        ingredient.IngredientSum = CreateIngredientItem(ingredient);
+                    }
                     depth--;
-                }
+                }               
             }
+        }
+
+        private static RecipeItem CreateIngredientItem(RecipeItem item)
+        {
+            var ingredientSum = new RecipeItem
+            {
+                Id = -1,
+                Depth = item.Depth,
+                Item = new Item
+                {
+                    Id = item.Item.Id,
+                    RecipeId = item.Item.RecipeId,
+
+                    Name = "Ingredient Sum",
+                    SellPrice = item.SumSell,
+                    BuyPrice = item.SumBuy,
+                    SellOffers = 0,
+                    BuyOrders = 0,
+                    RarityId = 0,
+                    RarityName = "",
+                    CategoryId = 0,
+                    CategoryName = "",
+                    TypeId = 0,
+                    TypeName = ""
+                }
+            };
+            ingredientSum.Parent = item;
+            if (ingredientSum.Depth == 0)
+            {
+                ingredientSum.Depth = 1;
+            }
+            ingredientSum.IsSumRow = true;
+            return ingredientSum;       
         }
 
         private static void CalculateRecipe(RecipeItem parent, RecipeItem item)
         {
             parent.SumBuy = parent.Ingredients.Sum(x => x.BuyPriceTimesNumber);
             parent.SumSell = parent.Ingredients.Sum(x => x.SellPriceTimesNumber);
+
         }
 
         public List<RecipeItem> SelectRecipe(Item item)
