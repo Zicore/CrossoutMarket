@@ -141,3 +141,14 @@ body {
 .rec-right {
     margin-right: 12px;
 }
+
+.sum-row { /* Chrome Issues with lines in collapsed table rows? */
+    /*border-bottom-width: 2px;
+    border-bottom-color: #aaaaaa;
+    border-bottom-style: solid;*/
+    background-color: #eeeeee;
+}
+
+.sum-value {
+    display: inline;
+}

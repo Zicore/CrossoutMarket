@@ -10,6 +10,7 @@ namespace Crossout.Model.Recipes
         public int Id { get; set; }
 
         public int Depth { get; set; } = 0;
+        public int MaxDepth { get; set; }
 
         public Item Item { get; set; }
         public int Number { get; set; }

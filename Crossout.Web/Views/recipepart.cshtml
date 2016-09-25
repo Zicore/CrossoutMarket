@@ -7,7 +7,7 @@
     Item item = Model.Item;
 }
 
-<tr class="recipe-part recipe-@(Model.ParentRecipe) @(Model.Depth > 0 ? "collapse" : "")" data-recipe="@Model.Item.RecipeId" data-parentrecipe="@Model.ParentRecipe" data-superparentrecipe="@Model.SuperParentRecipe">
+<tr class="recipe-part recipe-@(Model.ParentRecipe) @(Model.Depth > 0 ? "collapse" : "") @(Model.IsSumRow ? "sum-row" : "") depth-@Model.Depth" data-recipe="@Model.Item.RecipeId" data-parentrecipe="@Model.ParentRecipe" data-superparentrecipe="@Model.SuperParentRecipe">
     <td>
         <div class="clearfix content-heading">
             <div class="clearfix vertical-center pull-left">
@@ -15,37 +15,52 @@
                 {
                     <div style="margin-left: 26px;">&nbsp;</div>
                 }
-                @if (Model.Ingredients.Count > 0)
+                @if (Model.IsSumRow)
                 {
-                    if (Model.Depth == 0)
-                    {
-                        <button class="btn btn-xs btn-main tree-icon glyphicon glyphicon-plus item-@Model.Id" data-recipe="@Model.Item.RecipeId" data-parentrecipe="@Model.ParentRecipe" data-superparentrecipe="@Model.SuperParentRecipe"></button>
-                    }
-                    else
-                    {
-                        <button class="btn btn-xs btn-sub tree-icon glyphicon glyphicon-plus item-@Model.Id" data-recipe="@Model.Item.RecipeId" data-parentrecipe="@Model.ParentRecipe" data-superparentrecipe="@Model.SuperParentRecipe"></button>
-                    }
+                    <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image" /></a>
                 }
-                <div>
-                    @if (Model.Depth == 0)
+                else  // Default Row
+                {
+                    if (Model.Ingredients.Count > 0)
                     {
-                        <a href="~/item/@item.Id"><img style="margin-right: 8px;" src="~/img/items/@item.Image"/></a>
+                        if (Model.Depth == 0)
+                        {
+                            <button class="btn btn-xs btn-main tree-icon glyphicon glyphicon-plus item-@Model.Id" data-recipe="@Model.Item.RecipeId" data-parentrecipe="@Model.ParentRecipe" data-superparentrecipe="@Model.SuperParentRecipe"></button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-xs btn-sub tree-icon glyphicon glyphicon-plus item-@Model.Id" data-recipe="@Model.Item.RecipeId" data-parentrecipe="@Model.ParentRecipe" data-superparentrecipe="@Model.SuperParentRecipe"></button>
+                        }
                     }
-                    else
-                    {
-                        <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image" /></a>
-                    }
-                </div>
+                    <div>
+                        @if (Model.Depth == 0)
+                        {
+                            <a href="~/item/@item.Id"><img style="margin-right: 8px;" src="~/img/items/@item.Image" /></a>
+                        }
+                        else
+                        {
+                            <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image" /></a>
+                        }
+                    </div>
+                }
             </div>
-            @if (Model.Depth == 0)
+            @if (Model.IsSumRow)
             {
-                <a href="~/item/@Model.Item.Id"><h4 style="font-weight: bold;">@Model.Item.Name</h4></a>
-                <div style="font-weight: bold;">@Model.Item.TypeName</div>
+                <a href="~/item/@item.Id" style="font-weight: bold;">@item.Name (Sum)</a>
+                <div style="font-size: 11px; font-weight: bold;">@item.TypeName</div>
             }
             else
             {
-                <a href="~/item/@item.Id" style="font-weight: bold;">@item.Name</a>
-                <div style="font-size: 11px; font-weight: bold;">@item.TypeName</div>
+                if (Model.Depth == 0)
+                {
+                    <a href="~/item/@Model.Item.Id"><h4 style="font-weight: bold;">@Model.Item.Name</h4></a>
+                    <div style="font-weight: bold;">@Model.Item.TypeName</div>
+                }
+                else
+                {
+                    <a href="~/item/@item.Id" style="font-weight: bold;">@item.Name</a>
+                    <div style="font-size: 11px; font-weight: bold;">@item.TypeName</div>
+                }
             }
         </div>
     </td>
@@ -56,7 +71,10 @@
         @if (Model.IsSumRow || Model.Depth == 0)
         {
             <div class="recipe-price label-md rec-right">
-                @Model.Item.FormatSellPrice <img height="14" src="~/img/Coin.png"/>
+                <div class="text-right sum-value sum-sell">
+                    @Model.Item.FormatSellPrice
+                </div>
+                <img height="14" src="~/img/Coin.png"/>
             </div>
         }
         else
@@ -79,7 +97,10 @@
         @if (Model.IsSumRow || Model.Depth == 0)
         {
             <div class="recipe-price label-md rec-right">
-                @Model.Item.FormatBuyPrice <img height="14" src="~/img/Coin.png" />
+                <div class="text-right sum-value sum-buy">
+                    @Model.Item.FormatBuyPrice
+                </div>
+                <img height="14" src="~/img/Coin.png" />
             </div>
         }
         else
@@ -108,9 +129,11 @@
             if ($(this).hasClass('glyphicon-plus')) {
                 $(this).removeClass('glyphicon-plus').addClass('glyphicon-minus');
                 window.updateTree(classname, recipe, parentRecipe, superParentRecipe, true);
+                window.updateSums(classname, recipe, parentRecipe, superParentRecipe, true, @Model.MaxDepth);
             } else {
                 $(this).removeClass('glyphicon-minus').addClass('glyphicon-plus');
                 window.updateTree(classname, recipe, parentRecipe, superParentRecipe, false);
+                window.updateSums(classname, recipe, parentRecipe, superParentRecipe, false, @Model.MaxDepth);
             }
         });
     });

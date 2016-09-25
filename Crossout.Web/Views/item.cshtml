@@ -12,7 +12,7 @@
 
 <div class="panel">
     <div class="panel-body">
-        <table class="table table-striped table-hover table-condensed">
+        <table class="table table-hover table-condensed">
             <thead>
             <tr>
                 <th>
@@ -36,10 +36,7 @@
 
             <tbody>
             @Html.Partial("recipepart", Model.Recipe.Recipe)
-            @if (Model.Recipe.Recipe.IngredientSum != null)
-            {
-                @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
-            }
+            
 
             @ShowTree(Model.Recipe.Recipe.Ingredients)
 
@@ -48,17 +45,21 @@
                 foreach (RecipeItem item in items)
                 {
                     @Html.Partial("recipepart", item)
-                    @if (item.IngredientSum != null)
-                    {
-                        @Html.Partial("recipepart", item.IngredientSum)
-                    }
                     
-
                     if (item != null && item.Ingredients.Count > 0)
                     {
                         @ShowTree(item.Ingredients);
                     }
+                    if (item.IngredientSum != null)
+                    {
+                        @Html.Partial("recipepart", item.IngredientSum)
+                    }
                 }
+            }
+                
+            @if (Model.Recipe.Recipe.IngredientSum != null)
+            {
+                    @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
             }
             </tbody>
         </table>
@@ -84,6 +85,35 @@
                 }
             });
         }
+    }
+
+    function updateSums(classname, recipe, parentRecipe, superParentRecipe, show, maxDepth) {
+        for (var i = 0; i < maxDepth; i++) {
+            updateSum(maxDepth, i);
+        }
+    }
+
+    function updateSum(maxDepth,i) {
+        $('.depth-' + (maxDepth - i)).each(function (j, obj) {
+            //console.info(''+maxDepth + i);
+            if ($(this).hasClass('sum-row')) {
+                //alert(1);
+                console.info('sum row');
+            }
+
+            //var currentSuperParentRecipe = $(this).data('superparentrecipe');
+            //var currentParentRecipe = $(this).data('parentrecipe');
+            //var currentRecipe = $(this).data('recipe');
+            //var classname2 = 'recipe-' + $(this).data('recipe');
+            //if (currentParentRecipe === recipe && (currentSuperParentRecipe === parentRecipe)) {
+            //    if ($(this).hasClass('sum-row') && !$(this).hasClass('collapse')) {
+            //        //$(this).find('.sum-buy').text('155555');
+            //        //$(this).find('.sum-sell').text('15151515151');
+            //        console.info(classname2);
+            //    }
+            //    window.updateSums(classname2, currentRecipe, currentParentRecipe, currentSuperParentRecipe, show);
+            //}
+        });
     }
 </script>
 
