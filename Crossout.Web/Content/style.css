@@ -102,16 +102,14 @@ body {
 }
 
 .label-md {
-  display: inline;
-  padding: .3em .5em .4em;
+  display: block;
   font-size: 100%;
   font-weight: bold;
   line-height: 1;
   color: #595959;
-  text-align: center;
+  text-align: right;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: .35em;
 }
 
 .vertical-center {
@@ -127,10 +125,19 @@ body {
     -webkit-transition: none;
     transition: none;
 }
-.btn-main {
-    
-}
 
 .btn-sub {
     margin-left: -26px;
+}
+
+.recipe-price {
+    display: block;   
+}
+
+.rec-left {
+    margin-left: 12px;
+}
+
+.rec-right {
+    margin-right: 12px;
 }

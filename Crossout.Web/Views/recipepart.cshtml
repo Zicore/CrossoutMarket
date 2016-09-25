@@ -52,43 +52,29 @@
     <td>
         <span class="label label-@item.RarityName">@item.RarityName</span>
     </td>
-    <td>
-        @if (Model.Depth != 0)
-        {
-            <div class="label-md">
-                @Model.Number
-            </div>
-        }
-    </td>
-    <td>
-        <div class="label-md">
+    <td class="col-md-2">
+        <div class="label-md pull-left">
+            @Model.Number x
+        </div>
+        <div class="recipe-price label-md rec-right">
             @Model.Item.FormatSellPrice <img height="14" src="~/img/Coin.png"/>
         </div>
-    </td>
-    <td>
-        <div class="label-md">
-            @Model.FormatSellPriceTimesNumber <img height="14" src="~/img/Coin.png" />
+        <div class="recipe-price label-md rec-right">
+            = @Model.FormatSellPriceTimesNumber <img height="14" src="~/img/Coin.png"/>
         </div>
     </td>
     <td>
-        <div class="label-md">@item.SellOffers</div>
+        
     </td>
-    <td>
-        <div class="label-md">
-            @Model.Item.FormatBuyPrice <img height="14" src="~/img/Coin.png" />
+    <td class="col-md-2">
+        <div class="label-md pull-left">
+            @Model.Number x
         </div>
-    </td>
-    <td>
-        <div class="label-md">
-            @Model.FormatBuyPriceTimesNumber <img height="14" src="~/img/Coin.png"/>
+        <div class="recipe-price label-md rec-right">
+            @Model.Item.FormatBuyPrice <img height="14" src="~/img/Coin.png"/>
         </div>
-    </td>
-    <td>
-        <div class="label-md">@item.BuyOrders</div>
-    </td>
-    <td>
-        <div class="label-md">
-            @item.FormatMargin <img height="14" src="~/img/Coin.png"/>
+        <div class="recipe-price label-md rec-right">
+            = @Model.FormatBuyPriceTimesNumber <img height="14" src="~/img/Coin.png"/>
         </div>
     </td>
 </tr>
