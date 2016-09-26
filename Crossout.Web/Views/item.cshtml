@@ -87,18 +87,22 @@
         }
     }
 
+    var MaxDepth = 0;
+
     function updateSums(classname, recipe, parentRecipe, superParentRecipe, show, maxDepth) {
-        for (var i = 0; i < maxDepth; i++) {
-            updateSum(maxDepth, i);
+        MaxDepth = Math.max(maxDepth, MaxDepth);
+        for (var i = 0; i <= MaxDepth; i++) {
+            updateSum(MaxDepth, i);
         }
     }
 
     function updateSum(maxDepth,i) {
         $('.depth-' + (maxDepth - i)).each(function (j, obj) {
             //console.info(''+maxDepth + i);
-            if ($(this).hasClass('sum-row')) {
+            if ($(this).hasClass('sum-row') && $(this).is(':visible')) {
                 //alert(1);
-                console.info('sum row');
+                console.info('sum row' + (maxDepth - i));
+
             }
 
             //var currentSuperParentRecipe = $(this).data('superparentrecipe');
@@ -115,6 +119,22 @@
             //}
         });
     }
+
+    function findItemInTable(recipe, parentRecipe, superParentRecipe, depth) {
+        var foundObject;
+        $('.depth-' + (depth)).each(function (j, obj) {
+            var currentSuperParentRecipe = $(this).data('superparentrecipe');
+            var currentParentRecipe = $(this).data('parentrecipe');
+            var currentRecipe = $(this).data('recipe');
+            if (currentParentRecipe == superparentrecipe && currentParentRecipe == parentrecipe && currentRecipe == recipe) {
+                foundObject = $(this);
+                return foundObject;
+            }
+
+        });
+    }
+
+
 </script>
 
 @Html.Partial("chart", Model)

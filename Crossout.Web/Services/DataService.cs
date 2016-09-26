@@ -65,6 +65,7 @@ namespace Crossout.Web.Services
                     {
                         ingredient.IngredientSum = CreateIngredientItem(ingredient);
                     }
+                    ingredient.MaxDepth = depth;
                     parent.MaxDepth = Math.Max(depth, ingredient.MaxDepth);
                     depth--;
                 }               
