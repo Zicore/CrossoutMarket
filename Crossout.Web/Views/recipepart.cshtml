@@ -46,19 +46,19 @@
             </div>
             @if (Model.IsSumRow)
             {
-                <a href="~/item/@item.Id" style="font-weight: bold;">@item.Name (Sum) (@Model.UniqueId)</a>
+                <a href="~/item/@item.Id" style="font-weight: bold;">@item.Name (Sum)</a>
                 <div style="font-size: 11px; font-weight: bold;">@item.TypeName</div>
             }
             else
             {
                 if (Model.Depth == 0)
                 {
-                    <a href="~/item/@Model.Item.Id"><h4 style="font-weight: bold;">@Model.Item.Name (@Model.UniqueId)</h4></a>
+                    <a href="~/item/@Model.Item.Id"><h4 style="font-weight: bold;">@Model.Item.Name</h4></a>
                     <div style="font-weight: bold;">@Model.Item.TypeName</div>
                 }
                 else
                 {
-                    <a href="~/item/@item.Id" style="font-weight: bold;">@item.Name (@Model.UniqueId)</a>
+                    <a href="~/item/@item.Id" style="font-weight: bold;">@item.Name</a>
                     <div style="font-size: 11px; font-weight: bold;">@item.TypeName</div>
                 }
             }
