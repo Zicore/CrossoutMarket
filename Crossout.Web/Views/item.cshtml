@@ -125,8 +125,8 @@
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy').text(toPrice(sumBuy));
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell').text(toPrice(sumSell));
 
-                    var sellProfit = mainItem.Item.SellPrice - sumSell;
-                    var buyProfit = mainItem.Item.BuyPrice - sumBuy;
+                    var sellProfit = mainItem.Item.SellPrice * Math.max(1, mainItem.Number) - sumSell;
+                    var buyProfit = mainItem.Item.BuyPrice * Math.max(1, mainItem.Number) - sumBuy;
 
                     var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
                     var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
