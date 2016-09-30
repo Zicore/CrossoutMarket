@@ -67,53 +67,112 @@
 </div>
 
 <script>
-    function updateTree(classname,recipe, parentRecipe ,superParentRecipe, show) {
+
+    var recipeData = {
+        loaded: false,
+        data: {}
+    };
+
+    $.getJSON('http://@(WebSettings.Settings.DataHost)/data/recipe/@(Model.Item.Id)',function(data) {
+        recipeData.data = data;
+        recipeData.loaded = true;
+    });
+
+    function updateTree(classname, recipe, uniqueid, show) {
         if(classname !== 'recipe-0'){
             $('.' + classname).each(function (i, obj) {
-                var currentSuperParentRecipe = $(this).data('superparentrecipe');
-                var currentParentRecipe = $(this).data('parentrecipe');
+                var currentUniqueid = $(this).data('uniqueid');
+                var currentParentUniqueid = $(this).data('parentuniqueid');
                 var currentRecipe = $(this).data('recipe');
                 var classname2 = 'recipe-' + $(this).data('recipe');
-                if (currentParentRecipe === recipe && (currentSuperParentRecipe === parentRecipe)) {
+                if (currentParentUniqueid === uniqueid) {
                     if (show) {
                         $(this).show();
                     } else {
                         $(this).hide();
                         $(this).find('button').removeClass('glyphicon-minus').addClass('glyphicon-plus');
-                        window.updateTree(classname2, currentRecipe, currentParentRecipe, currentSuperParentRecipe, show);
+                        window.updateTree(classname2, currentRecipe, currentUniqueid, show);
                     }
                 }
             });
         }
     }
 
-    function updateSums(classname, recipe, parentRecipe, superParentRecipe, show, maxDepth) {
-        for (var i = 0; i < maxDepth; i++) {
-            updateSum(maxDepth, i);
+    function toPrice(number) {
+        return (number / 100.0).toFixed(2);
+    }
+
+    function updateSums(recipe, uniqueid) {
+        if (recipeData.loaded){
+            $('.sum-row:visible').each(function (j, obj) {
+                var sumuniqueid = $(this).data('uniqueid');
+            
+                var root = recipeData.data.Recipe.Recipe;
+                var mainItem = findSumItem(root, sumuniqueid);
+                var sumItem = mainItem.IngredientSum;
+                var sumItemResults = { items: new Array(), map: {} }
+                
+                if(sumItem !== null){
+                    updateSum(root, mainItem, sumItemResults, recipe);
+
+                    var sumBuy = 0;
+                    var sumSell = 0;
+                    for (var i = 0; i < sumItemResults.items.length; i++) {
+                        sumBuy += sumItemResults.items[i].buy;
+                        sumSell += sumItemResults.items[i].sell;
+                    }
+
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy').text(toPrice(sumBuy));
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell').text(toPrice(sumSell));
+
+                    var sellProfit = mainItem.Item.SellPrice - sumSell;
+                    var buyProfit = mainItem.Item.BuyPrice - sumBuy;
+
+                    var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
+                    var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
+
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellClass).text(toPrice(sellProfit));
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).text(toPrice(buyProfit));
+                }
+            });
         }
     }
 
-    function updateSum(maxDepth,i) {
-        $('.depth-' + (maxDepth - i)).each(function (j, obj) {
-            //console.info(''+maxDepth + i);
-            if ($(this).hasClass('sum-row')) {
-                //alert(1);
-                console.info('sum row');
+    // Maybe someone can make this easier
+    function updateSum(root, item, result, recipe) {
+        var valueSet = false;
+        var foundItem = null;
+        for (var i = 0; i < item.Ingredients.length; i++) {
+            updateSum(root, item.Ingredients[i], result, recipe);
+            var subItem = item.Ingredients[i];
+            if (!result.map.hasOwnProperty(subItem.UniqueId)) {
+                if ($('#uniqueid-' + subItem.UniqueId).is(":visible")) {
+                    if (!subItem.IsSumRow) {
+                        result.items.push({
+                            buy: subItem.BuyPriceTimesNumber,
+                            sell: subItem.SellPriceTimesNumber
+                        });
+                        valueSet = true;
+                        foundItem = subItem;
+                    }
+                }
             }
+        }
+        if (valueSet && foundItem != null) {
+            result.map[foundItem.ParentUniqueId] = true;
+        }
+    }
 
-            //var currentSuperParentRecipe = $(this).data('superparentrecipe');
-            //var currentParentRecipe = $(this).data('parentrecipe');
-            //var currentRecipe = $(this).data('recipe');
-            //var classname2 = 'recipe-' + $(this).data('recipe');
-            //if (currentParentRecipe === recipe && (currentSuperParentRecipe === parentRecipe)) {
-            //    if ($(this).hasClass('sum-row') && !$(this).hasClass('collapse')) {
-            //        //$(this).find('.sum-buy').text('155555');
-            //        //$(this).find('.sum-sell').text('15151515151');
-            //        console.info(classname2);
-            //    }
-            //    window.updateSums(classname2, currentRecipe, currentParentRecipe, currentSuperParentRecipe, show);
-            //}
-        });
+    function findSumItem(item, uniqueid) {
+        if (item.IngredientSum !== null && item.IngredientSum.UniqueId === uniqueid) {
+            return item;
+        }
+
+        for (var i = 0; i < item.Ingredients.length; i++) {
+            var rs = findSumItem(item.Ingredients[i], uniqueid);
+            if (rs) return rs;
+        }
+        return null;
     }
 </script>
 

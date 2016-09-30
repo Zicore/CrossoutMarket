@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Crossout.Model.Items;
+using Crossout.Model.Recipes;
 using Crossout.Web.Models;
 using Crossout.Web.Services;
 using Nancy;
@@ -34,6 +35,7 @@ namespace Crossout.Web.Modules.Search
         {
             try
             {
+                RecipeItem.ResetId();
                 sql.Open(WebSettings.Settings.CreateDescription());
 
                 DataService db = new DataService(sql);
@@ -55,6 +57,7 @@ namespace Crossout.Web.Modules.Search
         {
             try
             {
+                RecipeItem.ResetId();
                 sql.Open(WebSettings.Settings.CreateDescription());
 
                 DataService db = new DataService(sql);

@@ -2,12 +2,26 @@
 using System.Collections.Generic;
 using Crossout.Model.Formatter;
 using Crossout.Model.Items;
+using Newtonsoft.Json;
 
 namespace Crossout.Model.Recipes
 {
     public class RecipeItem
     {
+        public static int NextId()
+        {
+            return _uniqueIdCounter++;
+        }
+
+        public static void ResetId()
+        {
+            _uniqueIdCounter = 0;
+        }
+
+        private static int _uniqueIdCounter = 0;
+
         public int Id { get; set; }
+        public int UniqueId { get; set; } = NextId();
 
         public int Depth { get; set; } = 0;
         public int MaxDepth { get; set; }
@@ -26,21 +40,8 @@ namespace Crossout.Model.Recipes
 
         public bool IsSumRow { get; set; } = false;
 
-        public string FormatBuyPriceTimesNumber
-        {
-            get
-            {
-                return PriceFormatter.FormatPrice(BuyPriceTimesNumber);
-            }
-        }
-
-        public string FormatSellPriceTimesNumber
-        {
-            get
-            {
-                return PriceFormatter.FormatPrice(SellPriceTimesNumber);
-            }
-        }
+        public string FormatBuyPriceTimesNumber => PriceFormatter.FormatPrice(BuyPriceTimesNumber);
+        public string FormatSellPriceTimesNumber => PriceFormatter.FormatPrice(SellPriceTimesNumber);
 
         private static decimal CalculatePriceByNumber(decimal price,int number, int id)
         {
@@ -51,6 +52,7 @@ namespace Crossout.Model.Recipes
             return price * number;
         }
 
+        [JsonIgnore]
         public RecipeItem Parent { get; set; }
 
         public RecipeItem IngredientSum { get; set; }
@@ -64,6 +66,18 @@ namespace Crossout.Model.Recipes
                 if (Parent != null)
                 {
                     return Parent.Item.Id;
+                }
+                return 0;
+            }
+        }
+
+        public int ParentUniqueId
+        {
+            get
+            {
+                if (Parent != null)
+                {
+                    return Parent.UniqueId;
                 }
                 return 0;
             }
