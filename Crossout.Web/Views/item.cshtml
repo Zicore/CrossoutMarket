@@ -149,8 +149,8 @@
                 if ($('#uniqueid-' + subItem.UniqueId).is(":visible")) {
                     if (!subItem.IsSumRow) {
                         result.items.push({
-                            buy: subItem.BuyPriceTimesNumber,
-                            sell: subItem.SellPriceTimesNumber
+                            buy: subItem.BuyPriceTimesNumber * Math.max(1,item.Number),
+                            sell: subItem.SellPriceTimesNumber * Math.max(1, item.Number)
                         });
                         valueSet = true;
                         foundItem = subItem;
