@@ -7,7 +7,7 @@
     Item item = Model.Item;
 }
 
-<tr class="recipe-part recipe-@(Model.ParentRecipe) @(Model.Depth > 0 ? "collapse" : "") @(Model.IsSumRow ? "sum-row" : "") depth-@Model.Depth" data-recipe="@Model.Item.RecipeId" data-parentuniqueid="@Model.ParentUniqueId" data-uniqueid="@Model.UniqueId" id="uniqueid-@Model.UniqueId">
+<tr class="recipe-part recipe-@(Model.ParentRecipe) @(Model.Depth > 0 || Model.IsSumRow ? "collapse" : "") @(Model.IsSumRow ? "sum-row" : "") depth-@Model.Depth" data-recipe="@Model.Item.RecipeId" data-parentuniqueid="@Model.ParentUniqueId" data-uniqueid="@Model.UniqueId" id="uniqueid-@Model.UniqueId">
     <td>
         <div class="clearfix content-heading">
             <div class="clearfix vertical-center pull-left">
