@@ -102,7 +102,8 @@
             if ($(this).hasClass('sum-row') && $(this).is(':visible')) {
                 //alert(1);
                 console.info('sum row' + (maxDepth - i));
-
+                //manipulateTableData($(this));
+                findRootOfSumRow($(this), maxDepth - i); 
             }
 
             //var currentSuperParentRecipe = $(this).data('superparentrecipe');
@@ -118,6 +119,19 @@
             //    window.updateSums(classname2, currentRecipe, currentParentRecipe, currentSuperParentRecipe, show);
             //}
         });
+    }
+
+    function manipulateTableData(sumRow) {
+        
+        //var row = $(sumRow).closest('tr');
+        //var price = $(row).find('.sum-sell');
+        //price.replaceWith('999999');
+    }
+
+    function findRootOfSumRow(sumRow, depth) {
+        var root = $(sumRow).prevAll('.depth-' + depth).not('.sum-row')
+        var price = $(root).first().find('.sum-sell');
+        price.replaceWith('999999');
     }
 
     function findItemInTable(recipe, parentRecipe, superParentRecipe, depth) {
