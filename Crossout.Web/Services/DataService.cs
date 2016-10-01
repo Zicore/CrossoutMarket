@@ -42,6 +42,10 @@ namespace Crossout.Web.Services
             
             ResolveRecipe(recipeModel.Recipe, 1);
 
+            CalculateRecipe(recipeModel.Recipe);
+            recipeModel.Recipe.IngredientSum = CreateIngredientItem(recipeModel.Recipe);
+            
+
             return recipeModel;
         }
 
@@ -49,15 +53,57 @@ namespace Crossout.Web.Services
         {
             foreach (var ingredient in parent.Ingredients)
             {
+                ingredient.Parent = parent;
                 ingredient.Depth = depth;
                 if (ingredient.Item.RecipeId > 0)
                 {
                     ingredient.Ingredients = SelectRecipe(ingredient.Item);
                     ++depth;
                     ResolveRecipe(ingredient, depth);
+                    CalculateRecipe(ingredient);
+                    if (ingredient.Depth > 0)
+                    {
+                        ingredient.IngredientSum = CreateIngredientItem(ingredient);
+                    }
+                    parent.MaxDepth = Math.Max(depth, ingredient.MaxDepth);
                     depth--;
-                }
+                }               
             }
+        }
+
+        private static RecipeItem CreateIngredientItem(RecipeItem item)
+        {
+            var ingredientSum = new RecipeItem
+            {
+                Id = -1,
+                Depth = item.Depth,
+                Item = new Item
+                {
+                    Id = item.Item.Id,
+                    RecipeId = item.Item.RecipeId,
+
+                    Name = item.Item.Name,
+                    SellPrice = item.SumSell,
+                    BuyPrice = item.SumBuy,
+                    SellOffers = item.Item.SellOffers,
+                    BuyOrders = item.Item.BuyOrders,
+                    RarityId = item.Item.RarityId,
+                    RarityName = item.Item.RarityName,
+                    CategoryId = item.Item.CategoryId,
+                    CategoryName = item.Item.CategoryName,
+                    TypeId = item.Item.TypeId,
+                    TypeName = item.Item.TypeName
+                }
+            };
+            ingredientSum.Parent = item;
+            ingredientSum.IsSumRow = true;
+            return ingredientSum;       
+        }
+
+        private static void CalculateRecipe(RecipeItem item)
+        {
+            item.SumBuy = item.Ingredients.Sum(x => x.BuyPriceTimesNumber);
+            item.SumSell = item.Ingredients.Sum(x => x.SellPriceTimesNumber);
         }
 
         public List<RecipeItem> SelectRecipe(Item item)
@@ -71,7 +117,7 @@ namespace Crossout.Web.Services
 
         public static string BuildRecipeQuery()
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id";
             string query =
                 $"SELECT {selectColumns} " +
                 "FROM recipe " +

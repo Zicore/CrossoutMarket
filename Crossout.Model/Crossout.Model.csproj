@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formatter\PriceFormatter.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\ItemCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

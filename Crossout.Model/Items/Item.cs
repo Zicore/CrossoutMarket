@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Crossout.Model.Formatter;
 using Newtonsoft.Json;
 
 namespace Crossout.Model.Items
@@ -12,20 +13,20 @@ namespace Crossout.Model.Items
 
         public int SellOffers { get; set; }
 
-        public int SellPrice { get; set; }
+        public decimal SellPrice { get; set; }
 
         public int BuyOrders { get; set; }
 
-        public int BuyPrice { get; set; }
+        public decimal BuyPrice { get; set; }
         
-        public int Margin
+        public decimal Margin
         {
-            get { return  (int)(SellPrice - BuyPrice - (SellPrice * 0.1d)); }
+            get { return  (decimal)(SellPrice - BuyPrice - (SellPrice * 0.1m)); }
         }
         
         public string FormatMargin
         {
-            get { return FormatPrice(Margin); }
+            get { return PriceFormatter.FormatPrice(Margin); }
         }
 
         public DateTime Timestamp { get; set; }
@@ -41,7 +42,7 @@ namespace Crossout.Model.Items
         {
             get
             {
-                return FormatPrice(BuyPrice);
+                return PriceFormatter.FormatPrice(BuyPrice);
             }
         }
         
@@ -49,7 +50,7 @@ namespace Crossout.Model.Items
         {
             get
             {
-                return FormatPrice(SellPrice);
+                return PriceFormatter.FormatPrice(SellPrice);
             }
         }
         
@@ -58,10 +59,7 @@ namespace Crossout.Model.Items
             get { return $"{Id}.png"; }
         }
         
-        public string FormatPrice(int price)
-        {
-            return string.Format(CultureInfo.InvariantCulture,"{0:0.00}", price/100m);
-        }
+        
 
         public override string ToString()
         {
@@ -75,8 +73,8 @@ namespace Crossout.Model.Items
             {
                 Id = Convert.ToInt32(row[i++]),
                 Name = Convert.ToString(row[i++]),
-                SellPrice = Convert.ToInt32(row[i++]),
-                BuyPrice = Convert.ToInt32(row[i++]),
+                SellPrice = Convert.ToDecimal(row[i++]),
+                BuyPrice = Convert.ToDecimal(row[i++]),
                 SellOffers = Convert.ToInt32(row[i++]),
                 BuyOrders = Convert.ToInt32(row[i++]),
                 Timestamp = Convert.ToDateTime(row[i++]),

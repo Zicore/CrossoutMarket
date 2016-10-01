@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Crossout.Model.Items;
+using Crossout.Model.Recipes;
 using Crossout.Web.Models;
 using Crossout.Web.Services;
 using Nancy;
@@ -20,6 +21,12 @@ namespace Crossout.Web.Modules.Search
                 var id = (int)x.id;
                 return RouteItem(id);
             };
+
+            Get["data/recipe/{id:int}"] = x =>
+            {
+                var id = (int)x.id;
+                return RouteRecipeData(id);
+            };
         }
 
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
@@ -28,6 +35,7 @@ namespace Crossout.Web.Modules.Search
         {
             try
             {
+                RecipeItem.ResetId();
                 sql.Open(WebSettings.Settings.CreateDescription());
 
                 DataService db = new DataService(sql);
@@ -38,6 +46,28 @@ namespace Crossout.Web.Modules.Search
                 itemModel.Recipe = recipeModel;
 
                 return View["item", itemModel];
+            }
+            catch
+            {
+                return Response.AsRedirect("/");
+            }
+        }
+
+        private dynamic RouteRecipeData(int id)
+        {
+            try
+            {
+                RecipeItem.ResetId();
+                sql.Open(WebSettings.Settings.CreateDescription());
+
+                DataService db = new DataService(sql);
+
+                var itemModel = db.SelectItem(id);
+                var recipeModel = db.SelectRecipeModel(itemModel.Item);
+
+                itemModel.Recipe = recipeModel;
+
+                return Response.AsJson(itemModel);
             }
             catch
             {

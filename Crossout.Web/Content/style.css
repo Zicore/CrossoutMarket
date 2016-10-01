@@ -102,16 +102,14 @@ body {
 }
 
 .label-md {
-  display: inline;
-  padding: .3em .5em .4em;
+  display: block;
   font-size: 100%;
   font-weight: bold;
   line-height: 1;
   color: #595959;
-  text-align: center;
+  text-align: right;
   white-space: nowrap;
   vertical-align: baseline;
-  border-radius: .35em;
 }
 
 .vertical-center {
@@ -121,4 +119,44 @@ body {
 
 .tree-icon {
     margin: 3px;
+}
+
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
+}
+
+.btn-sub {
+    margin-left: -26px;
+}
+
+.recipe-price {
+    display: block;   
+}
+
+.rec-left {
+    margin-left: 12px;
+}
+
+.rec-right {
+    margin-right: 12px;
+}
+
+.sum-row { /* Chrome Issues with lines in collapsed table rows? */
+    /*border-bottom-width: 2px;
+    border-bottom-color: #aaaaaa;
+    border-bottom-style: solid;*/
+    background-color: #eeeeee;
+}
+
+.sum-value {
+    display: inline;
+}
+
+.sum-pos {
+    color: green;
+}
+
+.sum-neg {
+    color: red;
 }
