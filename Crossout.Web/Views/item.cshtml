@@ -135,8 +135,8 @@
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-fee').text('= ' + toPrice(sellFeePrice));
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-fee').text('= ' + toPrice(buyFeePrice));
 
-                    var sellProfit = sellFeePrice - sellPrice;
-                    var buyProfit = buyFeePrice - buyPrice;
+                    var sellProfit = sellPrice - sellFeePrice;
+                    var buyProfit = buyPrice - buyFeePrice;
 
                     var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
                     var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
@@ -159,8 +159,8 @@
                 if ($('#uniqueid-' + subItem.UniqueId).is(":visible")) {
                     if (!subItem.IsSumRow) {
                         result.items.push({
-                            buy: subItem.BuyPriceTimesNumber * Math.max(1,item.Number),
-                            sell: subItem.SellPriceTimesNumber * Math.max(1, item.Number)
+                            sell: subItem.SellPriceTimesNumber * Math.max(1, item.Number),
+                            buy: subItem.BuyPriceTimesNumber * Math.max(1, item.Number)
                         });
                         valueSet = true;
                         foundItem = subItem;
