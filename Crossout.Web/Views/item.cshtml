@@ -122,8 +122,8 @@
                         sumSell += sumItemResults.items[i].sell;
                     }
 
-                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy').text(toPrice(sumBuy));
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell').text(toPrice(sumSell));
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy').text(toPrice(sumBuy));
 
                     var sellPrice = mainItem.Item.SellPrice * Math.max(1, mainItem.Number);
                     var buyPrice = mainItem.Item.BuyPrice * Math.max(1, mainItem.Number);
