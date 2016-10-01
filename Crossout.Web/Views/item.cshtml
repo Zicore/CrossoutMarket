@@ -73,7 +73,7 @@
         data: {}
     };
 
-    $.getJSON('http://@(WebSettings.Settings.DataHost)/data/recipe/@(Model.Item.Id)',function(data) {
+    $.getJSON('http://@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)',function(data) {
         recipeData.data = data;
         recipeData.loaded = true;
     });
@@ -122,24 +122,23 @@
                         sumSell += sumItemResults.items[i].sell;
                     }
 
-                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell').text(toPrice(sumSell));
-                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy').text(toPrice(sumBuy));
-
                     var sellPrice = mainItem.Item.SellPrice * Math.max(1, mainItem.Number);
                     var buyPrice = mainItem.Item.BuyPrice * Math.max(1, mainItem.Number);
 
-                    var sellFeePrice = sumSell * 0.9;
-                    var buyFeePrice = sumBuy * 0.9;
-
-
-                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-fee').text('= ' + toPrice(sellFeePrice));
-                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-fee').text('= ' + toPrice(buyFeePrice));
-
-                    var sellProfit = sellPrice - sellFeePrice;
-                    var buyProfit = buyPrice - buyFeePrice;
+                    var sellFeePrice = sellPrice * 0.9;
+                    var buyFeePrice = buyPrice * 0.9;
+                    
+                    var sellProfit = sellFeePrice - sumSell;
+                    var buyProfit = buyFeePrice - sumBuy;
 
                     var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
                     var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
+                    
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-fee').text(toPrice(sellFeePrice));
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-fee').text(toPrice(buyFeePrice));
+
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell').text(toPrice(-sumSell));
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy').text(toPrice(-sumBuy));
 
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellClass).text(toPrice(sellProfit));
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).text(toPrice(buyProfit));

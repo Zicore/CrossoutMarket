@@ -1,4 +1,5 @@
-﻿@using Crossout.Web
+﻿@using Nancy.ViewEngines.Razor;
+@using Crossout.Web
 @using Zicore.Settings.Json
 @using Zicore.Settings
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.ItemModel>
@@ -129,7 +130,7 @@
         $.each(names, function (i, name) {
             var id = @Model.Item.Id;
             var host = '@WebSettings.Settings.DataHost';
-            $.getJSON('http://'+ host +'/data/item/'+ name.name.toLowerCase() +'/' +id, function (data) {
+            $.getJSON('http://@(Request.Url.HostName)/data/item/'+ name.name.toLowerCase() +'/' +id, function (data) {
                 var series = {};
                 if (name.type === 1) {
                     var color = '#44A5FF';

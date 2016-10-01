@@ -72,18 +72,21 @@
         {
             if (Model.IsSumRow)
             {
+                <div class="label-md pull-left">
+                    Price -10 %
+                </div>
                 <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-sell">
-                        @Model.Item.FormatSellPrice
+                    <div class="text-right sum-value sum-sell-fee">
+
                     </div>
                     <img height="14" src="~/img/Coin.png" />
                 </div>
                 <div class="label-md pull-left">
-                    -10 %
+                    Cost
                 </div>
                 <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-sell-fee">
-                        
+                    <div class="text-right sum-value sum-sell">
+                        @Model.Item.FormatSellPrice
                     </div>
                     <img height="14" src="~/img/Coin.png" />
                 </div>
@@ -128,18 +131,21 @@
         {
             if (Model.IsSumRow)
             {
+                <div class="label-md pull-left">
+                    Price -10 %
+                </div>
                 <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-buy">
-                        @Model.Item.FormatBuyPrice
+                    <div class="text-right sum-value sum-buy-fee">
+
                     </div>
                     <img height="14" src="~/img/Coin.png" />
                 </div>
                 <div class="label-md pull-left">
-                    -10 %
+                    Cost
                 </div>
                 <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-buy-fee">
-                        
+                    <div class="text-right sum-value sum-buy">
+                        @Model.Item.FormatBuyPrice
                     </div>
                     <img height="14" src="~/img/Coin.png" />
                 </div>
