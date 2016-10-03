@@ -72,18 +72,21 @@
         {
             if (Model.IsSumRow)
             {
+                <div class="label-md pull-left">
+                    Price -10 %
+                </div>
                 <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-sell">
-                        @Model.Item.FormatSellPrice
+                    <div class="text-right sum-value sum-sell-fee">
+
                     </div>
                     <img height="14" src="~/img/Coin.png" />
                 </div>
                 <div class="label-md pull-left">
-                    -10 %
+                    Cost
                 </div>
                 <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-sell-fee">
-                        
+                    <div class="text-right sum-value sum-sell">
+                        @Model.Item.FormatSellPrice
                     </div>
                     <img height="14" src="~/img/Coin.png" />
                 </div>
@@ -92,7 +95,14 @@
                 </div>
                 <div class="recipe-price label-md rec-right">
                     <div class="text-right sum-value sum-sell-diff">
-                        =
+                    </div>
+                    <img height="14" src="~/img/Coin.png" />
+                </div>
+                <div class="label-md pull-left">
+                    Sell-Buy Profit
+                </div>
+                <div class="recipe-price label-md rec-right">
+                    <div class="text-right sum-value sum-sell-buy-diff">
                     </div>
                     <img height="14" src="~/img/Coin.png" />
                 </div>
@@ -128,18 +138,21 @@
         {
             if (Model.IsSumRow)
             {
+                <div class="label-md pull-left">
+                    Price -10 %
+                </div>
                 <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-buy">
-                        @Model.Item.FormatBuyPrice
+                    <div class="text-right sum-value sum-buy-fee">
+
                     </div>
                     <img height="14" src="~/img/Coin.png" />
                 </div>
                 <div class="label-md pull-left">
-                    -10 %
+                    Cost
                 </div>
                 <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-buy-fee">
-                        
+                    <div class="text-right sum-value sum-buy">
+                        @Model.Item.FormatBuyPrice
                     </div>
                     <img height="14" src="~/img/Coin.png" />
                 </div>
@@ -148,7 +161,6 @@
                 </div>
                 <div class="recipe-price label-md rec-right">
                     <div class="text-right sum-value sum-buy-diff">
-                        =
                     </div>
                     <img height="14" src="~/img/Coin.png" />
                 </div>
@@ -178,23 +190,25 @@
     </td>
 </tr>
 
-
-<script>
-    $(document).ready(function() {
-        var classname = 'recipe-@Model.Item.RecipeId';
-        $('#uniqueid-@Model.UniqueId').find('.item-@Model.Id').click(function () {
-            var recipe = $(this).data('recipe');
-            var uniqueid = $(this).data('uniqueid');
+@if (Model.Ingredients.Count > 0) //We only need this script on + Button Nodes
+{
+    <script>
+        $(document).ready(function() {
+            var classname = 'recipe-@Model.Item.RecipeId';
+            $('#uniqueid-@Model.UniqueId').find('.item-@Model.Id').click(function () {
+                var recipe = $(this).data('recipe');
+                var uniqueid = $(this).data('uniqueid');
             
-            if ($(this).hasClass('glyphicon-plus')) {
-                $(this).removeClass('glyphicon-plus').addClass('glyphicon-minus');
-                window.updateTree(classname, recipe, uniqueid, true);
-                window.updateSums(recipe, uniqueid);
-            } else {
-                $(this).removeClass('glyphicon-minus').addClass('glyphicon-plus');
-                window.updateTree(classname, recipe, uniqueid, false);
-                window.updateSums(recipe, uniqueid);
-            }
+                if ($(this).hasClass('glyphicon-plus')) {
+                    $(this).removeClass('glyphicon-plus').addClass('glyphicon-minus');
+                    window.updateTree(classname, recipe, uniqueid, true);
+                    window.updateSums(recipe, uniqueid);
+                } else {
+                    $(this).removeClass('glyphicon-minus').addClass('glyphicon-plus');
+                    window.updateTree(classname, recipe, uniqueid, false);
+                    window.updateSums(recipe, uniqueid);
+                }
+            });
         });
-    });
-</script>
+    </script>
+}

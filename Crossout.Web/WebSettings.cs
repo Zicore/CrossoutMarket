@@ -24,6 +24,8 @@ namespace Crossout.Web
         public int WebserverPort { get; set; } = 80;
         public string DataHost { get; set; } = "localhost";
 
+        public static string Title => "Crossout DB";
+
         public void Load()
         {
             try

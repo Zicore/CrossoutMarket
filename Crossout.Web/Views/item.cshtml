@@ -108,7 +108,7 @@
         data: {}
     };
 
-    $.getJSON('http://@(WebSettings.Settings.DataHost)/data/recipe/@(Model.Item.Id)',function(data) {
+    $.getJSON('http://@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)',function(data) {
         recipeData.data = data;
         recipeData.loaded = true;
     });
@@ -156,7 +156,7 @@
                         sumBuy += sumItemResults.items[i].buy;
                         sumSell += sumItemResults.items[i].sell;
                     }
-                    
+
                     var sellPrice = mainItem.Item.SellPrice * Math.max(1, mainItem.Number);
                     var buyPrice = mainItem.Item.BuyPrice * Math.max(1, mainItem.Number);
 

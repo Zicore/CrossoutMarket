@@ -1,7 +1,7 @@
 Crossout Market
 ===
 
-This is the Open Source Project for Crossout Market found here: http://crossout.zicore.de/ it provides out of game prices, buy and sell offers as well as price and volume graphs.
+This is the Open Source Project for Crossout Market found here: http://crossoutdb.com/ it provides out of game prices, buy and sell offers as well as price and volume graphs.
 
 Screenshot of the Website: ![Crossout Market](http://i.imgur.com/47N8CjD.png)
 
