@@ -12,6 +12,7 @@
 
 <div class="panel">
     <div class="panel-body">
+        <h3>Recipe</h3>
         <table class="table table-hover table-condensed">
             <thead>
             <tr>
@@ -36,7 +37,7 @@
 
             <tbody>
             @Html.Partial("recipepart", Model.Recipe.Recipe)
-            
+
 
             @ShowTree(Model.Recipe.Recipe.Ingredients)
 
@@ -45,10 +46,11 @@
                 foreach (RecipeItem item in items)
                 {
                     @Html.Partial("recipepart", item)
-                    
+
                     if (item != null && item.Ingredients.Count > 0)
                     {
-                        @ShowTree(item.Ingredients);
+                        @ShowTree(item.Ingredients)
+                        ;
                     }
                     if (item.IngredientSum != null)
                     {
@@ -56,11 +58,44 @@
                     }
                 }
             }
-                
+
             @if (Model.Recipe.Recipe.IngredientSum != null)
             {
-                    @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
+                @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
             }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="panel-body">
+        <h3>Shopping List</h3>
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Rarity
+                </th>
+                <th>
+                    Number
+                </th>
+                <th>
+                    <div class="text-right clearfix rec-right">Sell Price</div>
+                </th>
+                <th>
+                </th>
+                <th>
+                    <div class="text-right clearfix rec-right">Buy Price</div>
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+
             </tbody>
         </table>
     </div>
@@ -128,6 +163,7 @@
                     var sellPrice = mainItem.Item.SellPrice * Math.max(1, mainItem.Number);
                     var buyPrice = mainItem.Item.BuyPrice * Math.max(1, mainItem.Number);
 
+<<<<<<< Updated upstream
                     var sellFeePrice = sumSell * 0.9;
                     var buyFeePrice = sumBuy * 0.9;
 
@@ -140,9 +176,28 @@
 
                     var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
                     var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
+=======
+                    var sellFeePrice = sellPrice * 0.9;
+                    var buyFeePrice = buyPrice * 0.9;
+                    
+                    var sellProfit = sellFeePrice - sumSell;
+                    var buyProfit = buyFeePrice - sumBuy;
+                    var sellBuyProfit = sellFeePrice - sumBuy;
+
+                    var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
+                    var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
+                    var sellBuyClass = sellBuyProfit > 0 ? 'sum-pos' : 'sum-neg';
+                    
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-fee').text(toPrice(sellFeePrice));
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-fee').text(toPrice(buyFeePrice));
+
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell').text(toPrice(-sumSell));
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy').text(toPrice(-sumBuy));
+>>>>>>> Stashed changes
 
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellClass).text(toPrice(sellProfit));
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).text(toPrice(buyProfit));
+                    $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).text(toPrice(sellBuyProfit));
                 }
             });
         }
