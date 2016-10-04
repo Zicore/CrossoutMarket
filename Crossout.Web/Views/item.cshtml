@@ -68,11 +68,7 @@
             }
             </tbody>
         </table>
-    </div>
-</div>
 
-<div class="panel">
-    <div class="panel-body">
         <h3>Shopping List</h3>
         <table class="table table-hover table-condensed" id="shopping-list">
             <thead>
@@ -199,7 +195,7 @@
                                 $('#shopping-list').append(
                                     '<tr data-item-id="'+item.Id+'"><td>' + htmlName(item) +
                                     '</td><td>' + htmlRarity(item) +
-                                    '</td><td>' + htmlNumber(number) +
+                                    '</td><td>' + htmlNumberInput(number, 'input-number-' + item.Id) +
                                     '</td><td>' + htmlPriceInput(toPrice(item.SellPrice), 'input-sell-' + item.Id) +
                                     '</td><td>' + '' +
                                     '</td><td>' + htmlPriceInput(toPrice(item.BuyPrice), 'input-buy-' + item.Id) +
@@ -208,6 +204,9 @@
                                     calculateShoppingList(root,result.shoppinglist);
                                 });
                                 $('#input-buy-' + item.Id).on('input', function (e) {
+                                    calculateShoppingList(root, result.shoppinglist);
+                                });
+                                $('#input-number-' + item.Id).on('input', function (e) {
                                     calculateShoppingList(root, result.shoppinglist);
                                 });
                             }
@@ -238,7 +237,7 @@
             if (list.hasOwnProperty(key)) {
                 var rec = list[key].item;
                 var item = rec.Item;
-                var number = list[key].number;
+                var number = parseInt($('#input-number-' + item.Id).val());
                 var sell = parseFloat($('#input-sell-' + item.Id).val());
                 var buy = parseFloat($('#input-buy-' + item.Id).val());
 
@@ -337,6 +336,10 @@
         }
 
         return r;
+    }
+
+    function htmlNumberInput(value, id) {
+        return '<div class="recipe-price label-md rec-right"><input id="' + id + '" type="text" value="' + value + '"></div>';
     }
 
     function htmlPriceInput(value, id) {
