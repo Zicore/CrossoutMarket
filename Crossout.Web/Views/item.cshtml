@@ -362,9 +362,9 @@
                             item: subItem
                         });
                         if (result.shoppinglist.hasOwnProperty(subItem.Item.Id)) {
-                            result.shoppinglist[subItem.Item.Id].number += subItem.Number;
+                            result.shoppinglist[subItem.Item.Id].number += subItem.Number * Math.max(1, item.Number);
                         }else{
-                            result.shoppinglist[subItem.Item.Id] = { number: subItem.Number, item: subItem }
+                            result.shoppinglist[subItem.Item.Id] = { number: subItem.Number * Math.max(1, item.Number), item: subItem }
                         }
                         valueSet = true;
                         foundItem = subItem;
