@@ -23,6 +23,21 @@ namespace Crossout.Model.Recipes
         public int Id { get; set; }
         public int UniqueId { get; set; } = NextId();
 
+        public int RootNumber
+        {
+            get
+            {
+                var number = Number;
+                RecipeItem p = Parent;
+                while(p != null)
+                {
+                    number = number* Math.Max(p.Number,1);
+                    p = p.Parent;
+                }
+                return number;
+            }
+        }
+
         public int Depth { get; set; } = 0;
         public int MaxDepth { get; set; }
 

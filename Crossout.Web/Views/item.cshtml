@@ -15,86 +15,85 @@
         <h3>Recipe</h3>
         <table class="table table-hover table-condensed">
             <thead>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Rarity
-                </th>
-                <th>
-                    <div class="text-left pull-left">Number</div>
-                    <div class="text-right clearfix rec-right">Sell Price</div>
-                </th>
-                <th>
-                </th>
-                <th>
-                    <div class="text-left pull-left">Number</div>
-                    <div class="text-right clearfix rec-right">Buy Price</div>
-                </th>
-                <th class="text-right">
-                    Margin
-                </th>
-            </tr>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Rarity
+                    </th>
+                    <th>
+                        <div class="text-left pull-left">Number</div>
+                        <div class="text-right clearfix rec-right">Sell Price</div>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                        <div class="text-left pull-left">Number</div>
+                        <div class="text-right clearfix rec-right">Buy Price</div>
+                    </th>
+                    <th class="text-right">
+                        Margin
+                    </th>
+                </tr>
             </thead>
 
             <tbody>
-            @Html.Partial("recipepart", Model.Recipe.Recipe)
+                @Html.Partial("recipepart", Model.Recipe.Recipe)
 
 
-            @ShowTree(Model.Recipe.Recipe.Ingredients)
+                @ShowTree(Model.Recipe.Recipe.Ingredients)
 
-            @helper ShowTree(List<RecipeItem> items)
-            {
-                foreach (RecipeItem item in items)
+                @helper ShowTree(List<RecipeItem> items)
                 {
-                    @Html.Partial("recipepart", item)
+foreach (RecipeItem item in items)
+{
+        @Html.Partial("recipepart", item)
 
-                    if (item != null && item.Ingredients.Count > 0)
-                    {
-                        @ShowTree(item.Ingredients)
-                        ;
-                    }
-                    if (item.IngredientSum != null)
-                    {
-                        @Html.Partial("recipepart", item.IngredientSum)
-                    }
-                }
-            }
+    if (item != null && item.Ingredients.Count > 0)
+    {
+            @ShowTree(item.Ingredients)
+        ;
+    }
+    if (item.IngredientSum != null)
+    {
+            @Html.Partial("recipepart", item.IngredientSum)
+    }
+}
+}
 
-            @if (Model.Recipe.Recipe.IngredientSum != null)
+                @if (Model.Recipe.Recipe.IngredientSum != null)
             {
-                @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
-            }
+                    @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
+                }
             </tbody>
         </table>
 
         <h3>Shopping List</h3>
         <table class="table table-hover table-condensed" id="shopping-list">
             <thead>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Rarity
-                </th>
-                <th class="text-right">
-                    Number
-                </th>
-                <th>
-                    <div class="text-right clearfix rec-right">Sell Price</div>
-                </th>
-                <th>
-                </th>
-                <th>
-                    <div class="text-right clearfix rec-right">Buy Price</div>
-                </th>
-            </tr>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Rarity
+                    </th>
+                    <th class="text-right">
+                        Number
+                    </th>
+                    <th>
+                        <div class="text-right clearfix rec-right">Sell Price</div>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                        <div class="text-right clearfix rec-right">Buy Price</div>
+                    </th>
+                </tr>
             </thead>
 
-            <tbody>
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 </div>
@@ -157,13 +156,25 @@
 
                     var sumBuy = 0;
                     var sumSell = 0;
-                    for (var i = 0; i < result.items.length; i++) {
-                        sumBuy += result.items[i].buy;
-                        sumSell += result.items[i].sell;
+                    var list = result.shoppinglist;
+                    var number;
+                    var item;
+                    var rec;
+                    for (var k in list) {
+                        if (list.hasOwnProperty(k)) {
+                            rec = list[k].item;
+                            item = rec.Item;
+                            number = list[k].number;
+                            var sell = item.SellPrice;
+                            var buy = item.BuyPrice;
+
+                            sumSell += filterResourcePrice(item.Id, sell) * number;
+                            sumBuy += filterResourcePrice(item.Id, buy) * number;
+                        }
                     }
 
-                    var sellPrice = mainItem.Item.SellPrice * Math.max(1, mainItem.Number);
-                    var buyPrice = mainItem.Item.BuyPrice * Math.max(1, mainItem.Number);
+                    var sellPrice = mainItem.Item.SellPrice * Math.max(mainItem.RootNumber,1);
+                    var buyPrice = mainItem.Item.BuyPrice * Math.max(mainItem.RootNumber, 1);
 
                     var sellFeePrice = sellPrice * 0.9;
                     var buyFeePrice = buyPrice * 0.9;
@@ -175,6 +186,8 @@
                     var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
                     var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
                     var sellBuyClass = sellBuyProfit > 0 ? 'sum-pos' : 'sum-neg';
+
+                    // Please if someone has a way to avoid this mess without huge frameworks like angular or react message me :)
 
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-fee').text(toPrice(sellFeePrice));
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-fee').text(toPrice(buyFeePrice));
@@ -189,9 +202,9 @@
                     if (mainItem.UniqueId === root.UniqueId) {
                         for (var key in result.shoppinglist) {
                             if (result.shoppinglist.hasOwnProperty(key)) {
-                                var rec = result.shoppinglist[key].item;
-                                var item = rec.Item;
-                                var number = result.shoppinglist[key].number;
+                                rec = result.shoppinglist[key].item;
+                                item = rec.Item;
+                                number = result.shoppinglist[key].number;
                                 $('#shopping-list').append(
                                     '<tr data-item-id="'+item.Id+'"><td>' + htmlName(item) +
                                     '</td><td>' + htmlRarity(item) +
@@ -357,14 +370,14 @@
                 if ($('#uniqueid-' + subItem.UniqueId).is(":visible")) {
                     if (!subItem.IsSumRow) {
                         result.items.push({
-                            sell: subItem.SellPriceTimesNumber * Math.max(1, item.Number),
-                            buy: subItem.BuyPriceTimesNumber * Math.max(1, item.Number),
+                            //sell: subItem.Item.SellPrice * Math.max(1, subItem.RootNumber),
+                            //buy: subItem.Item.BuyPrice * Math.max(1, subItem.RootNumber),
                             item: subItem
                         });
                         if (result.shoppinglist.hasOwnProperty(subItem.Item.Id)) {
-                            result.shoppinglist[subItem.Item.Id].number += subItem.Number * Math.max(1, item.Number);
+                            result.shoppinglist[subItem.Item.Id].number += subItem.RootNumber;
                         }else{
-                            result.shoppinglist[subItem.Item.Id] = { number: subItem.Number * Math.max(1, item.Number), item: subItem }
+                            result.shoppinglist[subItem.Item.Id] = { number: subItem.RootNumber, item: subItem }
                         }
                         valueSet = true;
                         foundItem = subItem;
