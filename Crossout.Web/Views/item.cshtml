@@ -32,6 +32,9 @@
                     <div class="text-left pull-left">Number</div>
                     <div class="text-right clearfix rec-right">Buy Price</div>
                 </th>
+                <th class="text-right">
+                    Margin
+                </th>
             </tr>
             </thead>
 
@@ -65,13 +68,9 @@
             }
             </tbody>
         </table>
-    </div>
-</div>
 
-<div class="panel">
-    <div class="panel-body">
         <h3>Shopping List</h3>
-        <table class="table table-hover table-condensed">
+        <table class="table table-hover table-condensed" id="shopping-list">
             <thead>
             <tr>
                 <th>
@@ -80,7 +79,7 @@
                 <th>
                     Rarity
                 </th>
-                <th>
+                <th class="text-right">
                     Number
                 </th>
                 <th>
@@ -95,7 +94,6 @@
             </thead>
 
             <tbody>
-
             </tbody>
         </table>
     </div>
@@ -137,24 +135,31 @@
         return (number / 100.0).toFixed(2);
     }
 
+    function toFixed(number) {
+        return number.toFixed(2);
+    }
+
     function updateSums(recipe, uniqueid) {
-        if (recipeData.loaded){
+        if (recipeData.loaded) {
+
+            $('#shopping-list > tbody').remove();
+
             $('.sum-row:visible').each(function (j, obj) {
                 var sumuniqueid = $(this).data('uniqueid');
-            
+
                 var root = recipeData.data.Recipe.Recipe;
                 var mainItem = findSumItem(root, sumuniqueid);
                 var sumItem = mainItem.IngredientSum;
-                var sumItemResults = { items: new Array(), map: {} }
-                
+                var result = { items: new Array(), map: {}, shoppinglist: {} }
+
                 if(sumItem !== null){
-                    updateSum(root, mainItem, sumItemResults, recipe);
+                    updateSum(root, mainItem, result, recipe);
 
                     var sumBuy = 0;
                     var sumSell = 0;
-                    for (var i = 0; i < sumItemResults.items.length; i++) {
-                        sumBuy += sumItemResults.items[i].buy;
-                        sumSell += sumItemResults.items[i].sell;
+                    for (var i = 0; i < result.items.length; i++) {
+                        sumBuy += result.items[i].buy;
+                        sumSell += result.items[i].sell;
                     }
 
                     var sellPrice = mainItem.Item.SellPrice * Math.max(1, mainItem.Number);
@@ -162,7 +167,7 @@
 
                     var sellFeePrice = sellPrice * 0.9;
                     var buyFeePrice = buyPrice * 0.9;
-                    
+
                     var sellProfit = sellFeePrice - sumSell;
                     var buyProfit = buyFeePrice - sumBuy;
                     var sellBuyProfit = sellFeePrice - sumBuy;
@@ -170,7 +175,7 @@
                     var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
                     var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
                     var sellBuyClass = sellBuyProfit > 0 ? 'sum-pos' : 'sum-neg';
-                    
+
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-fee').text(toPrice(sellFeePrice));
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-fee').text(toPrice(buyFeePrice));
 
@@ -180,9 +185,165 @@
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellClass).text(toPrice(sellProfit));
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).text(toPrice(buyProfit));
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).text(toPrice(sellBuyProfit));
+
+                    if (mainItem.UniqueId === root.UniqueId) {
+                        for (var key in result.shoppinglist) {
+                            if (result.shoppinglist.hasOwnProperty(key)) {
+                                var rec = result.shoppinglist[key].item;
+                                var item = rec.Item;
+                                var number = result.shoppinglist[key].number;
+                                $('#shopping-list').append(
+                                    '<tr data-item-id="'+item.Id+'"><td>' + htmlName(item) +
+                                    '</td><td>' + htmlRarity(item) +
+                                    '</td><td>' + htmlNumberInput(number, 'input-number-' + item.Id) +
+                                    '</td><td>' + htmlPriceInput(toPrice(item.SellPrice), 'input-sell-' + item.Id) +
+                                    '</td><td>' + '' +
+                                    '</td><td>' + htmlPriceInput(toPrice(item.BuyPrice), 'input-buy-' + item.Id) +
+                                    '</td></tr>');
+                                $('#input-sell-' + item.Id).on('input', function (e) {
+                                    calculateShoppingList(root,result.shoppinglist);
+                                });
+                                $('#input-buy-' + item.Id).on('input', function (e) {
+                                    calculateShoppingList(root, result.shoppinglist);
+                                });
+                                $('#input-number-' + item.Id).on('input', function (e) {
+                                    calculateShoppingList(root, result.shoppinglist);
+                                });
+                            }
+                        }
+
+                        $('#shopping-list').append(
+                                    '<tr data-item-id="' + root.Item.Id + '"><td>' + htmlName(root.Item) +
+                                    '</td><td>' + htmlRarity(root.Item) +
+                                    '</td><td>' + '' +
+                                    '</td><td>' + htmlPriceSum(toPrice(0), 'sell' ,root.Item.Id) +
+                                    '</td><td>' + '' +
+                                    '</td><td>' + htmlPriceSum(toPrice(0), 'buy', root.Item.Id) +
+                                    '</td></tr>');
+
+                        calculateShoppingList(root, result.shoppinglist);
+                    }
                 }
             });
         }
+    }
+
+    function calculateShoppingList(root, list) {
+        var sumSell = 0;
+        var sumBuy = 0;
+
+
+        for (var key in list) {
+            if (list.hasOwnProperty(key)) {
+                var rec = list[key].item;
+                var item = rec.Item;
+                var number = parseInt($('#input-number-' + item.Id).val());
+                var sell = parseFloat($('#input-sell-' + item.Id).val());
+                var buy = parseFloat($('#input-buy-' + item.Id).val());
+
+                sumSell += filterResourcePrice(item.Id, sell) * number;
+                sumBuy += filterResourcePrice(item.Id, buy) * number;
+            }
+        }
+
+        var sellPrice = (root.Item.SellPrice * 0.9) / 100.0;
+        var buyPrice = (root.Item.BuyPrice * 0.9) / 100.0;
+
+        var sellProfit = sellPrice - sumSell;
+        var buyProfit = buyPrice - sumBuy;
+        var sellBuyProfit = sellPrice - sumBuy;
+
+        var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
+        var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
+        var sellBuyClass = sellBuyProfit > 0 ? 'sum-pos' : 'sum-neg';
+
+        $('#sum-sell-' + root.Item.Id).text(toFixed(-sumSell));
+        $('#sum-buy-' + root.Item.Id).text(toFixed(-sumBuy));
+
+        $('#sum-fee-sell-' + root.Item.Id).text(toFixed(sellPrice));
+        $('#sum-fee-buy-' + root.Item.Id).text(toFixed(buyPrice));
+
+        $('#sum-diff-sell-' + root.Item.Id).removeClass('sum-neg').removeClass('sum-pos').addClass(sellClass).text(toFixed(sellProfit));
+        $('#sum-diff-buy-' + root.Item.Id).removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).text(toFixed(buyProfit));
+
+        $('#sum-sell-buy-diff-' + root.Item.Id).removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).text(toFixed(sellBuyProfit));
+    }
+
+    function filterResourcePrice(id, value) {
+        if (id === 43 || id === 53 || id === 85 || id === 168) {
+            return value / 100.0;
+        }
+        return value;
+    }
+
+    // Ugh...
+    function htmlName(item) {
+        return '<div class="clearfix content-heading">' +
+                '<div class="clearfix vertical-center pull-left">' +
+                '<div>' +
+                    '<a href="/item/' + item.Id + '">' +
+                        '<img style="margin-right: 8px; height: 32px;" src="/img/items/' + item.Image + '" /></a>' +
+                '</div>' +
+                '</div>' +
+                    '<a href="/item/' + item.Id + '" style="font-weight: bold;">' + item.Name + '</a>' +
+                    '<div style="font-size: 11px; font-weight: bold;">' + item.TypeName +
+                '</div>' +
+                '</div>';
+    }
+
+    function htmlRarity(item) {
+        return '<span class="label label-'+item.RarityName+'">'+item.RarityName+'</span>';
+    }
+
+    function htmlNumber(value) {
+        return '<div class="label-md rec-right">' + value + '</div>';
+    }
+
+    function htmlPriceSum(value,side, id) {
+        var r = '<div class="label-md pull-left">' +
+                    'Price -10 %'+
+        '</div>'+
+        '<div class="recipe-price label-md rec-right">'+
+        '<div class="text-right sum-value" id="sum-fee-' + side + '-' + id + '">' +
+        '</div>'+
+        '<img height="14" src="/img/Coin.png" />'+
+        '</div>'+
+        '<div class="label-md pull-left">'+
+        'Cost'+
+        '</div>'+
+        '<div class="recipe-price label-md rec-right">'+
+        '<div class="text-right sum-value" id="sum-' + side + '-' + id + '">' +
+        '</div>'+
+        '<img height="14" src="/img/Coin.png" />'+
+        '</div>'+
+        '<div class="label-md pull-left">'+
+                   'Profit' +
+        '</div>' +
+        '<div class="recipe-price label-md rec-right">' +
+        '<div class="text-right sum-value" id="sum-diff-' + side + '-' + id + '">' +
+        '</div>' +
+        '<img height="14" src="/img/Coin.png" />' +
+        '</div>';
+        if(side==='sell'){
+            r+='<div class="label-md pull-left">' +
+            'Sell-Buy Profit' +
+            '</div>' +
+            '<div class="recipe-price label-md rec-right">' +
+            '<div class="text-right sum-value" id="sum-sell-buy-diff-' + id + '">' +
+            '</div>' +
+            '<img height="14" src="/img/Coin.png" />' +
+            '</div>';
+        }
+
+        return r;
+    }
+
+    function htmlNumberInput(value, id) {
+        return '<div class="recipe-price label-md rec-right"><input class="text-right" id="' + id + '" type="text" value="' + value + '"></div>';
+    }
+
+    function htmlPriceInput(value, id) {
+        return '<div class="recipe-price label-md rec-right"><input class="text-right" id="' + id + '" type="text" value="' + value + '"><img height="14" src="/img/Coin.png" /></div>';
     }
 
     // Maybe someone can make this easier
@@ -197,8 +358,14 @@
                     if (!subItem.IsSumRow) {
                         result.items.push({
                             sell: subItem.SellPriceTimesNumber * Math.max(1, item.Number),
-                            buy: subItem.BuyPriceTimesNumber * Math.max(1, item.Number)
+                            buy: subItem.BuyPriceTimesNumber * Math.max(1, item.Number),
+                            item: subItem
                         });
+                        if (result.shoppinglist.hasOwnProperty(subItem.Item.Id)) {
+                            result.shoppinglist[subItem.Item.Id].number += subItem.Number;
+                        }else{
+                            result.shoppinglist[subItem.Item.Id] = { number: subItem.Number, item: subItem }
+                        }
                         valueSet = true;
                         foundItem = subItem;
                     }
