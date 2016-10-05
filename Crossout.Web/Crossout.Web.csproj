@@ -912,6 +912,8 @@
     <None Include="Scripts\jquery-2.1.3.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Scripts\firechat-ui.js" />
+    <Content Include="Scripts\firechat.js" />
     <Content Include="SQL\Recipes.sql" />
     <Content Include="SQL\SelectNewestMarket.sql" />
     <Content Include="SQL\SelectNewestMarket2.sql" />

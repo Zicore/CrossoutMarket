@@ -13,6 +13,63 @@
 <div class="panel">
     <div class="panel-body">
         <h3>Recipe</h3>
+
+        <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyAb1ySwDweY5VJVTQALIvarUmauODlCvLk",
+            authDomain: "crossoutdbchat.firebaseapp.com",
+            databaseURL: "https://crossoutdbchat.firebaseio.com",
+            storageBucket: "crossoutdbchat.appspot.com",
+            messagingSenderId: "1004549302615"
+          };
+          firebase.initializeApp(config);
+        </script>
+
+        <!-- Firechat -->
+        <link rel="stylesheet" href="https://cdn.firebase.com/libs/firechat/3.0.1/firechat.min.css" />
+        <script src="~/scripts/firechat.js"></script>
+        <script src="~/scripts/firechat-ui.js"></script>
+
+        <script>
+          var database = firebase.database();
+
+          function login() {
+              // Log the user in via Twitter
+              firebase.auth().signInAnonymously().catch(function (error) {
+                  // Handle Errors here.
+                  var errorCode = error.code;
+                  var errorMessage = error.message;
+                  // ...
+              });
+          }
+
+          firebase.auth().onAuthStateChanged(function(user) {
+            // Once authenticated, instantiate Firechat with the logged in user
+            if (user) {
+                initChat(user);
+                user.displayName = user.ui;
+                console.log(user.uid);
+            }
+          });
+
+          function initChat(user) {
+            // Get a Firebase Database ref
+            var chatRef = firebase.database().ref("chat");
+
+            // Create a Firechat instance
+            var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
+
+            // Set the Firechat user
+            chat.setUser(user.uid, user.displayName);
+          }
+        </script>
+
+        <div id="firechat-wrapper">
+            <button onclick="login();">Login</button>
+        </div>
+
         <table class="table table-hover table-condensed">
             <thead>
             <tr>
@@ -220,6 +277,17 @@
             if (rs) return rs;
         }
         return null;
+    }
+
+    function makeShoppingList(recipeData) {
+        
+    }
+
+    function traverseData(recipeData, list) {
+        if (recipeData.loaded == true) {
+            var list = [];
+            $(recipeData).data.Recipe
+        }
     }
 </script>
 
