@@ -12,90 +12,90 @@
 
 <div class="panel">
     <div class="panel-body">
-        <h3>Recipe</h3>
-
+        <h3>@Model.Item.Name</h3>
+        <a class="twitter-share-button" 
+           href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout">Tweet</a>
+        
         <table class="table table-hover table-condensed">
             <thead>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Rarity
-                </th>
-                <th>
-                    <div class="text-left pull-left">Number</div>
-                    <div class="text-right clearfix rec-right">Sell Price</div>
-                </th>
-                <th>
-                </th>
-                <th>
-                    <div class="text-left pull-left">Number</div>
-                    <div class="text-right clearfix rec-right">Buy Price</div>
-                </th>
-                <th class="text-right">
-                    Margin
-                </th>
-            </tr>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Rarity
+                    </th>
+                    <th>
+                        <div class="text-left pull-left">Number</div>
+                        <div class="text-right clearfix rec-right">Sell Price</div>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                        <div class="text-left pull-left">Number</div>
+                        <div class="text-right clearfix rec-right">Buy Price</div>
+                    </th>
+                    <th class="text-right">
+                        Margin
+                    </th>
+                </tr>
             </thead>
 
             <tbody>
-            @Html.Partial("recipepart", Model.Recipe.Recipe)
+                @Html.Partial("recipepart", Model.Recipe.Recipe)
 
 
-            @ShowTree(Model.Recipe.Recipe.Ingredients)
+                @ShowTree(Model.Recipe.Recipe.Ingredients)
 
-            @helper ShowTree(List<RecipeItem> items)
-            {
-                foreach (RecipeItem item in items)
+                @helper ShowTree(List<RecipeItem> items)
                 {
-                    @Html.Partial("recipepart", item)
+                    foreach (RecipeItem item in items)
+                    {
+                            @Html.Partial("recipepart", item)
 
-                    if (item != null && item.Ingredients.Count > 0)
-                    {
-                        @ShowTree(item.Ingredients)
-                        ;
+                            if (item != null && item.Ingredients.Count > 0)
+                            {
+                                @ShowTree(item.Ingredients)
+                            }
+                            if (item.IngredientSum != null)
+                            {
+                                @Html.Partial("recipepart", item.IngredientSum)
+                            }
+                        }
                     }
-                    if (item.IngredientSum != null)
-                    {
-                        @Html.Partial("recipepart", item.IngredientSum)
-                    }
+
+                @if (Model.Recipe.Recipe.IngredientSum != null)
+                {
+                    @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
                 }
-            }
-
-            @if (Model.Recipe.Recipe.IngredientSum != null)
-            {
-                @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
-            }
             </tbody>
         </table>
 
         <h3>Shopping List</h3>
         <table class="table table-hover table-condensed" id="shopping-list">
             <thead>
-            <tr>
-                <th>
-                    Name
-                </th>
-                <th>
-                    Rarity
-                </th>
-                <th class="text-right">
-                    Number
-                </th>
-                <th>
-                    <div class="text-right clearfix rec-right">Sell Price</div>
-                </th>
-                <th>
-                </th>
-                <th>
-                    <div class="text-right clearfix rec-right">Buy Price</div>
-                </th>
-            </tr>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Rarity
+                    </th>
+                    <th class="text-right">
+                        Number
+                    </th>
+                    <th>
+                        <div class="text-right clearfix rec-right">Sell Price</div>
+                    </th>
+                    <th>
+                    </th>
+                    <th>
+                        <div class="text-right clearfix rec-right">Buy Price</div>
+                    </th>
+                </tr>
             </thead>
 
-            <tbody>
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 </div>
@@ -107,13 +107,13 @@
         data: {}
     };
 
-    $.getJSON('http://@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)',function(data) {
+    $.getJSON('http://@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)', function (data) {
         recipeData.data = data;
         recipeData.loaded = true;
     });
 
     function updateTree(classname, recipe, uniqueid, show) {
-        if(classname !== 'recipe-0'){
+        if (classname !== 'recipe-0') {
             $('.' + classname).each(function (i, obj) {
                 var currentUniqueid = $(this).data('uniqueid');
                 var currentParentUniqueid = $(this).data('parentuniqueid');
@@ -153,18 +153,30 @@
                 var sumItem = mainItem.IngredientSum;
                 var result = { items: new Array(), map: {}, shoppinglist: {} }
 
-                if(sumItem !== null){
+                if (sumItem !== null) {
                     updateSum(root, mainItem, result, recipe);
 
                     var sumBuy = 0;
                     var sumSell = 0;
-                    for (var i = 0; i < result.items.length; i++) {
-                        sumBuy += result.items[i].buy;
-                        sumSell += result.items[i].sell;
+                    var list = result.shoppinglist;
+                    var number;
+                    var item;
+                    var rec;
+                    for (var k in list) {
+                        if (list.hasOwnProperty(k)) {
+                            rec = list[k].item;
+                            item = rec.Item;
+                            number = list[k].number;
+                            var sell = item.SellPrice;
+                            var buy = item.BuyPrice;
+
+                            sumSell += filterResourcePrice(item.Id, sell) * number;
+                            sumBuy += filterResourcePrice(item.Id, buy) * number;
+                        }
                     }
 
-                    var sellPrice = mainItem.Item.SellPrice * Math.max(1, mainItem.Number);
-                    var buyPrice = mainItem.Item.BuyPrice * Math.max(1, mainItem.Number);
+                    var sellPrice = mainItem.Item.SellPrice * Math.max(mainItem.RootNumber, 1);
+                    var buyPrice = mainItem.Item.BuyPrice * Math.max(mainItem.RootNumber, 1);
 
                     var sellFeePrice = sellPrice * 0.9;
                     var buyFeePrice = buyPrice * 0.9;
@@ -176,6 +188,8 @@
                     var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
                     var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
                     var sellBuyClass = sellBuyProfit > 0 ? 'sum-pos' : 'sum-neg';
+
+                    // Please if someone has a way to avoid this mess without huge frameworks like angular or react message me :)
 
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-fee').text(toPrice(sellFeePrice));
                     $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-fee').text(toPrice(buyFeePrice));
@@ -190,11 +204,11 @@
                     if (mainItem.UniqueId === root.UniqueId) {
                         for (var key in result.shoppinglist) {
                             if (result.shoppinglist.hasOwnProperty(key)) {
-                                var rec = result.shoppinglist[key].item;
-                                var item = rec.Item;
-                                var number = result.shoppinglist[key].number;
+                                rec = result.shoppinglist[key].item;
+                                item = rec.Item;
+                                number = result.shoppinglist[key].number;
                                 $('#shopping-list').append(
-                                    '<tr data-item-id="'+item.Id+'"><td>' + htmlName(item) +
+                                    '<tr data-item-id="' + item.Id + '"><td>' + htmlName(item) +
                                     '</td><td>' + htmlRarity(item) +
                                     '</td><td>' + htmlNumberInput(number, 'input-number-' + item.Id) +
                                     '</td><td>' + htmlPriceInput(toPrice(item.SellPrice), 'input-sell-' + item.Id) +
@@ -202,7 +216,7 @@
                                     '</td><td>' + htmlPriceInput(toPrice(item.BuyPrice), 'input-buy-' + item.Id) +
                                     '</td></tr>');
                                 $('#input-sell-' + item.Id).on('input', function (e) {
-                                    calculateShoppingList(root,result.shoppinglist);
+                                    calculateShoppingList(root, result.shoppinglist);
                                 });
                                 $('#input-buy-' + item.Id).on('input', function (e) {
                                     calculateShoppingList(root, result.shoppinglist);
@@ -217,7 +231,7 @@
                                     '<tr data-item-id="' + root.Item.Id + '"><td>' + htmlName(root.Item) +
                                     '</td><td>' + htmlRarity(root.Item) +
                                     '</td><td>' + '' +
-                                    '</td><td>' + htmlPriceSum(toPrice(0), 'sell' ,root.Item.Id) +
+                                    '</td><td>' + htmlPriceSum(toPrice(0), 'sell', root.Item.Id) +
                                     '</td><td>' + '' +
                                     '</td><td>' + htmlPriceSum(toPrice(0), 'buy', root.Item.Id) +
                                     '</td></tr>');
@@ -293,31 +307,31 @@
     }
 
     function htmlRarity(item) {
-        return '<span class="label label-'+item.RarityName+'">'+item.RarityName+'</span>';
+        return '<span class="label label-' + item.RarityName + '">' + item.RarityName + '</span>';
     }
 
     function htmlNumber(value) {
         return '<div class="label-md rec-right">' + value + '</div>';
     }
 
-    function htmlPriceSum(value,side, id) {
+    function htmlPriceSum(value, side, id) {
         var r = '<div class="label-md pull-left">' +
-                    'Price -10 %'+
-        '</div>'+
-        '<div class="recipe-price label-md rec-right">'+
+                    'Price -10 %' +
+        '</div>' +
+        '<div class="recipe-price label-md rec-right">' +
         '<div class="text-right sum-value" id="sum-fee-' + side + '-' + id + '">' +
-        '</div>'+
-        '<img height="14" src="/img/Coin.png" />'+
-        '</div>'+
-        '<div class="label-md pull-left">'+
-        'Cost'+
-        '</div>'+
-        '<div class="recipe-price label-md rec-right">'+
+        '</div>' +
+        '<img height="14" src="/img/Coin.png" />' +
+        '</div>' +
+        '<div class="label-md pull-left">' +
+        'Cost' +
+        '</div>' +
+        '<div class="recipe-price label-md rec-right">' +
         '<div class="text-right sum-value" id="sum-' + side + '-' + id + '">' +
-        '</div>'+
-        '<img height="14" src="/img/Coin.png" />'+
-        '</div>'+
-        '<div class="label-md pull-left">'+
+        '</div>' +
+        '<img height="14" src="/img/Coin.png" />' +
+        '</div>' +
+        '<div class="label-md pull-left">' +
                    'Profit' +
         '</div>' +
         '<div class="recipe-price label-md rec-right">' +
@@ -325,8 +339,8 @@
         '</div>' +
         '<img height="14" src="/img/Coin.png" />' +
         '</div>';
-        if(side==='sell'){
-            r+='<div class="label-md pull-left">' +
+        if (side === 'sell') {
+            r += '<div class="label-md pull-left">' +
             'Sell-Buy Profit' +
             '</div>' +
             '<div class="recipe-price label-md rec-right">' +
@@ -358,14 +372,14 @@
                 if ($('#uniqueid-' + subItem.UniqueId).is(":visible")) {
                     if (!subItem.IsSumRow) {
                         result.items.push({
-                            sell: subItem.SellPriceTimesNumber * Math.max(1, item.Number),
-                            buy: subItem.BuyPriceTimesNumber * Math.max(1, item.Number),
+                            //sell: subItem.Item.SellPrice * Math.max(1, subItem.RootNumber),
+                            //buy: subItem.Item.BuyPrice * Math.max(1, subItem.RootNumber),
                             item: subItem
                         });
                         if (result.shoppinglist.hasOwnProperty(subItem.Item.Id)) {
-                            result.shoppinglist[subItem.Item.Id].number += subItem.Number;
-                        }else{
-                            result.shoppinglist[subItem.Item.Id] = { number: subItem.Number, item: subItem }
+                            result.shoppinglist[subItem.Item.Id].number += subItem.RootNumber;
+                        } else {
+                            result.shoppinglist[subItem.Item.Id] = { number: subItem.RootNumber, item: subItem }
                         }
                         valueSet = true;
                         foundItem = subItem;
@@ -388,17 +402,6 @@
             if (rs) return rs;
         }
         return null;
-    }
-
-    function makeShoppingList(recipeData) {
-        
-    }
-
-    function traverseData(recipeData, list) {
-        if (recipeData.loaded == true) {
-            var list = [];
-            $(recipeData).data.Recipe
-        }
     }
 </script>
 
