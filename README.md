@@ -1,5 +1,7 @@
-Crossout Market
+Crossout DB
 ===
+
+Crafting Calculator, Price Graphs, Margins and more.
 
 This is the Open Source Project for Crossout Market found here: http://crossoutdb.com/ it provides out of game prices, buy and sell offers as well as price and volume graphs.
 
