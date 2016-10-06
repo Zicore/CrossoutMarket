@@ -15,6 +15,7 @@ namespace Crossout.Web.Models
         public PagerModel Pager { get; set; } = new PagerModel();
         public FilterModel FilterModel { get; set; } = new FilterModel();
         public String CurrentQuery { get; set; } = "";
+        public StatusModel Status { get; set; } = new StatusModel();
 
         public string UriCategory(string category)
         {

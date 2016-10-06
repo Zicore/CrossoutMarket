@@ -58,6 +58,7 @@ namespace Crossout.Web.Modules.Search
                 searchQuery = "";
             }
             
+            DataService db = new DataService(sql);
 
             sql.Open(WebSettings.Settings.CreateDescription());
             
@@ -127,7 +128,10 @@ namespace Crossout.Web.Modules.Search
                 MaxPages = maxPages
             };
             SearchModel searchModel = new SearchModel {SearchResult = searchResult, Pager = pager, FilterModel = filterModel, CurrentQuery = searchQuery};
-            
+
+            var statusModel = db.SelectStatus();
+            searchModel.Status = statusModel;
+
             return View["search", searchModel];
         }
 

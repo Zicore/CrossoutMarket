@@ -115,6 +115,24 @@ namespace Crossout.Web.Services
             return RecipeItem.Create(new RecipeItem {Item = item}, ds);
         }
 
+        public StatusModel SelectStatus()
+        {
+            var ds = DB.SelectDataSet(BuildStatusQuery());
+            var model = new StatusModel
+            {
+                Id = Convert.ToInt32(ds[0][0]),
+                LastUpdate = Convert.ToDateTime(ds[0][1])
+            };
+            
+            return model;
+        }
+
+        public static string BuildStatusQuery()
+        {
+            string query = "SELECT item.id,max(item.datetime) as datetime FROM item;";
+            return query;
+        }
+
         public static string BuildRecipeQuery()
         {
             string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id";

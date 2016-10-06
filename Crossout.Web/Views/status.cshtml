@@ -1,0 +1,11 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.StatusModel>
+    
+@if (!Model.BackendRunning)
+{
+    <div class="well-sm alert-dismissible">
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Warning!</strong> Backend service may not be running. Last Update: @Model.LastUpdate
+        </div>
+    </div>
+}
