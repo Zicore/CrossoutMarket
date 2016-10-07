@@ -26,7 +26,7 @@ namespace Crossout.Web.Services
             var parmeter = new List<Parameter>();
             parmeter.Add(new Parameter { Identifier = "id", Value = id });
 
-            string query = BuildSearchQuery(false, false, false, true, false, false);
+            string query = BuildSearchQuery(false, false, false, true, false, false, false);
 
             var ds = DB.SelectDataSet(query, parmeter);
             
@@ -150,14 +150,14 @@ namespace Crossout.Web.Services
             return query;
         }
 
-        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory)
+        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction)
         {
             string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id";
             if (count)
             {
                 selectColumns = "count(*)";
             }
-            string query = $"SELECT {selectColumns} FROM item LEFT JOIN rarity on rarity.id = item.raritynumber LEFT JOIN category on category.id = item.categorynumber LEFT JOIN type on type.id = item.typenumber LEFT JOIN recipe ON recipe.itemnumber = item.id ";
+            string query = $"SELECT {selectColumns} FROM item LEFT JOIN rarity on rarity.id = item.raritynumber LEFT JOIN category on category.id = item.categorynumber LEFT JOIN type on type.id = item.typenumber LEFT JOIN recipe ON recipe.itemnumber = item.id LEFT JOIN faction ON faction.id = recipe.factionnumber ";
 
             if (!hasId)
             {
@@ -183,6 +183,11 @@ namespace Crossout.Web.Services
             if (hasCategory)
             {
                 query += " AND category.id = @category ";
+            }
+
+            if (hasFaction)
+            {
+                query += " AND faction.id = @faction ";
             }
 
             if (!count)

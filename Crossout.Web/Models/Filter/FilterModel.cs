@@ -10,9 +10,11 @@ namespace Crossout.Web.Models.Filter
     {
         public List<FilterItem> Rarities { get; set; } = new List<FilterItem>();
         public List<FilterItem> Categories { get; set; } = new List<FilterItem>();
+        public List<FilterItem> Factions { get; set; } = new List<FilterItem>();
 
         public FilterItem CurrentRarity { get; set; } = new FilterItem();
         public FilterItem CurrentCategory { get; set; } = new FilterItem();
+        public FilterItem CurrentFaction { get; set; } = new FilterItem();
 
         public FilterItem VerifyRarity(string rarity)
         {
@@ -33,6 +35,18 @@ namespace Crossout.Web.Models.Filter
             {
                 item.Active = true;
                 CurrentCategory = item;
+                return item;
+            }
+            return null;
+        }
+
+        public FilterItem VerifyFaction(string faction)
+        {
+            var item = Factions.FirstOrDefault(x => x.NameUri == faction);
+            if (item != null)
+            {
+                item.Active = true;
+                CurrentFaction = item;
                 return item;
             }
             return null;
