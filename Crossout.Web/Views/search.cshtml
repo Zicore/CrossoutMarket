@@ -12,14 +12,12 @@
 
 @Html.Partial("status", Model.Status)
 
-<div class="container-fluid">
-    <div class="row well well-sm">
-        <div class="row">
-            @Html.Partial("pager", Model)
-        </div>
-        <div class="row">
-            @Html.Partial("filter", Model)
-        </div>
+<div class="container-fluid well">
+    <div class="row">
+        @Html.Partial("pager", Model)
+    </div>
+    <div class="row">
+        @Html.Partial("filter", Model)
     </div>
 </div>
 
@@ -58,14 +56,12 @@
     </tbody>
 </table>
 
-<div class="container-fluid">
-    <div class="row well well-sm">
-        <div class="row">
-            @Html.Partial("pager", Model)
-        </div>
-        <div class="row">
-            @Html.Partial("filter", Model)
-        </div>
+<div class="container-fluid well">
+    <div class="row">
+        @Html.Partial("pager", Model)
+    </div>
+    <div class="row">
+        @Html.Partial("filter", Model)
     </div>
 </div>
 

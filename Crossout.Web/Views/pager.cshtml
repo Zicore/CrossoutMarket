@@ -2,8 +2,8 @@
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.SearchModel>
 
 
-<div class="col-xs-3">
-    <ul class="pagination pagination-sm" style="margin: 4px;">
+<div class="col-md-3">
+    <ul class="pagination pagination-sm" style="margin: 3px;">
         @{
             Model.Pager.CalculatePage(15);
         }

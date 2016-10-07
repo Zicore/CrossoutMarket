@@ -3,8 +3,8 @@
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.SearchModel>
 
 
-<div class="col-sm-3">
-    <ul class="pagination pagination-sm" style="margin: 4px;">
+<div class="col-md-3">
+    <ul class="pagination pagination-sm" style="margin: 3px;">
         <li><a href="~/search/@Model.UriFaction("")">X</a></li>
         @foreach (FilterItem item in Model.FilterModel.Factions)
         {
@@ -13,8 +13,8 @@
     </ul>
 </div>
 
-<div class="col-sm-3">
-    <ul class="pagination pagination-sm" style="margin: 4px;">
+<div class="col-md-3">
+    <ul class="pagination pagination-sm" style="margin: 3px;">
         <li><a href="~/search/@Model.UriRarity("")">X</a></li>
         @foreach (FilterItem item in Model.FilterModel.Rarities)
         {
@@ -23,8 +23,8 @@
     </ul>
 </div>
 
-<div class="col-sm-4">
-    <ul class="pagination pagination-sm" style="margin: 4px;">
+<div class="col-md-4">
+    <ul class="pagination pagination-sm" style="margin: 3px;">
         <li><a href="~/search/@Model.UriCategory("")">X</a></li>
         @foreach (FilterItem item in Model.FilterModel.Categories)
         {
