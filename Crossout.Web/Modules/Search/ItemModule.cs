@@ -42,8 +42,10 @@ namespace Crossout.Web.Modules.Search
 
                 var itemModel = db.SelectItem(id);
                 var recipeModel = db.SelectRecipeModel(itemModel.Item);
+                var statusModel = db.SelectStatus();
 
                 itemModel.Recipe = recipeModel;
+                itemModel.Status = statusModel;
 
                 return View["item", itemModel];
             }

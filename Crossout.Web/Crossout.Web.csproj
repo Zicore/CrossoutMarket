@@ -121,6 +121,7 @@
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\RecipeModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
+    <Compile Include="Models\StatusModel.cs" />
     <Compile Include="Modules\Data\ChartDataModule.cs" />
     <Compile Include="Models\Pagination\PagerModel.cs" />
     <Compile Include="Modules\Search\ItemModule.cs" />
@@ -197,6 +198,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\search.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\status.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="web.config">

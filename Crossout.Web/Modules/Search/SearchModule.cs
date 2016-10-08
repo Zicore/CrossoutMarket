@@ -22,7 +22,7 @@ namespace Crossout.Web.Modules.Search
         {
             Get["/"] = x =>
             {
-                return RouteSearch(null, 0,null,null);
+                return RouteSearch(null, 0,null,null,null);
             };
 
             //Get["/search/{page?}"] = x =>
@@ -38,26 +38,28 @@ namespace Crossout.Web.Modules.Search
             {
                 string rarity = (string)Request.Query.Rarity;
                 string category = (string)Request.Query.Category;
+                string faction = (string)Request.Query.Faction;
                 var query = (string)Request.Query.Query;
 
                 int page = x.page;
-                return RouteSearch(query, page, rarity, category);
+                return RouteSearch(query, page, rarity, category, faction);
             };
 
             Get["/{page:int}"] = x =>
             {
                 int page = x.page;
-                return RouteSearch(null, page, null,null);
+                return RouteSearch(null, page, null,null,null);
             };
         }
 
-        private dynamic RouteSearch(string searchQuery, int page, string rarity, string category)
+        private dynamic RouteSearch(string searchQuery, int page, string rarity, string category, string faction)
         {
             if (searchQuery == null)
             {
                 searchQuery = "";
             }
             
+            DataService db = new DataService(sql);
 
             sql.Open(WebSettings.Settings.CreateDescription());
             
@@ -68,15 +70,16 @@ namespace Crossout.Web.Modules.Search
             FilterModel filterModel = new FilterModel
             {
                 Categories = SelectCategories(sql),
-                Rarities = SelectRarities(sql)
+                Rarities = SelectRarities(sql),
+                Factions = SelectFactions(sql)
             };
 
             var rarityItem = filterModel.VerifyRarity(rarity);
             var categoryItem = filterModel.VerifyCategory(category);
+            var factionItem = filterModel.VerifyFaction(faction);
 
-            
-            
-            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true,false,false, rarityItem != null, categoryItem != null);
+
+            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true,false,false, rarityItem != null, categoryItem != null, factionItem != null);
 
             if (hasFilter)
             {
@@ -96,6 +99,12 @@ namespace Crossout.Web.Modules.Search
                 parmeter.Add(p);
             }
 
+            if (factionItem != null)
+            {
+                var p = new Parameter { Identifier = "@faction", Value = $"{factionItem.Id}" };
+                parmeter.Add(p);
+            }
+
             page = Math.Max(1, page);
             int entriesPerPage = 50;
             int from = entriesPerPage * (page - 1);
@@ -107,7 +116,7 @@ namespace Crossout.Web.Modules.Search
             parmeter.Add(limitb);
 
 
-            var count = GetCount(sql, hasFilter, parmeter, rarityItem, categoryItem);
+            var count = GetCount(sql, hasFilter, parmeter, rarityItem, categoryItem, factionItem);
 
             int maxPages = (int)Math.Ceiling(count / (float)entriesPerPage);
 
@@ -127,15 +136,18 @@ namespace Crossout.Web.Modules.Search
                 MaxPages = maxPages
             };
             SearchModel searchModel = new SearchModel {SearchResult = searchResult, Pager = pager, FilterModel = filterModel, CurrentQuery = searchQuery};
-            
+
+            var statusModel = db.SelectStatus();
+            searchModel.Status = statusModel;
+
             return View["search", searchModel];
         }
 
         // Helper Methods: TODO: Move to seperate class
 
-        public static int GetCount(SqlConnector sql,bool hasFilter, List<Parameter> parameter, FilterItem rarityItem, FilterItem categoryItem)
+        public static int GetCount(SqlConnector sql,bool hasFilter, List<Parameter> parameter, FilterItem rarityItem, FilterItem categoryItem, FilterItem factionItem)
         {
-            string countQuery = DataService.BuildSearchQuery(hasFilter, false, true, false, rarityItem != null, categoryItem != null);
+            string countQuery = DataService.BuildSearchQuery(hasFilter, false, true, false, rarityItem != null, categoryItem != null, factionItem != null);
             var countDS = sql.SelectDataSet(countQuery, parameter);
             int count = 0;
             if (countDS != null && countDS.Count > 0)
@@ -151,6 +163,20 @@ namespace Crossout.Web.Modules.Search
             List<FilterItem> items = new List<FilterItem>();
 
             var ds = sql.SelectDataSet("SELECT id,name FROM Rarity");
+
+            foreach (var row in ds)
+            {
+                items.Add(FilterItem.Create(row));
+            }
+
+            return items;
+        }
+
+        public static List<FilterItem> SelectFactions(SqlConnector sql)
+        {
+            List<FilterItem> items = new List<FilterItem>();
+
+            var ds = sql.SelectDataSet("SELECT id,name FROM Faction");
 
             foreach (var row in ds)
             {
