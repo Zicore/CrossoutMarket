@@ -41,20 +41,20 @@
         function toggle_visibility(id) {
             var e = document.getElementById(id);
             if($(e).is(":visible"))
-                $(e).hide();
+                $(e).slideUp();
             else
-                $(e).show();
+                $(e).slideDown();
         }
 </script>
 
-<div id="chat-spoiler">
-    <button style="display: block; width: 100%; height: 20px;" onclick="toggle_visibility('irc-wrapper');" class="spoilb">
-        <i class="glyphicon glyphicon-option-horizontal"></i>
-    </button>
-</div>
-
 <div id="irc-wrapper" style="display: none;">
     <iframe src="https://kiwiirc.com/client/irc.kiwiirc.com/?nick=CrossoutDB|?#crossoutdb" style="border:0; width:100%; height:450px;"></iframe>
+</div>
+
+<div id="chat-spoiler">
+    <button style="display: block; width: 100%; height: 20px;" onclick="toggle_visibility('irc-wrapper');" class="spoilb">
+        <i class="glyphicon glyphicon-comment"></i>
+    </button>
 </div>
 
 <script>
