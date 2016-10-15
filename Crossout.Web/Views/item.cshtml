@@ -109,7 +109,7 @@
         data: {}
     };
 
-    $.getJSON('http://@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)', function (data) {
+    $.getJSON(location.protocol + '//@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)', function (data) {
         recipeData.data = data;
         recipeData.loaded = true;
     });
