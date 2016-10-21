@@ -16,8 +16,40 @@
     <div class="panel-body">
         <h3>@Model.Item.Name</h3>
 
-        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout">Tweet</a>
-        
+        <div class="share-buttons" style="display: inline;">
+            <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout">Tweet</a>
+
+            <div id="embed-spoiler">
+                <button class="embed-button" id="embed-button">
+                    < > Embed
+                </button>
+            </div>
+
+        </div>
+
+        <div id="embed-wrapper" style="display: none;">
+            <img src="/embed/image/@(Model.Item.Id).png" alt="Embed Image" style="width:300px;height:64px;">
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#embed-button').click(function(e) {
+                    var embed = $('#embed-wrapper');
+                    if (embed.is(":visible")) {
+                        embed.slideUp();
+                    } else {
+                        embed.slideDown();
+                    }
+                });
+            });
+
+
+            $('#reset').click(function (e) {
+                $("#query").val('');
+                $("#form").submit();
+            });
+        </script>
+
         <table class="table table-hover table-condensed">
             <thead>
                 <tr>
