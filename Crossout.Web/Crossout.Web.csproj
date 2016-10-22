@@ -980,10 +980,6 @@
       <Project>{f064beb2-588b-44fd-be7c-1480882a9b21}</Project>
       <Name>Crossout.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Crossout.Recipes\Crossout.Recipes.csproj">
-      <Project>{3190735C-2992-4680-BE8E-3CEE6FADE527}</Project>
-      <Name>Crossout.Recipes</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Zicore.Settings.Json\Zicore.Settings.Json.csproj">
       <Project>{831d83a0-7348-4d8c-9857-7b336f7d91ea}</Project>
       <Name>Zicore.Settings.Json</Name>
