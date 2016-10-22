@@ -76,8 +76,8 @@
 
             $(document).ready(function () {
                 $('#directlinkembed').val(location.origin + "/embed/image/@(Model.Item.Id).png");
-                $('#bbcodeembed').val('[url="' + location.origin + '/item/74"][img]' + location.origin + '/embed/image/@(Model.Item.Id).png[/img][/url]');
-                $('#htmlembed').val('<a href="' + location.origin + '/item/74"><img src="' + location.origin + '/embed/image/@(Model.Item.Id).png"/></a>');
+                $('#bbcodeembed').val('[url="' + location.origin + '/item/@(Model.Item.Id)"][img]' + location.origin + '/embed/image/@(Model.Item.Id).png[/img][/url]');
+                $('#htmlembed').val('<a href="' + location.origin + '/item/@(Model.Item.Id)"><img src="' + location.origin + '/embed/image/@(Model.Item.Id).png"/></a>');
 
                 $('.embed-button').click(function(e) {
                     var embed = $('#embed-wrapper');
