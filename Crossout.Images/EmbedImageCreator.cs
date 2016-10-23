@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using Crossout.Model.Items;
 using System.IO;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Crossout.Images
 {
@@ -18,10 +19,27 @@ namespace Crossout.Images
         string branding;
         string backgroundPath = Path.GetFullPath(@"Sources\background.png");
         string itemImagePath;
+        IList<DataPoint> itemData;
 
-        public EmbedImageCreator(Item imageItem, string imageBranding = "CrossoutDB.com")
+        public EmbedImageCreator(Item imageItem, IList<DataPoint> imageItemData, string imageBranding = "CrossoutDB.com")
         {
             item = imageItem;
+            itemData = imageItemData;
+            List<DataPoint> toRemove = new List<DataPoint>();
+
+            foreach(var it in itemData)
+            {
+                if (it.XValue < UnixTicks(DateTime.Today.AddDays(-7)))
+                {
+                    toRemove.Add(it);
+                }
+            }
+
+            foreach(var removeItem in toRemove)
+            {
+                itemData.Remove(removeItem);
+            }
+
             itemNameString = item.Name;
             sellPriceString = "Sell Price: " + item.FormatSellPrice;
             buyPriceString = "Buy Price: " + item.FormatBuyPrice;
@@ -34,6 +52,7 @@ namespace Crossout.Images
         PointF itemNameLocation = new PointF(80f, 1f);
         PointF sellPriceLocation = new PointF(80f, 20f);
         PointF buyPriceLocation = new PointF(80f, 35f);
+        PointF chartLocation = new PointF(200f, 5f);
         PointF brandingLocation = new PointF(200f, 45f);
 
         Brush RarityColor(int rarityNumber)
@@ -68,6 +87,10 @@ namespace Crossout.Images
         {
             Bitmap bitmap = (Bitmap)Image.FromFile(backgroundPath);//load the image file
             Bitmap overlay = (Bitmap)Image.FromFile(itemImagePath);
+            var chartStream = new MemoryStream();
+            ChartImageCreator cic = new ChartImageCreator();
+            cic.GenerateMinimalChart(itemData, chartStream);
+            
 
             Graphics graphics = Graphics.FromImage(bitmap);
             Font arialFont = new Font("Arial", 8);
@@ -79,10 +102,19 @@ namespace Crossout.Images
             graphics.DrawString(branding, arialFont, Brushes.White, brandingLocation);
 
             graphics.DrawImage(overlay, overlayLocation);
+            graphics.DrawImage(Image.FromStream(chartStream), chartLocation);
 
             Image img = bitmap;
 
             return img;
+        }
+
+        public static double UnixTicks(DateTime dt)
+        {
+            DateTime d1 = new DateTime(1970, 1, 1);
+            DateTime d2 = dt;
+            TimeSpan ts = new TimeSpan(d2.Ticks - d1.Ticks);
+            return ts.TotalMilliseconds;
         }
     }
 }

@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Drawing;
+using System.IO;
 
 namespace Crossout.Images
 {
     class ChartImageCreator
     {
-        public void GenerateMinimalChart(IList<DataPoint> series)
+        public void GenerateMinimalChart(IList<DataPoint> series, Stream outputStream)
         {
             var ch = new Chart();
-            ch.Height = 64;
+            ch.Height = 40;
             ch.Width = 100;
             ch.ChartAreas.Add(new ChartArea());
             ch.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
@@ -34,10 +35,8 @@ namespace Crossout.Images
             {
                 s.Points.Add(pnt);
             }
-
             ch.Series.Add(s);
-
-            ch.SaveImage(@"F:\Projects\CreateImage\CreateImage\pictureout.png", ChartImageFormat.Png);
+            ch.SaveImage(outputStream, ChartImageFormat.Png);
         }
     }
 }
