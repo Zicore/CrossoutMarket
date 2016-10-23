@@ -25,21 +25,6 @@ namespace Crossout.Images
         {
             item = imageItem;
             itemData = imageItemData;
-            List<DataPoint> toRemove = new List<DataPoint>();
-
-            foreach(var it in itemData)
-            {
-                if (it.XValue < UnixTicks(DateTime.Today.AddDays(-7)))
-                {
-                    toRemove.Add(it);
-                }
-            }
-
-            foreach(var removeItem in toRemove)
-            {
-                itemData.Remove(removeItem);
-            }
-
             itemNameString = item.Name;
             sellPriceString = "Sell Price: " + item.FormatSellPrice;
             buyPriceString = "Buy Price: " + item.FormatBuyPrice;
@@ -107,14 +92,6 @@ namespace Crossout.Images
             Image img = bitmap;
 
             return img;
-        }
-
-        public static double UnixTicks(DateTime dt)
-        {
-            DateTime d1 = new DateTime(1970, 1, 1);
-            DateTime d2 = dt;
-            TimeSpan ts = new TimeSpan(d2.Ticks - d1.Ticks);
-            return ts.TotalMilliseconds;
         }
     }
 }
