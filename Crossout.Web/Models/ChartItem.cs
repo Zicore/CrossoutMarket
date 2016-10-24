@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using Newtonsoft.Json;
+using System.Windows.Forms.DataVisualization.Charting;
+using System.Collections.Generic;
 
 namespace Crossout.Web.Models
 {
@@ -73,6 +75,24 @@ namespace Crossout.Web.Models
                 Timestamp = Convert.ToDateTime(row[i++]),
             };
             return item;
+        }
+
+        public static DataPoint CreateForMinimalChart(object[] row)
+        {
+            int i = 0;
+            ChartItem item = new ChartItem
+            {
+                Id = Convert.ToInt32(row[i++]),
+                SellPrice = Convert.ToInt32(row[i++]),
+                BuyPrice = Convert.ToInt32(row[i++]),
+                SellOffers = Convert.ToInt32(row[i++]),
+                BuyOrders = Convert.ToInt32(row[i++]),
+                Timestamp = Convert.ToDateTime(row[i++]),
+            };
+
+            var dataPoint = new DataPoint(UnixTicks(item.Timestamp), item.SellPrice);
+
+            return dataPoint;
         }
 
         public static double UnixTicks(DateTime dt)
