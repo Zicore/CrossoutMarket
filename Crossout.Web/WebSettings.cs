@@ -24,7 +24,7 @@ namespace Crossout.Web
         public int WebserverPort { get; set; } = 80;
         public string DataHost { get; set; } = "localhost";
 
-        public static string Title => "Crossout DB - Crossout Market and Crafting Calcutor";
+        public static string Title => "Crossout DB - Crossout Market and Crafting Calculator";
 
         public void Load()
         {
