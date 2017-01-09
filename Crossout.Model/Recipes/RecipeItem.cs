@@ -60,7 +60,7 @@ namespace Crossout.Model.Recipes
 
         private static decimal CalculatePriceByNumber(decimal price,int number, int id)
         {
-            if (id == 43 || id == 53 || id == 85 || id == 168 || id == 330) // Kupfer x100, Scrap x100, Wires x100, Electronics x100, Taler x100
+            if (id == 43 || id == 53 || id == 85 || id == 168 || id == 330 || id == 337) // Kupfer x100, Scrap x100, Wires x100, Electronics x100, Taler x100, Uran x100
             {
                 return price * number / 100m;
             }
