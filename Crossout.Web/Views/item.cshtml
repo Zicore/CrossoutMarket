@@ -16,8 +16,85 @@
     <div class="panel-body">
         <h3>@Model.Item.Name</h3>
 
-        <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout">Tweet</a>
-        
+        <div class="row"> 
+            <div class="col-md-2 vtop">
+                <a href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout" class="btn btn-xs btn-info" role="button">Tweet</a>
+                <button type="button" class="btn btn-xs btn-default embed-button">
+                    < > Embed
+                </button>
+            </div>
+        </div>
+
+        <div id="embed-wrapper" style="display: none;">
+            <div class="form-group">
+                <div class="row">
+                    <label for="directlinkembed" class="col-md-2 control-label">Direct Link</label>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="directlinkembed" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <label for="bbcodeembed" class="col-md-2 control-label">BB-Code</label>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="bbcodeembed" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <label for="htmlembed" class="col-md-2 control-label">HTML</label>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <input type="text" class="form-control" id="htmlembed" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">
+                    <b>Preview</b>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-2">
+                    <a href="/item/@Model.Item.Id"><img src="/embed/image/@(Model.Item.Id).png" alt="Embed Image" style="width:300px;height:64px;"></a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+
+            $(document).ready(function () {
+                $('#directlinkembed').val(location.origin + "/embed/image/@(Model.Item.Id).png");
+                $('#bbcodeembed').val('[url="' + location.origin + '/item/@(Model.Item.Id)"][img]' + location.origin + '/embed/image/@(Model.Item.Id).png[/img][/url]');
+                $('#htmlembed').val('<a href="' + location.origin + '/item/@(Model.Item.Id)"><img src="' + location.origin + '/embed/image/@(Model.Item.Id).png"/></a>');
+
+                $('.embed-button').click(function(e) {
+                    var embed = $('#embed-wrapper');
+                    if (embed.is(":visible")) {
+                        embed.slideUp();
+                    } else {
+                        embed.slideDown();
+                    }
+                });
+            });
+
+            $('#reset').click(function (e) {
+                $("#query").val('');
+                $("#form").submit();
+            });
+        </script>
+
         <table class="table table-hover table-condensed">
             <thead>
                 <tr>
@@ -109,7 +186,7 @@
         data: {}
     };
 
-    $.getJSON('http://@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)', function (data) {
+    $.getJSON(location.protocol + '//@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)', function (data) {
         recipeData.data = data;
         recipeData.loaded = true;
     });
@@ -287,7 +364,7 @@
     }
 
     function filterResourcePrice(id, value) {
-        if (id === 43 || id === 53 || id === 85 || id === 168) {
+        if (id === 43 || id === 53 || id === 85 || id === 168 || id === 330) {
             return value / 100.0;
         }
         return value;

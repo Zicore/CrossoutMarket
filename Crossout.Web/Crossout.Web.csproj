@@ -105,11 +105,13 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -124,11 +126,13 @@
     <Compile Include="Models\StatusModel.cs" />
     <Compile Include="Modules\Data\ChartDataModule.cs" />
     <Compile Include="Models\Pagination\PagerModel.cs" />
+    <Compile Include="Modules\Embed\EmbedImageModule.cs" />
     <Compile Include="Modules\Search\ItemModule.cs" />
     <Compile Include="Modules\Search\SearchModule.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RazorConfig.cs" />
+    <Compile Include="Responses\ByteArrayResponse.cs" />
     <Compile Include="RootPathProvider.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Startup.cs" />
@@ -916,18 +920,66 @@
     <None Include="Scripts\jquery-2.1.3.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="img\items\318.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\319.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\320.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\321.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\322.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\323.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\324.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\325.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\326.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\327.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\328.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\329.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\330.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\331.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\332.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\items\333.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="SQL\Recipes.sql" />
     <Content Include="SQL\SelectNewestMarket.sql" />
     <Content Include="SQL\SelectNewestMarket2.sql" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Crossout.Images\Crossout.Images.csproj">
+      <Project>{0ea0ee6a-898e-4de1-bb30-355073a5dfd7}</Project>
+      <Name>Crossout.Images</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crossout.Model\Crossout.Model.csproj">
       <Project>{f064beb2-588b-44fd-be7c-1480882a9b21}</Project>
       <Name>Crossout.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crossout.Recipes\Crossout.Recipes.csproj">
-      <Project>{3190735C-2992-4680-BE8E-3CEE6FADE527}</Project>
-      <Name>Crossout.Recipes</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zicore.Settings.Json\Zicore.Settings.Json.csproj">
       <Project>{831d83a0-7348-4d8c-9857-7b336f7d91ea}</Project>
