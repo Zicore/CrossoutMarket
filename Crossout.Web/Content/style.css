@@ -160,3 +160,8 @@ body {
 .sum-neg {
     color: red;
 }
+
+.item-image-big {
+    width:60px;
+    height:60px;
+}
