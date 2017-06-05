@@ -162,7 +162,7 @@ namespace Crossout.Web.Modules.Search
         {
             List<FilterItem> items = new List<FilterItem>();
 
-            var ds = sql.SelectDataSet("SELECT id,name FROM Rarity");
+            var ds = sql.SelectDataSet("SELECT id,name FROM rarity");
 
             foreach (var row in ds)
             {
@@ -176,7 +176,7 @@ namespace Crossout.Web.Modules.Search
         {
             List<FilterItem> items = new List<FilterItem>();
 
-            var ds = sql.SelectDataSet("SELECT id,name FROM Faction");
+            var ds = sql.SelectDataSet("SELECT id,name FROM faction");
 
             foreach (var row in ds)
             {
@@ -190,7 +190,7 @@ namespace Crossout.Web.Modules.Search
         {
             List<FilterItem> items = new List<FilterItem>();
 
-            var ds = sql.SelectDataSet("SELECT id,name FROM Category");
+            var ds = sql.SelectDataSet("SELECT id,name FROM category");
 
             foreach (var row in ds)
             {

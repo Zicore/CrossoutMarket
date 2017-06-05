@@ -129,7 +129,7 @@ namespace Crossout.Web.Services
 
         public static string BuildStatusQuery()
         {
-            string query = "SELECT item.id,max(item.datetime) as datetime FROM item;";
+            string query = "SELECT item.id,item.datetime as datetime FROM item ORDER BY item.datetime DESC LIMIT 1;";
             return query;
         }
 
