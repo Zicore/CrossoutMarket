@@ -56,5 +56,6 @@ namespace Crossout.Web
 
         public static string ApplicationName = "CrossoutWeb";
         public static string FileName = "WebSettings.json";
+        
     }
 }

@@ -30,7 +30,12 @@ namespace Crossout.Images
             buyPriceString = "Buy Price: " + item.FormatBuyPrice;
             branding = imageBranding;
 
-            itemImagePath = Path.GetFullPath(@"img\items\" + item.Id + ".png");
+            itemImagePath = Path.Combine(@"img\items\" + item.Id + ".png");
+
+            if (!File.Exists(itemImagePath))
+            {
+                itemImagePath = Path.GetFullPath(@"img\NoImage.png");
+            }
         }
 
         PointF overlayLocation = new PointF(0f, 0f);
@@ -86,7 +91,7 @@ namespace Crossout.Images
             graphics.DrawString(buyPriceString, arialFont, Brushes.White, buyPriceLocation);
             graphics.DrawString(branding, arialFont, Brushes.White, brandingLocation);
 
-            graphics.DrawImage(overlay, overlayLocation);
+            graphics.DrawImage(overlay, new RectangleF(overlayLocation, new SizeF(64,64)));
             graphics.DrawImage(Image.FromStream(chartStream), chartLocation);
 
             Image img = bitmap;

@@ -35,11 +35,25 @@
                     <div>
                         @if (Model.Depth == 0)
                         {
-                            <a href="~/item/@item.Id"><img class="item-image-big" style="margin-right: 8px;" src="~/img/items/@item.Image" /></a>
+                            if (RootPathHelper.ImageExists(@item.Image))
+                            {
+                                <a href="~/item/@item.Id"><img class="item-image-big" style="margin-right: 8px;" src="~/img/items/@item.Image" /></a>
+                            }
+                            else
+                            {
+                                <a href="~/item/@item.Id"><img class="item-image-big" style="margin-right: 8px;" src="~/img/NoImage.png" /></a>
+                            }
                         }
                         else
                         {
-                            <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image" /></a>
+                            if (RootPathHelper.ImageExists(@item.Image))
+                            {
+                                <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image"/></a>
+                            }
+                            else
+                            {
+                                <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/NoImage.png" /></a>
+                            }
                         }
                     </div>
                 }
@@ -53,8 +67,9 @@
             {
                 if (Model.Depth == 0)
                 {
-                    <a href="~/item/@Model.Item.Id"><h4 style="font-weight: bold;">@Model.Item.Name</h4></a>
-                    <div style="font-weight: bold;">@Model.Item.TypeName</div>
+                    <a href="~/item/@Model.Id"><h4 class="item-title @(Model.Item.Removed > 0 ? "item-removed" : "")">@Model.Item.Name @(Model.Item.Removed > 0 ? "(Removed)" : "")</h4></a>
+                    <div class="item-type">@Model.Item.TypeName</div>
+                    <div class="item-timestamp @(Model.Item.OlderThan(5) ? "item-older-than-5" : "") @(Model.Item.OlderThan(60) ? "item-older-than-60" : "")">@Model.Item.LastUpdateTime</div>
                 }
                 else
                 {

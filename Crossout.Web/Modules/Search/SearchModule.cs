@@ -18,7 +18,7 @@ namespace Crossout.Web.Modules.Search
     {
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
 
-        public SearchModule()
+        public SearchModule(IRootPathProvider rootPathProvider)
         {
             Get["/"] = x =>
             {

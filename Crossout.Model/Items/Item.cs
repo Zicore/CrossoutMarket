@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using Crossout.Model.Formatter;
 using Newtonsoft.Json;
 
@@ -19,6 +20,8 @@ namespace Crossout.Model.Items
 
         public decimal BuyPrice { get; set; }
         
+        public int Removed { get; set; }
+
         public decimal Margin
         {
             get { return  (decimal)(SellPrice - BuyPrice - (SellPrice * 0.1m)); }
@@ -30,7 +33,9 @@ namespace Crossout.Model.Items
         }
 
         public DateTime Timestamp { get; set; }
-        
+
+        public string LastUpdateTime => Timestamp.ToString("yyyy-MM-dd HH:mm:ss");
+
         public int RarityId { get; set; }
         public string RarityName { get; set; }
         public int CategoryId { get; set; }
@@ -38,6 +43,12 @@ namespace Crossout.Model.Items
         public int TypeId { get; set; }
         public int RecipeId { get; set; }
         public string TypeName { get; set; }
+
+        public bool OlderThan(int minutes)
+        {
+            return DateTime.Now - Timestamp > new TimeSpan(0, minutes, 0);
+        }
+
         public string FormatBuyPrice
         {
             get
@@ -71,29 +82,22 @@ namespace Crossout.Model.Items
             int i = 0;
             Item item = new Item
             {
-                Id = Convert.ToInt32(row[i++]),
-                Name = Convert.ToString(row[i++]),
-                SellPrice = Convert.ToDecimal(row[i++]),
-                BuyPrice = Convert.ToDecimal(row[i++]),
-                SellOffers = Convert.ToInt32(row[i++]),
-                BuyOrders = Convert.ToInt32(row[i++]),
-                Timestamp = Convert.ToDateTime(row[i++]),
-                RarityId = Convert.ToInt32(row[i++]),
-                RarityName = Convert.ToString(row[i++]),
-                CategoryId = Convert.ToInt32(row[i++]),
-                CategoryName = Convert.ToString(row[i++]),
-                TypeId = Convert.ToInt32(row[i++]),
-                TypeName = Convert.ToString(row[i++])
+                Id = row[i++].ConvertTo<int>(),
+                Name = row[i++].ConvertTo<string>(),
+                SellPrice = row[i++].ConvertTo<decimal>(),
+                BuyPrice = row[i++].ConvertTo<decimal>(),
+                SellOffers = row[i++].ConvertTo<int>(),
+                BuyOrders = row[i++].ConvertTo<int>(),
+                Timestamp = row[i++].ConvertTo<DateTime>(),
+                RarityId = row[i++].ConvertTo<int>(),
+                RarityName = row[i++].ConvertTo<string>(),
+                CategoryId = row[i++].ConvertTo<int>(),
+                CategoryName = row[i++].ConvertTo<string>(),
+                TypeId = row[i++].ConvertTo<int>(),
+                TypeName = row[i++].ConvertTo<string>(),
+                RecipeId = row[i++].ConvertTo<int>(),
+                Removed = row[i].ConvertTo<int>()
             };
-
-            if (DBNull.Value == row[i])
-            {
-                item.RecipeId = 0;
-            }
-            else
-            {
-                item.RecipeId = Convert.ToInt32(row[i]);
-            }
 
             return item;
         }
@@ -103,12 +107,12 @@ namespace Crossout.Model.Items
             int i = 0;
             Item item = new Item
             {
-                Id = Convert.ToInt32(row[i++]),
-                SellPrice = Convert.ToInt32(row[i++]),
-                BuyPrice = Convert.ToInt32(row[i++]),
-                SellOffers = Convert.ToInt32(row[i++]),
-                BuyOrders = Convert.ToInt32(row[i++]),
-                Timestamp = Convert.ToDateTime(row[i++]),
+                Id = row[i++].ConvertTo<int>(),
+                SellPrice = row[i++].ConvertTo<int>(),
+                BuyPrice = row[i++].ConvertTo<int>(),
+                SellOffers = row[i++].ConvertTo<int>(),
+                BuyOrders = row[i++].ConvertTo<int>(),
+                Timestamp = row[i++].ConvertTo<DateTime>(),
             };
             return item;
         }
