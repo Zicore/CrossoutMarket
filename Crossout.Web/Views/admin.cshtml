@@ -1,0 +1,44 @@
+﻿@{
+    Layout = "layout.cshtml";
+}
+
+@using Crossout.Model.Items
+@using Crossout.Web
+@using Crossout.Web.Auth
+@using Crossout.Web.Models
+
+@Html.Partial("header", null)
+
+@{
+    CrossoutUser user = Context.CurrentUser as CrossoutUser;
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Admin Login</div>
+    <div class="panel-body">
+        @if (Context.CurrentUser == null)
+        {
+            <h3><a href="~/authentication/redirect/google">Login with Google</a></h3>
+
+        }
+        else
+        {
+            <h3>You are logged in as @user.AuthUsername</h3>
+            if (user.IsAdmin)
+            {
+                <h3>You have Admin privileges.</h3>
+            }
+            else
+            {
+                <h4>You have regular user privileges.</h4>
+            }
+
+            <a href="~/admin/logout">Logout</a>
+        }
+        
+        <div class="alert alert-warning">
+            Attention: Login is currently only used for Admin functionality. When you click login, we store your google user id and other information to identify you.
+            There is currently no additional functionality with login.
+        </div>
+    </div>
+</div>

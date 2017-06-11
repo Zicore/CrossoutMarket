@@ -49,8 +49,8 @@
       <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin.Host.HttpListener, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -65,12 +65,16 @@
       <HintPath>..\packages\Microsoft.Owin.Hosting.3.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Nancy, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nancy.1.4.1\lib\net40\Nancy.dll</HintPath>
+    <Reference Include="Nancy, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.1.4.3\lib\net40\Nancy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nancy.Authentication.Forms, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Authentication.Forms.1.4.1\lib\net40\Nancy.Authentication.Forms.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Nancy.Hosting.Self, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -101,11 +105,17 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=104.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
@@ -115,20 +125,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\CrossoutUser.cs" />
+    <Compile Include="Auth\IUserRepository.cs" />
+    <Compile Include="Auth\UserMapper.cs" />
+    <Compile Include="Auth\UserRepository.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Models\ChartItem.cs" />
+    <Compile Include="CrossoutAuthenticationCallbackProvider.cs" />
+    <Compile Include="Models\Charts\ChartItem.cs" />
+    <Compile Include="Models\EditRecipe\EditItem.cs" />
+    <Compile Include="Models\EditRecipe\EditRecipeModel.cs" />
+    <Compile Include="Models\EditRecipe\EditModelSave.cs" />
+    <Compile Include="Models\FactionModel.cs" />
     <Compile Include="Models\Filter\FilterItem.cs" />
     <Compile Include="Models\Filter\FilterModel.cs" />
-    <Compile Include="Models\ChartDataModel.cs" />
+    <Compile Include="Models\Charts\ChartDataModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\RecipeModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\StatusModel.cs" />
+    <Compile Include="Modules\Admin\AdminModule.cs" />
     <Compile Include="Modules\Data\ChartDataModule.cs" />
     <Compile Include="Models\Pagination\PagerModel.cs" />
     <Compile Include="Modules\Embed\EmbedImageModule.cs" />
+    <Compile Include="Modules\Search\EditRecipeModule.cs" />
     <Compile Include="Modules\Search\ItemModule.cs" />
     <Compile Include="Modules\Search\SearchModule.cs" />
+    <Compile Include="NancyExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RazorConfig.cs" />
@@ -143,6 +165,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Content\bootstrap-select.css.map" />
     <None Include="Content\bootstrap-theme.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -171,6 +194,9 @@
     <None Include="Views\chart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Views\editpart.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Views\footer.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -178,6 +204,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\index.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\edit.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\item.cshtml">
@@ -201,6 +230,9 @@
     <None Include="Views\pager.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Views\admin.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Views\search.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -213,6 +245,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Content\bootstrap-select.css" />
+    <Content Include="Content\bootstrap-select.min.css" />
     <Content Include="Content\bootstrap-theme.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1239,11 +1273,20 @@
     <Content Include="img\NoImage.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="SQL\Recipes.sql" />
     <Content Include="SQL\SelectNewestMarket.sql" />
     <Content Include="SQL\SelectNewestMarket2.sql" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SimpleAuthentication\Code\Nancy.SimpleAuthentication\Nancy.SimpleAuthentication.csproj">
+      <Project>{94b8d947-6cad-42c3-b328-f369ce7bc6c0}</Project>
+      <Name>Nancy.SimpleAuthentication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SimpleAuthentication\Code\SimpleAuthentication.Core\SimpleAuthentication.Core.csproj">
+      <Project>{f94e2140-8262-4463-8054-0b1dce8abe03}</Project>
+      <Name>SimpleAuthentication.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crossout.Images\Crossout.Images.csproj">
       <Project>{0ea0ee6a-898e-4de1-bb30-355073a5dfd7}</Project>
       <Name>Crossout.Images</Name>

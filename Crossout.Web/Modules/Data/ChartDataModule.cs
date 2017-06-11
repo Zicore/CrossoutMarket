@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Crossout.Web.Models;
+using Crossout.Web.Models.Charts;
 using Nancy;
 using ZicoreConnector.Zicore.Connector.Base;
 

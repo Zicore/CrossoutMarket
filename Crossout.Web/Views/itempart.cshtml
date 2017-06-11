@@ -1,4 +1,5 @@
-﻿@using Crossout.Web
+﻿@using System.Linq
+@using Crossout.Web
 @using Crossout.Model.Items;
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Model.Items.Item>
 <tr>
@@ -20,7 +21,11 @@
             </div>
             <div>
                 <a href="~/item/@Model.Id"><h4 class="item-title @(Model.Removed > 0 ? "item-removed" : "")">@Model.Name @(Model.Removed > 0 ? "(Removed)" : "")</h4></a>
-                <div class="item-type">@Model.TypeName</div>
+                <div class="item-faction">@Model.Faction</div>
+                <span class="item-type">@Model.TypeName</span>
+                @if(Context.CurrentUser != null && Context.CurrentUser.Claims.Contains("Admin")){ 
+                    <a href="~/edit/@Model.Id">Edit</a>
+                }
             </div>
         </div>
     </td>

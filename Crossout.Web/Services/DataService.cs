@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Crossout.Model;
 using Crossout.Model.Items;
 using Crossout.Model.Recipes;
 using Crossout.Web.Models;
+using Crossout.Web.Models.EditRecipe;
 using Crossout.Web.Modules.Search;
 using ZicoreConnector.Zicore.Connector.Base;
 
@@ -127,6 +129,95 @@ namespace Crossout.Web.Services
             return model;
         }
 
+        public List<Item> SelectAllActiveItems()
+        {
+            return Item.CreateAllItemsForEdit(DB.SelectDataSet(BuildAllActiveItemsQuery()));
+        }
+
+        public List<FactionModel> SelectAllFactions()
+        {
+            return CreateAllFactionsForEdit(DB.SelectDataSet(BuildFactionsQuery()));
+        }
+
+        public static List<FactionModel> CreateAllFactionsForEdit(List<object[]> data)
+        {
+            List<FactionModel> items = new List<FactionModel>();
+            foreach (var row in data)
+            {
+                FactionModel item = new FactionModel
+                {
+                    Id = row[0].ConvertTo<int>(),
+                    Name = row[1].ConvertTo<string>()
+                };
+                items.Add(item);
+            }
+            return items;
+        }
+
+        public void SaveRecipe(EditModelSave editModelSave, List<EditItem> items)
+        {
+            if (editModelSave.RecipeNumber == 0)
+            {
+                var result = DB.Insert("recipe", new string[] {"itemnumber", "factionnumber"}, new object[] { editModelSave.ItemNumber, editModelSave.FactionNumber });
+                editModelSave.RecipeNumber = (int)result.LastInsertedId;
+            }
+
+            foreach (var item in items)
+            {
+                if (item.OldId > 0)
+                {
+                    if (item.Id > 0)
+                    {
+                        // New Item Id is above 0 so we update this item
+                        List<Parameter> parameters = new List<Parameter>();
+                        parameters.Add(new Parameter
+                        {
+                            Identifier = "@recipenumberWhere",
+                            Value = editModelSave.RecipeNumber
+                        });
+                        parameters.Add(new Parameter {Identifier = "@recipeitemnumber", Value = item.RecipeItemNumber});
+
+                        var rs = DB.Update("recipeitem",
+                            new string[] {"itemnumber", "number"},
+                            new object[] {item.Id, item.Number},
+                            "recipenumber = @recipenumberWhere AND recipeitem.id = @recipeitemnumber",
+                            parameters);
+                    }
+                    else
+                    {
+                        // New Item Id is 0 (or below) we delete this item
+                        List<Parameter> parameters = new List<Parameter>();
+                        parameters.Add(new Parameter
+                        {
+                            Identifier = "@recipenumberWhere",
+                            Value = editModelSave.RecipeNumber
+                        });
+                        parameters.Add(new Parameter {Identifier = "@recipeitemnumber", Value = item.RecipeItemNumber});
+                        var result =
+                            DB.ExecuteSQL(
+                                "DELETE FROM recipeitem WHERE recipenumber = @recipenumberWhere AND recipeitem.id = @recipeitemnumber;",
+                                parameters);
+                    }
+                }
+                if (item.OldId == 0)
+                {
+                    if (item.Id > 0 && item.Number > 0)
+                    {
+                        DB.Insert("recipeitem", new string[] {"recipenumber", "itemnumber", "number"},
+                            new object[] {editModelSave.RecipeNumber, item.Id, item.Number});
+                    }
+                }
+            }
+
+            if (editModelSave.OldFactionNumber > 0 && editModelSave.FactionNumber > 0 && editModelSave.FactionNumber != editModelSave.OldFactionNumber)
+            {
+                List<Parameter> parameters = new List<Parameter>();
+                parameters.Add(new Parameter { Identifier = "@factionnumber", Value = editModelSave.FactionNumber });
+                parameters.Add(new Parameter { Identifier = "@recipenumber", Value = editModelSave.RecipeNumber });
+                var result = DB.ExecuteSQL("UPDATE recipe SET recipe.factionnumber = @factionnumber WHERE recipe.id = @recipenumber", parameters);
+            }
+        }
+
         public static string BuildStatusQuery()
         {
             string query = "SELECT item.id,item.datetime as datetime FROM item ORDER BY item.datetime DESC LIMIT 1;";
@@ -135,7 +226,7 @@ namespace Crossout.Web.Services
 
         public static string BuildRecipeQuery()
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber";
             string query =
                 $"SELECT {selectColumns} " +
                 "FROM recipe " +
@@ -152,7 +243,7 @@ namespace Crossout.Web.Services
 
         public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction)
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,faction.id,faction.name";
             if (count)
             {
                 selectColumns = "count(*)";
@@ -200,6 +291,18 @@ namespace Crossout.Web.Services
                 query += "LIMIT @from,@to";
             }
 
+            return query;
+        }
+
+        public static string BuildAllActiveItemsQuery()
+        {
+            string query = "SELECT item.id,item.name FROM item where removed = 0 ORDER BY item.name ASC,item.id ASC;";
+            return query;
+        }
+
+        public static string BuildFactionsQuery()
+        {
+            string query = "SELECT faction.id, faction.name FROM faction ORDER BY id ASC;";
             return query;
         }
     }
