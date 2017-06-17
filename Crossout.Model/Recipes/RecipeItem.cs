@@ -29,9 +29,9 @@ namespace Crossout.Model.Recipes
             {
                 var number = Number;
                 RecipeItem p = Parent;
-                while(p != null)
+                while (p != null)
                 {
-                    number = number* Math.Max(p.Number,1);
+                    number = number * Math.Max(p.Number, 1);
                     p = p.Parent;
                 }
                 return number;
@@ -43,7 +43,7 @@ namespace Crossout.Model.Recipes
 
         public Item Item { get; set; }
         public int Number { get; set; }
-        
+
         public decimal SumBuy { get; set; }
         public decimal SumSell { get; set; }
 
@@ -58,9 +58,20 @@ namespace Crossout.Model.Recipes
         public string FormatBuyPriceTimesNumber => PriceFormatter.FormatPrice(BuyPriceTimesNumber);
         public string FormatSellPriceTimesNumber => PriceFormatter.FormatPrice(SellPriceTimesNumber);
 
-        private static decimal CalculatePriceByNumber(decimal price,int number, int id)
+        static readonly HashSet<int> ResourceNumbers = new HashSet<int>()
         {
-            if (id == 43 || id == 53 || id == 85 || id == 168 || id == 330 || id == 337) // Kupfer x100, Scrap x100, Wires x100, Electronics x100, Taler x100, Uran x100
+            43, //Copper x100
+            53 , //Scrap x100
+            85, //Wires x100
+            119, //Coupons x100
+            168, //Electronics x100
+            330, //Taler x100
+            337  //Uran x100
+        };
+
+        private static decimal CalculatePriceByNumber(decimal price, int number, int id)
+        {
+            if (ResourceNumbers.Contains(id)) 
             {
                 return price * number / 100m;
             }
@@ -166,7 +177,7 @@ namespace Crossout.Model.Recipes
             }
             i++;
             recipeItem.Number = Convert.ToInt32(row[i++]);
-            
+
             recipeItem.Id = Convert.ToInt32(row[i]);
             recipeItem.Item = item;
             return recipeItem;

@@ -363,8 +363,19 @@
         $('#sum-sell-buy-diff-' + root.Item.Id).removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).text(toFixed(sellBuyProfit));
     }
 
+    var ResourceNumbers = 
+    {
+        43:true, //Copper x100
+        53:true , //Scrap x100
+        85:true, //Wires x100
+        119:true, //Coupons x100
+        168:true, //Electronics x100
+        330:true, //Taler x100
+        337: true  //Uran x100
+    };
+    
     function filterResourcePrice(id, value) {
-        if (id === 43 || id === 53 || id === 85 || id === 168 || id === 330 || id === 337) {
+        if (id in ResourceNumbers) {
             return value / 100.0;
         }
         return value;
