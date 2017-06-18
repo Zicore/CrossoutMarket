@@ -197,3 +197,7 @@ body {
 .item-older-than-60 {
     color: firebrick;
 }
+
+.dataTables_paginate {
+    text-align: left;
+}

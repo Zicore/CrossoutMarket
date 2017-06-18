@@ -195,10 +195,10 @@ namespace Crossout.Web.Services
                 query += "ORDER BY item.id asc, item.name asc ";
             }
 
-            if (limit)
-            {
-                query += "LIMIT @from,@to";
-            }
+            //if (limit)
+            //{
+            //    query += "LIMIT @from,@to";
+            //}
 
             return query;
         }
