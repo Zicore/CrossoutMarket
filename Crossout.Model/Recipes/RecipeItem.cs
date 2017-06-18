@@ -38,10 +38,12 @@ namespace Crossout.Model.Recipes
             }
         }
 
+        public int FactionNumber { get; set; }
+
         public int Depth { get; set; } = 0;
         public int MaxDepth { get; set; }
 
-        public Item Item { get; set; }
+        public Item Item { get; set; } = new Item();
         public int Number { get; set; }
 
         public decimal SumBuy { get; set; }
@@ -152,19 +154,19 @@ namespace Crossout.Model.Recipes
             RecipeItem recipeItem = new RecipeItem();
             Item item = new Item
             {
-                Id = Convert.ToInt32(row[i++]),
-                Name = Convert.ToString(row[i++]),
-                SellPrice = Convert.ToInt32(row[i++]),
-                BuyPrice = Convert.ToInt32(row[i++]),
-                SellOffers = Convert.ToInt32(row[i++]),
-                BuyOrders = Convert.ToInt32(row[i++]),
-                Timestamp = Convert.ToDateTime(row[i++]),
-                RarityId = Convert.ToInt32(row[i++]),
-                RarityName = Convert.ToString(row[i++]),
-                CategoryId = Convert.ToInt32(row[i++]),
-                CategoryName = Convert.ToString(row[i++]),
-                TypeId = Convert.ToInt32(row[i++]),
-                TypeName = Convert.ToString(row[i++])
+                Id = row[i++].ConvertTo<int>(),
+                Name = row[i++].ConvertTo<string>(),
+                SellPrice = row[i++].ConvertTo<int>(),
+                BuyPrice = row[i++].ConvertTo<int>(),
+                SellOffers = row[i++].ConvertTo<int>(),
+                BuyOrders = row[i++].ConvertTo<int>(),
+                Timestamp = row[i++].ConvertTo<DateTime>(),
+                RarityId =row[i++].ConvertTo<int>(),
+                RarityName = row[i++].ConvertTo<string>(),
+                CategoryId = row[i++].ConvertTo<int>(),
+                CategoryName = row[i++].ConvertTo<string>(),
+                TypeId = row[i++].ConvertTo<int>(),
+                TypeName = row[i++].ConvertTo<string>()
             };
 
             if (DBNull.Value == row[i])
@@ -173,12 +175,13 @@ namespace Crossout.Model.Recipes
             }
             else
             {
-                item.RecipeId = Convert.ToInt32(row[i]);
+                item.RecipeId = row[i].ConvertTo<int>();
             }
             i++;
-            recipeItem.Number = Convert.ToInt32(row[i++]);
+            recipeItem.Number = row[i++].ConvertTo<int>();
 
-            recipeItem.Id = Convert.ToInt32(row[i]);
+            recipeItem.Id = row[i++].ConvertTo<int>();
+            recipeItem.FactionNumber = row[i].ConvertTo<int>();
             recipeItem.Item = item;
             return recipeItem;
         }

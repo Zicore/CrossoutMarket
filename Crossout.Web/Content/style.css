@@ -169,11 +169,17 @@ body {
 
 .item-type {
     font-weight: bold;
+    font-size: 14px;
+}
+
+.item-faction {
+    font-weight: bold;
+    font-size: 14px;
 }
 
 .item-image-search {
-    width:48px;
-    height:48px;
+    width:56px;
+    height:56px;
 }
 
 .item-image-big {

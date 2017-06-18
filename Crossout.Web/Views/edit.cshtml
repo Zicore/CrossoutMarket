@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "layout.cshtml";
+}
+
+@using System.Collections.Generic
+@using System.Linq
+@using Crossout.Model.Recipes
+@using Crossout.Web
+@using Crossout.Web.Models
+@using Crossout.Web.Models.EditRecipe
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.ItemModel>
+
+@Html.Partial("header", null)
+
+@Html.Partial("status", Model.Status)
+
+<div class="panel">
+    <div class="panel-body">
+        <form action="~/edit/@Model.Item.Id" method="post">
+            <div class="row">
+                <h2><a href="~/edit/@Model.Item.Id">@Model.Item.Name (Item: @Model.Item.Id, Recipe: @Model.Item.RecipeId)</a></h2>
+                <input type="hidden" value="@Model.SelectedFaction.Id" name="OldFactionNumber" />
+                <input type="hidden" value="@Model.Item.Id" name="ItemNumber" />
+                <label>@Model.SelectedFaction.Name (@Model.SelectedFaction.Id)</label>
+                <select class="selectpicker" name="FactionNumber" size="1">
+                    @foreach (var item in Model.AllFactions)
+                    {
+                        <option @(Model.SelectedFaction.Id == item.Id ? "selected='selected'" : "") value="@item.Id">@item.Name (@item.Id)</option>
+                    }
+                </select>
+            </div>
+
+            <div class="row">
+
+                <input type="hidden" value="@Model.Item.RecipeId" name="RecipeNumber" />
+                <table class="table table-hover table-condensed" id="shopping-list">
+                    <thead>
+                        <tr class="tr_clone">
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th class="text-right">
+                                Number
+                            </th>
+                            <th></th>
+                            <th>
+                                New Item
+                            </th>
+                            <th>
+                                New Number
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                            int i = 0;
+                        }
+                        @foreach (RecipeItem item in Model.Recipe.Recipe.Ingredients)
+                        {
+                            @Html.Partial("editpart", new EditRecipeModel { ItemModel = Model, RecipeItem = item, Index = i })
+                            i++;
+                        }
+
+                        @for (int j = 0; j < 20 - Model.Recipe.Recipe.Ingredients.Count; j++)
+                        {
+                            @Html.Partial("editpart", new EditRecipeModel { ItemModel = Model, RecipeItem = new RecipeItem(), Index = i })
+                            i++;
+                        }
+
+                    </tbody>
+                </table>
+                <button class="btn btn-default" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

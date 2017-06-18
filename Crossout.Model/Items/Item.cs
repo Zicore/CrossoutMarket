@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using Crossout.Model.Formatter;
@@ -9,7 +10,7 @@ namespace Crossout.Model.Items
     public class Item
     {
         public int Id { get; set; }
-        
+
         public string Name { get; set; }
 
         public int SellOffers { get; set; }
@@ -19,14 +20,14 @@ namespace Crossout.Model.Items
         public int BuyOrders { get; set; }
 
         public decimal BuyPrice { get; set; }
-        
+
         public int Removed { get; set; }
 
         public decimal Margin
         {
-            get { return  (decimal)(SellPrice - BuyPrice - (SellPrice * 0.1m)); }
+            get { return (decimal)(SellPrice - BuyPrice - (SellPrice * 0.1m)); }
         }
-        
+
         public string FormatMargin
         {
             get { return PriceFormatter.FormatPrice(Margin); }
@@ -44,6 +45,9 @@ namespace Crossout.Model.Items
         public int RecipeId { get; set; }
         public string TypeName { get; set; }
 
+        public int FactionNumber { get; set; }
+        public string Faction { get; set; }
+
         public bool OlderThan(int minutes)
         {
             return DateTime.Now - Timestamp > new TimeSpan(0, minutes, 0);
@@ -56,7 +60,7 @@ namespace Crossout.Model.Items
                 return PriceFormatter.FormatPrice(BuyPrice);
             }
         }
-        
+
         public string FormatSellPrice
         {
             get
@@ -64,13 +68,13 @@ namespace Crossout.Model.Items
                 return PriceFormatter.FormatPrice(SellPrice);
             }
         }
-        
+
         public string Image
         {
             get { return $"{Id}.png"; }
         }
-        
-        
+
+
 
         public override string ToString()
         {
@@ -96,7 +100,9 @@ namespace Crossout.Model.Items
                 TypeId = row[i++].ConvertTo<int>(),
                 TypeName = row[i++].ConvertTo<string>(),
                 RecipeId = row[i++].ConvertTo<int>(),
-                Removed = row[i].ConvertTo<int>()
+                Removed = row[i++].ConvertTo<int>(),
+                FactionNumber = row[i++].ConvertTo<int>(),
+                Faction = row[i].ConvertTo<string>(),
             };
 
             return item;
@@ -115,6 +121,21 @@ namespace Crossout.Model.Items
                 Timestamp = row[i++].ConvertTo<DateTime>(),
             };
             return item;
+        }
+
+        public static List<Item> CreateAllItemsForEdit(List<object[]> data)
+        {
+            List<Item> items = new List<Item>();
+            foreach (var row in data)
+            {
+                Item item = new Item
+                {
+                    Id = row[0].ConvertTo<int>(),
+                    Name = row[1].ConvertTo<string>()
+                };
+                items.Add(item);
+            }
+            return items;
         }
     }
 }

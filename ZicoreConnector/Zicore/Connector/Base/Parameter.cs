@@ -4,6 +4,17 @@ namespace ZicoreConnector.Zicore.Connector.Base
 {
     public class Parameter
     {
+        public Parameter()
+        {
+            
+        }
+
+        public Parameter(string identifier, object value)
+        {
+            this.Identifier = identifier;
+            this.Value = value;
+        }
+
         private String _identifier;
         private object _value;
 
