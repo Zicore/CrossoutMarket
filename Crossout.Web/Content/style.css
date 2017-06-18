@@ -204,6 +204,15 @@ body {
     color: firebrick;
 }
 
+/* css magic to align like how we want to have it */
 .dataTables_paginate {
-    text-align: left;
+    text-align: left !important;
+}
+
+.dataTables_length {
+    text-align: right !important;
+}
+
+.dataTables_info {
+    text-align: right !important;
 }

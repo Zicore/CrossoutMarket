@@ -1272,6 +1272,9 @@
     <Content Include="img\NoImage.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="SQL\Recipes.sql" />
     <Content Include="SQL\SelectNewestMarket.sql" />
