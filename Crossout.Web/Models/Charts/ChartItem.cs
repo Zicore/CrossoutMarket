@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Globalization;
-using Newtonsoft.Json;
 using System.Windows.Forms.DataVisualization.Charting;
-using System.Collections.Generic;
 
-namespace Crossout.Web.Models
+namespace Crossout.Web.Models.Charts
 {
     public class ChartItem
     {

@@ -2,6 +2,8 @@
 using Crossout.Web;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Infrastructure;
 using NLog;
 using Owin;
 

@@ -62,5 +62,7 @@ namespace ZicoreConnector.Zicore.Connector.Base
         /// Is set whenever a broader exception interrupted a loop to commit multiple rows
         /// </summary>
         public bool BulkError { get; set; } = false;
+
+        public long LastInsertedId { get; set; }
     }
 }

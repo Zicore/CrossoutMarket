@@ -76,7 +76,7 @@ namespace ZicoreConnector.Zicore.Connector.Base
             return connection;
         }
 
-        public QueryResult ExecuteSQL(String sql)
+        public QueryResult ExecuteSQL(String sql, List<Parameter> parameter = null)
         {
             QueryResult result = QueryResult.Default;
             try
@@ -87,6 +87,15 @@ namespace ZicoreConnector.Zicore.Connector.Base
 
                 DbCommand command = connection.CreateCommand();
                 command.CommandText = sql;
+
+                if (parameter != null)
+                {
+                    for (int i = 0; i < parameter.Count; i++)
+                    {
+                        var p = parameter[i];
+                        command.AddParameterWithValue(p.Identifier, p.Value);
+                    }
+                }
 
                 result = new QueryResult(command.ExecuteNonQuery());
                 connection.Close();
@@ -139,7 +148,7 @@ namespace ZicoreConnector.Zicore.Connector.Base
                     command.AddParameterWithValue(columns[i], arguments[i]);
                 }
 
-                result = new QueryResult(command.ExecuteNonQuery()) { Data = arguments, Query = sql };
+                result = new QueryResult(command.ExecuteNonQuery()) { Data = arguments, Query = sql, LastInsertedId = GetLastInsertedId(command) };
             }
             catch (Exception ex)
             {
@@ -150,6 +159,16 @@ namespace ZicoreConnector.Zicore.Connector.Base
                 connection.Close();
             }
             return result;
+        }
+
+        public long GetLastInsertedId(DbCommand cmd)
+        {
+            if (ConnectionType == ConnectionType.MySql)
+            {
+                var mysqlCommand = (MySqlCommand) cmd;
+                return mysqlCommand.LastInsertedId;
+            }
+            return 0;
         }
 
         public void CreateTableFromDefinition(String definition, String table)
@@ -196,6 +215,7 @@ namespace ZicoreConnector.Zicore.Connector.Base
                         }
                         result.Add(new QueryResult(command.ExecuteNonQuery()) { Data = argument, Query = sql }); // Daten zuweisen die versucht worden sind zu übermitteln
                     }
+
                     transaction.Commit();
                 }
 
@@ -211,29 +231,34 @@ namespace ZicoreConnector.Zicore.Connector.Base
             return result;
         }
 
-        public QueryListResult UpdateBulk(DbConnection connection, DbTransaction transaction, string table, string[] columns, List<Object[]> arguments, string where)
+        public QueryListResult UpdateBulk(DbConnection connection, DbTransaction transaction, string table, string[] columns, List<Object[]> values, string where, List<Parameter> parameter = null)
         {
             var result = new QueryListResult();
-            String sql = string.Empty;
             try
             {
                 DbCommand command = connection.CreateCommand();
 
-                sql = GenerateUpdate(table, columns, where);
+                var sql = GenerateUpdate(table, columns, @where);
 
                 command.CommandText = sql;
                 command.Transaction = transaction;
 
-                foreach (var argument in arguments)
+                for (int j = 0; j < values.Count; j++)
                 {
+                    var value = values[j];
                     for (int i = 0; i < columns.Length; i++)
                     {
-                        command.AddParameterWithValue(columns[i], argument[i]);
+                        command.AddParameterWithValue(columns[i], value[i]);
                     }
 
-                    result.Add(new QueryResult(command.ExecuteNonQuery()) { Data = argument, Query = sql });
+                    if (parameter != null)
+                    {
+                        var p = parameter[j];
+                        command.AddParameterWithValue(p.Identifier, p.Value);
+                    }
+                    result.Add(new QueryResult(command.ExecuteNonQuery()) { Data = value, Query = sql });
                 }
-                //transaction.Commit();
+
                 return result;
             }
             catch (Exception ex)
@@ -248,7 +273,7 @@ namespace ZicoreConnector.Zicore.Connector.Base
             return Insert(table, columns, arguments, String.Empty);
         }
 
-        public QueryResult Update(string table, string[] columns, object[] arguments, string where)
+        public QueryResult Update(string table, string[] columns, object[] arguments, string where, List<Parameter> parameter = null)
         {
             QueryResult result;
             DbConnection connection = CreateConnection();
@@ -263,6 +288,15 @@ namespace ZicoreConnector.Zicore.Connector.Base
                 for (int i = 0; i < columns.Length; i++)
                 {
                     command.AddParameterWithValue(columns[i], arguments[i]);
+                }
+
+                if (parameter != null)
+                {
+                    for (int i = 0; i < parameter.Count; i++)
+                    {
+                        var p = parameter[i];
+                        command.AddParameterWithValue(p.Identifier, p.Value);
+                    }
                 }
 
                 result = new QueryResult(command.ExecuteNonQuery()) { Data = arguments, Query = sql };

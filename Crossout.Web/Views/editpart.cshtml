@@ -1,0 +1,34 @@
+﻿@using Crossout.Model.Recipes
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.EditRecipe.EditRecipeModel>
+@{
+    RecipeItem recipe = Model.RecipeItem;
+}
+<tr>
+    <td>
+        @recipe.Item.Id
+        
+    </td>
+    <td>
+        @recipe.Item.Name
+    </td>
+    <td class="text-right">
+        @recipe.Number
+    </td>
+
+    <td></td>
+
+    <td>
+        <input type="hidden" value="@recipe.Item.Id" name="OldId[@Model.Index]"/>
+        <input type="hidden" value="@recipe.Id" name="RecipeItemNumber[@Model.Index]" />
+        <select class="selectpicker" name="Id[@Model.Index]" data-live-search="true" size="1">
+            <option value="0">None</option>
+            @foreach (var item in Model.ItemModel.AllItems)
+            {
+                <option @(recipe.Item.Id == item.Id ? "selected='selected'" : "") value="@item.Id">@item.Name (@item.Id)</option>
+            }
+        </select>
+    </td>
+    <td>
+        <input class="form-control" type="text" name="Number[@Model.Index]" value="@recipe.Number"/>
+    </td>
+</tr>

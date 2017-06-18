@@ -13,6 +13,7 @@ using System.Drawing;
 using Crossout.Web.Responses;
 using Crossout.Web.Models;
 using System.Windows.Forms.DataVisualization.Charting;
+using Crossout.Web.Models.Charts;
 
 namespace Crossout.Web.Modules.Data
 {
