@@ -12,10 +12,8 @@
 
 @Html.Partial("status", Model.Status)
 
-<div class="well well-sm">
-    <div class="row">
-        @Html.Partial("filter", Model)
-    </div>
+<div class="container-fluid well well-sm">
+    @Html.Partial("filter", Model)
 </div>
 
 <table id="ItemTable" class="table table-striped table-hover table-condensed">
@@ -56,26 +54,23 @@
     </tbody>
 </table>
 
-<div class="well well-sm">
-    <div class="row">
-        @Html.Partial("filter", Model)
-    </div>
+<div class="container-fluid well well-sm">
+    @Html.Partial("filter", Model)
 </div>
 
 <script>
     $(document).ready(function () {
 
         var domOption =
-            "<'container-fluid well well-sm'<'row'<'col-sm-6'p><'col-sm-4'f><'col-sm-2'l>>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'container-fluid well well-sm'<'row'<'col-sm-6'p><'col-sm-4'i><'col-sm-2'l>>>";
+            "<'container-fluid'<'row'<'col-sm-6'p><'col-sm-4'f><'col-sm-2'l>>>" +
+            "tr" +
+            "<'container-fluid'<'row'<'col-sm-6'p><'col-sm-4'i><'col-sm-2'l>>>";
 
         $.fn.DataTable.ext.pager.numbers_length = 10;
 
         $('#ItemTable').DataTable({
             paging: true,
             searching: true,
-            pageLength: 8,
             order: [[3, "desc"]],
             lengthMenu: [[10,20, 50, -1], [10,20, 50, "All"]],
             pagingType: "full_numbers",
