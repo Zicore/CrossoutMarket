@@ -94,6 +94,31 @@
                 $("#form").submit();
             });
         </script>
+        
+        @if (Model.Item.Stats != null)
+        {
+            <table class="table table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>
+                        Stat
+                    </th>
+                    <th>
+                        @Model.Item.Name
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.Item.Stats.SortedStats)
+                {
+                    <tr>
+                        <td>@item.Stat.Name</td>
+                        <td>@item.Value</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
 
         <table class="table table-hover table-condensed">
             <thead>

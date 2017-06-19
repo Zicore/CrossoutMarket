@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,16 @@ namespace Crossout.Data
                     }
                 }
             }
+
+            LoadAttributes();
+        }
+
+        private void LoadAttributes()
+        {
+            foreach (var stat in Items)
+            {
+                stat.Value.LoadAttributes();
+            }
         }
 
         private void AddMatch(string line)
@@ -73,7 +84,7 @@ namespace Crossout.Data
         private void SetField(PartStats stats,string field, string value)
         {
             var propertyInfo = typeof(PartStats).GetProperty(field);
-            object typedValue = Convert.ChangeType(value, propertyInfo.PropertyType);
+            object typedValue = Convert.ChangeType(value, propertyInfo.PropertyType, CultureInfo.InvariantCulture);
             propertyInfo.SetValue(stats, typedValue);
         }
     }

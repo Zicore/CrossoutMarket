@@ -46,10 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SingleStat.cs" />
     <Compile Include="PartStats.cs" />
     <Compile Include="PartStatsCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReverseItemLookup.cs" />
+    <Compile Include="StatAttribute.cs" />
     <Compile Include="StatsReader.cs" />
   </ItemGroup>
   <ItemGroup>

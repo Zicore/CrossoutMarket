@@ -18,9 +18,42 @@ namespace Crossout.Data
             this.Key = key;
         }
 
+        public void CreateStatList()
+        {
+            
+        }
+
+        public Dictionary<string,SingleStat> Stats { get; } = new Dictionary<string, SingleStat>();
+        public List<SingleStat> SortedStats { get; } = new List<SingleStat>();
+
+        public void LoadAttributes()
+        {
+            Stats.Clear();
+            SortedStats.Clear();
+
+            var properties = this.GetType().GetProperties();
+            foreach (var p in properties)
+            {
+                var attributes = p.GetCustomAttributes(typeof(StatAttribute),false);
+                if (attributes.Length > 0)
+                {
+                    var statAttrib = (StatAttribute) attributes[0];
+                    if (!Stats.ContainsKey(p.Name))
+                    {
+                        Stats[p.Name] = new SingleStat {Key = p.Name, Stat = statAttrib, Value = p.GetValue(this)};
+                    }
+                }
+            }
+
+            var sortedStats = Stats.Values.OrderBy(x => x.Stat.Order);
+            SortedStats.AddRange(sortedStats);
+        }
+
         public string Key { get; set; }
 
+        // Crossout Properties
         public bool ods_export { get; set; }
+        
         public string inherit { get; set; }
         public bool released { get; set; }
         public bool tradeable { get; set; }
@@ -34,16 +67,24 @@ namespace Crossout.Data
         public string ui_part_series { get; set; }
         public string ui_part_type { get; set; }
         public string ui_hud_icon { get; set; }
+
+        [Stat("Health", 0)]
         public double health { get; set; }
         public bool damageable { get; set; }
         public int rarity { get; set; }
         public int power_require { get; set; }
         public string @class { get; set; }
         public double fire_rate { get; set; }
+
+        [Stat("Damage", 1)]
         public double damage { get; set; }
         public double hit_impulse { get; set; }
         public double rot_speed { get; set; }
+
+        [Stat("Optimal Range", 2)]
         public double optimal_range { get; set; }
+
+        [Stat("Max Range", 3)]
         public double max_range { get; set; }
         public double ai_optimal_dist { get; set; }
         public double spread_stat { get; set; }
@@ -56,11 +97,22 @@ namespace Crossout.Data
         public string projectile { get; set; }
         public int max_pitch { get; set; }
         public int min_pitch { get; set; }
+
         public double damage_rating { get; set; }
+
+        [Stat("Fire Rating", 5)]
         public double fire_rate_rating { get; set; }
+
+        [Stat("Range Rating", 6)]
         public double range_rating { get; set; }
+
+        [Stat("Accuracy Rating", 7)]
         public double accuracy_rating { get; set; }
+
+        [Stat("Overheat Rating", 8)]
         public double overheat_rating { get; set; }
+
+        [Stat("Power Score", -100)]
         public int universal_rating { get; set; }
         public bool important { get; set; }
         public int heat_max { get; set; }
@@ -147,5 +199,13 @@ namespace Crossout.Data
         public int innate_ai_work_time { get; set; }
         public int projectile_angular_speed { get; set; }
         public int slow_fire_rate { get; set; }
+        
+
+        // Custom Properties
+        [Stat("Damage Rating", 4)]
+        public double PercentDamage
+        {
+            get { return damage_rating*100.0f; }
+        }
     }
 }
