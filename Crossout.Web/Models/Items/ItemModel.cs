@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Crossout.Model;
 using Crossout.Model.Items;
+using Crossout.Web.Models.General;
+using Crossout.Web.Models.Recipes;
 
-namespace Crossout.Web.Models
+namespace Crossout.Web.Models.Items
 {
     public class ItemModel
     {

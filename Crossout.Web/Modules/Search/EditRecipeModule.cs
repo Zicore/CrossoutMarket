@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Crossout.Model;
 using Crossout.Model.Recipes;
 using Crossout.Web.Models;
 using Crossout.Web.Models.EditRecipe;

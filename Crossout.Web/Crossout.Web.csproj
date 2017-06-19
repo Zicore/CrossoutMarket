@@ -134,14 +134,13 @@
     <Compile Include="Models\EditRecipe\EditItem.cs" />
     <Compile Include="Models\EditRecipe\EditRecipeModel.cs" />
     <Compile Include="Models\EditRecipe\EditModelSave.cs" />
-    <Compile Include="Models\FactionModel.cs" />
     <Compile Include="Models\Filter\FilterItem.cs" />
     <Compile Include="Models\Filter\FilterModel.cs" />
     <Compile Include="Models\Charts\ChartDataModel.cs" />
-    <Compile Include="Models\ItemModel.cs" />
-    <Compile Include="Models\RecipeModel.cs" />
-    <Compile Include="Models\SearchModel.cs" />
-    <Compile Include="Models\StatusModel.cs" />
+    <Compile Include="Models\Items\ItemModel.cs" />
+    <Compile Include="Models\Recipes\RecipeModel.cs" />
+    <Compile Include="Models\General\SearchModel.cs" />
+    <Compile Include="Models\General\StatusModel.cs" />
     <Compile Include="Modules\Admin\AdminModule.cs" />
     <Compile Include="Modules\Data\ChartDataModule.cs" />
     <Compile Include="Models\Pagination\PagerModel.cs" />
@@ -156,6 +155,7 @@
     <Compile Include="Responses\ByteArrayResponse.cs" />
     <Compile Include="RootPathHelper.cs" />
     <Compile Include="RootPathProvider.cs" />
+    <Compile Include="Services\CrossoutDataService.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WebSettings.cs" />
@@ -187,6 +187,10 @@
     </None>
     <None Include="img\Coin.xcf" />
     <None Include="packages.config" />
+    <None Include="Resources\Data\Items\car_editor_weapons_ex.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\NoImage.xcf" />
     <None Include="Scripts\jquery-2.1.3.min.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1275,6 +1279,15 @@
     <None Include="favicon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Data\Strings\english\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\Strings\german\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\Strings\russian\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="SQL\Recipes.sql" />
     <Content Include="SQL\SelectNewestMarket.sql" />
@@ -1288,6 +1301,10 @@
     <ProjectReference Include="..\..\SimpleAuthentication\Code\SimpleAuthentication.Core\SimpleAuthentication.Core.csproj">
       <Project>{f94e2140-8262-4463-8054-0b1dce8abe03}</Project>
       <Name>SimpleAuthentication.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crossout.Data\Crossout.Data.csproj">
+      <Project>{c228fb90-7320-4b3c-ae9a-b37f95eacaf6}</Project>
+      <Name>Crossout.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Crossout.Images\Crossout.Images.csproj">
       <Project>{0ea0ee6a-898e-4de1-bb30-355073a5dfd7}</Project>

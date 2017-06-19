@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Crossout.Model.Items;
 using Crossout.Web.Models;
 using Crossout.Web.Models.Filter;
+using Crossout.Web.Models.General;
 using Crossout.Web.Models.Pagination;
 using Crossout.Web.Services;
 using Nancy;
@@ -129,6 +130,7 @@ namespace Crossout.Web.Modules.Search
             foreach (var row in ds)
             {
                 Item item = Item.Create(row);
+                CrossoutDataService.Instance.AddStats(item);
                 searchResult.Add(item);
             }
             //  CurrentPage = page, MaxRows = count, MaxPages = maxPages

@@ -26,6 +26,10 @@ namespace Crossout.Web
 
         public string GoogleConsumerKey { get; set; } = "";
         public string GoogleConsumerSecret { get; set; } = "";
+        
+
+        public string FileCarEditorWeaponsExLua { get; set; } = @"Resources\Data\Items\car_editor_weapons_ex.lua";
+        public string FileStringsEnglish { get; set; } = @"Resources\Data\strings\english\string.txt";
 
         public static string Title => "Crossout DB - Crossout Market and Crafting Calculator";
 

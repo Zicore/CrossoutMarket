@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Crossout.Model.Items;
 using Crossout.Web.Models.Filter;
 using Crossout.Web.Models.Pagination;
 
-namespace Crossout.Web.Models
+namespace Crossout.Web.Models.General
 {
     public class SearchModel
     {

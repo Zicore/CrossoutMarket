@@ -26,6 +26,10 @@
                 @if(Context.CurrentUser != null && Context.CurrentUser.Claims.Contains("Admin")){ 
                     <a href="~/edit/@Model.Id">Edit</a>
                 }
+                @if(Model.Stats != null)
+                {
+                    <span>@Model.Stats.blast_damage</span>
+                }
             </div>
         </div>
     </td>

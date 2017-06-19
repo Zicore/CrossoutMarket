@@ -1,4 +1,5 @@
 ﻿using Crossout.Model.Recipes;
+using Crossout.Web.Models.Items;
 
 namespace Crossout.Web.Models.EditRecipe
 {
