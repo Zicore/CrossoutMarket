@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Crossout.Data;
+using Crossout.Data.Stats;
 using Crossout.Model.Items;
 
 namespace Crossout.Web.Services
@@ -16,7 +17,8 @@ namespace Crossout.Web.Services
 
         }
 
-        public PartStatsCollection StatsCollection { get; } = new PartStatsCollection();
+        public PartStatsCollection CoreStatsCollection { get; } = new PartStatsCollection();
+        public PartStatsCollection WeaponStatsCollection { get; } = new PartStatsCollection();
         public ReverseItemLookup ReverseItemLookup { get; } = new ReverseItemLookup();
 
         public static void Initialize()
@@ -29,26 +31,47 @@ namespace Crossout.Web.Services
         {
             var rootPath = RootPathProvider.GetRootPathStatic();
             ReverseItemLookup.ReadStats(Path.Combine(rootPath, WebSettings.Settings.FileStringsEnglish));
-            StatsCollection.ReadStats(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorWeaponsExLua));
+            WeaponStatsCollection.ReadStats<PartStatsWeapon>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorWeaponsExLua));
+            CoreStatsCollection.ReadStats<PartStatsCore>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorCoreLua));
         }
 
-        public PartStats Get(string internalKey)
+        public PartStatsBase Get(string internalKey, PartStatsCollection statsCollection)
         {
             if (ReverseItemLookup.Items.ContainsKey(internalKey))
             {
                 var key = ReverseItemLookup.Items[internalKey];
-                if (StatsCollection.Items.ContainsKey(key))
+                if (statsCollection.Items.ContainsKey(key))
                 {
-                    return StatsCollection.Items[key];
+                    return statsCollection.Items[key];
                 }
             }
             return null;
         }
 
+        //1	Frame
+        //2	Weapons
+        //3	Hardware
+        //4	Movement
+        //5	Structure
+        //6	Decor
+        //7	Dyes
+        //8	Resources
+
         public void AddStats(Item item)
         {
-            var stats = Get(item.Name);
-            item.Stats = stats;
+            const int CategoryWeapon = 2;
+            const int CategoryHardware = 3;
+            const int CategoryMovement = 4;
+
+            if (item.CategoryId == CategoryWeapon) // Rewrite with better lookup to avoid magic values.
+            {
+                item.Stats = Get(item.Name, WeaponStatsCollection); // TODO: Decide what Stats
+            }
+
+            if (item.CategoryId == CategoryHardware)
+            {
+                item.Stats = Get(item.Name, CoreStatsCollection); // TODO: Decide what Stats
+            }
         }
 
         private static CrossoutDataService _instance;

@@ -4,56 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crossout.Data
+namespace Crossout.Data.Stats
 {
-    public class PartStats
+    public class PartStatsWeapon : PartStatsBase
     {
-        public PartStats()
+        public PartStatsWeapon(string key) : base(key)
         {
-
         }
-
-        public PartStats(string key)
-        {
-            this.Key = key;
-        }
-
-        public void CreateStatList()
-        {
-            
-        }
-
-        public Dictionary<string,SingleStat> Stats { get; } = new Dictionary<string, SingleStat>();
-        public List<SingleStat> SortedStats { get; } = new List<SingleStat>();
-
-        public void LoadAttributes()
-        {
-            Stats.Clear();
-            SortedStats.Clear();
-
-            var properties = this.GetType().GetProperties();
-            foreach (var p in properties)
-            {
-                var attributes = p.GetCustomAttributes(typeof(StatAttribute),false);
-                if (attributes.Length > 0)
-                {
-                    var statAttrib = (StatAttribute) attributes[0];
-                    if (!Stats.ContainsKey(p.Name))
-                    {
-                        Stats[p.Name] = new SingleStat {Key = p.Name, Stat = statAttrib, Value = p.GetValue(this)};
-                    }
-                }
-            }
-
-            var sortedStats = Stats.Values.OrderBy(x => x.Stat.Order);
-            SortedStats.AddRange(sortedStats);
-        }
-
-        public string Key { get; set; }
 
         // Crossout Properties
         public bool ods_export { get; set; }
-        
         public string inherit { get; set; }
         public bool released { get; set; }
         public bool tradeable { get; set; }
@@ -151,7 +111,7 @@ namespace Crossout.Data
         public int min_yaw { get; set; }
         public string ui_aim_type { get; set; }
         public double blast_damage { get; set; }
-        public double blast_impulse { get; set; }
+        public int blast_impulse { get; set; }
         public double blast_radius { get; set; }
         public bool sniper_weapon { get; set; }
         public int projectile_speed { get; set; }
@@ -167,15 +127,15 @@ namespace Crossout.Data
         public bool conical_explosion { get; set; }
         public bool editor_horizontal_rotation { get; set; }
         public double projectile_detonation_radius { get; set; }
-        public double projectile_launch_angle { get; set; }
+        public int projectile_launch_angle { get; set; }
         public double projectile_ttl { get; set; }
         public int burst_size { get; set; }
         public int projectile_rot_radius { get; set; }
         public bool fixed_barrel { get; set; }
-        public double lock_angle { get; set; }
+        public int lock_angle { get; set; }
         public bool check_restriction_overlap { get; set; }
         public bool damage_type_flame { get; set; }
-        public double death_blast_damage { get; set; }
+        public int death_blast_damage { get; set; }
         public double death_blast_radius { get; set; }
         public string platform_exclusive { get; set; }
         public double charging_time { get; set; }
@@ -183,7 +143,7 @@ namespace Crossout.Data
         public bool ai_ignore_pitch { get; set; }
         public int projectile_slowdown_pitch { get; set; }
         public double projectile_slowdown_pitch_coef { get; set; }
-        public double gravity_multiplyer { get; set; }
+        public int gravity_multiplyer { get; set; }
         public int car_camera_correction_y { get; set; }
         public string target_area_effect { get; set; }
         public double pitch_coef { get; set; }
@@ -195,17 +155,19 @@ namespace Crossout.Data
         public bool charging_need_hold { get; set; }
         public bool fire_without_target { get; set; }
         public double barrel_detonation_radius { get; set; }
+        public int collision_resist { get; set; }
+        public int collision_damage { get; set; }
         public int innate_ai_cooldown_time { get; set; }
         public int innate_ai_work_time { get; set; }
         public int projectile_angular_speed { get; set; }
         public int slow_fire_rate { get; set; }
-        
+
 
         // Custom Properties
         [Stat("Damage Rating", 4)]
         public double PercentDamage
         {
-            get { return damage_rating*100.0f; }
+            get { return damage_rating * 100.0f; }
         }
     }
 }

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nancy.SimpleAuthentication"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossout.Data", "Crossout.Data\Crossout.Data.csproj", "{C228FB90-7320-4B3C-AE9A-B37F95EACAF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossout.Data.Helper", "Crossout.Data.Helper\Crossout.Data.Helper.csproj", "{053C3102-80BC-4856-BCE8-9C93A1C80E6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_Client|Any CPU = Debug_Client|Any CPU
@@ -74,6 +76,12 @@ Global
 		{C228FB90-7320-4B3C-AE9A-B37F95EACAF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C228FB90-7320-4B3C-AE9A-B37F95EACAF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C228FB90-7320-4B3C-AE9A-B37F95EACAF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{053C3102-80BC-4856-BCE8-9C93A1C80E6B}.Debug_Client|Any CPU.ActiveCfg = Debug|Any CPU
+		{053C3102-80BC-4856-BCE8-9C93A1C80E6B}.Debug_Client|Any CPU.Build.0 = Debug|Any CPU
+		{053C3102-80BC-4856-BCE8-9C93A1C80E6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{053C3102-80BC-4856-BCE8-9C93A1C80E6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{053C3102-80BC-4856-BCE8-9C93A1C80E6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{053C3102-80BC-4856-BCE8-9C93A1C80E6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,26 +6,32 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Crossout.Data.Stats;
 
 namespace Crossout.Data
 {
     public class PartStatsCollection
     {
+        public Dictionary<string, PartStatsBase> Items { get; } = new Dictionary<string, PartStatsBase>();
+
         private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[\w]+)=(?<value>.+)";
-
         private readonly Regex statsRegex;
-
+        
         public PartStatsCollection()
         {
             statsRegex = new Regex(statsPattern, RegexOptions.Singleline | RegexOptions.IgnoreCase);
         }
-
-        public Dictionary<string, PartStats> Items { get; } = new Dictionary<string, PartStats>();
-
-        public void ReadStats(string file)
+        
+        private void LoadAttributes()
         {
-            Items.Clear();
-            
+            foreach (var stat in Items)
+            {
+                stat.Value.LoadAttributes();
+            }
+        }
+
+        public void ReadStats<T>(string file) where T : PartStatsBase
+        {
             using (StreamReader sr = new StreamReader(file))
             {
                 while (!sr.EndOfStream)
@@ -38,23 +44,15 @@ namespace Crossout.Data
 
                     if (line.StartsWith("Def."))
                     {
-                        AddMatch(line);
+                        AddMatch<T>(line);
                     }
                 }
             }
 
             LoadAttributes();
         }
-
-        private void LoadAttributes()
-        {
-            foreach (var stat in Items)
-            {
-                stat.Value.LoadAttributes();
-            }
-        }
-
-        private void AddMatch(string line)
+        
+        private void AddMatch<T>(string line) where T : PartStatsBase
         {
             var match = statsRegex.Match(line);
             if (match.Success)
@@ -64,7 +62,7 @@ namespace Crossout.Data
                     var name = match.Groups["name"].Value;
                     if (!Items.ContainsKey(name))
                     {
-                        Items.Add(name, new PartStats(name));
+                        Items.Add(name, (PartStatsBase)Activator.CreateInstance(typeof(T), name)); // Important: We create a instance based on the Main Type here to populate properties later.
                     }
                     var stats = Items[name];
                     if (match.Groups["field"].Success && match.Groups["value"].Success)
@@ -81,9 +79,9 @@ namespace Crossout.Data
             }
         }
 
-        private void SetField(PartStats stats,string field, string value)
+        private void SetField(PartStatsBase stats, string field, string value)
         {
-            var propertyInfo = typeof(PartStats).GetProperty(field);
+            var propertyInfo = stats.GetType().GetProperty(field);
             object typedValue = Convert.ChangeType(value, propertyInfo.PropertyType, CultureInfo.InvariantCulture);
             propertyInfo.SetValue(stats, typedValue);
         }
