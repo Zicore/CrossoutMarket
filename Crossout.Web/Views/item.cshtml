@@ -14,9 +14,27 @@
 
 <div class="panel">
     <div class="panel-body">
-        <h3>@Model.Item.Name</h3>
+        <div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="~/item/@Model.Item.Id"><img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@Model.Item.Image" /></a>
+                        </div>
+                        <div class="media-body">
+                            <h3 style="margin-top: 6px; margin-bottom: 2px;">@Model.Item.Name</h3>
+                            @if (Model.Item.Description != null)
+                            {
+                                <span class="pre-custom">@Model.Item.Description.Text</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="row"> 
+
+        <div class="row">
             <div class="col-md-2 vtop">
                 <a href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout" class="btn btn-xs btn-info" role="button">Tweet</a>
                 <button type="button" class="btn btn-xs btn-default embed-button">
@@ -64,10 +82,10 @@
                     <b>Preview</b>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-md-2">
-                    <a href="/item/@Model.Item.Id"><img src="/embed/image/@(Model.Item.Id).png" alt="Embed Image" style="width:300px;height:64px;"></a>
+                    <a href="/item/@Model.Item.Id"><img src="/embed/image/@(Model.Item.Id).png" alt="Embed Image" style="width: 300px; height: 64px;"></a>
                 </div>
             </div>
         </div>
@@ -76,10 +94,14 @@
 
             $(document).ready(function () {
                 $('#directlinkembed').val(location.origin + "/embed/image/@(Model.Item.Id).png");
-                $('#bbcodeembed').val('[url="' + location.origin + '/item/@(Model.Item.Id)"][img]' + location.origin + '/embed/image/@(Model.Item.Id).png[/img][/url]');
-                $('#htmlembed').val('<a href="' + location.origin + '/item/@(Model.Item.Id)"><img src="' + location.origin + '/embed/image/@(Model.Item.Id).png"/></a>');
+                $('#bbcodeembed').val('[url="' + location.origin + '/item/@(Model.Item.Id)"][img]' +
+                    location.origin +
+                    '/embed/image/@(Model.Item.Id).png[/img][/url]');
+                $('#htmlembed').val('<a href="' + location.origin + '/item/@(Model.Item.Id)"><img src="' +
+                    location.origin +
+                    '/embed/image/@(Model.Item.Id).png"/></a>');
 
-                $('.embed-button').click(function(e) {
+                $('.embed-button').click(function (e) {
                     var embed = $('#embed-wrapper');
                     if (embed.is(":visible")) {
                         embed.slideUp();
@@ -94,28 +116,28 @@
                 $("#form").submit();
             });
         </script>
-        
+
         @if (Model.Item.Stats != null)
         {
             <table class="table table-hover table-condensed">
                 <thead>
-                <tr>
-                    <th>
-                        Stat
-                    </th>
-                    <th>
-                        @Model.Item.Name
-                    </th>
-                </tr>
+                    <tr>
+                        <th>
+                            Stat
+                        </th>
+                        <th>
+                            @Model.Item.Name
+                        </th>
+                    </tr>
                 </thead>
                 <tbody>
-                @foreach (var item in Model.Item.Stats.SortedStats)
-                {
-                    <tr>
-                        <td>@item.Stat.Name</td>
-                        <td>@item.Value</td>
-                    </tr>
-                }
+                    @foreach (var item in Model.Item.Stats.SortedStats)
+                    {
+                        <tr>
+                            <td>@item.Stat.Name</td>
+                            <td>@item.Value</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         }
@@ -152,21 +174,21 @@
                 @ShowTree(Model.Recipe.Recipe.Ingredients)
 
                 @helper ShowTree(List<RecipeItem> items)
-                {
-                    foreach (RecipeItem item in items)
-                    {
-                            @Html.Partial("recipepart", item)
+        {
+foreach (RecipeItem item in items)
+{
+        @Html.Partial("recipepart", item)
 
-                            if (item != null && item.Ingredients.Count > 0)
-                            {
-                                @ShowTree(item.Ingredients)
-                            }
-                            if (item.IngredientSum != null)
-                            {
-                                @Html.Partial("recipepart", item.IngredientSum)
-                            }
-                        }
-                    }
+    if (item != null && item.Ingredients.Count > 0)
+    {
+            @ShowTree(item.Ingredients)
+    }
+    if (item.IngredientSum != null)
+    {
+            @Html.Partial("recipepart", item.IngredientSum)
+    }
+}
+}
 
                 @if (Model.Recipe.Recipe.IngredientSum != null)
                 {
@@ -391,17 +413,17 @@
         $('#sum-sell-buy-diff-' + root.Item.Id).removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).text(toFixed(sellBuyProfit));
     }
 
-    var ResourceNumbers = 
+    var ResourceNumbers =
     {
-        43:true, //Copper x100
-        53:true , //Scrap x100
-        85:true, //Wires x100
-        119:true, //Coupons x100
-        168:true, //Electronics x100
-        330:true, //Taler x100
+        43: true, //Copper x100
+        53: true, //Scrap x100
+        85: true, //Wires x100
+        119: true, //Coupons x100
+        168: true, //Electronics x100
+        330: true, //Taler x100
         337: true  //Uran x100
     };
-    
+
     function filterResourcePrice(id, value) {
         if (id in ResourceNumbers) {
             return value / 100.0;

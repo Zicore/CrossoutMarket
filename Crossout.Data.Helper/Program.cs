@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Crossout.Data.Generator;
 
 namespace Crossout.Data.Helper
 {
@@ -11,17 +12,28 @@ namespace Crossout.Data.Helper
     {
         static void Main(string[] args)
         {
-            // This tool is used to generate all the properties
+            // This tool is used to generate all the property classes from game files
 
-            string basePath = @"\Data\0.7.0\gamedata\def\ex";
-            string weapons = "car_editor_weapons_ex.lua";
-            string wheels = "car_editor_wheels.lua";
-            string core = "car_editor_core.lua";
+            string versionFolder = "0.7.0";
 
-            string path = Path.Combine(basePath, core);
+            string basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Resources", "Data", versionFolder, "gamedata", "def", "ex");
+            
+            List<GeneratorDescription> descriptions = new List<GeneratorDescription>
+            {
+                new GeneratorDescription { Classname = "PartStatsWeapon", SourceFileName = "car_editor_weapons_ex.lua", ClassFileName = "PartStatsWeapon.Generated.cs"},
+                new GeneratorDescription { Classname = "PartStatsCabin", SourceFileName = "car_editor_cabins.lua", ClassFileName = "PartStatsCabin.Generated.cs"},
+                new GeneratorDescription { Classname = "PartStatsDecor", SourceFileName = "car_editor_decorum.lua", ClassFileName = "PartStatsDecor.Generated.cs"},
+                new GeneratorDescription { Classname = "PartStatsMelee", SourceFileName = "car_editor_melee.lua", ClassFileName = "PartStatsMelee.Generated.cs"},
+                new GeneratorDescription { Classname = "PartStatsStructure", SourceFileName = "car_editor_structure.lua", ClassFileName = "PartStatsStructure.Generated.cs"},
+                new GeneratorDescription { Classname = "PartStatsSummon", SourceFileName = "car_editor_summons.lua", ClassFileName = "PartStatsSummon.Generated.cs"},
+                new GeneratorDescription { Classname = "PartStatsWheel", SourceFileName = "car_editor_wheels.lua", ClassFileName = "PartStatsWheel.Generated.cs"},
+                new GeneratorDescription { Classname = "PartStatsCore", SourceFileName = "car_editor_core.lua", ClassFileName = "PartStatsCore.Generated.cs"},
+            };
 
-            StatsReader reader = new StatsReader();
-            reader.ReadFields(path);
+            var destinationPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Result");
+
+            StatsGenerator gen = new StatsGenerator { SourceFileDirectory = basePath,DestinationFileDirectory = destinationPath };
+            gen.Generate(descriptions);
         }
     }
 }

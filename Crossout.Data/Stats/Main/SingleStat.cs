@@ -1,4 +1,4 @@
-﻿namespace Crossout.Data
+﻿namespace Crossout.Data.Stats.Main
 {
     public class SingleStat
     {

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
-namespace Crossout.Data.Stats
+namespace Crossout.Data.Stats.Main
 {
     public abstract class PartStatsBase
     {

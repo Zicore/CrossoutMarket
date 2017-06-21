@@ -36,7 +36,7 @@ namespace Crossout.Web.Services
             var ds = DB.SelectDataSet(query, parmeter);
             
             var item = Item.Create(ds[0]);
-            CrossoutDataService.Instance.AddStats(item);
+            CrossoutDataService.Instance.AddData(item);
             itemModel.Item = item;
             return itemModel;   
         }

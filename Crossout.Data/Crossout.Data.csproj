@@ -46,19 +46,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Stats\PartStatsCore.cs" />
-    <Compile Include="Stats\SingleStat.cs" />
-    <Compile Include="Stats\PartStatsBase.cs" />
+    <Compile Include="Descriptions\ItemDescription.cs" />
+    <Compile Include="Generator\GeneratorDescription.cs" />
+    <Compile Include="Generator\StatsGenerator.cs" />
+    <Compile Include="Stats\Main\PartStatsCabin.Generated.cs" />
+    <Compile Include="Stats\Main\PartStatsCore.Generated.cs" />
+    <Compile Include="Stats\Main\PartStatsDecor.Generated.cs" />
+    <Compile Include="Stats\Main\PartStatsMelee.Generated.cs" />
+    <Compile Include="Stats\Main\PartStatsStructure.Generated.cs" />
+    <Compile Include="Stats\Main\PartStatsSummon.Generated.cs" />
+    <Compile Include="Stats\Main\PartStatsWeapon.Generated.cs" />
+    <Compile Include="Stats\Main\PartStatsWheel.Generated.cs" />
+    <Compile Include="Stats\Main\PartStatsSummon.cs" />
+    <Compile Include="Stats\Main\PartStatsDecor.cs" />
+    <Compile Include="Stats\Main\PartStatsWheel.cs" />
+    <Compile Include="Stats\Main\PartStatsCabin.cs" />
+    <Compile Include="Stats\Main\PartStatsCore.cs" />
+    <Compile Include="Stats\Main\SingleStat.cs" />
+    <Compile Include="Stats\Main\PartStatsBase.cs" />
     <Compile Include="PartStatsCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReverseItemLookup.cs" />
     <Compile Include="StatAttribute.cs" />
     <Compile Include="StatsReader.cs" />
-    <Compile Include="Stats\PartStatsWeapon.cs" />
+    <Compile Include="Stats\Main\PartStatsWeapon.cs" />
+    <Compile Include="StringLookup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

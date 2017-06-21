@@ -55,7 +55,7 @@ namespace Crossout.Data
         private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[\w]+)=(?<value>.+)";
 
         // Function to generate UNIQUE fields for PartStats.cs
-        public void ReadFields(string file)
+        public Dictionary<string, FieldHelper> ReadFields(string file)
         {
             Dictionary<string, FieldHelper> fields = new Dictionary<string, FieldHelper>();
 
@@ -121,17 +121,7 @@ namespace Crossout.Data
                 }
             }
 
-            StringBuilder sb = new StringBuilder();
-
-            foreach (var f in fields.Values)
-            {
-                sb.Append($"public {f.GetTypeString()} {f.Name} {{get;set;}}");
-                sb.AppendLine();
-            }
-
-            // This helps to generate Fields for new PartStats
-            Debug.WriteLine(sb.ToString());
-
+            return fields;
         }
     }
 }

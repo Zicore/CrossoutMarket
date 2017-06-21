@@ -220,3 +220,13 @@ body {
 .dataTables_info {
     text-align: right !important;
 }
+
+.content-space {
+    margin: 6px;
+}
+
+.pre-custom {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre;
+}

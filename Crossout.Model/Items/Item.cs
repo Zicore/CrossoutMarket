@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using Crossout.Data;
+using Crossout.Data.Descriptions;
 using Crossout.Data.Stats;
+using Crossout.Data.Stats.Main;
 using Crossout.Model.Formatter;
 using Newtonsoft.Json;
 
@@ -12,6 +14,7 @@ namespace Crossout.Model.Items
     public class Item
     {
         public PartStatsBase Stats { get; set; }
+        public ItemDescription Description { get; set; }
 
         public int Id { get; set; }
 

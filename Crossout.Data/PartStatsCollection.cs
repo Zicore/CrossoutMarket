@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Crossout.Data.Stats;
+using Crossout.Data.Stats.Main;
 
 namespace Crossout.Data
 {
