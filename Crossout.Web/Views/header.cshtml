@@ -7,10 +7,13 @@
     <div class="navbar-header">
         <a class="navbar-brand" rel="home" href="/" title="">@WebSettings.Title</a>
     </div>
-
     <div class="collapse navbar-collapse navbar-ex1-collapse">
-
-        <div class="col-sm-3 col-md-3 pull-right">
+        <div class="social-btns navbar-right navbar-inverse">
+            <a class="btn btn-default" href="https://kiwiirc.com/client/irc.kiwiirc.com/?nick=CrossoutDB|?#crossoutdb" target="_blank" role="button" style="vertical-align">
+                <i class="glyphicon glyphicon-comment"></i>
+            </a>
+        </div>
+        <div class="col-sm-3 col-md-3 navbar-right">
             <form class="navbar-form" action="/search/" role="search" method="get" id="form">
                 <div class="input-group">
                     @if (Model != null)
@@ -33,39 +36,8 @@
                         <input type="hidden" name="category" value="@Model.FilterModel.CurrentCategory.NameUri"/>
                         <input type="hidden" name="faction" value="@Model.FilterModel.CurrentFaction.NameUri" />
                     }
-                    
                 </div>
             </form>
-
         </div>
     </div>
 </div>
-
-<div id="irc-wrapper" style="display: none;">
-    <iframe src="https://kiwiirc.com/client/irc.kiwiirc.com/?nick=CrossoutDB|?#crossoutdb" style="border:0; width:100%; height:450px;"></iframe>
-</div>
-
-<div id="chat-spoiler" style="margin: 2px;">
-    <button id="chat-button" style="display: block; width: 100%;">
-        <i class="glyphicon glyphicon-comment"></i>
-    </button>
-</div>
-
-<script>
-    $(document).ready(function () {
-        $('#chat-button').click(function(e) {
-            var irc = $('#irc-wrapper');
-            if (irc.is(":visible")) {
-                irc.slideUp();
-            } else {
-                irc.slideDown();
-            }
-        });
-    });
-
-
-    $('#reset').click(function (e) {
-        $("#query").val('');
-        $("#form").submit();
-    });
-</script>

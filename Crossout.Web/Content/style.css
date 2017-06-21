@@ -79,6 +79,10 @@ body {
     padding: 8px;
 }
 
+.social-btns {
+    margin-right: 16px;
+}
+
 /* Rarity Labels */
 
 .label-Common{
