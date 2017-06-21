@@ -19,27 +19,32 @@ namespace Crossout.Web.Models
 
         public string UriFaction(string faction)
         {
-            return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={faction}";
+            return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={faction}&rmditems={FilterModel.CurrentShowRemovedItems}";
         }
 
         public string UriCategory(string category)
         {
-            return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={category}&faction={FilterModel.CurrentFaction.NameUri}";
+            return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={category}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={FilterModel.CurrentShowRemovedItems}";
         }
 
         public string UriRarity(string rarity)
         {
-            return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={rarity}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}";
+            return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={rarity}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={FilterModel.CurrentShowRemovedItems}";
         }
 
         public string UriSearch(string search)
         {
-            return $"{Pager.CurrentPage}/?query={search}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}";
+            return $"{Pager.CurrentPage}/?query={search}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={FilterModel.CurrentShowRemovedItems}";
         }
 
         public string UriPage(int page)
         {
-            return $"{page}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}";
+            return $"{page}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={FilterModel.CurrentShowRemovedItems}";
+        }
+
+        public string UriRItems(bool showRemovedItems)
+        {
+            return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={!showRemovedItems}";
         }
     }
 }

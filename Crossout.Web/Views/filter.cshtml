@@ -32,3 +32,9 @@
         }
     </ul>
 </div>
+
+<div class="col-md-1">
+    <ul class="pagination pagination-sm" style="margin: 3px;">
+        <li @(Model.FilterModel.CurrentShowRemovedItems ? "class=active" : "")><a href="~/search/@Model.UriRItems(Model.FilterModel.CurrentShowRemovedItems)">Removed Items</a></li>
+    </ul>
+</div>

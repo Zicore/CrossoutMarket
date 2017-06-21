@@ -11,10 +11,11 @@ namespace Crossout.Web.Models.Filter
         public List<FilterItem> Rarities { get; set; } = new List<FilterItem>();
         public List<FilterItem> Categories { get; set; } = new List<FilterItem>();
         public List<FilterItem> Factions { get; set; } = new List<FilterItem>();
-
+       
         public FilterItem CurrentRarity { get; set; } = new FilterItem();
         public FilterItem CurrentCategory { get; set; } = new FilterItem();
         public FilterItem CurrentFaction { get; set; } = new FilterItem();
+        public bool CurrentShowRemovedItems { get; set; }
 
         public FilterItem VerifyRarity(string rarity)
         {
@@ -50,6 +51,13 @@ namespace Crossout.Web.Models.Filter
                 return item;
             }
             return null;
+        }
+
+        public bool VerifyRmdItems(string showRemovedItems)
+        {
+            bool result = false;
+            bool.TryParse(showRemovedItems,out result);
+            return result;
         }
     }
 }

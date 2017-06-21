@@ -241,7 +241,7 @@ namespace Crossout.Web.Services
             return query;
         }
 
-        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool removedItems)
+        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems)
         {
             string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,faction.id,faction.name";
             if (count)
@@ -281,7 +281,7 @@ namespace Crossout.Web.Services
                 query += " AND faction.id = @faction ";
             }
 
-            if (!removedItems)
+            if (!showRemovedItems)
             {
                 query += " AND item.removed = 0 ";
             }
