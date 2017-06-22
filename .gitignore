@@ -304,3 +304,7 @@ $RECYCLE.BIN/
 
 # SQL Queries
 Crossout.Web/SQL/
+
+# Resources Folder - Crossout Game Files
+Crossout.Web/Resources/Data/
+Crossout.Data.Helper/Resources/Data/
