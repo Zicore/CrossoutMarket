@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Crossout.Model.Items;
+using Crossout.Web.Helper;
 using Crossout.Web.Models.Filter;
 using Crossout.Web.Models.Pagination;
 
 namespace Crossout.Web.Models.General
 {
-    public class SearchModel
+    public class SearchModel : IViewTitle
     {
         public List<Item> SearchResult { get; set; }
         public PagerModel Pager { get; set; } = new PagerModel();
@@ -43,5 +44,7 @@ namespace Crossout.Web.Models.General
         {
             return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={!showRemovedItems}";
         }
+
+        public string Title => CurrentQuery;
     }
 }

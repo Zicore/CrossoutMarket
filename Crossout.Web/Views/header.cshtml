@@ -1,24 +1,29 @@
 ﻿@using Crossout.Web
+@using Crossout.Web.Helper
 @using Crossout.Web.Models
-@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.General.SearchModel>
+@using Crossout.Web.Models.General
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<IViewTitle>
+    
+@{
+    SearchModel m = Model as SearchModel;
+}
 
 <div class="navbar-inverse navbar-default navbar-static-top" role="navigation">
-
     <div class="navbar-header">
-        <a class="navbar-brand" rel="home" href="/" title="">@WebSettings.Title</a>
+        <a class="navbar-brand" rel="home" href="/">@ViewHelper.GenerateTitle(Model)</a>
     </div>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
         <div class="social-btns navbar-right navbar-inverse">
-            <a class="btn btn-default" href="https://kiwiirc.com/client/irc.kiwiirc.com/?nick=CrossoutDB|?#crossoutdb" target="_blank" role="button" style="vertical-align">
+            <a class="btn btn-default" href="https://kiwiirc.com/client/irc.kiwiirc.com/?nick=CrossoutDB|?#crossoutdb" target="_blank" role="button">
                 <i class="glyphicon glyphicon-comment"></i>
             </a>
         </div>
         <div class="col-sm-3 col-md-3 navbar-right">
             <form class="navbar-form" action="/search/" role="search" method="get" id="form">
                 <div class="input-group">
-                    @if (Model != null)
+                    @if (m != null)
                     {
-                        <input type="text" class="form-control" placeholder="Search" size="30" name="query" id="query" value="@Model.CurrentQuery">
+                        <input type="text" class="form-control" placeholder="Search" size="30" name="query" id="query" value="@m.CurrentQuery">
                     }
                     else
                     {
@@ -30,11 +35,11 @@
                         <button class="btn btn-default" type="button" id="reset"><i class="glyphicon glyphicon-remove"></i></button>
                         @*<div class="btn btn-default"><a href="~/admin">Login</a></div>*@
                     </div>
-                    @if (Model != null)
+                    @if (m != null)
                     {
-                        <input type="hidden" name="rarity" value="@Model.FilterModel.CurrentRarity.NameUri"/>
-                        <input type="hidden" name="category" value="@Model.FilterModel.CurrentCategory.NameUri"/>
-                        <input type="hidden" name="faction" value="@Model.FilterModel.CurrentFaction.NameUri" />
+                        <input type="hidden" name="rarity" value="@m.FilterModel.CurrentRarity.NameUri"/>
+                        <input type="hidden" name="category" value="@m.FilterModel.CurrentCategory.NameUri"/>
+                        <input type="hidden" name="faction" value="@m.FilterModel.CurrentFaction.NameUri" />
                     }
                 </div>
             </form>

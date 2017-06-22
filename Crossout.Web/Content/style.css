@@ -230,3 +230,9 @@ body {
     unicode-bidi: embed;
     white-space: pre;
 }
+
+.container-space {
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+}

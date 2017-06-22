@@ -130,6 +130,8 @@
     <Compile Include="Auth\UserRepository.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CrossoutAuthenticationCallbackProvider.cs" />
+    <Compile Include="Models\View\IViewTitle.cs" />
+    <Compile Include="Helper\ViewHelper.cs" />
     <Compile Include="Models\Charts\ChartItem.cs" />
     <Compile Include="Models\EditRecipe\EditItem.cs" />
     <Compile Include="Models\EditRecipe\EditRecipeModel.cs" />

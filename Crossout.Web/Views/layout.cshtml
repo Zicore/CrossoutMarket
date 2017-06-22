@@ -1,4 +1,6 @@
 ﻿@using Crossout.Web
+@using Crossout.Web.Helper
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<IViewTitle>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +45,7 @@
     </script>
 
 
-    <title>@WebSettings.Title</title>
+    <title>@ViewHelper.GenerateTitle(Model)</title>
 
 </head>
 <body>
