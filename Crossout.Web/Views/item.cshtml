@@ -149,33 +149,34 @@
                 }
             </tbody>
         </table>
+        <div id="shopping-list-wrapper" style="display: none">
+            <h3>Shopping List</h3>
+            <table class="table table-hover table-condensed" id="shopping-list">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Rarity
+                        </th>
+                        <th class="text-right">
+                            Number
+                        </th>
+                        <th>
+                            <div class="text-right clearfix rec-right">Sell Price</div>
+                        </th>
+                        <th>
+                        </th>
+                        <th>
+                            <div class="text-right clearfix rec-right">Buy Price</div>
+                        </th>
+                    </tr>
+                </thead>
 
-        <h3>Shopping List</h3>
-        <table class="table table-hover table-condensed" id="shopping-list">
-            <thead>
-                <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Rarity
-                    </th>
-                    <th class="text-right">
-                        Number
-                    </th>
-                    <th>
-                        <div class="text-right clearfix rec-right">Sell Price</div>
-                    </th>
-                    <th>
-                    </th>
-                    <th>
-                        <div class="text-right clearfix rec-right">Buy Price</div>
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody></tbody>
-        </table>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -201,8 +202,10 @@
                 if (currentParentUniqueid === uniqueid) {
                     if (show) {
                         $(this).show();
+                        $('#shopping-list-wrapper').show()
                     } else {
                         $(this).hide();
+                        $('#shopping-list-wrapper').hide()
                         $(this).find('button').removeClass('glyphicon-minus').addClass('glyphicon-plus');
                         window.updateTree(classname2, currentRecipe, currentUniqueid, show);
                     }
