@@ -34,16 +34,13 @@ td {
     font-size: 18px;
 }
 
-
 html {
   position: relative;
-  height: 100%;
 }
+
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 0px;
+  padding-bottom: 46px;
   background: white;
-  height: 100%;
 }
 
 .blue {

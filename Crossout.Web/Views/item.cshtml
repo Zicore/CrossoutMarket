@@ -82,7 +82,7 @@
         </div>
     </div>
 
-    @if (Model.Item.Stats != null)
+    @if (Model.Item.Stats != null && Model.Item.Stats.SortedStats.Count > 0)
     {
         <div class="panel panel-default">
             <div class="panel-heading">
