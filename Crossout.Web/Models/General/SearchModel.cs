@@ -45,6 +45,6 @@ namespace Crossout.Web.Models.General
             return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={!showRemovedItems}";
         }
 
-        public string Title => CurrentQuery;
+        public string Title => null;
     }
 }
