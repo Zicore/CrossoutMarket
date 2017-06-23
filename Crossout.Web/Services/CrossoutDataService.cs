@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Crossout.Data;
 using Crossout.Data.Descriptions;
@@ -14,9 +15,11 @@ namespace Crossout.Web.Services
 {
     public class CrossoutDataService
     {
+        private string replaceValuesPattern = @"(?<start>[^\$]+)\$(?<key>[^\$]+)\$(?<end>.+)";
+        private Regex replaceValuesRegex;
         private CrossoutDataService()
         {
-
+            replaceValuesRegex = new Regex(replaceValuesPattern);
         }
 
         public PartStatsCollection CoreStatsCollection { get; } = new PartStatsCollection();
@@ -68,6 +71,7 @@ namespace Crossout.Web.Services
         {
             AddStats(item);
             AddDescription(item);
+            ReplaceValues(item);
         }
 
         private void AddStats(Item item)
@@ -104,6 +108,25 @@ namespace Crossout.Web.Services
                 var desc = StringLookup.ParseDescription(StringLookup.ReadDescription(key));
                 item.Description = new ItemDescription { Text = desc };
             }
+        }
+
+        private void ReplaceValues(Item item)
+        {
+            string result = item.Description.Text;
+            var matches = replaceValuesRegex.Matches(result);
+            foreach (Match match in matches)
+            {
+                if (match.Success)
+                {
+                    var key = match.Groups["key"].Value;
+                    if (item.Stats.Stats.ContainsKey(key))
+                    {
+                        var value = item.Stats.Stats[key];
+                        result = Regex.Replace(result, replaceValuesPattern, $"${{start}}{value.Value}${{end}}");
+                    }
+                }
+            }
+            item.Description.Text = result;
         }
 
         private static CrossoutDataService _instance;
