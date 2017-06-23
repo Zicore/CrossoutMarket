@@ -16,6 +16,8 @@
             get { return require_faction_level; }
         }
 
+        //------
+
         [Stat("Damage Rating", 10, ShowProgressBar = true)]
         public double StatPercentDamageRating
         {
@@ -45,6 +47,8 @@
         {
             get { return overheat_rating * 100.0f; }
         }
+
+        //------
 
         [Stat("Structure", 60)]
         public double StatStructure
