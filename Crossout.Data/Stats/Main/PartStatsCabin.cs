@@ -30,33 +30,33 @@
             get { return engine_max_speed; }
         }
 
-        [Stat("Power", 20)]
+        [Stat("Power", 30)]
         public int StatEnginePower
         {
             get { return engine_power; }
         }
 
-        [Stat("Tonnage", 20)]
+        [Stat("Tonnage", 40)]
         public int StatTonnage
         {
             get { return tonnage; }
         }
 
-        [Stat("Power", 20)]
-        public int StatEnginePower
+        [Stat("Mass Limit", 50)]
+        public int StatMassLimit
         {
-            get { return engine_power; }
+            get { return critical_mass; }
         }
 
-        [Stat("Power", 20)]
-        public int StatEnginePower
+        [Stat("Adds Energy", 60)]
+        public int StatAddsEnergy
         {
-            get { return engine_power; }
+            get { return power; }
         }
 
         //------
 
-        [Stat("Structure", 60)]
+        [Stat("Structure", 70)]
         public double StatStructure
         {
             get { return health; }
