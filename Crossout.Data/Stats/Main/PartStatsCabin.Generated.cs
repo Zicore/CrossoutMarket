@@ -1,6 +1,6 @@
 namespace Crossout.Data.Stats.Main
 {
-    // *** Generator: v0.2 This class is automatically generated, please use the non generated variant of this class ***
+    // *** Generator: v0.3 This class is automatically generated, please use the non generated variant of this class ***
     public partial class PartStatsCabin : PartStatsBase
     {
         public PartStatsCabin(string key) : base(key) { }
@@ -15,6 +15,7 @@ namespace Crossout.Data.Stats.Main
         public string ui_part_type {get;set;}
         public int health {get;set;}
         public int rarity {get;set;}
+        public int physics_mass {get;set;}
         public int water_damping {get;set;}
         public int speed_limit {get;set;}
         public int max_velocity {get;set;}

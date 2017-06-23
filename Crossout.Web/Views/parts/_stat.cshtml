@@ -1,0 +1,13 @@
+﻿@using Crossout.Data
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Data.Stats.Main.SingleStat>
+    
+@if (Model.Stat.ShowProgressBar)
+{
+    <span class="progress">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Value%" aria-valuenow="@Model.Value" aria-valuemin="0" aria-valuemax="100">@Model.Value%</div>
+    </span>
+}
+else
+{
+    <span class="@Model.Stat.CustomClasses">@Model.Value</span>
+}

@@ -1,6 +1,6 @@
 namespace Crossout.Data.Stats.Main
 {
-    // *** Generator: v0.2 This class is automatically generated, please use the non generated variant of this class ***
+    // *** Generator: v0.3 This class is automatically generated, please use the non generated variant of this class ***
     public partial class PartStatsWheel : PartStatsBase
     {
         public PartStatsWheel(string key) : base(key) { }
@@ -22,6 +22,8 @@ namespace Crossout.Data.Stats.Main
         public int rarity {get;set;}
         public string fusion {get;set;}
         public string fusion_cost {get;set;}
+        public string physics_material {get;set;}
+        public int physics_mass {get;set;}
         public double engine_power_mul {get;set;}
         public int tonnage_add {get;set;}
         public string type {get;set;}

@@ -1,6 +1,6 @@
 namespace Crossout.Data.Stats.Main
 {
-    // *** Generator: v0.2 This class is automatically generated, please use the non generated variant of this class ***
+    // *** Generator: v0.3 This class is automatically generated, please use the non generated variant of this class ***
     public partial class PartStatsWeapon : PartStatsBase
     {
         public PartStatsWeapon(string key) : base(key) { }
@@ -21,6 +21,8 @@ namespace Crossout.Data.Stats.Main
         public double health {get;set;}
         public bool damageable {get;set;}
         public int rarity {get;set;}
+        public double physics_mass {get;set;}
+        public string physics_material {get;set;}
         public int power_require {get;set;}
         public string @class {get;set;}
         public int fire_rate {get;set;}

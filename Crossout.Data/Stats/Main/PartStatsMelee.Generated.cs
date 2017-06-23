@@ -1,6 +1,6 @@
 namespace Crossout.Data.Stats.Main
 {
-    // *** Generator: v0.2 This class is automatically generated, please use the non generated variant of this class ***
+    // *** Generator: v0.3 This class is automatically generated, please use the non generated variant of this class ***
     public partial class PartStatsMelee : PartStatsBase
     {
         public PartStatsMelee(string key) : base(key) { }
@@ -20,6 +20,8 @@ namespace Crossout.Data.Stats.Main
         public int rarity {get;set;}
         public int collision_resist {get;set;}
         public double collision_damage {get;set;}
+        public string physics_material {get;set;}
+        public int physics_mass {get;set;}
         public int universal_rating {get;set;}
         public double damage_rating {get;set;}
         public string ui_part_series {get;set;}

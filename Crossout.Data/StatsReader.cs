@@ -52,7 +52,7 @@ namespace Crossout.Data
 
         }
 
-        private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[\w]+)=(?<value>.+)";
+        private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[^=]+)=(?<value>.+)";
 
         // Function to generate UNIQUE fields for PartStats.cs
         public Dictionary<string, FieldHelper> ReadFields(string file)
@@ -79,6 +79,11 @@ namespace Crossout.Data
                             {
                                 var field = match.Groups["field"].Value;
                                 var value = match.Groups["value"].Value;
+
+                                if (field.Contains("."))
+                                {
+                                    field = field.Replace(".", "_"); // Replace additional field
+                                }
 
                                 if (value != "{}")
                                 {

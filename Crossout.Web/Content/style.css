@@ -233,3 +233,22 @@ body {
     margin-left: 16px;
     margin-right: 16px;
 }
+
+/* Stat Styles */
+
+.stat-heading-3 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.stat-text {
+  display: block;
+  font-size: 100%;
+  font-weight: bold;
+  line-height: 1;
+  color: #595959;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+/* Stat Styles end*/

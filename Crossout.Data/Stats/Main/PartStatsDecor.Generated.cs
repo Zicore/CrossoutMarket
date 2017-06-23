@@ -1,6 +1,6 @@
 namespace Crossout.Data.Stats.Main
 {
-    // *** Generator: v0.2 This class is automatically generated, please use the non generated variant of this class ***
+    // *** Generator: v0.3 This class is automatically generated, please use the non generated variant of this class ***
     public partial class PartStatsDecor : PartStatsBase
     {
         public PartStatsDecor(string key) : base(key) { }
@@ -20,6 +20,8 @@ namespace Crossout.Data.Stats.Main
         public string collection {get;set;}
         public int rarity {get;set;}
         public int durability {get;set;}
+        public string physics_material {get;set;}
+        public int physics_mass {get;set;}
         public bool ignore_collision {get;set;}
         public int universal_rating {get;set;}
         public int exp_reward_bonus {get;set;}

@@ -8,8 +8,12 @@ namespace Crossout.Data
 {
     public class StatAttribute : Attribute
     {
+        public const String PowerScoreClasses = "stat-heading-3";
+
         public string Name { get; set; }
         public int Order { get; set; }
+        public bool ShowProgressBar { get; set; }
+        public string CustomClasses { get; set; }
 
         public StatAttribute(string name, int order = 0)
         {

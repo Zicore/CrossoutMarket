@@ -1,6 +1,6 @@
 namespace Crossout.Data.Stats.Main
 {
-    // *** Generator: v0.2 This class is automatically generated, please use the non generated variant of this class ***
+    // *** Generator: v0.3 This class is automatically generated, please use the non generated variant of this class ***
     public partial class PartStatsCore : PartStatsBase
     {
         public PartStatsCore(string key) : base(key) { }
@@ -21,6 +21,8 @@ namespace Crossout.Data.Stats.Main
         public bool damageable {get;set;}
         public int rarity {get;set;}
         public int durability {get;set;}
+        public string physics_material {get;set;}
+        public int physics_mass {get;set;}
         public int power_require {get;set;}
         public int require_faction_level {get;set;}
         public int engine_max_speed {get;set;}
