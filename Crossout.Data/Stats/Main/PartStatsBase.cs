@@ -12,6 +12,7 @@ namespace Crossout.Data.Stats.Main
 
         public string Key { get; set; }
 
+        public Dictionary<string, object> Fields { get; } = new Dictionary<string, object>();
         public Dictionary<string, SingleStat> Stats { get; } = new Dictionary<string, SingleStat>();
         public List<SingleStat> SortedStats { get; } = new List<SingleStat>();
         
@@ -19,17 +20,20 @@ namespace Crossout.Data.Stats.Main
         {
             Stats.Clear();
             SortedStats.Clear();
+            Fields.Clear();
 
             var properties = this.GetType().GetProperties();
             foreach (var p in properties)
             {
+                var value = p.GetValue(this);
+                Fields[p.Name] = value;
                 var attributes = p.GetCustomAttributes(typeof(StatAttribute), false);
                 if (attributes.Length > 0)
                 {
                     var statAttrib = (StatAttribute)attributes[0];
                     if (!Stats.ContainsKey(p.Name))
                     {
-                        Stats[p.Name] = new SingleStat { Key = p.Name, Stat = statAttrib, Value = p.GetValue(this) };
+                        Stats[p.Name] = new SingleStat { Key = p.Name, Stat = statAttrib, Value = value};
                     }
                 }
             }

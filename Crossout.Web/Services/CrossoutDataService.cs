@@ -126,10 +126,10 @@ namespace Crossout.Web.Services
                 if (match.Success)
                 {
                     var key = match.Groups["key"].Value;
-                    if (item.Stats.Stats.ContainsKey(key))
+                    if (item.Stats.Fields.ContainsKey(key))
                     {
-                        var value = item.Stats.Stats[key];
-                        result = Regex.Replace(result, replaceValuesPattern, $"${{start}}{value.Value}${{end}}");
+                        var value = item.Stats.Fields[key];
+                        result = Regex.Replace(result, replaceValuesPattern, $"${{start}}{value}${{end}}");
                     }
                 }
             }
