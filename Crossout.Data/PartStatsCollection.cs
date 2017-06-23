@@ -15,7 +15,7 @@ namespace Crossout.Data
     {
         public Dictionary<string, PartStatsBase> Items { get; } = new Dictionary<string, PartStatsBase>();
 
-        private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[\w]+)=(?<value>.+)";
+        private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[^=]+)=(?<value>.+)";
         private readonly Regex statsRegex;
         
         public PartStatsCollection()
@@ -61,6 +61,7 @@ namespace Crossout.Data
                 if (match.Groups["name"].Success)
                 {
                     var name = match.Groups["name"].Value;
+
                     if (!Items.ContainsKey(name))
                     {
                         Items.Add(name, (PartStatsBase)Activator.CreateInstance(typeof(T), name)); // Important: We create a instance based on the Main Type here to populate properties later.
@@ -70,6 +71,11 @@ namespace Crossout.Data
                     {
                         var field = match.Groups["field"].Value;
                         var value = match.Groups["value"].Value;
+                        
+                        if (field.Contains("."))
+                        {
+                            field = field.Replace(".", "_"); // Replace additional field
+                        }
 
                         if (value != "{}")
                         {

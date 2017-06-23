@@ -13,178 +13,85 @@
 @Html.Partial("status", Model.Status)
 
 <div class="container-space container-fluid">
-<div class="col-sm-6">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">Item Description</h4>
-        </div>
-        <div class="panel-body">
-            <div class="media">
-                <div class="media-left">
-                    <a href="~/item/@Model.Item.Id"><img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@Model.Item.Image"/></a>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Item Description</h4>
                 </div>
-                <div class="media-body">
-                    <h3 style="margin-top: 6px; margin-bottom: 2px;">@Model.Item.Name</h3>
-                    @if (Model.Item.Description != null)
-                    {
-                        <span class="pre-custom">@Model.Item.Description.Text</span>
-                    }
-                </div>
-            </div>
-            <div>
-                <a href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout" class="btn btn-xs btn-info" role="button">Tweet</a>
-                <button type="button" class="btn btn-xs btn-default embed-button">
-                    < > Embed
-                </button>
-            </div>
-            <div id="embed-wrapper" style="display: none;">
-                <div class="form-group">
-                    <div class="row">
-                        <label for="directlinkembed" class="col-md-2 control-label">Direct Link</label>
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="~/item/@Model.Item.Id"><img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@Model.Item.Image" /></a>
+                        </div>
+                        <div class="media-body">
+                            <h3 style="margin-top: 6px; margin-bottom: 2px;">@Model.Item.Name</h3>
+                            @if (Model.Item.Description != null)
+                            {
+                                <span class="pre-custom">@Model.Item.Description.Text</span>
+                            }
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="directlinkembed" readonly>
+                    <div>
+                        <a href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout" class="btn btn-xs btn-info" role="button">Tweet</a>
+                        <button type="button" class="btn btn-xs btn-default embed-button">
+                            < > Embed
+                        </button>
+                    </div>
+                    <div id="embed-wrapper" style="display: none;">
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="directlinkembed" class="col-md-2 control-label">Direct Link</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" id="directlinkembed" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="bbcodeembed" class="col-md-2 control-label">BB-Code</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" id="bbcodeembed" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="htmlembed" class="col-md-2 control-label">HTML</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" id="htmlembed" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <b>Preview</b>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <a href="/item/@Model.Item.Id"><img src="/embed/image/@(Model.Item.Id).png" alt="Embed Image" style="width: 300px; height: 64px;"></a>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <label for="bbcodeembed" class="col-md-2 control-label">BB-Code</label>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="bbcodeembed" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <label for="htmlembed" class="col-md-2 control-label">HTML</label>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <input type="text" class="form-control" id="htmlembed" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2">
-                        <b>Preview</b>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2">
-                        <a href="/item/@Model.Item.Id"><img src="/embed/image/@(Model.Item.Id).png" alt="Embed Image" style="width: 300px; height: 64px;"></a>
-                    </div>
-                </div>
             </div>
-        </div>
-    </div>
-</div>
-
-@if (Model.Item.Stats != null && Model.Item.Stats.SortedStats.Count > 0)
-{
-    <div class="col-sm-6">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title">Stats</h4>
-            </div>
-            <div class="panel-body">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Recipe</h2>
+                </div>
                 <table class="table table-hover table-condensed">
                     <thead>
-                    <tr>
-                        <th>
-                            Stat
-                        </th>
-                        <th>
-                            @Model.Item.Name
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach (var item in Model.Item.Stats.SortedStats)
-                    {
-                        <tr>
-                            <td class="col-md-2 stat-text">@item.Stat.Name</td>
-                            <td>@Html.Partial("parts/_stat",item)</td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-}
-<div class="col-sm-12">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h2 class="panel-title">Recipe</h2>
-        </div>
-        <div class="panel-body">
-            <table class="table table-hover table-condensed">
-                <thead>
-                <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Rarity
-                    </th>
-                    <th>
-                        <div class="text-left pull-left">Number</div>
-                        <div class="text-right clearfix rec-right">Sell Price</div>
-                    </th>
-                    <th>
-                    </th>
-                    <th>
-                        <div class="text-left pull-left">Number</div>
-                        <div class="text-right clearfix rec-right">Buy Price</div>
-                    </th>
-                    <th class="text-right">
-                        Margin
-                    </th>
-                </tr>
-                </thead>
-
-                <tbody>
-                @Html.Partial("recipepart", Model.Recipe.Recipe)
-
-                @ShowTree(Model.Recipe.Recipe.Ingredients)
-
-                @helper ShowTree(List<RecipeItem> items)
-                {
-                    foreach (RecipeItem item in items)
-                    {
-                        @Html.Partial("recipepart", item)
-                        if (item != null && item.Ingredients.Count > 0)
-                        {
-                            @ShowTree(item.Ingredients)
-                        }
-                        if (item.IngredientSum != null)
-                        {
-                            @Html.Partial("recipepart", item.IngredientSum)
-                        }
-                    }
-                }
-
-                @if (Model.Recipe.Recipe.IngredientSum != null)
-                {
-                    @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
-                }
-                </tbody>
-            </table>
-            
-            @if (Model.Recipe.Recipe.Ingredients.Count > 0)
-            {
-                <div id="shopping-list-wrapper">
-                    <h3>Shopping List</h3>
-                    <table class="table table-hover table-condensed" id="shopping-list">
-                        <thead>
                         <tr>
                             <th>
                                 Name
@@ -192,40 +99,132 @@
                             <th>
                                 Rarity
                             </th>
-                            <th class="text-right">
-                                Number
-                            </th>
                             <th>
+                                <div class="text-left pull-left">Number</div>
                                 <div class="text-right clearfix rec-right">Sell Price</div>
                             </th>
                             <th>
                             </th>
                             <th>
+                                <div class="text-left pull-left">Number</div>
                                 <div class="text-right clearfix rec-right">Buy Price</div>
                             </th>
+                            <th class="text-right">
+                                Margin
+                            </th>
                         </tr>
-                        </thead>
+                    </thead>
 
-                        <tbody></tbody>
+                    <tbody>
+                        @Html.Partial("recipepart", Model.Recipe.Recipe)
+
+                        @ShowTree(Model.Recipe.Recipe.Ingredients)
+
+                        @helper ShowTree(List<RecipeItem> items)
+                        {
+foreach (RecipeItem item in items)
+{
+        @Html.Partial("recipepart", item)
+    if (item != null && item.Ingredients.Count > 0)
+    {
+            @ShowTree(item.Ingredients)
+    }
+    if (item.IngredientSum != null)
+    {
+            @Html.Partial("recipepart", item.IngredientSum)
+    }
+}
+}
+
+                        @if (Model.Recipe.Recipe.IngredientSum != null)
+                        {
+                            @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
+                        }
+                    </tbody>
+                </table>
+
+                @if (Model.Recipe.Recipe.Ingredients.Count > 0)
+            {
+                    <div id="shopping-list-wrapper">
+                        <h3>Shopping List</h3>
+                        <table class="table table-hover table-condensed" id="shopping-list">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Rarity
+                                    </th>
+                                    <th class="text-right">
+                                        Number
+                                    </th>
+                                    <th>
+                                        <div class="text-right clearfix rec-right">Sell Price</div>
+                                    </th>
+                                    <th>
+                                    </th>
+                                    <th>
+                                        <div class="text-right clearfix rec-right">Buy Price</div>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Advertisement</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="content-space">
+                        Ad
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Item.Stats != null && Model.Item.Stats.SortedStats.Count > 0)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Stats</h4>
+                    </div>
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        @foreach (var item in Model.Item.Stats.SortedStats)
+                        {
+                            <tr>
+                                <td class="col-md-2 stat-text">@item.Stat.Name</td>
+                                <td>@Html.Partial("parts/_stat", item)</td>
+                            </tr>
+                        }
+                        </tbody>
                     </table>
                 </div>
             }
         </div>
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Chart</h2>
+                </div>
+                <div class="panel-body">
+                    @Html.Partial("chart", Model)
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-</div>
-<div class="col-sm-12">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h2 class="panel-title">Chart</h2>
-        </div>
-        <div class="panel-body">
-            @Html.Partial("chart", Model)
-        </div>
-    </div>
-</div>
-</div>
-    
 <script src="~/Scripts/Internal/item.js"></script>
 <script>
     $(document).ready(function () {

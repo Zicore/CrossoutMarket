@@ -5,9 +5,15 @@
         // Custom Properties
 
         [Stat("Power Score", 0, CustomClasses = StatAttribute.PowerScoreClasses)]
-        public double StatPowerScore
+        public int StatPowerScore
         {
             get { return universal_rating; }
+        }
+
+        [Stat("Required Level", 5)]
+        public int StatRequiredLevel
+        {
+            get { return require_faction_level; }
         }
 
         [Stat("Damage Rating", 10, ShowProgressBar = true)]
@@ -47,7 +53,7 @@
         }
 
         [Stat("Energy Drain", 70)]
-        public double StatEnergyDrain
+        public int StatEnergyDrain
         {
             get { return power_require; }
         }
@@ -57,9 +63,5 @@
         {
             get { return physics_mass; }
         }
-        //public double fire_rate_rating { get; set; }
-        //public double range_rating { get; set; }
-        //public double accuracy_rating { get; set; }
-        //public double overheat_rating { get; set; }
     }
 }

@@ -252,3 +252,7 @@ body {
 }
 
 /* Stat Styles end*/
+
+.progress-small {
+    margin-bottom: 0 !important;
+}

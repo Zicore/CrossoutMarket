@@ -3,9 +3,9 @@
     
 @if (Model.Stat.ShowProgressBar)
 {
-    <span class="progress">
+    <div class="progress progress-small">
         <div class="progress-bar" role="progressbar" style="width: @Model.Value%" aria-valuenow="@Model.Value" aria-valuemin="0" aria-valuemax="100">@Model.Value%</div>
-    </span>
+    </div>
 }
 else
 {
