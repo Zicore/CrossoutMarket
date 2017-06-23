@@ -32,7 +32,7 @@ namespace Crossout.Web
         
 
         public string FileCarEditorWeaponsExLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_weapons_ex.lua";
-        public string FileCarEditorWheelsLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_weapons_ex.lua";
+        public string FileCarEditorWheelsLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_wheels.lua";
         public string FileCarEditorCoreLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_core.lua";
         public string FileStringsEnglish { get; set; } = @"Resources\Data\0.7.0\strings\english\string.txt";
 

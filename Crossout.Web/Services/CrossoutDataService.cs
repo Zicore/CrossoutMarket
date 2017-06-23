@@ -24,6 +24,7 @@ namespace Crossout.Web.Services
 
         public PartStatsCollection CoreStatsCollection { get; } = new PartStatsCollection();
         public PartStatsCollection WeaponStatsCollection { get; } = new PartStatsCollection();
+        public PartStatsCollection MovementStatsCollection { get; } = new PartStatsCollection();
         public ReverseItemLookup ReverseItemLookup { get; } = new ReverseItemLookup();
         public StringLookup StringLookup { get; } = new StringLookup();
 
@@ -39,6 +40,7 @@ namespace Crossout.Web.Services
             ReverseItemLookup.ReadStats(Path.Combine(rootPath, WebSettings.Settings.FileStringsEnglish));
             StringLookup.ReadStats(Path.Combine(rootPath, WebSettings.Settings.FileStringsEnglish));
             WeaponStatsCollection.ReadStats<PartStatsWeapon>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorWeaponsExLua));
+            MovementStatsCollection.ReadStats<PartStatsWheel>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorWheelsLua));
             CoreStatsCollection.ReadStats<PartStatsCore>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorCoreLua));
         }
 
@@ -97,6 +99,11 @@ namespace Crossout.Web.Services
             if (item.CategoryId == CategoryHardware)
             {
                 item.Stats = Get(item.Name, CoreStatsCollection); // TODO: Decide what Stats
+            }
+
+            if (item.CategoryId == CategoryMovement)
+            {
+                item.Stats = Get(item.Name, MovementStatsCollection); // TODO: Decide what Stats
             }
         }
 
