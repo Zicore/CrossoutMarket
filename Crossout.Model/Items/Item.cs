@@ -23,6 +23,8 @@ namespace Crossout.Model.Items
 
         public int Removed { get; set; }
 
+        public int Popularity { get; set; }
+
         public decimal Margin
         {
             get { return (decimal)(SellPrice - BuyPrice - (SellPrice * 0.1m)); }
@@ -102,7 +104,8 @@ namespace Crossout.Model.Items
                 RecipeId = row[i++].ConvertTo<int>(),
                 Removed = row[i++].ConvertTo<int>(),
                 FactionNumber = row[i++].ConvertTo<int>(),
-                Faction = row[i].ConvertTo<string>(),
+                Faction = row[i++].ConvertTo<string>(),
+                Popularity = row[i].ConvertTo<int>(),
             };
 
             return item;
