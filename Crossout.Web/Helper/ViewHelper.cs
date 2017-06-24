@@ -23,5 +23,17 @@ namespace Crossout.Web.Helper
             }
             return title;
         }
+
+        public static string GenerateTitlePosition(IViewTitle item)
+        {
+            System.Diagnostics.StackTrace s = new StackTrace();
+
+            string title = "";
+            if (!string.IsNullOrEmpty(item?.Title))
+            {
+                title += $"{item.Title}";
+            }
+            return title;
+        }
     }
 }

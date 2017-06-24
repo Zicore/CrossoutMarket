@@ -270,3 +270,8 @@ body {
 .desc-default {
     font-weight: bold;
 }
+
+.crossoutdb-logo {
+    height: 60px;
+    image-rendering: -webkit-optimize-contrast;
+}

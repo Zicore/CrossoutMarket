@@ -10,14 +10,16 @@
 
 <div class="navbar-inverse navbar-default navbar-static-top" role="navigation">
     <div class="navbar-header">
-        <a class="navbar-brand" rel="home" href="/">@ViewHelper.GenerateTitle(Model)</a>
+        <a class="navbar-left" rel="home" href="/"><img alt="CrossoutDB Logo" title="@ViewHelper.GenerateTitle(Model)" class="crossoutdb-logo" src="~/img/crossoutdb_logo.png"/></a>
     </div>
     <div class="collapse navbar-collapse navbar-ex1-collapse">
+
         <div class="social-btns navbar-right navbar-inverse">
             <a class="btn btn-default" href="https://kiwiirc.com/client/irc.kiwiirc.com/?nick=CrossoutDB|?#crossoutdb" target="_blank" role="button">
                 <i class="glyphicon glyphicon-comment"></i>
             </a>
         </div>
+
         <div class="col-sm-3 col-md-3 navbar-right">
             <form class="navbar-form" action="/search/" role="search" method="get" id="form">
                 <div class="input-group">
