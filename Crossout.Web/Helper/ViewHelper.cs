@@ -19,7 +19,7 @@ namespace Crossout.Web.Helper
             string title = WebSettings.Title;
             if (!string.IsNullOrEmpty(item?.Title))
             {
-                title += $" - {item.Title}";
+                title = $"{item.Title} | {WebSettings.Title}";
             }
             return title;
         }
