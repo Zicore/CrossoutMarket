@@ -61,12 +61,5 @@ namespace Crossout.Data
             }
             return null;
         }
-
-        public static string ParseDescription(string description)
-        {
-            string result = description;
-            result = result.Replace("|", Environment.NewLine);
-            return result;
-        }
     }
 }

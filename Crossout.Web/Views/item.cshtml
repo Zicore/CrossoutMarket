@@ -28,7 +28,7 @@
                             <h3 style="margin-top: 6px; margin-bottom: 2px;">@Model.Item.Name</h3>
                             @if (Model.Item.Description != null)
                             {
-                                <span class="pre-custom">@Model.Item.Description.Text</span>
+                                <span>@Html.Raw(@Model.Item.Description.Text)</span>
                             }
                         </div>
                     </div>

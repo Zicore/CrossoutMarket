@@ -15,7 +15,7 @@ namespace Crossout.Data
             stringsRegex = new Regex(stringsPattern, RegexOptions.IgnoreCase);
         }
 
-        string stringsPattern = "\"(?<name>CarPart_.+)_Name\"\t\"(?<value>.+)\"";
+        string stringsPattern = "\"(?<name>.+)_Name\"\t\"(?<value>.+)\"";
         private Regex stringsRegex;
 
         public Dictionary<string,string> Items { get; } = new Dictionary<string, string>();

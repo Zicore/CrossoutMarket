@@ -256,3 +256,17 @@ body {
 .progress-small {
     margin-bottom: 0 !important;
 }
+
+.desc-red {
+    color: #b22222;
+    font-weight: bold;
+}
+
+.desc-green {
+    color: #006400;
+    font-weight: bold;
+}
+
+.desc-default {
+    font-weight: bold;
+}

@@ -61,6 +61,7 @@ namespace Crossout.Data
                 if (match.Groups["name"].Success)
                 {
                     var name = match.Groups["name"].Value;
+                    name = name.ToLowerInvariant();
 
                     if (!Items.ContainsKey(name))
                     {

@@ -15,14 +15,19 @@ namespace Crossout.Web.Services
 {
     public class CrossoutDataService
     {
+        private string replaceColorPattern = @"(?<start>[^@]+)@(?<color>[0-9a-f]{8})(?<value>[^@]+)(?<end>.+)";
         private string replaceValuesPattern = @"(?<start>[^\$]+)\$(?<key>[^\$]+)\$(?<end>.+)";
-        private Regex replaceValuesRegex;
+        private readonly Regex replaceValuesRegex;
+        private readonly Regex replaceColorRegex;
         private CrossoutDataService()
         {
             replaceValuesRegex = new Regex(replaceValuesPattern);
+            replaceColorRegex = new Regex(replaceColorPattern);
         }
 
         public PartStatsCollection CoreStatsCollection { get; } = new PartStatsCollection();
+        public PartStatsCollection CabinStatsCollection { get; } = new PartStatsCollection();
+        public PartStatsCollection DecorumStatsCollection { get; } = new PartStatsCollection();
         public PartStatsCollection WeaponStatsCollection { get; } = new PartStatsCollection();
         public PartStatsCollection MovementStatsCollection { get; } = new PartStatsCollection();
         public ReverseItemLookup ReverseItemLookup { get; } = new ReverseItemLookup();
@@ -39,6 +44,9 @@ namespace Crossout.Web.Services
             var rootPath = RootPathProvider.GetRootPathStatic();
             ReverseItemLookup.ReadStats(Path.Combine(rootPath, WebSettings.Settings.FileStringsEnglish));
             StringLookup.ReadStats(Path.Combine(rootPath, WebSettings.Settings.FileStringsEnglish));
+
+            CabinStatsCollection.ReadStats<PartStatsCabin>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorCabinsLua));
+            DecorumStatsCollection.ReadStats<PartStatsDecor>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorDecorumLua));
             WeaponStatsCollection.ReadStats<PartStatsWeapon>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorWeaponsExLua));
             MovementStatsCollection.ReadStats<PartStatsWheel>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorWheelsLua));
             CoreStatsCollection.ReadStats<PartStatsCore>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorCoreLua));
@@ -48,7 +56,7 @@ namespace Crossout.Web.Services
         {
             if (ReverseItemLookup.Items.ContainsKey(internalKey))
             {
-                var key = ReverseItemLookup.Items[internalKey];
+                var key = ReverseItemLookup.Items[internalKey].ToLowerInvariant();
                 if (statsCollection.Items.ContainsKey(key))
                 {
                     return statsCollection.Items[key];
@@ -61,7 +69,7 @@ namespace Crossout.Web.Services
         {
             if (ReverseItemLookup.Items.ContainsKey(internalKey))
             {
-                var key = ReverseItemLookup.Items[internalKey];
+                var key = ReverseItemLookup.Items[internalKey].ToLowerInvariant();
                 return key;
             }
             return null;
@@ -87,23 +95,38 @@ namespace Crossout.Web.Services
             //7	Dyes
             //8	Resources
 
+            const int CategoryFrame = 1;
             const int CategoryWeapon = 2;
             const int CategoryHardware = 3;
             const int CategoryMovement = 4;
+            const int CategoryStructure = 5;
+            const int CategoryDecor = 6;
+            const int CategoryDyes = 7;
+            const int CategoryResources = 8;
+
+            if (item.CategoryId == CategoryFrame)
+            {
+                item.Stats = Get(item.Name, CabinStatsCollection);
+            }
 
             if (item.CategoryId == CategoryWeapon) // Rewrite with better lookup to avoid magic values.
             {
-                item.Stats = Get(item.Name, WeaponStatsCollection); // TODO: Decide what Stats
+                item.Stats = Get(item.Name, WeaponStatsCollection);
             }
 
             if (item.CategoryId == CategoryHardware)
             {
-                item.Stats = Get(item.Name, CoreStatsCollection); // TODO: Decide what Stats
+                item.Stats = Get(item.Name, CoreStatsCollection);
             }
 
             if (item.CategoryId == CategoryMovement)
             {
-                item.Stats = Get(item.Name, MovementStatsCollection); // TODO: Decide what Stats
+                item.Stats = Get(item.Name, MovementStatsCollection);
+            }
+
+            if (item.CategoryId == CategoryDecor)
+            {
+                item.Stats = Get(item.Name, DecorumStatsCollection);
             }
         }
 
@@ -112,28 +135,83 @@ namespace Crossout.Web.Services
             var key = GetKey(item.Name);
             if (key != null)
             {
-                var desc = StringLookup.ParseDescription(StringLookup.ReadDescription(key));
+                var desc = ReplaceNewLines(StringLookup.ReadDescription(key));
                 item.Description = new ItemDescription { Text = desc };
             }
         }
 
+
+
+        public static string ReplaceNewLines(string description)
+        {
+            string result = description;
+            result = result.Replace("|", "<br>");
+            return result;
+        }
+
         private void ReplaceValues(Item item)
         {
-            string result = item.Description.Text;
-            var matches = replaceValuesRegex.Matches(result);
-            foreach (Match match in matches)
+            if (item.Description != null && item.Stats != null)
             {
-                if (match.Success)
+                string result = item.Description.Text;
+                Match match;
+
+                do
                 {
-                    var key = match.Groups["key"].Value;
-                    if (item.Stats.Fields.ContainsKey(key))
+                    match = replaceValuesRegex.Match(result);
+                    if (match.Success)
                     {
-                        var value = item.Stats.Fields[key];
-                        result = Regex.Replace(result, replaceValuesPattern, $"${{start}}{value}${{end}}");
+                        var key = match.Groups["key"].Value;
+                        if (item.Stats.Fields.ContainsKey(key))
+                        {
+                            var value = item.Stats.Fields[key];
+                            result = Regex.Replace(result, replaceValuesPattern, $"${{start}}{value}${{end}}");
+                        }
                     }
-                }
+                } while (match.Success);
+                
+
+                Match matchColor;
+
+                do
+                {
+                    matchColor = replaceColorRegex.Match(result);
+
+                    if (matchColor.Success)
+                    {
+                        var color = matchColor.Groups["color"].Value;
+                        var value = matchColor.Groups["value"].Value;
+
+                        if (color != "ffffffff")
+                        {
+                            result = Regex.Replace(result, replaceColorPattern,
+                                $"${{start}}<span class='{ColorToClass(color)}'>{value}</span>${{end}}");
+                        }
+                        else
+                        {
+                            result = Regex.Replace(result, replaceColorPattern,
+                                $"${{start}}{value}${{end}}");
+                        }
+                    }
+                } while (matchColor.Success);
+                
+
+                item.Description.Text = result;
             }
-            item.Description.Text = result;
+        }
+
+        private string ColorToClass(string color)
+        {
+            if (color.Equals("ffff0000", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return "desc-red";
+            }
+
+            if (color.Equals("ff00ff00", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return "desc-green";
+            }
+            return "desc-default";
         }
 
         private static CrossoutDataService _instance;
