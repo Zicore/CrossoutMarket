@@ -18,19 +18,19 @@
             get { return power; }
         }
 
-        [Stat("Engine Speed", 10)]
+        [Stat("Engine Speed", 20)]
         public double StatEngineSpeed
         {
             get { return engine_max_speed; }
         }
 
-        [Stat("Power", 10)]
+        [Stat("Power", 30)]
         public double StatEnginePower
         {
             get { return engine_power; }
         }
 
-        [Stat("Mass Limit", 10)]
+        [Stat("Mass Limit", 40)]
         public double StatMassLimit
         {
             get { return critical_mass_add; }
