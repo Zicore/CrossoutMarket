@@ -15,14 +15,14 @@ namespace Crossout.Web.Services
 {
     public class CrossoutDataService
     {
-        private string replaceColorPattern = @"(?<start>[^@]+)@(?<color>[0-9a-f]{8})(?<value>[^@]+)(?<end>.+)";
-        private string replaceValuesPattern = @"(?<start>[^\$]+)\$(?<key>[^\$]+)\$(?<end>.+)";
+        private string replaceColorPattern = @"(?<start>[^@]+)@(?<color>[0-9a-f]{8})(?<value>[^@]+)(?<end>.*)";
+        private string replaceValuesPattern = @"(?<start>[^\$]+)\$(?<key>[^\$]+)\$(?<end>.*)";
         private readonly Regex replaceValuesRegex;
         private readonly Regex replaceColorRegex;
         private CrossoutDataService()
         {
             replaceValuesRegex = new Regex(replaceValuesPattern);
-            replaceColorRegex = new Regex(replaceColorPattern);
+            replaceColorRegex = new Regex(replaceColorPattern, RegexOptions.IgnoreCase);
         }
 
         public PartStatsCollection CoreStatsCollection { get; } = new PartStatsCollection();
@@ -182,15 +182,13 @@ namespace Crossout.Web.Services
                         var color = matchColor.Groups["color"].Value;
                         var value = matchColor.Groups["value"].Value;
 
-                        if (color != "ffffffff")
+                        if (!color.Equals("ffffffff", StringComparison.CurrentCultureIgnoreCase))
                         {
-                            result = Regex.Replace(result, replaceColorPattern,
-                                $"${{start}}<span class='{ColorToClass(color)}'>{value}</span>${{end}}");
+                            result = Regex.Replace(result, replaceColorPattern, $"${{start}}<span class='{ColorToClass(color)}'>{value}</span>${{end}}", RegexOptions.IgnoreCase);
                         }
                         else
                         {
-                            result = Regex.Replace(result, replaceColorPattern,
-                                $"${{start}}{value}${{end}}");
+                            result = Regex.Replace(result, replaceColorPattern,$"${{start}}{value}${{end}}", RegexOptions.IgnoreCase);
                         }
                     }
                 } while (matchColor.Success);

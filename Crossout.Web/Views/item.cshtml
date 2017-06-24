@@ -220,10 +220,13 @@
                         <tbody>
                         @foreach (var item in Model.Item.Stats.SortedStats)
                         {
-                            <tr>
-                                <td class="col-md-2 stat-text">@item.Stat.Name</td>
-                                <td>@Html.Partial("parts/_stat", item)</td>
-                            </tr>
+                            if (item.DisplayValue)
+                            {
+                                <tr>
+                                    <td class="col-md-2 stat-text">@item.Stat.Name</td>
+                                    <td>@Html.Partial("parts/_stat", item)</td>
+                                </tr>
+                            }
                         }
                         </tbody>
                     </table>

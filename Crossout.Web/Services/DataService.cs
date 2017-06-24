@@ -25,7 +25,7 @@ namespace Crossout.Web.Services
             DB = sql;
         }
 
-        public ItemModel SelectItem(int id)
+        public ItemModel SelectItem(int id, bool addData)
         {
             ItemModel itemModel = new ItemModel();
             var parmeter = new List<Parameter>();
@@ -36,7 +36,10 @@ namespace Crossout.Web.Services
             var ds = DB.SelectDataSet(query, parmeter);
             
             var item = Item.Create(ds[0]);
-            CrossoutDataService.Instance.AddData(item);
+            if (addData)
+            {
+                CrossoutDataService.Instance.AddData(item);
+            }
             itemModel.Item = item;
             return itemModel;   
         }
