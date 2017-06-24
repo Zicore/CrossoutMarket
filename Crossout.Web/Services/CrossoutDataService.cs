@@ -151,25 +151,28 @@ namespace Crossout.Web.Services
 
         private void ReplaceValues(Item item)
         {
-            if (item.Description != null && item.Stats != null)
+            if (item.Description != null)
             {
                 string result = item.Description.Text;
-                Match match;
 
-                do
+                if (item.Stats != null)
                 {
-                    match = replaceValuesRegex.Match(result);
-                    if (match.Success)
+                    Match match;
+
+                    do
                     {
-                        var key = match.Groups["key"].Value;
-                        if (item.Stats.Fields.ContainsKey(key))
+                        match = replaceValuesRegex.Match(result);
+                        if (match.Success)
                         {
-                            var value = item.Stats.Fields[key];
-                            result = Regex.Replace(result, replaceValuesPattern, $"${{start}}{value}${{end}}");
+                            var key = match.Groups["key"].Value;
+                            if (item.Stats.Fields.ContainsKey(key))
+                            {
+                                var value = item.Stats.Fields[key];
+                                result = Regex.Replace(result, replaceValuesPattern, $"${{start}}{value}${{end}}");
+                            }
                         }
-                    }
-                } while (match.Success);
-                
+                    } while (match.Success);
+                }
 
                 Match matchColor;
 
