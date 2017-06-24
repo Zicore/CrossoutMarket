@@ -13,7 +13,10 @@ namespace Crossout.Model.Items
 {
     public class Item
     {
+        [JsonIgnore]
         public PartStatsBase Stats { get; set; }
+
+        [JsonIgnore]
         public ItemDescription Description { get; set; }
 
         public int Id { get; set; }

@@ -32,7 +32,7 @@
                     {
                         if (Model.Depth == 0)
                         {
-                            <button class="btn btn-xs btn-main tree-icon glyphicon glyphicon-plus item-@Model.Id" data-recipe="@Model.Item.RecipeId" data-parentuniqueid="@Model.ParentUniqueId" data-uniqueid="@Model.UniqueId"></button>
+                            <button class="btn btn-xs btn-main tree-icon glyphicon glyphicon-plus disabled item-@Model.Id" data-recipe="@Model.Item.RecipeId" data-parentuniqueid="@Model.ParentUniqueId" data-uniqueid="@Model.UniqueId"></button>
                         }
                         else
                         {
@@ -223,17 +223,19 @@
         $(document).ready(function() {
             var classname = 'recipe-@Model.Item.RecipeId';
             $('#uniqueid-@Model.UniqueId').find('.item-@Model.Id').click(function () {
-                var recipe = $(this).data('recipe');
-                var uniqueid = $(this).data('uniqueid');
+                if (recipeData.loaded) {
+                    var recipe = $(this).data('recipe');
+                    var uniqueid = $(this).data('uniqueid');
             
-                if ($(this).hasClass('glyphicon-plus')) {
-                    $(this).removeClass('glyphicon-plus').addClass('glyphicon-minus');
-                    window.updateTree(classname, recipe, uniqueid, true);
-                    window.updateSums(recipe, uniqueid);
-                } else {
-                    $(this).removeClass('glyphicon-minus').addClass('glyphicon-plus');
-                    window.updateTree(classname, recipe, uniqueid, false);
-                    window.updateSums(recipe, uniqueid);
+                    if ($(this).hasClass('glyphicon-plus')) {
+                        $(this).removeClass('glyphicon-plus').addClass('glyphicon-minus');
+                        window.updateTree(classname, recipe, uniqueid, true);
+                        window.updateSums(recipe, uniqueid);
+                    } else {
+                        $(this).removeClass('glyphicon-minus').addClass('glyphicon-plus');
+                        window.updateTree(classname, recipe, uniqueid, false);
+                        window.updateSums(recipe, uniqueid);
+                    }
                 }
             });
         });

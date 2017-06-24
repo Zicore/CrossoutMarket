@@ -4,6 +4,7 @@ using Crossout.Model.Items;
 using Crossout.Web.Helper;
 using Crossout.Web.Models.General;
 using Crossout.Web.Models.Recipes;
+using Newtonsoft.Json;
 
 namespace Crossout.Web.Models.Items
 {
@@ -17,6 +18,7 @@ namespace Crossout.Web.Models.Items
         public List<FactionModel> AllFactions { get; set; } = new List<FactionModel>();
         public FactionModel SelectedFaction { get; set; } = new FactionModel();
 
+        [JsonIgnore]
         public string Title => Item.Name;
     }
 }
