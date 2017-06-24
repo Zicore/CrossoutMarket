@@ -1,4 +1,5 @@
 ﻿using System;
+using Crossout.Web.Services;
 using Microsoft.Owin.Hosting;
 
 namespace Crossout.Web
@@ -10,6 +11,8 @@ namespace Crossout.Web
             WebSettings.Settings.Load();
             WebSettings.Settings.Save(); // Saving defaults
             var url = "http://+:" + WebSettings.Settings.WebserverPort;
+
+            CrossoutDataService.Initialize();
 
             using (WebApp.Start<Startup>(url))
             {

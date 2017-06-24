@@ -1,0 +1,14 @@
+﻿@using System.Globalization
+@using Crossout.Data
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Data.Stats.Main.SingleStat>
+    
+@if (Model.Stat.ShowProgressBar)
+{
+    <div class="progress progress-small">
+        <div class="progress-bar" role="progressbar" style="width: @Model.Value%" aria-valuenow="@Model.Value" aria-valuemin="0" aria-valuemax="100">@Model.Value%</div>
+    </div>
+}
+else
+{
+    <span class="@Model.Stat.CustomClasses">@string.Format(CultureInfo.InvariantCulture, "{0}", Model.Value)</span>
+}

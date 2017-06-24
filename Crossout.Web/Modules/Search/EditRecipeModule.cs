@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Crossout.Model;
 using Crossout.Model.Recipes;
 using Crossout.Web.Models;
 using Crossout.Web.Models.EditRecipe;
@@ -57,7 +58,7 @@ namespace Crossout.Web.Modules.Search
 
                 DataService db = new DataService(sql);
 
-                var itemModel = db.SelectItem(id);
+                var itemModel = db.SelectItem(id, false);
                 var recipeModel = db.SelectRecipeModel(itemModel.Item);
                 var statusModel = db.SelectStatus();
                 var factions = db.SelectAllFactions();

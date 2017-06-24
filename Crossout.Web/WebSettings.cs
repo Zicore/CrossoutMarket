@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using NLog;
 using Zicore.Settings.Json;
 using ZicoreConnector.Zicore.Connector.Base;
 
 namespace Crossout.Web
 {
-    public class WebSettings : JsonSettings
+    public class WebSettings : JsonSerializable
     {
-        public static WebSettings Settings = new WebSettings();
+        public string CurrentVersion { get; set; } = "0.7.0"; // For Folder
+
+        public static WebSettings Settings = new WebSettings { JsonSerializerSettings = new JsonSerializerSettings {Formatting = Formatting.Indented}, CreateSubdirectoryIfItNotExists = true};
 
         private static readonly Logger Log = LogManager.GetCurrentClassLogger();
 
@@ -26,6 +29,14 @@ namespace Crossout.Web
 
         public string GoogleConsumerKey { get; set; } = "";
         public string GoogleConsumerSecret { get; set; } = "";
+        
+
+        public string FileCarEditorWeaponsExLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_weapons_ex.lua";
+        public string FileCarEditorCabinsLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_cabins.lua";
+        public string FileCarEditorDecorumLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_decorum.lua";
+        public string FileCarEditorWheelsLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_wheels.lua";
+        public string FileCarEditorCoreLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_core.lua";
+        public string FileStringsEnglish { get; set; } = @"Resources\Data\0.7.0\strings\english\string.txt";
 
         public static string Title => "Crossout DB - Crossout Market and Crafting Calculator";
 
@@ -33,16 +44,21 @@ namespace Crossout.Web
         {
             try
             {
-                Load(ApplicationName, FileName);
+                LoadFromAppData(FileName, ApplicationName);
             }
             catch (FileNotFoundException)
             {
-                Save();
+                SaveToAppData(FileName, ApplicationName);
             }
             catch (Exception ex)
             {
                 Log.Debug(ex);
             }
+        }
+
+        public void Save()
+        {
+            SaveToAppData(FileName, ApplicationName);
         }
 
         public ConnectorDescription CreateDescription()

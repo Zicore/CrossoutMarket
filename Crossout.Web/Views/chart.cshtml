@@ -2,11 +2,10 @@
 @using Crossout.Web
 @using Zicore.Settings.Json
 @using Zicore.Settings
-@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.ItemModel>
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.Items.ItemModel>
 
-<div class="well well-sm">
-    <div id="container" style="height: 600px; min-width: 310px"></div>
-</div>    
+
+<div id="container" style="height: 600px; min-width: 310px"></div>
 
 <script>
     $(function () {
@@ -21,7 +20,7 @@
         function createChart() {
 
             $('#container').highcharts('StockChart', {
-                
+
                 rangeSelector: {
                     allButtonsEnabled: true,
                     buttons: [{
@@ -117,7 +116,7 @@
                     }],
                     opposite :false
                 }],
-                
+
                 tooltip: {
                     pointFormat: '<span style="color:{series.color};font-size:16px;">{series.name}</span>: <b>{point.y}</b><br/>',
                     valueDecimals: 2
@@ -160,8 +159,8 @@
                         color : color
                     };
                 }
-                
-                seriesOptions[i] = series;  
+
+                seriesOptions[i] = series;
                 // As we're loading the data asynchronously, we don't know what order it will arrive. So
                 // we keep a counter and create the chart when all the data is loaded.
                 seriesCounter += 1;
@@ -172,7 +171,7 @@
             });
         });
 
-        
+
         $(document).ready(function() {
             // Load the fonts
             Highcharts.createElement('link', {

@@ -8,6 +8,9 @@ using Crossout.Model.Items;
 using Crossout.Model.Recipes;
 using Crossout.Web.Models;
 using Crossout.Web.Models.EditRecipe;
+using Crossout.Web.Models.General;
+using Crossout.Web.Models.Items;
+using Crossout.Web.Models.Recipes;
 using Crossout.Web.Modules.Search;
 using ZicoreConnector.Zicore.Connector.Base;
 
@@ -22,7 +25,7 @@ namespace Crossout.Web.Services
             DB = sql;
         }
 
-        public ItemModel SelectItem(int id)
+        public ItemModel SelectItem(int id, bool addData)
         {
             ItemModel itemModel = new ItemModel();
             var parmeter = new List<Parameter>();
@@ -33,6 +36,10 @@ namespace Crossout.Web.Services
             var ds = DB.SelectDataSet(query, parmeter);
             
             var item = Item.Create(ds[0]);
+            if (addData)
+            {
+                CrossoutDataService.Instance.AddData(item);
+            }
             itemModel.Item = item;
             return itemModel;   
         }

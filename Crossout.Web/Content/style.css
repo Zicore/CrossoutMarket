@@ -34,16 +34,13 @@ td {
     font-size: 18px;
 }
 
-
 html {
   position: relative;
-  height: 100%;
 }
+
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 0px;
+  padding-bottom: 46px;
   background: white;
-  height: 100%;
 }
 
 .blue {
@@ -219,4 +216,62 @@ body {
 
 .dataTables_info {
     text-align: right !important;
+}
+
+.content-space {
+    margin: 6px;
+}
+
+.pre-custom {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre;
+}
+
+.container-space {
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+/* Stat Styles */
+
+.stat-heading-3 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.stat-text {
+  display: block;
+  font-size: 100%;
+  font-weight: bold;
+  line-height: 1;
+  color: #595959;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+/* Stat Styles end*/
+
+.progress-small {
+    margin-bottom: 0 !important;
+}
+
+.desc-red {
+    color: #b22222;
+    font-weight: bold;
+}
+
+.desc-green {
+    color: #006400;
+    font-weight: bold;
+}
+
+.desc-default {
+    font-weight: bold;
+}
+
+.crossoutdb-logo {
+    height: 60px;
+    image-rendering: -webkit-optimize-contrast;
 }

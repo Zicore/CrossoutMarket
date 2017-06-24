@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FactionModel.cs" />
     <Compile Include="Formatter\PriceFormatter.cs" />
     <Compile Include="Items\Item.cs" />
     <Compile Include="Items\ItemCollection.cs" />
@@ -52,6 +53,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Crossout.Data.Helper\Crossout.Data.Helper.csproj">
+      <Project>{053c3102-80bc-4856-bce8-9c93a1c80e6b}</Project>
+      <Name>Crossout.Data.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crossout.Data\Crossout.Data.csproj">
+      <Project>{c228fb90-7320-4b3c-ae9a-b37f95eacaf6}</Project>
+      <Name>Crossout.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

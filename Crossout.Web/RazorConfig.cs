@@ -14,6 +14,7 @@ namespace Crossout.Web
             yield return "Zicore.Settings.Json";
             yield return "ZicoreConnector";
             yield return "Crossout.Model";
+            yield return "Crossout.Data";
         }
 
         public IEnumerable<string> GetDefaultNamespaces()
@@ -21,6 +22,7 @@ namespace Crossout.Web
             yield return "Zicore.Settings.Json";
             yield return "ZicoreConnector";
             yield return "Crossout.Model";
+            yield return "Crossout.Data";
         }
 
         public bool AutoIncludeModelNamespace

@@ -62,7 +62,7 @@ namespace Crossout.Web.Modules.Data
 
                 DataService db = new DataService(sql);
 
-                var itemModel = db.SelectItem(id);
+                var itemModel = db.SelectItem(id, false);
 
                 EmbedImageCreator eic = new EmbedImageCreator(itemModel.Item, itemData);
                 var imageArray = (byte[])new ImageConverter().ConvertTo(eic.CreateEmbedImage(), typeof(byte[]));
