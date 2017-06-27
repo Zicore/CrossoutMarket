@@ -1,0 +1,19 @@
+{
+  "CurrentVersion": "0.7.0",
+  "DatabaseName": "crossout",
+  "DatabaseHost": "localhost",
+  "DatabasePassword": "your db password",
+  "DatabaseUsername": "your db username",
+  "DatabasePort": 3306,
+  "SignalrHost": "localhost",
+  "WebserverPort": 80,
+  "DataHost": "localhost",
+  "GoogleConsumerKey": "",
+  "GoogleConsumerSecret": "",
+  "FileCarEditorWeaponsExLua": "Resources\\Data\\0.7.0\\gamedata\\def\\ex\\car_editor_weapons_ex.lua",
+  "FileCarEditorCabinsLua": "Resources\\Data\\0.7.0\\gamedata\\def\\ex\\car_editor_cabins.lua",
+  "FileCarEditorDecorumLua": "Resources\\Data\\0.7.0\\gamedata\\def\\ex\\car_editor_decorum.lua",
+  "FileCarEditorWheelsLua": "Resources\\Data\\0.7.0\\gamedata\\def\\ex\\car_editor_wheels.lua",
+  "FileCarEditorCoreLua": "Resources\\Data\\0.7.0\\gamedata\\def\\ex\\car_editor_core.lua",
+  "FileStringsEnglish": "Resources\\Data\\0.7.0\\strings\\english\\string.txt"
+}
