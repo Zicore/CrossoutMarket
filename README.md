@@ -8,14 +8,28 @@ We are not affiliated with Gaijin or Targem games in any way. We are just two gu
 Crafting Calculator, Price Graphs, Margins and more.
 ===
 
-This is the Open Source Project for Crossout Market found here: http://crossoutdb.com/ it provides out of game prices, buy and sell offers as well as price and volume graphs.
+This is the Open Source Project for Crossout Market found here: http://crossoutdb.com/ it provides out of game prices, buy and sell offers as well as price and volume graphs. Also new are item stats, item descriptions, filters and improved usage of [datatables](https://datatables.net/).
 
-Screenshot of the Website: ![Crossout Market](http://i.imgur.com/47N8CjD.png)
+Screenshot of the main page: 
 
-Example of the AGS-40 trend: ![AGS-40](http://i.imgur.com/sCNkg4k.png)
+![Crossout Market](http://i.imgur.com/a9ovo2O.png)
+
+Example of the Clarinet Tow item page: 
+
+![Clarinet Tow Chart](http://i.imgur.com/pvOwYtU.png)
+
+Example of recipe view: 
+
+![Armored track recipe](http://i.imgur.com/XwO7R2C.png)
+
+Example of stats view: 
+
+![Hurricane stats](http://i.imgur.com/9CfARj3.png)
 
 Contributing
 ===
+
+**This readme currently only covers some basics, please join our IRC channel if you need any help, with setting everything up properly.**
 
 You will need a few things to setup first:
 
@@ -70,11 +84,28 @@ We are currently reading the clients memory every ~5 minutes to get the most up 
 ## Stats and Descriptions
 We basically unpack the game files and read them.
 
-===
 FAQ
+===
 
 Q: I don't find the part that reads the data from the market in your repo.
-A: It's not part of the repository and not open source (yet), since we don't want that anyone plays with the games memory, also you could get banned for doing so.
+
+A: It's not part of the repository and not open source (yet), since we don't want that anyone plays with the games memory, also you 
+could get banned for doing so.
+
+&nbsp;
+
+Q: Do you have an API for your data?
+
+A: Not yet, but we are making an API in near future.
+
+&nbsp;
 
 Q: Can you implement feature XYZ.
-A: We are allways open for suggestions, but we also have our own ideas and todo lists.
+
+A: Sure, we are allways open for suggestions, but we also have our own ideas and todo lists and we are working on this project in our free time.
+
+&nbsp;
+
+Q: Where do I find the game files.
+
+A: They are in the Crossout installation folder, you just need to unpack them. Contact us for more information.
