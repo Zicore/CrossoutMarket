@@ -193,9 +193,8 @@
                     <h4 class="panel-title">Advertisement</h4>
                 </div>
                 <div class="panel-body">
-                    <div class="content-space">
+                    @*<div class="content-space">
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- Anzeige -->
                         <ins class="adsbygoogle"
                              style="display:block"
                              data-ad-client="ca-pub-1215488197322962"
@@ -204,7 +203,7 @@
                         <script>
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
-                    </div>
+                    </div>*@
                 </div>
             </div>
 
@@ -273,8 +272,10 @@
 
     $.getJSON(location.protocol + '//@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)',
         function (data) {
-            recipeData.data = data;
-            recipeData.loaded = true;
+
+           recipeData.data = data;
+           recipeData.loaded = true;
+           
             $(".item-0").removeClass("disabled");
         });
 </script>

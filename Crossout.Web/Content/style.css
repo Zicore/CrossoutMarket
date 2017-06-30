@@ -275,3 +275,8 @@ body {
     height: 60px;
     image-rendering: -webkit-optimize-contrast;
 }
+
+.shopping-list-title {
+    font-weight: bold;
+    font-size: 14px;
+}
