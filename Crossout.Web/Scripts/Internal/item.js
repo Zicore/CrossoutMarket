@@ -43,7 +43,7 @@ function toFixed(number) {
 
 function updateSums(recipe, uniqueid) {
 
-    $('#shopping-list').empty();
+    $('#shopping-list > tbody').empty();
 
         $('.sum-row:visible').each(function (j, obj) {
             var sumuniqueid = $(this).data('uniqueid');
@@ -149,13 +149,13 @@ function updateSums(recipe, uniqueid) {
                                 '</td><td>' +
                                 "" +
                                 '</td><td>' +
-                                htmlNumberInput(1, 'input-number-workbench') +
+                                htmlNumberInput(Cookies.get('workbench-number'), 'input-number-workbench') +
                                 '</td><td>' +
-                                htmlPriceInput(toPrice(0), 'input-sell-workbench') +
+                                htmlPriceInput(Cookies.get('workbench-sellprice'), 'input-sell-workbench') +
                                 '</td><td>' +
                                 '' +
                                 '</td><td>' +
-                                htmlPriceInput(toPrice(0), 'input-buy-workbench') +
+                                htmlPriceInput(Cookies.get('workbench-buyprice'), 'input-buy-workbench') +
                                 '</td></tr>');
 
                     $('#input-number-workbench').on('input',
@@ -217,6 +217,10 @@ function calculateShoppingList(root, list) {
     var number = parseInt($('#input-number-workbench').val());
     var sell = parseFloat($('#input-sell-workbench').val());
     var buy = parseFloat($('#input-buy-workbench').val());
+
+    Cookies.set('workbench-number', number);
+    Cookies.set('workbench-sellprice', sell);
+    Cookies.set('workbench-buyprice', buy);
 
     sumSell += sell * number;
     sumBuy += buy * number;

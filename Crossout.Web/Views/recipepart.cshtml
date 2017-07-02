@@ -231,10 +231,16 @@
                         $(this).removeClass('glyphicon-plus').addClass('glyphicon-minus');
                         window.updateTree(classname, recipe, uniqueid, true);
                         window.updateSums(recipe, uniqueid);
+                        if($(this).data('uniqueid') === 0) {
+                            $('#shopping-list-wrapper').show();
+                        }
                     } else {
                         $(this).removeClass('glyphicon-minus').addClass('glyphicon-plus');
                         window.updateTree(classname, recipe, uniqueid, false);
                         window.updateSums(recipe, uniqueid);
+                        if ($(this).data('uniqueid') === 0) {
+                            $('#shopping-list-wrapper').hide();
+                        }
                     }
                 }
             });

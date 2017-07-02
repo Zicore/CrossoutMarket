@@ -47,18 +47,19 @@ namespace Crossout.Web.Services
         public RecipeModel SelectRecipeModel(Item item)
         {
             RecipeModel recipeModel = new RecipeModel();
-            recipeModel.Recipe = new RecipeItem {Item = item,Ingredients = SelectRecipe(item) };
+            RecipeCounter counter = new RecipeCounter();
+            recipeModel.Recipe = new RecipeItem(counter) {Item = item,Ingredients = SelectRecipe(counter,item) };
             
-            ResolveRecipe(recipeModel.Recipe, 1);
+            ResolveRecipe(counter, recipeModel.Recipe, 1);
 
             CalculateRecipe(recipeModel.Recipe);
-            recipeModel.Recipe.IngredientSum = CreateIngredientItem(recipeModel.Recipe);
+            recipeModel.Recipe.IngredientSum = CreateIngredientItem(counter,recipeModel.Recipe);
             
 
             return recipeModel;
         }
 
-        public void ResolveRecipe(RecipeItem parent, int depth)
+        public void ResolveRecipe(RecipeCounter counter,RecipeItem parent, int depth)
         {
             foreach (var ingredient in parent.Ingredients)
             {
@@ -66,13 +67,13 @@ namespace Crossout.Web.Services
                 ingredient.Depth = depth;
                 if (ingredient.Item.RecipeId > 0)
                 {
-                    ingredient.Ingredients = SelectRecipe(ingredient.Item);
+                    ingredient.Ingredients = SelectRecipe(counter, ingredient.Item);
                     ++depth;
-                    ResolveRecipe(ingredient, depth);
+                    ResolveRecipe(counter, ingredient, depth);
                     CalculateRecipe(ingredient);
                     if (ingredient.Depth > 0)
                     {
-                        ingredient.IngredientSum = CreateIngredientItem(ingredient);
+                        ingredient.IngredientSum = CreateIngredientItem(counter, ingredient);
                     }
                     parent.MaxDepth = Math.Max(depth, ingredient.MaxDepth);
                     depth--;
@@ -80,9 +81,9 @@ namespace Crossout.Web.Services
             }
         }
 
-        private static RecipeItem CreateIngredientItem(RecipeItem item)
+        private static RecipeItem CreateIngredientItem(RecipeCounter counter,RecipeItem item)
         {
-            var ingredientSum = new RecipeItem
+            var ingredientSum = new RecipeItem(counter)
             {
                 Id = -1,
                 Depth = item.Depth,
@@ -115,13 +116,13 @@ namespace Crossout.Web.Services
             item.SumSell = item.Ingredients.Sum(x => x.SellPriceTimesNumber);
         }
 
-        public List<RecipeItem> SelectRecipe(Item item)
+        public List<RecipeItem> SelectRecipe(RecipeCounter counter,Item item)
         {
             var parmeter = new List<Parameter>();
             parmeter.Add(new Parameter { Identifier = "id", Value = item.RecipeId });
             string query = BuildRecipeQuery();
             var ds = DB.SelectDataSet(query, parmeter);
-            return RecipeItem.Create(new RecipeItem {Item = item}, ds);
+            return RecipeItem.Create(counter, new RecipeItem(counter) {Item = item}, ds);
         }
 
         public StatusModel SelectStatus()
