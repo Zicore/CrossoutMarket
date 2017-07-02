@@ -41,6 +41,20 @@ function toFixed(number) {
     return number.toFixed(2);
 }
 
+function getCookieOrDefault(name, defaultValue) {
+    var cookieValue = Cookies.get(name);
+    if (cookieValue !== undefined && !isNaN(cookieValue)) {
+        return cookieValue;
+    }
+    return defaultValue;
+}
+
+function setCookieNumber(name, value) {
+    if (!isNaN(value)) {
+        Cookies.set(name, value);
+    }
+}
+
 function updateSums(recipe, uniqueid) {
 
     $('#shopping-list > tbody').empty();
@@ -149,13 +163,13 @@ function updateSums(recipe, uniqueid) {
                                 '</td><td>' +
                                 "" +
                                 '</td><td>' +
-                                htmlNumberInput(Cookies.get('workbench-number'), 'input-number-workbench') +
+                                htmlNumberInput(getCookieOrDefault('workbench-number',1), 'input-number-workbench') +
                                 '</td><td>' +
-                                htmlPriceInput(Cookies.get('workbench-sellprice'), 'input-sell-workbench') +
+                                htmlPriceInput(getCookieOrDefault('workbench-sellprice',0), 'input-sell-workbench') +
                                 '</td><td>' +
                                 '' +
                                 '</td><td>' +
-                                htmlPriceInput(Cookies.get('workbench-buyprice'), 'input-buy-workbench') +
+                                htmlPriceInput(getCookieOrDefault('workbench-buyprice',0), 'input-buy-workbench') +
                                 '</td></tr>');
 
                     $('#input-number-workbench').on('input',
@@ -218,9 +232,9 @@ function calculateShoppingList(root, list) {
     var sell = parseFloat($('#input-sell-workbench').val());
     var buy = parseFloat($('#input-buy-workbench').val());
 
-    Cookies.set('workbench-number', number);
-    Cookies.set('workbench-sellprice', sell);
-    Cookies.set('workbench-buyprice', buy);
+    setCookieNumber('workbench-number', number);
+    setCookieNumber('workbench-sellprice', sell);
+    setCookieNumber('workbench-buyprice', buy);
 
     sumSell += sell * number;
     sumBuy += buy * number;
