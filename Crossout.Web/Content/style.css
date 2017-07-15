@@ -275,3 +275,8 @@ body {
     height: 60px;
     image-rendering: -webkit-optimize-contrast;
 }
+
+/* Datatables Button correction */
+.dataTables_button{
+    margin: 2px;
+}
