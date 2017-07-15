@@ -54,7 +54,7 @@ namespace Crossout.Web.Modules.Search
         {
             try
             {
-                RecipeItem.ResetId();
+                //RecipeItem.ResetId();
 
                 DataService db = new DataService(sql);
 

@@ -41,10 +41,23 @@ function toFixed(number) {
     return number.toFixed(2);
 }
 
-function updateSums(recipe, uniqueid) {
-    if (recipeData.loaded) {
+function getCookieOrDefault(name, defaultValue) {
+    var cookieValue = Cookies.get(name);
+    if (cookieValue !== undefined && !isNaN(cookieValue)) {
+        return cookieValue;
+    }
+    return defaultValue;
+}
 
-        $('#shopping-list > tbody').remove();
+function setCookieNumber(name, value) {
+    if (!isNaN(value)) {
+        Cookies.set(name, value);
+    }
+}
+
+function updateSums(recipe, uniqueid) {
+
+    $('#shopping-list > tbody').empty();
 
         $('.sum-row:visible').each(function (j, obj) {
             var sumuniqueid = $(this).data('uniqueid');
@@ -143,6 +156,37 @@ function updateSums(recipe, uniqueid) {
                     }
 
                     $('#shopping-list').append(
+                                '<tr data-item-id="' +
+                                "workbench" +
+                                '"><td>' +
+                                htmlShoppingListTitle("Other costs") +
+                                '</td><td>' +
+                                "" +
+                                '</td><td>' +
+                                htmlNumberInput(getCookieOrDefault('workbench-number',1), 'input-number-workbench') +
+                                '</td><td>' +
+                                htmlPriceInput(getCookieOrDefault('workbench-sellprice',0), 'input-sell-workbench') +
+                                '</td><td>' +
+                                '' +
+                                '</td><td>' +
+                                htmlPriceInput(getCookieOrDefault('workbench-buyprice',0), 'input-buy-workbench') +
+                                '</td></tr>');
+
+                    $('#input-number-workbench').on('input',
+                    function (e) {
+                        calculateShoppingList(root, result.shoppinglist);
+                    });
+                    $('#input-sell-workbench').on('input',
+                        function (e) {
+                            calculateShoppingList(root, result.shoppinglist);
+                        });
+                    $('#input-buy-workbench').on('input',
+                    function (e) {
+                        calculateShoppingList(root, result.shoppinglist);
+                    });
+                    
+
+                    $('#shopping-list').append(
                         '<tr data-item-id="' +
                         root.Item.Id +
                         '"><td>' +
@@ -163,7 +207,7 @@ function updateSums(recipe, uniqueid) {
                 }
             }
         });
-    }
+    
 }
 
 function calculateShoppingList(root, list) {
@@ -183,6 +227,17 @@ function calculateShoppingList(root, list) {
             sumBuy += filterResourcePrice(item.Id, buy) * number;
         }
     }
+
+    var number = parseInt($('#input-number-workbench').val());
+    var sell = parseFloat($('#input-sell-workbench').val());
+    var buy = parseFloat($('#input-buy-workbench').val());
+
+    setCookieNumber('workbench-number', number);
+    setCookieNumber('workbench-sellprice', sell);
+    setCookieNumber('workbench-buyprice', buy);
+
+    sumSell += sell * number;
+    sumBuy += buy * number;
 
     var sellPrice = (root.Item.SellPrice * 0.9) / 100.0;
     var buyPrice = (root.Item.BuyPrice * 0.9) / 100.0;
@@ -226,6 +281,10 @@ function filterResourcePrice(id, value) {
         return value / 100.0;
     }
     return value;
+}
+
+function htmlShoppingListTitle(title) {
+    return '<div class="shopping-list-title">' + title + '</div>';
 }
 
 // Ugh...
@@ -355,6 +414,7 @@ function updateSum(root, item, result, recipe) {
             }
         }
     }
+    
     if (valueSet && foundItem != null) {
         result.map[foundItem.ParentUniqueId] = true;
     }
