@@ -35,7 +35,7 @@
 
 <div class="col-md-2">
     <ul class="pagination pagination-sm" style="margin: 3px;">
-        <li @(Model.FilterModel.CurrentShowRemovedItems ? "class=active" : "")><a href="~/search/@Model.UriRItems(Model.FilterModel.CurrentShowRemovedItems)">Removed Items</a></li>
-        <li @(Model.FilterModel.CurrentShowMetaItems ? "class=active" : "")><a href="~/search/@Model.UriMItems(Model.FilterModel.CurrentShowMetaItems)">Meta Items</a></li>
+        <li @(Model.FilterModel.CurrentShowRemovedItems ? "class=active" : "")><a href="~/search/@Model.UriRemovedItems(Model.FilterModel.CurrentShowRemovedItems)">Removed Items</a></li>
+        <li @(Model.FilterModel.CurrentShowMetaItems ? "class=active" : "")><a href="~/search/@Model.UriMetaItems(Model.FilterModel.CurrentShowMetaItems)">Meta Items</a></li>
     </ul>
 </div>

@@ -40,12 +40,12 @@ namespace Crossout.Web.Models.General
             return $"{page}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={FilterModel.CurrentShowRemovedItems}&mitems={FilterModel.CurrentShowMetaItems}";
         }
 
-        public string UriRItems(bool showRemovedItems)
+        public string UriRemovedItems(bool showRemovedItems)
         {
             return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={!showRemovedItems}&mitems={FilterModel.CurrentShowMetaItems}";
         }
 
-        public string UriMItems(bool showMetaItems)
+        public string UriMetaItems(bool showMetaItems)
         {
             return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={FilterModel.CurrentShowRemovedItems}&mitems={!showMetaItems}";
         }
