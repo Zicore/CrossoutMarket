@@ -77,10 +77,47 @@ namespace Crossout.Web.Services
                     }
                     parent.MaxDepth = Math.Max(depth, ingredient.MaxDepth);
                     depth--;
-                }               
+                }
+            }
+
+            AddWorkbenchCostItem(counter, parent, depth);
+        }
+
+        public WorkbenchItemId GetWorkbenchItemIdByRarity(Rarity rarity)
+        {
+            switch (rarity)
+            {
+                case Rarity.Common_1:
+                    return WorkbenchItemId.Common_445;
+                case Rarity.Rare_2:
+                    return WorkbenchItemId.Rare_446;
+                case Rarity.Epic_3:
+                    return WorkbenchItemId.Epic_447;
+                case Rarity.Legendary_4:
+                    return WorkbenchItemId.Legendary_448;
+                case Rarity.Relic_5:
+                    return WorkbenchItemId.Relic_449;
+                default: return WorkbenchItemId.Common_445;
             }
         }
 
+        public void AddWorkbenchCostItem(RecipeCounter counter, RecipeItem parent, int depth)
+        {
+            var rarity = (Rarity) parent.Item.RarityId;
+            // We don't want common (no workbench costs) to be displayed. 
+            // Also incase the workbench costs are not based on the rarity we use the override value from the DB
+            if (rarity != Rarity.Common_1 || parent.Item.WorkbenchRarity > 0)
+            {
+                if (parent.Item.WorkbenchRarity > 0)
+                {
+                    rarity = (Rarity) parent.Item.WorkbenchRarity;
+                }
+                var id = GetWorkbenchItemIdByRarity(rarity);
+                var workbenchItem = SelectItem((int) id, false);
+                parent.Ingredients.Add(CreateIngredientWorkbenchItem(counter, parent, workbenchItem, depth));
+            }
+        }
+        
         private static RecipeItem CreateIngredientItem(RecipeCounter counter,RecipeItem item)
         {
             var ingredientSum = new RecipeItem(counter)
@@ -108,6 +145,35 @@ namespace Crossout.Web.Services
             ingredientSum.Parent = item;
             ingredientSum.IsSumRow = true;
             return ingredientSum;       
+        }
+
+        private static RecipeItem CreateIngredientWorkbenchItem(RecipeCounter counter, RecipeItem parent, ItemModel item, int depth)
+        {
+            var ingredient = new RecipeItem(counter)
+            {
+                Id = -1,
+                Depth = depth,
+                Item = new Item
+                {
+                    Id = item.Item.Id,
+                    RecipeId = item.Item.RecipeId,
+
+                    Name = item.Item.Name,
+                    SellPrice = item.Item.SellPrice,
+                    BuyPrice = item.Item.BuyPrice,
+                    SellOffers = item.Item.SellOffers,
+                    BuyOrders = item.Item.BuyOrders,
+                    RarityId = item.Item.RarityId,
+                    RarityName = item.Item.RarityName,
+                    CategoryId = item.Item.CategoryId,
+                    CategoryName = item.Item.CategoryName,
+                    TypeId = item.Item.TypeId,
+                    TypeName = item.Item.TypeName
+                }
+            };
+            ingredient.Number = 1;
+            ingredient.Parent = parent;
+            return ingredient;
         }
 
         private static void CalculateRecipe(RecipeItem item)
@@ -251,7 +317,7 @@ namespace Crossout.Web.Services
 
         public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems, bool showMetaItems)
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,faction.id,faction.name,item.popularity";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,faction.id,faction.name,item.popularity,item.workbenchrarity";
             if (count)
             {
                 selectColumns = "count(*)";

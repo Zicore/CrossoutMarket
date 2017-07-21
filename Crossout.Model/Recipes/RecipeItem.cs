@@ -147,7 +147,7 @@ namespace Crossout.Model.Recipes
 
             return items;
         }
-
+        
         public static RecipeItem Create(RecipeCounter counter,object[] row)
         {
             int i = 0;
