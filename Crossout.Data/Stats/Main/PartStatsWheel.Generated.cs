@@ -51,7 +51,6 @@ namespace Crossout.Data.Stats.Main
         public string require_faction {get;set;}
         public int speed_limit {get;set;}
         public double track_steerRot {get;set;}
-        public string platform_exclusive {get;set;}
         public int collision_resist {get;set;}
         public int flame_resist {get;set;}
         public double impulse_resistance_mul {get;set;}

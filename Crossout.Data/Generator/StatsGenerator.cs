@@ -9,7 +9,7 @@ namespace Crossout.Data.Generator
 {
     public class StatsGenerator
     {
-        public static string GeneratorVersion = "0.3";
+        public static string GeneratorVersion = "0.4";
 
         readonly StatsReader statsReader = new StatsReader();
 

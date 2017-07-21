@@ -72,6 +72,30 @@
     <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_wheels.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_cabins.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_core.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_decorum.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_melee.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_structure.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_summons.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_weapons_ex.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_wheels.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Crossout.Data\Crossout.Data.csproj">
@@ -91,6 +115,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Data\0.7.0\strings\russian\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Data\0.7.20\strings\english\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.7.20\strings\german\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.7.20\strings\russian\string.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

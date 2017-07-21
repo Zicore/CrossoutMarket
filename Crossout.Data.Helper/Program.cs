@@ -14,7 +14,7 @@ namespace Crossout.Data.Helper
         {
             // This tool is used to generate all the property classes from game files
 
-            string versionFolder = "0.7.0";
+            string versionFolder = "0.7.20";
 
             string basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Resources", "Data", versionFolder, "gamedata", "def", "ex");
             
