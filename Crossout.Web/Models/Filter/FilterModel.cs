@@ -16,6 +16,7 @@ namespace Crossout.Web.Models.Filter
         public FilterItem CurrentCategory { get; set; } = new FilterItem();
         public FilterItem CurrentFaction { get; set; } = new FilterItem();
         public bool CurrentShowRemovedItems { get; set; }
+        public bool CurrentShowMetaItems { get; set; }
 
         public FilterItem VerifyRarity(string rarity)
         {
@@ -57,6 +58,13 @@ namespace Crossout.Web.Models.Filter
         {
             bool result = false;
             bool.TryParse(showRemovedItems,out result);
+            return result;
+        }
+
+        public bool VerifyMetaItems(string showMetaItems)
+        {
+            bool result = false;
+            bool.TryParse(showMetaItems, out result);
             return result;
         }
     }

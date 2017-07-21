@@ -31,7 +31,7 @@ namespace Crossout.Web.Services
             var parmeter = new List<Parameter>();
             parmeter.Add(new Parameter { Identifier = "id", Value = id });
 
-            string query = BuildSearchQuery(false, false, false, true, false, false, false, true);
+            string query = BuildSearchQuery(false, false, false, true, false, false, false, true, true);
 
             var ds = DB.SelectDataSet(query, parmeter);
             
@@ -249,7 +249,7 @@ namespace Crossout.Web.Services
             return query;
         }
 
-        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems)
+        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems, bool showMetaItems)
         {
             string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,faction.id,faction.name,item.popularity";
             if (count)
@@ -292,6 +292,11 @@ namespace Crossout.Web.Services
             if (!showRemovedItems)
             {
                 query += " AND item.removed = 0 ";
+            }
+
+            if (!showMetaItems)
+            {
+                query += " AND item.meta = 0 ";
             }
 
             if (!count)
