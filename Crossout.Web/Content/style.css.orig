@@ -1,0 +1,288 @@
+﻿/* Most of this is probably not used, it was reused from another project */
+
+.main {
+  padding: 0;
+}
+
+.main .page-header {
+  margin-top: 0;
+}
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+
+
+td {
+    padding-left: 4px;
+    padding-right: 4px;
+    text-align: left;
+}
+
+.modal-title {
+    font-size: 18px;
+}
+
+html {
+  position: relative;
+}
+
+body {
+  padding-bottom: 46px;
+  background: white;
+}
+
+.blue {
+    color: #44BBFF;
+}
+
+.form-group {
+    margin: 4px;
+}
+
+.fill {
+    display: block;
+    height: 100%;
+    
+    margin-top: 0px;
+    padding-bottom: 0px;
+}
+
+.fillFull {
+    display: block;
+    height: 100%;
+    
+    margin-top: 0px;
+    padding-bottom: 20px;
+}
+
+.header-title li{
+    color: white;
+}
+
+.navbar-inverse {
+    color: white;
+    padding: 8px;
+}
+
+.social-btns {
+    margin-right: 16px;
+}
+
+/* Rarity Labels */
+
+.label-Common{
+  background: #696969;
+}
+
+.label-Rare {
+  background: #0040fd;
+}
+
+.label-Epic {
+  background: #6a0082;
+}
+
+.label-Legendary {
+  background: #daa520;
+}
+
+.label-Relic {
+  background: #d2691e;
+}
+
+.label-md {
+  display: block;
+  font-size: 100%;
+  font-weight: bold;
+  line-height: 1;
+  color: #595959;
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.tree-icon {
+    margin: 3px;
+}
+
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
+}
+
+.btn-sub {
+    margin-left: -26px;
+}
+
+.recipe-price {
+    display: block;   
+}
+
+.rec-left {
+    margin-left: 12px;
+}
+
+.rec-right {
+    margin-right: 12px;
+}
+
+.sum-row { /* Chrome Issues with lines in collapsed table rows? */
+    /*border-bottom-width: 2px;
+    border-bottom-color: #aaaaaa;
+    border-bottom-style: solid;*/
+    background-color: #eeeeee;
+}
+
+.sum-value {
+    display: inline;
+}
+
+.sum-pos {
+    color: green;
+}
+
+.sum-neg {
+    color: red;
+}
+
+.item-title {
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.item-type {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.item-faction {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.item-image-search {
+    width:56px;
+    height:56px;
+}
+
+.item-image-big {
+    width:64px;
+    height:64px;
+}
+
+.item-removed {
+    color: gray;
+}
+
+.item-timestamp {
+    font-weight: bold;
+    color: green;
+}
+
+.item-older-than-5 {
+    color: orange;
+}
+
+.item-older-than-60 {
+    color: firebrick;
+}
+
+/* css magic to align like how we want to have it */
+.dataTables_paginate {
+    text-align: left !important;
+}
+
+.dataTables_length {
+    text-align: right !important;
+}
+
+.dataTables_info {
+    text-align: right !important;
+}
+
+.content-space {
+    margin: 6px;
+}
+
+.pre-custom {
+    display: block;
+    unicode-bidi: embed;
+    white-space: pre;
+}
+
+.container-space {
+    margin-top: 16px;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+/* Stat Styles */
+
+.stat-heading-3 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.stat-text {
+  display: block;
+  font-size: 100%;
+  font-weight: bold;
+  line-height: 1;
+  color: #595959;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+/* Stat Styles end*/
+
+.progress-small {
+    margin-bottom: 0 !important;
+}
+
+.desc-red {
+    color: #b22222;
+    font-weight: bold;
+}
+
+.desc-green {
+    color: #006400;
+    font-weight: bold;
+}
+
+.desc-default {
+    font-weight: bold;
+}
+
+.crossoutdb-logo {
+    height: 60px;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+<<<<<<< HEAD
+/* Datatables Button correction */
+.dataTables_button{
+    margin: 2px;
+=======
+.shopping-list-title {
+    font-weight: bold;
+    font-size: 14px;
+>>>>>>> dev
+}

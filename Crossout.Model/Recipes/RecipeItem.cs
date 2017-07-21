@@ -15,6 +15,11 @@ namespace Crossout.Model.Recipes
             UniqueId = counter.NextId();
         }
 
+        public RecipeItem()
+        {
+            
+        }
+
         public int Id { get; set; }
         public int UniqueId { get; set; }
 
