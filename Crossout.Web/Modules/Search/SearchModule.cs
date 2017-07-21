@@ -23,7 +23,7 @@ namespace Crossout.Web.Modules.Search
         {
             Get["/"] = x =>
             {
-                return RouteSearch(null, 0,null,null,null,null);
+                return RouteSearch(null, 0,null,null,null,null,null);
             };
 
             //Get["/search/{page?}"] = x =>
@@ -41,21 +41,22 @@ namespace Crossout.Web.Modules.Search
                 string category = (string)Request.Query.Category;
                 string faction = (string)Request.Query.Faction;
                 string showRemovedItems = (string)Request.Query.RmdItems;
+                string showMetaItems = (string)Request.Query.MItems;
                 var query = (string)Request.Query.Query;
 
 
                 int page = x.page;
-                return RouteSearch(query, page, rarity, category, faction, showRemovedItems);
+                return RouteSearch(query, page, rarity, category, faction, showRemovedItems, showMetaItems);
             };
 
             Get["/{page:int}"] = x =>
             {
                 int page = x.page;
-                return RouteSearch(null, page, null,null,null,null);
+                return RouteSearch(null, page, null,null,null,null,null);
             };
         }
 
-        private dynamic RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems)
+        private dynamic RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems, string mItems)
         {
             if (searchQuery == null)
             {
@@ -81,10 +82,12 @@ namespace Crossout.Web.Modules.Search
             var categoryItem = filterModel.VerifyCategory(category);
             var factionItem = filterModel.VerifyFaction(faction);
             var showRemovedItems = filterModel.VerifyRmdItems(rItems);
+            var showMetaItems = filterModel.VerifyMetaItems(mItems);
 
             filterModel.CurrentShowRemovedItems = showRemovedItems;
+            filterModel.CurrentShowMetaItems = showMetaItems;
 
-            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true,false,false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems);
+            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true,false,false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems);
 
             if (hasFilter)
             {
@@ -121,7 +124,7 @@ namespace Crossout.Web.Modules.Search
             parmeter.Add(limitb);
 
 
-            var count = GetCount(sql, hasFilter, parmeter, rarityItem, categoryItem, factionItem, showRemovedItems);
+            var count = GetCount(sql, hasFilter, parmeter, rarityItem, categoryItem, factionItem, showRemovedItems, showMetaItems);
 
             int maxPages = (int)Math.Ceiling(count / (float)entriesPerPage);
 
@@ -151,9 +154,9 @@ namespace Crossout.Web.Modules.Search
 
         // Helper Methods: TODO: Move to seperate class
 
-        public static int GetCount(SqlConnector sql,bool hasFilter, List<Parameter> parameter, FilterItem rarityItem, FilterItem categoryItem, FilterItem factionItem, bool showRemovedItems)
+        public static int GetCount(SqlConnector sql,bool hasFilter, List<Parameter> parameter, FilterItem rarityItem, FilterItem categoryItem, FilterItem factionItem, bool showRemovedItems, bool showMetaItems)
         {
-            string countQuery = DataService.BuildSearchQuery(hasFilter, false, true, false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems);
+            string countQuery = DataService.BuildSearchQuery(hasFilter, false, true, false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems);
             var countDS = sql.SelectDataSet(countQuery, parameter);
             int count = 0;
             if (countDS != null && countDS.Count > 0)
