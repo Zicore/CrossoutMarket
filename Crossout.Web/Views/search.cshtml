@@ -12,12 +12,29 @@
 
 @Html.Partial("status", Model.Status)
 
+
+
 <div class="container-space">
     <div class="panel panel-default">
         <div class="panel-body">
             @Html.Partial("filter", Model)
         </div>
     </div>
+    
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4" >
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- Leaderboard -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:728px;height:90px"
+                 data-ad-client="ca-pub-1215488197322962"
+                 data-ad-slot="3124709022"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
     <div class="panel panel-default">
         <table id="ItemTable" class="table table-striped table-hover table-condensed">
             <thead>
@@ -72,8 +89,8 @@
 
         var domOption =
             "<'content-space'<'row'<'col-sm-6'p><'col-sm-4'f><'col-sm-2'l>>>" +
-            "tr" +
-            "<'content-space'<'row'<'col-sm-6'p><'col-sm-2'B><'col-sm-2'i><'col-sm-2'l>>>";
+                "tr" +
+                "<'content-space'<'row'<'col-sm-6'p><'col-sm-2'B><'col-sm-2'i><'col-sm-2'l>>>";
 
         $.fn.DataTable.ext.pager.numbers_length = 10;
 
