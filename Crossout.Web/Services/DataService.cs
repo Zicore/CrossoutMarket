@@ -79,7 +79,7 @@ namespace Crossout.Web.Services
                     depth--;
                 }
             }
-
+            
             AddWorkbenchCostItem(counter, parent, depth);
         }
 
@@ -103,19 +103,22 @@ namespace Crossout.Web.Services
 
         public void AddWorkbenchCostItem(RecipeCounter counter, RecipeItem parent, int depth)
         {
-            var rarity = (Rarity) parent.Item.RarityId;
-            // We don't want common (no workbench costs) to be displayed. 
-            // Also incase the workbench costs are not based on the rarity we use the override value from the DB
-            if (parent.Item.WorkbenchRarity > 0)
+            if (parent.Ingredients.Count > 0)
             {
-                rarity = (Rarity)parent.Item.WorkbenchRarity;
-            }
+                var rarity = (Rarity) parent.Item.RarityId;
+                // We don't want common (no workbench costs) to be displayed. 
+                // Also incase the workbench costs are not based on the rarity we use the override value from the DB
+                if (parent.Item.WorkbenchRarity > 0)
+                {
+                    rarity = (Rarity) parent.Item.WorkbenchRarity;
+                }
 
-            if (rarity != Rarity.Common_1)
-            {
-                var id = GetWorkbenchItemIdByRarity(rarity);
-                var workbenchItem = SelectItem((int) id, false);
-                parent.Ingredients.Add(CreateIngredientWorkbenchItem(counter, parent, workbenchItem, depth));
+                if (rarity != Rarity.Common_1)
+                {
+                    var id = GetWorkbenchItemIdByRarity(rarity);
+                    var workbenchItem = SelectItem((int) id, false);
+                    parent.Ingredients.Add(CreateIngredientWorkbenchItem(counter, parent, workbenchItem, depth));
+                }
             }
         }
         
