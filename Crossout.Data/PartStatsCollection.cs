@@ -8,11 +8,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Crossout.Data.Stats;
 using Crossout.Data.Stats.Main;
+using NLog;
 
 namespace Crossout.Data
 {
     public class PartStatsCollection
     {
+        private Logger Log = LogManager.GetCurrentClassLogger();
+
         public Dictionary<string, PartStatsBase> Items { get; } = new Dictionary<string, PartStatsBase>();
 
         private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[^=]+)=(?<value>.+)";
@@ -90,8 +93,23 @@ namespace Crossout.Data
         private void SetField(PartStatsBase stats, string field, string value)
         {
             var propertyInfo = stats.GetType().GetProperty(field);
-            object typedValue = Convert.ChangeType(value, propertyInfo.PropertyType, CultureInfo.InvariantCulture);
-            propertyInfo.SetValue(stats, typedValue);
+            if (propertyInfo != null)
+            {
+                try
+                {
+                    object typedValue = Convert.ChangeType(value, propertyInfo.PropertyType, CultureInfo.InvariantCulture);
+                    propertyInfo.SetValue(stats, typedValue);
+                }
+                catch(Exception ex)
+                {
+                    Log.Warn($"Cannot change type of value for field. Stats: {stats} field: {field} value: {value} type: {propertyInfo.PropertyType}");
+                    Log.Trace(ex);
+                }
+            }
+            else
+            {
+                Log.Warn($"Cannot find field. Stats: {stats} field: {field} value: {value}");
+            }
         }
     }
 }

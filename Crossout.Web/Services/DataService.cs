@@ -31,7 +31,7 @@ namespace Crossout.Web.Services
             var parmeter = new List<Parameter>();
             parmeter.Add(new Parameter { Identifier = "id", Value = id });
 
-            string query = BuildSearchQuery(false, false, false, true, false, false, false, true);
+            string query = BuildSearchQuery(false, false, false, true, false, false, false, true, true);
 
             var ds = DB.SelectDataSet(query, parmeter);
             
@@ -47,18 +47,19 @@ namespace Crossout.Web.Services
         public RecipeModel SelectRecipeModel(Item item)
         {
             RecipeModel recipeModel = new RecipeModel();
-            recipeModel.Recipe = new RecipeItem {Item = item,Ingredients = SelectRecipe(item) };
+            RecipeCounter counter = new RecipeCounter();
+            recipeModel.Recipe = new RecipeItem(counter) {Item = item,Ingredients = SelectRecipe(counter,item) };
             
-            ResolveRecipe(recipeModel.Recipe, 1);
+            ResolveRecipe(counter, recipeModel.Recipe, 1);
 
             CalculateRecipe(recipeModel.Recipe);
-            recipeModel.Recipe.IngredientSum = CreateIngredientItem(recipeModel.Recipe);
+            recipeModel.Recipe.IngredientSum = CreateIngredientItem(counter,recipeModel.Recipe);
             
 
             return recipeModel;
         }
 
-        public void ResolveRecipe(RecipeItem parent, int depth)
+        public void ResolveRecipe(RecipeCounter counter,RecipeItem parent, int depth)
         {
             foreach (var ingredient in parent.Ingredients)
             {
@@ -66,23 +67,64 @@ namespace Crossout.Web.Services
                 ingredient.Depth = depth;
                 if (ingredient.Item.RecipeId > 0)
                 {
-                    ingredient.Ingredients = SelectRecipe(ingredient.Item);
+                    ingredient.Ingredients = SelectRecipe(counter, ingredient.Item);
                     ++depth;
-                    ResolveRecipe(ingredient, depth);
+                    ResolveRecipe(counter, ingredient, depth);
                     CalculateRecipe(ingredient);
                     if (ingredient.Depth > 0)
                     {
-                        ingredient.IngredientSum = CreateIngredientItem(ingredient);
+                        ingredient.IngredientSum = CreateIngredientItem(counter, ingredient);
                     }
                     parent.MaxDepth = Math.Max(depth, ingredient.MaxDepth);
                     depth--;
-                }               
+                }
+            }
+            
+            AddWorkbenchCostItem(counter, parent, depth);
+        }
+
+        public WorkbenchItemId GetWorkbenchItemIdByRarity(Rarity rarity)
+        {
+            switch (rarity)
+            {
+                case Rarity.Common_1:
+                    return WorkbenchItemId.Common_445;
+                case Rarity.Rare_2:
+                    return WorkbenchItemId.Rare_446;
+                case Rarity.Epic_3:
+                    return WorkbenchItemId.Epic_447;
+                case Rarity.Legendary_4:
+                    return WorkbenchItemId.Legendary_448;
+                case Rarity.Relic_5:
+                    return WorkbenchItemId.Relic_449;
+                default: return WorkbenchItemId.Common_445;
             }
         }
 
-        private static RecipeItem CreateIngredientItem(RecipeItem item)
+        public void AddWorkbenchCostItem(RecipeCounter counter, RecipeItem parent, int depth)
         {
-            var ingredientSum = new RecipeItem
+            if (parent.Ingredients.Count > 0)
+            {
+                var rarity = (Rarity) parent.Item.RarityId;
+                // We don't want common (no workbench costs) to be displayed. 
+                // Also incase the workbench costs are not based on the rarity we use the override value from the DB
+                if (parent.Item.WorkbenchRarity > 0)
+                {
+                    rarity = (Rarity) parent.Item.WorkbenchRarity;
+                }
+
+                if (rarity != Rarity.Common_1)
+                {
+                    var id = GetWorkbenchItemIdByRarity(rarity);
+                    var workbenchItem = SelectItem((int) id, false);
+                    parent.Ingredients.Add(CreateIngredientWorkbenchItem(counter, parent, workbenchItem, depth));
+                }
+            }
+        }
+        
+        private static RecipeItem CreateIngredientItem(RecipeCounter counter,RecipeItem item)
+        {
+            var ingredientSum = new RecipeItem(counter)
             {
                 Id = -1,
                 Depth = item.Depth,
@@ -109,19 +151,48 @@ namespace Crossout.Web.Services
             return ingredientSum;       
         }
 
+        private static RecipeItem CreateIngredientWorkbenchItem(RecipeCounter counter, RecipeItem parent, ItemModel item, int depth)
+        {
+            var ingredient = new RecipeItem(counter)
+            {
+                Id = -1,
+                Depth = depth,
+                Item = new Item
+                {
+                    Id = item.Item.Id,
+                    RecipeId = item.Item.RecipeId,
+
+                    Name = item.Item.Name,
+                    SellPrice = item.Item.SellPrice,
+                    BuyPrice = item.Item.BuyPrice,
+                    SellOffers = item.Item.SellOffers,
+                    BuyOrders = item.Item.BuyOrders,
+                    RarityId = item.Item.RarityId,
+                    RarityName = item.Item.RarityName,
+                    CategoryId = item.Item.CategoryId,
+                    CategoryName = item.Item.CategoryName,
+                    TypeId = item.Item.TypeId,
+                    TypeName = item.Item.TypeName
+                }
+            };
+            ingredient.Number = 1;
+            ingredient.Parent = parent;
+            return ingredient;
+        }
+
         private static void CalculateRecipe(RecipeItem item)
         {
             item.SumBuy = item.Ingredients.Sum(x => x.BuyPriceTimesNumber);
             item.SumSell = item.Ingredients.Sum(x => x.SellPriceTimesNumber);
         }
 
-        public List<RecipeItem> SelectRecipe(Item item)
+        public List<RecipeItem> SelectRecipe(RecipeCounter counter,Item item)
         {
             var parmeter = new List<Parameter>();
             parmeter.Add(new Parameter { Identifier = "id", Value = item.RecipeId });
             string query = BuildRecipeQuery();
             var ds = DB.SelectDataSet(query, parmeter);
-            return RecipeItem.Create(new RecipeItem {Item = item}, ds);
+            return RecipeItem.Create(counter, new RecipeItem(counter) {Item = item}, ds);
         }
 
         public StatusModel SelectStatus()
@@ -248,9 +319,9 @@ namespace Crossout.Web.Services
             return query;
         }
 
-        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems)
+        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems, bool showMetaItems)
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,faction.id,faction.name,item.popularity";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,faction.id,faction.name,item.popularity,item.workbenchrarity";
             if (count)
             {
                 selectColumns = "count(*)";
@@ -291,6 +362,11 @@ namespace Crossout.Web.Services
             if (!showRemovedItems)
             {
                 query += " AND item.removed = 0 ";
+            }
+
+            if (!showMetaItems)
+            {
+                query += " AND item.meta = 0 ";
             }
 
             if (!count)

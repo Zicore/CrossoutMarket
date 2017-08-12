@@ -41,5 +41,10 @@ namespace Crossout.Data.Stats.Main
             var sortedStats = Stats.Values.OrderBy(x => x.Stat.Order);
             SortedStats.AddRange(sortedStats);
         }
+
+        public override string ToString()
+        {
+            return Key;
+        }
     }
 }

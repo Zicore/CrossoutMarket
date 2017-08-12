@@ -40,8 +40,10 @@ namespace Crossout.Data.Stats.Main
         public string ui_part_series {get;set;}
         public string platform_exclusive {get;set;}
         public bool editor_horizontal_rotation {get;set;}
+        public bool lifts_camera {get;set;}
         public string bonus_faction {get;set;}
         public int exp_reward_faction_bonus {get;set;}
+        public bool flag_unique {get;set;}
         public int exp_reward_team_faction_bonus {get;set;}
     }
 }

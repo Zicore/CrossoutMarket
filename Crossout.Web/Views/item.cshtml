@@ -154,7 +154,7 @@
 
                 @if (Model.Recipe.Recipe.Ingredients.Count > 0)
                 {
-                    <div id="shopping-list-wrapper">
+                    <div id="shopping-list-wrapper" class="collapse">
                         <h4>Shopping List</h4>
                         <table class="table table-hover table-condensed" id="shopping-list">
                             <thead>
@@ -195,7 +195,6 @@
                 <div class="panel-body">
                     <div class="content-space">
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- Anzeige -->
                         <ins class="adsbygoogle"
                              style="display:block"
                              data-ad-client="ca-pub-1215488197322962"
@@ -273,8 +272,10 @@
 
     $.getJSON(location.protocol + '//@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)',
         function (data) {
-            recipeData.data = data;
-            recipeData.loaded = true;
+
+           recipeData.data = data;
+           recipeData.loaded = true;
+           
             $(".item-0").removeClass("disabled");
         });
 </script>

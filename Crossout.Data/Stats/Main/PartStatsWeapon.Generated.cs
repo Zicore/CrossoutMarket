@@ -111,7 +111,6 @@ namespace Crossout.Data.Stats.Main
         public bool damage_type_flame {get;set;}
         public int death_blast_damage {get;set;}
         public double death_blast_radius {get;set;}
-        public string platform_exclusive {get;set;}
         public double charging_time {get;set;}
         public bool big_explosion {get;set;}
         public bool ai_ignore_pitch {get;set;}
@@ -126,13 +125,11 @@ namespace Crossout.Data.Stats.Main
         public int dodge_angular_acceleration {get;set;}
         public int projectile_phase2_time {get;set;}
         public bool innate_ai {get;set;}
+        public int collision_resist {get;set;}
+        public int collision_damage {get;set;}
         public bool charging_need_hold {get;set;}
         public bool fire_without_target {get;set;}
         public double barrel_detonation_radius {get;set;}
-        public int collision_resist {get;set;}
-        public int collision_damage {get;set;}
-        public int innate_ai_cooldown_time {get;set;}
-        public int innate_ai_work_time {get;set;}
         public int projectile_angular_speed {get;set;}
         public int slow_fire_rate {get;set;}
     }

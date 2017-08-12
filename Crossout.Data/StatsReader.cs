@@ -103,7 +103,7 @@ namespace Crossout.Data
                                         fieldHelper.Type = FieldHelperType.Bool;
                                     }
 
-                                    if (fieldHelper.Type != FieldHelperType.Float)
+                                    if (fieldHelper.Type != FieldHelperType.Float && fieldHelper.Type != FieldHelperType.Bool)
                                     {
                                         int intValue;
                                         if (int.TryParse(value, out intValue))

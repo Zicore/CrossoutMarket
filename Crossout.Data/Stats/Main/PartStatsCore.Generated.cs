@@ -17,7 +17,7 @@ namespace Crossout.Data.Stats.Main
         public string taglist {get;set;}
         public string ui_part_type_icon {get;set;}
         public string ui_part_type {get;set;}
-        public double health {get;set;}
+        public int health {get;set;}
         public bool damageable {get;set;}
         public int rarity {get;set;}
         public int durability {get;set;}
@@ -85,6 +85,9 @@ namespace Crossout.Data.Stats.Main
         public int fire_rate {get;set;}
         public int acceleration_limit {get;set;}
         public double deploy_ammo_mul {get;set;}
+        public double heat_max_high_speed {get;set;}
+        public double heat_dec_low_speed {get;set;}
+        public string behavior {get;set;}
         public double booster_ammo_mul {get;set;}
     }
 }

@@ -53,9 +53,9 @@ namespace Crossout.Data.Stats.Main
         public string fusion {get;set;}
         public string fusion_cost {get;set;}
         public int radio_radius {get;set;}
-        public string platform_exclusive {get;set;}
         public string perk {get;set;}
         public string require_faction {get;set;}
+        public string platform_exclusive {get;set;}
         public int suicide_blast_damage {get;set;}
         public int suicide_blast_radius {get;set;}
         public int collision_resist {get;set;}

@@ -11,6 +11,34 @@ using Newtonsoft.Json;
 
 namespace Crossout.Model.Items
 {
+    // Matches with DB Ids
+
+    public enum Rarity
+    {
+        Common_1 = 1,
+        Rare_2 = 2,
+        Epic_3 = 3,
+        Legendary_4 = 4,
+        Relic_5 = 5
+    }
+
+    // Matches with DB Ids
+
+    public enum WorkbenchItemId
+    {
+        //445	Common Minimum Bench Cost
+        //446	Rare Minimum Bench Cost
+        //447	Epic Minimum Bench Cost
+        //448	Legendary Minimum Bench Cost
+        //449	Relic Minimum Bench Cost
+
+        Common_445 = 445,
+        Rare_446 = 446,
+        Epic_447 = 447,
+        Legendary_448 = 448,
+        Relic_449 = 449,
+    }
+
     public class Item
     {
         [JsonIgnore]
@@ -20,20 +48,14 @@ namespace Crossout.Model.Items
         public ItemDescription Description { get; set; }
 
         public int Id { get; set; }
-
         public string Name { get; set; }
-
         public int SellOffers { get; set; }
-
         public decimal SellPrice { get; set; }
-
         public int BuyOrders { get; set; }
-
         public decimal BuyPrice { get; set; }
-
         public int Removed { get; set; }
-
         public int Popularity { get; set; }
+        public int WorkbenchRarity { get; set; }
 
         public decimal Margin
         {
@@ -115,7 +137,8 @@ namespace Crossout.Model.Items
                 Removed = row[i++].ConvertTo<int>(),
                 FactionNumber = row[i++].ConvertTo<int>(),
                 Faction = row[i++].ConvertTo<string>(),
-                Popularity = row[i].ConvertTo<int>(),
+                Popularity = row[i++].ConvertTo<int>(),
+                WorkbenchRarity = row[i].ConvertTo<int>(),
             };
 
             return item;

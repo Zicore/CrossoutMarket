@@ -8,20 +8,20 @@ namespace Crossout.Model.Recipes
 {
     public class RecipeItem
     {
-        public static int NextId()
+        private RecipeCounter counter;
+
+        public RecipeItem(RecipeCounter counter)
         {
-            return _uniqueIdCounter++;
+            UniqueId = counter.NextId();
         }
 
-        public static void ResetId()
+        public RecipeItem()
         {
-            _uniqueIdCounter = 0;
+            
         }
-
-        private static int _uniqueIdCounter = 0;
 
         public int Id { get; set; }
-        public int UniqueId { get; set; } = NextId();
+        public int UniqueId { get; set; }
 
         public int RootNumber
         {
@@ -135,23 +135,23 @@ namespace Crossout.Model.Recipes
             }
         }
 
-        public static List<RecipeItem> Create(RecipeItem item, List<object[]> dataSet)
+        public static List<RecipeItem> Create(RecipeCounter counter, RecipeItem item, List<object[]> dataSet)
         {
             List<RecipeItem> items = new List<RecipeItem>();
             foreach (var row in dataSet)
             {
-                var recItem = Create(row);
+                var recItem = Create(counter, row);
                 recItem.Parent = item;
                 items.Add(recItem);
             }
 
             return items;
         }
-
-        public static RecipeItem Create(object[] row)
+        
+        public static RecipeItem Create(RecipeCounter counter,object[] row)
         {
             int i = 0;
-            RecipeItem recipeItem = new RecipeItem();
+            RecipeItem recipeItem = new RecipeItem(counter);
             Item item = new Item
             {
                 Id = row[i++].ConvertTo<int>(),

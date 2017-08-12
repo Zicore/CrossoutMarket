@@ -22,9 +22,7 @@ namespace Crossout.Data.Stats.Main
         public int physics_mass {get;set;}
         public int universal_rating {get;set;}
         public int car_health {get;set;}
-        public int important {get;set;}
-        public int reward_Scrap_Rare {get;set;}
-        public int reward_Scrap_Epic {get;set;}
-        public int reward_Platinum {get;set;}
+        public bool tradeable {get;set;}
+        public bool store_in_inventory {get;set;}
     }
 }
