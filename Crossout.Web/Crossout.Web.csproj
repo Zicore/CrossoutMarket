@@ -130,6 +130,14 @@
     <Compile Include="Auth\UserRepository.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CrossoutAuthenticationCallbackProvider.cs" />
+    <Compile Include="CustomJsonSerializer.cs" />
+    <Compile Include="Models\API\v1\ApiEntryBase.cs" />
+    <Compile Include="Models\API\v1\ApiFactionEntry.cs" />
+    <Compile Include="Models\API\v1\ApiCategoryEntry.cs" />
+    <Compile Include="Models\API\v1\ApiItemEntry.cs" />
+    <Compile Include="Models\API\v1\ApiItemTypeEntry.cs" />
+    <Compile Include="Models\API\v1\ApiRarityEntry.cs" />
+    <Compile Include="Models\API\v1\ApiRecipeEntry.cs" />
     <Compile Include="Models\View\IViewTitle.cs" />
     <Compile Include="Helper\ViewHelper.cs" />
     <Compile Include="Models\Charts\ChartItem.cs" />
@@ -144,7 +152,7 @@
     <Compile Include="Models\General\SearchModel.cs" />
     <Compile Include="Models\General\StatusModel.cs" />
     <Compile Include="Modules\Admin\AdminModule.cs" />
-    <Compile Include="Modules\API\ApiModule.cs" />
+    <Compile Include="Modules\API\v1\ApiModule.cs" />
     <Compile Include="Modules\Data\ChartDataModule.cs" />
     <Compile Include="Models\Pagination\PagerModel.cs" />
     <Compile Include="Modules\Embed\EmbedImageModule.cs" />
@@ -158,6 +166,7 @@
     <Compile Include="Responses\ByteArrayResponse.cs" />
     <Compile Include="RootPathHelper.cs" />
     <Compile Include="RootPathProvider.cs" />
+    <Compile Include="Services\API\v1\ApiDataService.cs" />
     <Compile Include="Services\CrossoutDataService.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Startup.cs" />
@@ -1374,42 +1383,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="img\items\444.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\450.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\451.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\452.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\453.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\454.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\455.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\456.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\457.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\458.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\459.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\460.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="img\items\461.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="img\NoImage.png">
