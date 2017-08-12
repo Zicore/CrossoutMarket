@@ -39,18 +39,19 @@ namespace Crossout.Model.Items
         Relic_449 = 449,
     }
 
+    [JsonObject("item")]
     public class Item
     {
         [JsonIgnore]
         public PartStatsBase Stats { get; set; }
 
-        [JsonIgnore]
+        [JsonProperty("sortedstats")]
         public List<SingleStat> SortedStats
         {
             get { return Stats.SortedStats; }
         }
 
-        [JsonProperty("description")]
+        [JsonIgnore]
         public ItemDescription Description { get; set; }
 
         [JsonProperty("id")]
@@ -58,6 +59,15 @@ namespace Crossout.Model.Items
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("description")]
+        public string DescriptionText
+        {
+            get
+            {
+                return Description?.Text;
+            }
+        }
 
         [JsonProperty("selloffers")]
         public int SellOffers { get; set; }

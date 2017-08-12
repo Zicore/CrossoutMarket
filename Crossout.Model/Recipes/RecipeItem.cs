@@ -20,9 +20,13 @@ namespace Crossout.Model.Recipes
             
         }
 
+        [JsonProperty("id")]
         public int Id { get; set; }
+
+        [JsonProperty("uniqueid")]
         public int UniqueId { get; set; }
 
+        [JsonProperty("rootnumber")]
         public int RootNumber
         {
             get
@@ -38,26 +42,46 @@ namespace Crossout.Model.Recipes
             }
         }
 
+        [JsonProperty("factionnumber")]
         public int FactionNumber { get; set; }
 
+        [JsonProperty("depth")]
         public int Depth { get; set; } = 0;
+
+        [JsonProperty("maxdepth")]
         public int MaxDepth { get; set; }
 
+        [JsonProperty("item")]
         public Item Item { get; set; } = new Item();
+
+        [JsonProperty("number")]
         public int Number { get; set; }
 
+        [JsonProperty("sumbuy")]
         public decimal SumBuy { get; set; }
+
+        [JsonProperty("sumsell")]
         public decimal SumSell { get; set; }
 
+        [JsonProperty("sumbuyformat")]
         public string SumBuyFormat => PriceFormatter.FormatPrice(SumBuy);
+
+        [JsonProperty("sumsellformat")]
         public string SumSellFormat => PriceFormatter.FormatPrice(SumSell);
 
+        [JsonProperty("buypricetimesnumber")]
         public decimal BuyPriceTimesNumber => CalculatePriceByNumber(Item.BuyPrice, Number, Item.Id);
+
+        [JsonProperty("sellpricetimesnumber")]
         public decimal SellPriceTimesNumber => CalculatePriceByNumber(Item.SellPrice, Number, Item.Id);
 
+        [JsonProperty("issumrow")]
         public bool IsSumRow { get; set; } = false;
 
+        [JsonProperty("formatbuypricetimesnumber")]
         public string FormatBuyPriceTimesNumber => PriceFormatter.FormatPrice(BuyPriceTimesNumber);
+
+        [JsonProperty("formatsellpricetimesnumber")]
         public string FormatSellPriceTimesNumber => PriceFormatter.FormatPrice(SellPriceTimesNumber);
 
         static readonly HashSet<int> ResourceNumbers = new HashSet<int>()
@@ -83,10 +107,13 @@ namespace Crossout.Model.Recipes
         [JsonIgnore]
         public RecipeItem Parent { get; set; }
 
+        [JsonProperty("ingredientsum")]
         public RecipeItem IngredientSum { get; set; }
 
+        [JsonProperty("ingredients")]
         public List<RecipeItem> Ingredients { get; set; } = new List<RecipeItem>();
 
+        [JsonProperty("parentid")]
         public int ParentId
         {
             get
@@ -99,6 +126,7 @@ namespace Crossout.Model.Recipes
             }
         }
 
+        [JsonProperty("parentuniqueid")]
         public int ParentUniqueId
         {
             get
@@ -111,6 +139,7 @@ namespace Crossout.Model.Recipes
             }
         }
 
+        [JsonProperty("parentrecipe")]
         public int ParentRecipe
         {
             get
@@ -123,6 +152,7 @@ namespace Crossout.Model.Recipes
             }
         }
 
+        [JsonProperty("superparentrecipe")]
         public int SuperParentRecipe
         {
             get

@@ -61,10 +61,10 @@ namespace Crossout.Web.Modules.API.v1
 
             Get["/api/v1/items"] = x =>
             {
-                return RouteSearch(null, 0, null, null, null, null, null);
+                return RouteSearch(null, 0, null, null, null, null, null, 0);
             };
 
-            Get["/api/v1/items/{page?}"] = x =>
+            Get["/api/v1/items"] = x =>
             {
                 string rarity = (string)Request.Query.Rarity;
                 string category = (string)Request.Query.Category;
@@ -72,10 +72,39 @@ namespace Crossout.Web.Modules.API.v1
                 string showRemovedItems = (string)Request.Query.RmdItems;
                 string showMetaItems = (string)Request.Query.MItems;
                 var query = (string)Request.Query.Query;
+                int id = (int) Request.Query.Id;
+                
+                return RouteSearch(query, 0, rarity, category, faction, showRemovedItems, showMetaItems, id);
+            };
 
+            Get["/api/v1/item/{item}"] = x =>
+            {
+                string rarity = (string)Request.Query.Rarity;
+                string category = (string)Request.Query.Category;
+                string faction = (string)Request.Query.Faction;
+                string showRemovedItems = (string)Request.Query.RmdItems;
+                string showMetaItems = (string)Request.Query.MItems;
+                var query = (string)Request.Query.Query;
+                int id = (int)x.item;
 
-                int page = x.page;
-                return RouteSearch(query, page, rarity, category, faction, showRemovedItems, showMetaItems);
+                return RouteSearch(query, 0, rarity, category, faction, showRemovedItems, showMetaItems, id);
+            };
+
+            Get["/api/v1/recipe/{id:int}"] = x =>
+            {
+                var id = (int)x.id;
+
+                //RecipeItem.ResetId();
+                sql.Open(WebSettings.Settings.CreateDescription());
+
+                DataService db = new DataService(sql);
+
+                var itemModel = db.SelectItem(id, false);
+                var recipeModel = db.SelectRecipeModel(itemModel.Item);
+
+                itemModel.Recipe = recipeModel;
+
+                return Response.AsJson(itemModel);
             };
 
             //Get["/api/v1/recipe"] = x =>
@@ -85,7 +114,9 @@ namespace Crossout.Web.Modules.API.v1
             //};
         }
 
-        private dynamic RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems, string mItems)
+
+
+        private dynamic RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems, string mItems, int id)
         {
             if (searchQuery == null)
             {
@@ -116,7 +147,7 @@ namespace Crossout.Web.Modules.API.v1
             filterModel.CurrentShowRemovedItems = showRemovedItems;
             filterModel.CurrentShowMetaItems = showMetaItems;
 
-            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true, false, false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems);
+            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true, false, id > 0, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems);
 
             if (hasFilter)
             {
@@ -139,6 +170,12 @@ namespace Crossout.Web.Modules.API.v1
             if (factionItem != null)
             {
                 var p = new Parameter { Identifier = "@faction", Value = $"{factionItem.Id}" };
+                parmeter.Add(p);
+            }
+
+            if (id > 0)
+            {
+                var p = new Parameter { Identifier = "@id", Value = $"{id}" };
                 parmeter.Add(p);
             }
             
