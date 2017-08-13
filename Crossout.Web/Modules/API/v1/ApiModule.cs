@@ -89,18 +89,33 @@ namespace Crossout.Web.Modules.API.v1
 
                 return RouteSearch(query, 0, rarity, category, faction, showRemovedItems, showMetaItems, id);
             };
-
+            
             Get["/api/v1/recipe/{id:int}"] = x =>
             {
                 var id = (int)x.id;
 
-                //RecipeItem.ResetId();
                 sql.Open(WebSettings.Settings.CreateDescription());
 
                 DataService db = new DataService(sql);
 
-                var itemModel = db.SelectItem(id, false);
-                var recipeModel = db.SelectRecipeModel(itemModel.Item);
+                var itemModel = db.SelectItem(id, true);
+                var recipeModel = db.SelectRecipeModel(itemModel.Item, false);
+
+                //itemModel.Recipe = recipeModel;
+
+                return Response.AsJson(recipeModel);
+            };
+
+            Get["/api/v1/recipe-deep/{id:int}"] = x =>
+            {
+                var id = (int)x.id;
+                
+                sql.Open(WebSettings.Settings.CreateDescription());
+
+                DataService db = new DataService(sql);
+
+                var itemModel = db.SelectItem(id, true);
+                var recipeModel = db.SelectRecipeModel(itemModel.Item, true);
 
                 itemModel.Recipe = recipeModel;
 

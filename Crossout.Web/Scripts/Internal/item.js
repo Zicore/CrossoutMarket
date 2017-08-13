@@ -62,9 +62,9 @@ function updateSums(recipe, uniqueid) {
         $('.sum-row:visible').each(function (j, obj) {
             var sumuniqueid = $(this).data('uniqueid');
 
-            var root = recipeData.data.Recipe.Recipe;
+            var root = recipeData.data.recipe.recipe;
             var mainItem = findSumItem(root, sumuniqueid);
-            var sumItem = mainItem.IngredientSum;
+            var sumItem = mainItem.ingredientSum;
             var result = { items: new Array(), map: {}, shoppinglist: {} }
 
             if (sumItem !== null) {
@@ -79,18 +79,18 @@ function updateSums(recipe, uniqueid) {
                 for (var k in list) {
                     if (list.hasOwnProperty(k)) {
                         rec = list[k].item;
-                        item = rec.Item;
+                        item = rec.item;
                         number = list[k].number;
-                        var sell = item.SellPrice;
-                        var buy = item.BuyPrice;
+                        var sell = item.sellPrice;
+                        var buy = item.buyPrice;
 
-                        sumSell += filterResourcePrice(item.Id, sell) * number;
-                        sumBuy += filterResourcePrice(item.Id, buy) * number;
+                        sumSell += filterResourcePrice(item.id, sell) * number;
+                        sumBuy += filterResourcePrice(item.id, buy) * number;
                     }
                 }
 
-                var sellPrice = mainItem.Item.SellPrice * Math.max(mainItem.RootNumber, 1);
-                var buyPrice = mainItem.Item.BuyPrice * Math.max(mainItem.RootNumber, 1);
+                var sellPrice = mainItem.item.sellPrice * Math.max(mainItem.rootNumber, 1);
+                var buyPrice = mainItem.item.buyPrice * Math.max(mainItem.rootNumber, 1);
 
                 var sellFeePrice = sellPrice * 0.9;
                 var buyFeePrice = buyPrice * 0.9;
@@ -105,50 +105,47 @@ function updateSums(recipe, uniqueid) {
 
                 // Please if someone has a way to avoid this mess without huge frameworks like angular or react message me :)
 
-                $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-fee').text(toPrice(sellFeePrice));
-                $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-fee').text(toPrice(buyFeePrice));
+                $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-fee').text(toPrice(sellFeePrice));
+                $('#uniqueid-' + sumItem.uniqueId).find('.sum-buy-fee').text(toPrice(buyFeePrice));
 
-                $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell').text(toPrice(-sumSell));
-                $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy').text(toPrice(-sumBuy));
+                $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell').text(toPrice(-sumSell));
+                $('#uniqueid-' + sumItem.uniqueId).find('.sum-buy').text(toPrice(-sumBuy));
 
-                $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-diff').removeClass('sum-neg').
-                    removeClass('sum-pos').addClass(sellClass).text(toPrice(sellProfit));
-                $('#uniqueid-' + sumItem.UniqueId).find('.sum-buy-diff').removeClass('sum-neg').
-                    removeClass('sum-pos').addClass(buyClass).text(toPrice(buyProfit));
-                $('#uniqueid-' + sumItem.UniqueId).find('.sum-sell-buy-diff').removeClass('sum-neg').
-                    removeClass('sum-pos').addClass(sellBuyClass).text(toPrice(sellBuyProfit));
+                $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellClass).text(toPrice(sellProfit));
+                $('#uniqueid-' + sumItem.uniqueId).find('.sum-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).text(toPrice(buyProfit));
+                $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).text(toPrice(sellBuyProfit));
 
-                if (mainItem.UniqueId === root.UniqueId) {
+                if (mainItem.uniqueId === root.uniqueId) {
                     for (var key in result.shoppinglist) {
                         if (result.shoppinglist.hasOwnProperty(key)) {
                             rec = result.shoppinglist[key].item;
-                            item = rec.Item;
+                            item = rec.item;
                             number = result.shoppinglist[key].number;
                             $('#shopping-list').append(
                                 '<tr data-item-id="' +
-                                item.Id +
+                                item.id +
                                 '"><td>' +
                                 htmlName(item) +
                                 '</td><td>' +
                                 htmlRarity(item) +
                                 '</td><td>' +
-                                htmlNumberInput(number, 'input-number-' + item.Id) +
+                                htmlNumberInput(number, 'input-number-' + item.id) +
                                 '</td><td>' +
-                                htmlPriceInput(toPrice(item.SellPrice), 'input-sell-' + item.Id) +
+                                htmlPriceInput(toPrice(item.sellPrice), 'input-sell-' + item.id) +
                                 '</td><td>' +
                                 '' +
                                 '</td><td>' +
-                                htmlPriceInput(toPrice(item.BuyPrice), 'input-buy-' + item.Id) +
+                                htmlPriceInput(toPrice(item.buyPrice), 'input-buy-' + item.id) +
                                 '</td></tr>');
-                            $('#input-sell-' + item.Id).on('input',
+                            $('#input-sell-' + item.id).on('input',
                                 function (e) {
                                     calculateShoppingList(root, result.shoppinglist);
                                 });
-                            $('#input-buy-' + item.Id).on('input',
+                            $('#input-buy-' + item.id).on('input',
                                 function (e) {
                                     calculateShoppingList(root, result.shoppinglist);
                                 });
-                            $('#input-number-' + item.Id).on('input',
+                            $('#input-number-' + item.id).on('input',
                                 function (e) {
                                     calculateShoppingList(root, result.shoppinglist);
                                 });
@@ -188,19 +185,19 @@ function updateSums(recipe, uniqueid) {
 
                     $('#shopping-list').append(
                         '<tr data-item-id="' +
-                        root.Item.Id +
+                        root.item.id +
                         '"><td>' +
-                        htmlName(root.Item) +
+                        htmlName(root.item) +
                         '</td><td>' +
-                        htmlRarity(root.Item) +
-                        '</td><td>' +
-                        '' +
-                        '</td><td>' +
-                        htmlPriceSum(toPrice(0), 'sell', root.Item.Id) +
+                        htmlRarity(root.item) +
                         '</td><td>' +
                         '' +
                         '</td><td>' +
-                        htmlPriceSum(toPrice(0), 'buy', root.Item.Id) +
+                        htmlPriceSum(toPrice(0), 'sell', root.item.id) +
+                        '</td><td>' +
+                        '' +
+                        '</td><td>' +
+                        htmlPriceSum(toPrice(0), 'buy', root.item.id) +
                         '</td></tr>');
 
                     calculateShoppingList(root, result.shoppinglist);
@@ -218,13 +215,13 @@ function calculateShoppingList(root, list) {
     for (var key in list) {
         if (list.hasOwnProperty(key)) {
             var rec = list[key].item;
-            var item = rec.Item;
-            var number = parseInt($('#input-number-' + item.Id).val());
-            var sell = parseFloat($('#input-sell-' + item.Id).val());
-            var buy = parseFloat($('#input-buy-' + item.Id).val());
+            var item = rec.item;
+            var number = parseInt($('#input-number-' + item.id).val());
+            var sell = parseFloat($('#input-sell-' + item.id).val());
+            var buy = parseFloat($('#input-buy-' + item.id).val());
 
-            sumSell += filterResourcePrice(item.Id, sell) * number;
-            sumBuy += filterResourcePrice(item.Id, buy) * number;
+            sumSell += filterResourcePrice(item.id, sell) * number;
+            sumBuy += filterResourcePrice(item.id, buy) * number;
         }
     }
 
@@ -239,8 +236,8 @@ function calculateShoppingList(root, list) {
     sumSell += sell * number;
     sumBuy += buy * number;
 
-    var sellPrice = (root.Item.SellPrice * 0.9) / 100.0;
-    var buyPrice = (root.Item.BuyPrice * 0.9) / 100.0;
+    var sellPrice = (root.item.sellPrice * 0.9) / 100.0;
+    var buyPrice = (root.item.buyPrice * 0.9) / 100.0;
 
     var sellProfit = sellPrice - sumSell;
     var buyProfit = buyPrice - sumBuy;
@@ -250,19 +247,16 @@ function calculateShoppingList(root, list) {
     var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
     var sellBuyClass = sellBuyProfit > 0 ? 'sum-pos' : 'sum-neg';
 
-    $('#sum-sell-' + root.Item.Id).text(toFixed(-sumSell));
-    $('#sum-buy-' + root.Item.Id).text(toFixed(-sumBuy));
+    $('#sum-sell-' + root.item.id).text(toFixed(-sumSell));
+    $('#sum-buy-' + root.item.id).text(toFixed(-sumBuy));
 
-    $('#sum-fee-sell-' + root.Item.Id).text(toFixed(sellPrice));
-    $('#sum-fee-buy-' + root.Item.Id).text(toFixed(buyPrice));
+    $('#sum-fee-sell-' + root.item.id).text(toFixed(sellPrice));
+    $('#sum-fee-buy-' + root.item.id).text(toFixed(buyPrice));
 
-    $('#sum-diff-sell-' + root.Item.Id).removeClass('sum-neg').removeClass('sum-pos').addClass(sellClass).
-        text(toFixed(sellProfit));
-    $('#sum-diff-buy-' + root.Item.Id).removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).
-        text(toFixed(buyProfit));
+    $('#sum-diff-sell-' + root.item.id).removeClass('sum-neg').removeClass('sum-pos').addClass(sellClass).text(toFixed(sellProfit));
+    $('#sum-diff-buy-' + root.item.id).removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).text(toFixed(buyProfit));
 
-    $('#sum-sell-buy-diff-' + root.Item.Id).removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).
-        text(toFixed(sellBuyProfit));
+    $('#sum-sell-buy-diff-' + root.item.id).removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).text(toFixed(sellBuyProfit));
 }
 
 var ResourceNumbers =
@@ -293,26 +287,26 @@ function htmlName(item) {
         '<div class="clearfix vertical-center pull-left">' +
         '<div>' +
         '<a href="/item/' +
-        item.Id +
+        item.id +
         '">' +
         '<img style="margin-right: 8px; height: 32px;" src="/img/items/' +
-        item.Image +
+        item.image +
         '" /></a>' +
         '</div>' +
         '</div>' +
         '<a href="/item/' +
-        item.Id +
+        item.id +
         '" style="font-weight: bold;">' +
-        item.Name +
+        item.name +
         '</a>' +
         '<div style="font-size: 11px; font-weight: bold;">' +
-        item.TypeName +
+        item.typeName +
         '</div>' +
         '</div>';
 }
 
 function htmlRarity(item) {
-    return '<span class="label label-' + item.RarityName + '">' + item.RarityName + '</span>';
+    return '<span class="label label-' + item.rarityName + '">' + item.rarityName + '</span>';
 }
 
 function htmlNumber(value) {
@@ -392,21 +386,21 @@ function htmlPriceInput(value, id) {
 function updateSum(root, item, result, recipe) {
     var valueSet = false;
     var foundItem = null;
-    for (var i = 0; i < item.Ingredients.length; i++) {
-        updateSum(root, item.Ingredients[i], result, recipe);
-        var subItem = item.Ingredients[i];
-        if (!result.map.hasOwnProperty(subItem.UniqueId)) {
-            if ($('#uniqueid-' + subItem.UniqueId).is(":visible")) {
-                if (!subItem.IsSumRow) {
+    for (var i = 0; i < item.ingredients.length; i++) {
+        updateSum(root, item.ingredients[i], result, recipe);
+        var subItem = item.ingredients[i];
+        if (!result.map.hasOwnProperty(subItem.uniqueId)) {
+            if ($('#uniqueid-' + subItem.uniqueId).is(":visible")) {
+                if (!subItem.issumrow) {
                     result.items.push({
-                        //sell: subItem.Item.SellPrice * Math.max(1, subItem.RootNumber),
-                        //buy: subItem.Item.BuyPrice * Math.max(1, subItem.RootNumber),
+                        //sell: subItem.item.sellPrice * Math.max(1, subItem.RootNumber),
+                        //buy: subItem.item.buyPrice * Math.max(1, subItem.RootNumber),
                         item: subItem
                     });
-                    if (result.shoppinglist.hasOwnProperty(subItem.Item.Id)) {
-                        result.shoppinglist[subItem.Item.Id].number += subItem.RootNumber;
+                    if (result.shoppinglist.hasOwnProperty(subItem.item.id)) {
+                        result.shoppinglist[subItem.item.id].number += subItem.rootNumber;
                     } else {
-                        result.shoppinglist[subItem.Item.Id] = { number: subItem.RootNumber, item: subItem }
+                        result.shoppinglist[subItem.item.id] = { number: subItem.rootNumber, item: subItem }
                     }
                     valueSet = true;
                     foundItem = subItem;
@@ -416,17 +410,17 @@ function updateSum(root, item, result, recipe) {
     }
     
     if (valueSet && foundItem != null) {
-        result.map[foundItem.ParentUniqueId] = true;
+        result.map[foundItem.parentUniqueId] = true;
     }
 }
 
 function findSumItem(item, uniqueid) {
-    if (item.IngredientSum !== null && item.IngredientSum.UniqueId === uniqueid) {
+    if (item.ingredientSum !== null && item.ingredientSum.uniqueId === uniqueid) {
         return item;
     }
 
-    for (var i = 0; i < item.Ingredients.length; i++) {
-        var rs = findSumItem(item.Ingredients[i], uniqueid);
+    for (var i = 0; i < item.ingredients.length; i++) {
+        var rs = findSumItem(item.ingredients[i], uniqueid);
         if (rs) return rs;
     }
     return null;

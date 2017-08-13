@@ -41,7 +41,7 @@ namespace Crossout.Web.Modules.Search
                 DataService db = new DataService(sql);
 
                 var itemModel = db.SelectItem(id, true);
-                var recipeModel = db.SelectRecipeModel(itemModel.Item);
+                var recipeModel = db.SelectRecipeModel(itemModel.Item, true);
                 var statusModel = db.SelectStatus();
 
                 itemModel.Recipe = recipeModel;
@@ -65,7 +65,7 @@ namespace Crossout.Web.Modules.Search
                 DataService db = new DataService(sql);
 
                 var itemModel = db.SelectItem(id, false);
-                var recipeModel = db.SelectRecipeModel(itemModel.Item);
+                var recipeModel = db.SelectRecipeModel(itemModel.Item, true);
 
                 itemModel.Recipe = recipeModel;
 

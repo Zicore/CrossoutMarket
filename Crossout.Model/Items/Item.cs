@@ -43,15 +43,6 @@ namespace Crossout.Model.Items
     public class Item
     {
         [JsonIgnore]
-        public PartStatsBase Stats { get; set; }
-
-        [JsonProperty("sortedstats")]
-        public List<SingleStat> SortedStats
-        {
-            get { return Stats.SortedStats; }
-        }
-
-        [JsonIgnore]
         public ItemDescription Description { get; set; }
 
         [JsonProperty("id")]
@@ -69,16 +60,16 @@ namespace Crossout.Model.Items
             }
         }
 
-        [JsonProperty("selloffers")]
+        [JsonProperty("sellOffers")]
         public int SellOffers { get; set; }
 
-        [JsonProperty("sellprice")]
+        [JsonProperty("sellPrice")]
         public decimal SellPrice { get; set; }
 
-        [JsonProperty("buyorders")]
+        [JsonProperty("buyOrders")]
         public int BuyOrders { get; set; }
 
-        [JsonProperty("buyprice")]
+        [JsonProperty("buyPrice")]
         public decimal BuyPrice { get; set; }
 
         [JsonProperty("removed")]
@@ -87,7 +78,7 @@ namespace Crossout.Model.Items
         [JsonProperty("popularity")]
         public int Popularity { get; set; }
 
-        [JsonProperty("workbenchrarity")]
+        [JsonProperty("workbenchRarity")]
         public int WorkbenchRarity { get; set; }
 
         [JsonProperty("margin")]
@@ -96,7 +87,7 @@ namespace Crossout.Model.Items
             get { return (decimal)(SellPrice - BuyPrice - (SellPrice * 0.1m)); }
         }
 
-        [JsonProperty("formatmargin")]
+        [JsonProperty("formatMargin")]
         public string FormatMargin
         {
             get { return PriceFormatter.FormatPrice(Margin); }
@@ -105,31 +96,31 @@ namespace Crossout.Model.Items
         [JsonProperty("timestamp")]
         public DateTime Timestamp { get; set; }
 
-        [JsonProperty("lastupdatetime")]
+        [JsonProperty("lastUpdateTime")]
         public string LastUpdateTime => Timestamp.ToString("yyyy-MM-dd HH:mm:ss");
 
-        [JsonProperty("rarityid")]
+        [JsonProperty("rarityId")]
         public int RarityId { get; set; }
 
-        [JsonProperty("rarityname")]
+        [JsonProperty("rarityName")]
         public string RarityName { get; set; }
 
-        [JsonProperty("categoryid")]
+        [JsonProperty("categoryId")]
         public int CategoryId { get; set; }
 
-        [JsonProperty("categoryname")]
+        [JsonProperty("categoryName")]
         public string CategoryName { get; set; }
 
-        [JsonProperty("typeid")]
+        [JsonProperty("typeId")]
         public int TypeId { get; set; }
 
-        [JsonProperty("recipeid")]
+        [JsonProperty("recipeId")]
         public int RecipeId { get; set; }
 
-        [JsonProperty("typename")]
+        [JsonProperty("typeName")]
         public string TypeName { get; set; }
 
-        [JsonProperty("factionnumber")]
+        [JsonProperty("factionNumber")]
         public int FactionNumber { get; set; }
 
         [JsonProperty("faction")]
@@ -140,7 +131,7 @@ namespace Crossout.Model.Items
             return DateTime.Now - Timestamp > new TimeSpan(0, minutes, 0);
         }
 
-        [JsonProperty("formatbuyprice")]
+        [JsonProperty("formatBuyPrice")]
         public string FormatBuyPrice
         {
             get
@@ -149,7 +140,7 @@ namespace Crossout.Model.Items
             }
         }
 
-        [JsonProperty("formatsellprice")]
+        [JsonProperty("formatSellPrice")]
         public string FormatSellPrice
         {
             get
@@ -162,6 +153,15 @@ namespace Crossout.Model.Items
         public string Image
         {
             get { return $"{Id}.png"; }
+        }
+
+        [JsonIgnore]
+        public PartStatsBase Stats { get; set; }
+
+        [JsonProperty("sortedStats")]
+        public List<SingleStat> SortedStats
+        {
+            get { return Stats?.SortedStats; }
         }
 
         public override string ToString()
