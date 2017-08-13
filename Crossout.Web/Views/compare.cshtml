@@ -1,0 +1,174 @@
+﻿@{
+    Layout = "layout.cshtml";
+}
+
+@using Crossout.Model.Items
+@using Crossout.Web
+@using Crossout.Web.Models
+@using Crossout.Data
+@using Crossout.Data.Stats.Main
+@using Crossout.Model.Items
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Model.Items.ItemCollection>
+
+
+@Html.Partial("header", Model)
+
+<div class="container-space">
+    <div class="panel panel-default">
+        <table id="CompareTable" class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <th>
+                            <a href="~/item/@item.Id">
+                                @if (RootPathHelper.ImageExists(item.Image))
+                                {
+                                    <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@item.Image" />
+                                }
+                                else
+                                {
+                                    <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/NoImage.png" />
+                                }
+                            </a>
+                            <div class="clearfix content-heading" style="padding: 6px">
+                                <ul>
+                                    <li class="list-unstyled"><h4 class="item-title"><a href="~/item/@item.Id">@item.Name</a></h4></li>
+                                    <li class="list-unstyled">@item.Faction</li>
+                                    <li class="list-unstyled">@item.TypeName</li>
+                                </ul>
+                            </div> 
+                        </th>
+                    }
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="stat-title-row">
+                    <td>
+                        <div class="stat-title">Market</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td></td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Sell Price</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.FormatSellPrice <img height="14" src="~/img/Coin.png" /></div>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Buy Price</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.FormatBuyPrice <img height="14" src="~/img/Coin.png" /></div>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Sell Offers</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.SellOffers</div>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Buy Orders</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.BuyOrders</div>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Margin</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.FormatMargin <img height="14" src="~/img/Coin.png" /></div>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Last Update</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left item-timestamp @(item.OlderThan(5) ? "item-older-than-5" : "") @(item.OlderThan(60) ? "item-older-than-60" : "")">@item.LastUpdateTime</div>
+                        </td>
+                    }
+                </tr>
+                <tr class="stat-title-row">
+                    <td>
+                        <div class="stat-title">Stats v@(Crossout.Web.WebSettings.Settings.CurrentVersion)</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            
+                        </td>
+                    }
+                </tr>
+                @foreach (StatAttribute stat in Model.StatTypes)
+                {
+                    <tr>
+                        <td>
+                            <div class="label-md-left">@stat.Name</div>
+                        </td>
+                        @foreach (Item item in Model.Items)
+                        {
+                            <td>
+                                @foreach (SingleStat itemStat in item.Stats.SortedStats)
+                                {
+                                    @if (itemStat.Stat.Name == stat.Name) {
+
+                                        @Html.Partial("parts/_stat", itemStat);
+
+                                        break;
+                                    }
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+
+
+                </tbody>
+            </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#CompareTable').DataTable({
+            paging: false,
+            searching: false,
+            ordering: false,
+            info: false
+        });
+    });
+</script>

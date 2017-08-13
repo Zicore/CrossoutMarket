@@ -40,10 +40,19 @@
             <thead>
                 <tr>
                     <th>
+                        Comp.
+                    </th>
+                    <th>
                         Name
                     </th>
                     <th>
                         Rarity
+                    </th>
+                    <th>
+                        Faction
+                    </th>
+                    <th>
+                        Type
                     </th>
                     <th class="text-right">
                         Popularity
@@ -84,13 +93,14 @@
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
 
         var domOption =
             "<'content-space'<'row'<'col-sm-6'p><'col-sm-4'f><'col-sm-2'l>>>" +
                 "tr" +
-                "<'content-space'<'row'<'col-sm-6'p><'col-sm-2'B><'col-sm-2'i><'col-sm-2'l>>>";
+                "<'content-space'<'row'<'col-sm-5'p><'col-sm-3'B><'col-sm-2'i><'col-sm-2'l>>>";
 
         $.fn.DataTable.ext.pager.numbers_length = 10;
 
@@ -134,12 +144,48 @@
                             page: 'current'
                         }
                     }
+                    }, {
+                        action: function () {
+                            compareSelected();
+                        },
+                        text: 'Compare selected'
                 }]
             },
-            order: [[2, "asc"]],
+            order: [[5, "asc"]],
             lengthMenu: [[10,20, 50, -1], [10,20, 50, "All"]],
             pagingType: "full_numbers",
             dom: domOption
         });
     });
+
+    var compareList = [];
+
+    $('.compare-button').click(function () {
+        if ($(this).hasClass('active'))
+        {
+            $(this).removeClass('active');
+            compareList.splice(compareList.findIndex(x => x === $(this).attr('id')), 1);
+        } else
+        {
+            $(this).addClass('active');
+            compareList.push($(this).attr('id'));
+        }
+    });
+
+    function compareSelected() {
+        var url = "/compare/";
+        var i = 0;
+        compareList.forEach(function (e) {
+            if (i != 0)
+            {
+                url += ",";
+            }
+            var id = e.replace("compare-", "");
+            url += id;
+            i++;
+        });
+        window.location = url;
+    }
+
+
 </script>

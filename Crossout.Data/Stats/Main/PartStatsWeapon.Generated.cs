@@ -1,6 +1,6 @@
 namespace Crossout.Data.Stats.Main
 {
-    // *** Generator: v0.3 This class is automatically generated, please use the non generated variant of this class ***
+    // *** Generator: v0.4 This class is automatically generated, please use the non generated variant of this class ***
     public partial class PartStatsWeapon : PartStatsBase
     {
         public PartStatsWeapon(string key) : base(key) { }
@@ -94,6 +94,8 @@ namespace Crossout.Data.Stats.Main
         public int ammo_refill {get;set;}
         public double magic_find {get;set;}
         public int pellet_count {get;set;}
+        public int collision_resist {get;set;}
+        public int collision_damage {get;set;}
         public double spread_scale_x {get;set;}
         public double spread_scale_y {get;set;}
         public bool secondary_weapon {get;set;}
@@ -125,8 +127,6 @@ namespace Crossout.Data.Stats.Main
         public int dodge_angular_acceleration {get;set;}
         public int projectile_phase2_time {get;set;}
         public bool innate_ai {get;set;}
-        public int collision_resist {get;set;}
-        public int collision_damage {get;set;}
         public bool charging_need_hold {get;set;}
         public bool fire_without_target {get;set;}
         public double barrel_detonation_radius {get;set;}

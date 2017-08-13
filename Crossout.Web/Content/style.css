@@ -113,6 +113,17 @@ body {
   vertical-align: baseline;
 }
 
+.label-md-left {
+    display: block;
+    font-size: 100%;
+    font-weight: bold;
+    line-height: 1;
+    color: #595959;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: baseline;
+}
+
 .vertical-center {
   display: flex;
   align-items: center;
@@ -239,6 +250,14 @@ body {
 .stat-heading-3 {
     font-weight: bold;
     font-size: 20px;
+}
+
+.stat-title {
+    font-size:20px;
+}
+
+.stat-title-row {
+    background-color: #F5F5F5;
 }
 
 .stat-text {
