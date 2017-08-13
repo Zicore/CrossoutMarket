@@ -47,11 +47,97 @@
             </thead>
 
             <tbody>
+                <tr class="stat-title-row">
+                    <td>
+                        <div class="stat-title">Market</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td></td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Sell Price</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.FormatSellPrice <img height="14" src="~/img/Coin.png" /></div>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Buy Price</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.FormatBuyPrice <img height="14" src="~/img/Coin.png" /></div>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Sell Offers</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.SellOffers</div>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Buy Orders</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.BuyOrders</div>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Margin</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.FormatMargin <img height="14" src="~/img/Coin.png" /></div>
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Last Update</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left item-timestamp @(item.OlderThan(5) ? "item-older-than-5" : "") @(item.OlderThan(60) ? "item-older-than-60" : "")">@item.LastUpdateTime</div>
+                        </td>
+                    }
+                </tr>
+                <tr class="stat-title-row">
+                    <td>
+                        <div class="stat-title">Stats v@(Crossout.Web.WebSettings.Settings.CurrentVersion)</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            
+                        </td>
+                    }
+                </tr>
                 @foreach (StatAttribute stat in Model.StatTypes)
                 {
                     <tr>
                         <td>
-                            <b>@stat.Name</b>
+                            <div class="label-md-left">@stat.Name</div>
                         </td>
                         @foreach (Item item in Model.Items)
                         {

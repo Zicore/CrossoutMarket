@@ -40,10 +40,19 @@
             <thead>
                 <tr>
                     <th>
+                        Comp.
+                    </th>
+                    <th>
                         Name
                     </th>
                     <th>
                         Rarity
+                    </th>
+                    <th>
+                        Faction
+                    </th>
+                    <th>
+                        Type
                     </th>
                     <th class="text-right">
                         Popularity
@@ -65,9 +74,6 @@
                     </th>
                     <th class="text-right">
                         Last Update
-                    </th>
-                    <th class="text-right">
-                        Compare Stats
                     </th>
                 </tr>
             </thead>
@@ -145,7 +151,7 @@
                         text: 'Compare selected'
                 }]
             },
-            order: [[2, "asc"]],
+            order: [[5, "asc"]],
             lengthMenu: [[10,20, 50, -1], [10,20, 50, "All"]],
             pagingType: "full_numbers",
             dom: domOption
