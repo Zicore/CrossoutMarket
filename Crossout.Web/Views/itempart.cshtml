@@ -53,4 +53,7 @@
     <td>
         <div class="label-md item-timestamp @(Model.OlderThan(5) ? "item-older-than-5" : "") @(Model.OlderThan(60) ? "item-older-than-60" : "")">@Model.LastUpdateTime</div>
     </td>
+    <td>
+        <div class="pull-right"><ul class="pagination" style="margin-top: 0px"><li id="compare-@Model.Id" class="paginate_button compare-button"><a>Compare</a></li></ul></div>
+    </td>
 </tr>

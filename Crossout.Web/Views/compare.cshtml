@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "layout.cshtml";
+}
+
+@using Crossout.Model.Items
+@using Crossout.Web
+@using Crossout.Web.Models
+@using Crossout.Data
+@using Crossout.Data.Stats.Main
+@using Crossout.Model.Items
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Model.Items.ItemCollection>
+
+
+@Html.Partial("header", Model)
+
+<div class="container-space">
+    <div class="panel panel-default">
+        <table id="CompareTable" class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <th>
+                            <a href="~/item/@item.Id">
+                                @if (RootPathHelper.ImageExists(item.Image))
+                                {
+                                    <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@item.Image" />
+                                }
+                                else
+                                {
+                                    <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/NoImage.png" />
+                                }
+                            </a>
+                            <div class="clearfix content-heading" style="padding: 6px">
+                                <ul>
+                                    <li class="list-unstyled"><h4 class="item-title"><a href="~/item/@item.Id">@item.Name</a></h4></li>
+                                    <li class="list-unstyled">@item.Faction</li>
+                                    <li class="list-unstyled">@item.TypeName</li>
+                                </ul>
+                            </div> 
+                        </th>
+                    }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (StatAttribute stat in Model.StatTypes)
+                {
+                    <tr>
+                        <td>
+                            <b>@stat.Name</b>
+                        </td>
+                        @foreach (Item item in Model.Items)
+                        {
+                            <td>
+                                @foreach (SingleStat itemStat in item.Stats.SortedStats)
+                                {
+                                    @if (itemStat.Stat.Name == stat.Name) {
+
+                                        @Html.Partial("parts/_stat", itemStat);
+
+                                        break;
+                                    }
+                                }
+                            </td>
+                        }
+                    </tr>
+                }
+
+
+                </tbody>
+            </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#CompareTable').DataTable({
+            paging: false,
+            searching: false,
+            ordering: false,
+            info: false
+        });
+    });
+</script>
