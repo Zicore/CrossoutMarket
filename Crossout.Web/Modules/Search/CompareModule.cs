@@ -16,17 +16,22 @@ namespace Crossout.Web.Modules.Search
     {
         public CompareModule()
         {
-            Get["/compare/(?<others>.*)"] = Render;
+            Get["/compare/(?<ids>.*)"] = x =>
+            {
+                return RouteCompare(x);
+            };
         }
 
-        private Response Render(dynamic parameters)
+        SqlConnector sql = new SqlConnector(ConnectionType.MySql);
+
+        private dynamic RouteCompare(dynamic items)
         {
             var result = new List<int>();
-            foreach (var other in ((string)parameters.others).Split('|'))
+            foreach (var id in ((string)items.ids).Split(','))
             {
                 try
                 {
-                    result.Add(Convert.ToInt32((other)));
+                    result.Add(Convert.ToInt32(id));
                 }
                 catch
                 {
@@ -34,24 +39,16 @@ namespace Crossout.Web.Modules.Search
                 }
 
             }
-            return RouteCompare(result);
-        }
 
-        SqlConnector sql = new SqlConnector(ConnectionType.MySql);
-
-        private dynamic RouteCompare(List<int> ids)
-        {
             try
             {
-
-                RecipeItem.ResetId();
                 sql.Open(WebSettings.Settings.CreateDescription());
 
                 DataService db = new DataService(sql);
 
                 var itemList = new List<Item>();
 
-                foreach (var id in ids)
+                foreach (var id in result)
                 {
                     var itemModel = db.SelectItem(id, true);
                     CrossoutDataService.Instance.AddData(itemModel.Item);
@@ -59,6 +56,8 @@ namespace Crossout.Web.Modules.Search
                 }
                 var itemCol = new ItemCollection();
                 itemCol.Items = itemList;
+
+                itemCol.CreateStatList();
 
                 return View["compare", itemCol];
             }
