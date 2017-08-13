@@ -161,6 +161,10 @@ Examples
 
 ## Recipe
 
+Results the recipe of the given item. Includes the item and item stats for the item itself.
+
+The recipe data structure is kind of complex and consists of all fields, we need on our site.
+
 ```
 /api/v1/recipe/{item:int}
 ```
@@ -176,6 +180,10 @@ Examples
 ```
 
 ## Recipe Deep
+
+Results the recipe of the given item. Includes the item and item stats for the item itself.
+
+Recursively results all the ingredients for the items ingredients too.
 
 ```
 /api/v1/recipe-deep/{item:int}
