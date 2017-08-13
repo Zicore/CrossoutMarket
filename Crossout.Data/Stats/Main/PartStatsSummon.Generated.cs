@@ -1,6 +1,6 @@
 namespace Crossout.Data.Stats.Main
 {
-    // *** Generator: v0.3 This class is automatically generated, please use the non generated variant of this class ***
+    // *** Generator: v0.4 This class is automatically generated, please use the non generated variant of this class ***
     public partial class PartStatsSummon : PartStatsBase
     {
         public PartStatsSummon(string key) : base(key) { }
