@@ -59,7 +59,7 @@ namespace Crossout.Web.Modules.Search
                 DataService db = new DataService(sql);
 
                 var itemModel = db.SelectItem(id, false);
-                var recipeModel = db.SelectRecipeModel(itemModel.Item);
+                var recipeModel = db.SelectRecipeModel(itemModel.Item, true);
                 var statusModel = db.SelectStatus();
                 var factions = db.SelectAllFactions();
 

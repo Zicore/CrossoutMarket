@@ -44,32 +44,31 @@ namespace Crossout.Web.Services
             return itemModel;   
         }
 
-        public RecipeModel SelectRecipeModel(Item item)
+        public RecipeModel SelectRecipeModel(Item item, bool resolveDeep)
         {
             RecipeModel recipeModel = new RecipeModel();
             RecipeCounter counter = new RecipeCounter();
             recipeModel.Recipe = new RecipeItem(counter) {Item = item,Ingredients = SelectRecipe(counter,item) };
             
-            ResolveRecipe(counter, recipeModel.Recipe, 1);
+            ResolveRecipe(counter, recipeModel.Recipe, 1, resolveDeep);
 
             CalculateRecipe(recipeModel.Recipe);
             recipeModel.Recipe.IngredientSum = CreateIngredientItem(counter,recipeModel.Recipe);
             
-
             return recipeModel;
         }
 
-        public void ResolveRecipe(RecipeCounter counter,RecipeItem parent, int depth)
+        public void ResolveRecipe(RecipeCounter counter,RecipeItem parent, int depth, bool resolveDeep)
         {
             foreach (var ingredient in parent.Ingredients)
             {
                 ingredient.Parent = parent;
                 ingredient.Depth = depth;
-                if (ingredient.Item.RecipeId > 0)
+                if (ingredient.Item.RecipeId > 0 && resolveDeep)
                 {
                     ingredient.Ingredients = SelectRecipe(counter, ingredient.Item);
                     ++depth;
-                    ResolveRecipe(counter, ingredient, depth);
+                    ResolveRecipe(counter, ingredient, depth, true);
                     CalculateRecipe(ingredient);
                     if (ingredient.Depth > 0)
                     {
@@ -304,7 +303,7 @@ namespace Crossout.Web.Services
 
         public static string BuildRecipeQuery()
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber,faction.name";
             string query =
                 $"SELECT {selectColumns} " +
                 "FROM recipe " +
@@ -314,6 +313,7 @@ namespace Crossout.Web.Services
                 "LEFT JOIN category ON category.id = item.categorynumber " +
                 "LEFT JOIN type ON type.id = item.typenumber " +
                 "LEFT JOIN recipe recipe2 ON recipe2.itemnumber = recipeitem.itemnumber " +
+                "LEFT JOIN faction faction ON faction.id = recipe.factionnumber " +
                 "WHERE recipe.id = @id";
 
             return query;

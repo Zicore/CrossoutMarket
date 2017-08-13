@@ -6,6 +6,7 @@ using Nancy.Conventions;
 using Nancy.Diagnostics;
 using Nancy.SimpleAuthentication;
 using Nancy.TinyIoc;
+using Newtonsoft.Json;
 using SimpleAuthentication.Core;
 using SimpleAuthentication.Core.Providers;
 using ZicoreConnector.Zicore.Connector.Base;
@@ -46,6 +47,7 @@ namespace Crossout.Web
             var authenticationProviderFactory = new AuthenticationProviderFactory();
             authenticationProviderFactory.AddProvider(googleProvider);
             container.Register<IAuthenticationCallbackProvider>(new CrossoutAuthenticationCallbackProvider(userRepository));
+            container.Register<JsonSerializer, CustomJsonSerializer>();
         }
 
         protected override void ConfigureRequestContainer(TinyIoCContainer container, NancyContext context)

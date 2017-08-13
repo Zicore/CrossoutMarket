@@ -10,12 +10,22 @@ namespace Crossout.Web.Models.Items
 {
     public class ItemModel : IViewTitle
     {
+        [JsonProperty("item")]
         public Item Item { get; set; } = new Item() {};
+
+        [JsonProperty("recipe")]
         public RecipeModel Recipe { get; set; } = new RecipeModel();
+
+        [JsonIgnore]
         public StatusModel Status { get; set; } = new StatusModel();
-        
+
+        [JsonIgnore]
         public List<Item> AllItems { get; set; } = new List<Item>();
+
+        [JsonIgnore]
         public List<FactionModel> AllFactions { get; set; } = new List<FactionModel>();
+
+        [JsonIgnore]
         public FactionModel SelectedFaction { get; set; } = new FactionModel();
 
         [JsonIgnore]
