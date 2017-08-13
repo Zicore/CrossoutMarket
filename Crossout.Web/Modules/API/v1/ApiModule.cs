@@ -69,30 +69,30 @@ namespace Crossout.Web.Modules.API.v1
                 string rarity = (string)Request.Query.Rarity;
                 string category = (string)Request.Query.Category;
                 string faction = (string)Request.Query.Faction;
-                string showRemovedItems = (string)Request.Query.RmdItems;
-                string showMetaItems = (string)Request.Query.MItems;
+                string showRemovedItems = (string)Request.Query.RemovedItems;
+                string showMetaItems = (string)Request.Query.MetaItems;
                 var query = (string)Request.Query.Query;
                 int id = (int) Request.Query.Id;
                 
                 return RouteSearch(query, 0, rarity, category, faction, showRemovedItems, showMetaItems, id);
             };
 
-            Get["/api/v1/item/{item}"] = x =>
+            Get["/api/v1/item/{item:int}"] = x =>
             {
                 string rarity = (string)Request.Query.Rarity;
                 string category = (string)Request.Query.Category;
                 string faction = (string)Request.Query.Faction;
-                string showRemovedItems = (string)Request.Query.RmdItems;
-                string showMetaItems = (string)Request.Query.MItems;
+                string showRemovedItems = (string)Request.Query.RemovedItems;
+                string showMetaItems = (string)Request.Query.MetaItems;
                 var query = (string)Request.Query.Query;
                 int id = (int)x.item;
 
                 return RouteSearch(query, 0, rarity, category, faction, showRemovedItems, showMetaItems, id);
             };
             
-            Get["/api/v1/recipe/{id:int}"] = x =>
+            Get["/api/v1/recipe/{item:int}"] = x =>
             {
-                var id = (int)x.id;
+                var id = (int)x.item;
 
                 sql.Open(WebSettings.Settings.CreateDescription());
 
@@ -100,15 +100,13 @@ namespace Crossout.Web.Modules.API.v1
 
                 var itemModel = db.SelectItem(id, true);
                 var recipeModel = db.SelectRecipeModel(itemModel.Item, false);
-
-                //itemModel.Recipe = recipeModel;
-
+                
                 return Response.AsJson(recipeModel);
             };
 
-            Get["/api/v1/recipe-deep/{id:int}"] = x =>
+            Get["/api/v1/recipe-deep/{item:int}"] = x =>
             {
-                var id = (int)x.id;
+                var id = (int)x.item;
                 
                 sql.Open(WebSettings.Settings.CreateDescription());
 

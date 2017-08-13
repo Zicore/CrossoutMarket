@@ -64,7 +64,134 @@ Then create the settings file in %appdata%/CrossoutWeb/WebSettings.json or start
 
 You may need to start Visual Studio as Administrator for Nancy or Owins Selfhost to work.
 
-Gathering Data
+CrossoutDB API
+===
+Our api provides all data we have gathered so far, in an easy to use form.
+
+# Current API Version 1
+
+## General Information about the API
+
+The API provides Json formatted data models and are as self-explanatory as possible, if you have any questions you can join our IRC channel and we try to help.
+
+All API endpoints currently use GET.
+
+Even though the API is versioned, it can still change at any time without further notice. Hopefully there will be only fixes, but you have been warned :)
+
+Do you have Ideas for more endpoints? Join our IRC or make an issue on our Github repository to tell us :)
+
+## Base URL
+```
+/api/v1/
+```
+## Rarities
+
+Results a list of all rarities
+
+```
+/api/v1/rarities
+```
+
+## Factions
+
+Results a list of all factions
+
+```
+/api/v1/factions
+```
+
+## Types
+
+Results a list of all types
+
+```
+/api/v1/types
+```
+
+## Categories
+
+Results a list of all categories
+
+```
+/api/v1/categories
+```
+
+## Items
+
+Results a list of items, optionally filtered by parameters.
+
+```
+/api/v1/items
+/api/v1/items?rarity=&category=&faction=&removedItems=&metaItems=&query=
+```
+
+Optional Parameters
+```
+rarity : filters by rarity
+category : filters by category
+faction : filters by factions
+removedItems : shows removed items (default false)
+metaItems : shows meta items (default false)
+query : search string
+```
+
+Examples
+```
+/api/v1/items?query=shotgun
+/api/v1/items?rarity=rare&category=weapon
+```
+
+## Item
+
+Results one item.
+
+```
+/api/v1/item/{item}
+```
+
+Mandatory Parameter
+```
+{item:int} : item id
+```
+
+Examples
+```
+/api/v1/item/1
+```
+
+## Recipe
+
+```
+/api/v1/recipe/{item:int}
+```
+
+Mandatory Parameter
+```
+{item:int} : item id
+```
+
+Examples
+```
+/api/v1/recipe/1
+```
+
+## Recipe Deep
+
+```
+/api/v1/recipe-deep/{item:int}
+```
+
+Mandatory Parameter
+```
+{item:int} : item id
+```
+
+Examples
+```
+/api/v1/recipe-deep/1
+```
+
+How are we gathering Data
 ===
 
 ## General Data
@@ -91,12 +218,6 @@ Q: I don't find the part that reads the data from the market in your repo.
 
 A: It's not part of the repository and not open source (yet), since we don't want that anyone plays with the games memory, also you 
 could get banned for doing so.
-
-&nbsp;
-
-Q: Do you have an API for your data?
-
-A: Not yet, but we are making an API in near future.
 
 &nbsp;
 
