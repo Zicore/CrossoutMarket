@@ -40,9 +40,6 @@
             <thead>
                 <tr>
                     <th>
-                        Comp.
-                    </th>
-                    <th>
                         Name
                     </th>
                     <th>
@@ -151,7 +148,7 @@
                         text: 'Compare selected'
                 }]
             },
-            order: [[5, "asc"]],
+            order: [[4, "asc"]],
             lengthMenu: [[10,20, 50, -1], [10,20, 50, "All"]],
             pagingType: "full_numbers",
             dom: domOption
@@ -159,32 +156,35 @@
     });
 
     var compareList = [];
+    var highlightSelectClass = 'info';
 
     $('.compare-button').click(function () {
-        if ($(this).hasClass('active'))
+        if ($(this).hasClass(highlightSelectClass))
         {
-            $(this).removeClass('active');
+            $(this).removeClass(highlightSelectClass);
             compareList.splice(compareList.findIndex(x => x === $(this).attr('id')), 1);
         } else
         {
-            $(this).addClass('active');
+            $(this).addClass(highlightSelectClass);
             compareList.push($(this).attr('id'));
         }
     });
 
     function compareSelected() {
-        var url = "/compare/";
-        var i = 0;
-        compareList.forEach(function (e) {
-            if (i != 0)
-            {
-                url += ",";
-            }
-            var id = e.replace("compare-", "");
-            url += id;
-            i++;
-        });
-        window.location = url;
+        if (compareList.length != 0)
+        {
+            var url = "/compare/";
+            var i = 0;
+            compareList.forEach(function (e) {
+                if (i != 0) {
+                    url += ",";
+                }
+                var id = e.replace("compare-", "");
+                url += id;
+                i++;
+            });
+            window.location = url;
+        }
     }
 
 
