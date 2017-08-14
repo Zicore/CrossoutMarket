@@ -173,18 +173,20 @@
     });
 
     function compareSelected() {
-        var url = "/compare/";
-        var i = 0;
-        compareList.forEach(function (e) {
-            if (i != 0)
-            {
-                url += ",";
-            }
-            var id = e.replace("compare-", "");
-            url += id;
-            i++;
-        });
-        window.location = url;
+        if (compareList.length != 0)
+        {
+            var url = "/compare/";
+            var i = 0;
+            compareList.forEach(function (e) {
+                if (i != 0) {
+                    url += ",";
+                }
+                var id = e.replace("compare-", "");
+                url += id;
+                i++;
+            });
+            window.location = url;
+        }
     }
 
 
