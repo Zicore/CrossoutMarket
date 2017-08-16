@@ -30,13 +30,9 @@ namespace Crossout.Data
 
         [JsonProperty("customClasses")]
         public string CustomClasses { get; set; }
-
-        private StatType type = StatType.Exposed;
+        
         [JsonProperty("type")]
-        public StatType Type {
-            get { return type; }
-            set { type = value; }
-        }
+        public StatType Type { get; set; } = StatType.Exposed;
 
         public StatAttribute(string name, int order = 0)
         {

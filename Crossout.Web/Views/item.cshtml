@@ -217,18 +217,47 @@
                         <thead>
                         </thead>
                         <tbody>
-                        @foreach (var item in Model.Item.Stats.SortedStats)
-                        {
-                            if (item.DisplayValue && item.Stat.Type == Crossout.Data.StatType.Exposed)
+                            @foreach (var item in Model.Item.Stats.SortedStats)
                             {
-                                <tr>
-                                    <td class="col-md-2 stat-text">@item.Stat.Name</td>
-                                    <td>@Html.Partial("parts/_stat", item)</td>
-                                </tr>
+                                if (item.DisplayValue && item.Stat.Type == Crossout.Data.StatType.Exposed)
+                                {
+                                    <tr>
+                                        <td class="col-md-4 stat-text">@item.Stat.Name</td>
+                                        <td>@Html.Partial("parts/_stat", item)</td>
+                                    </tr>
+                                }
                             }
-                        }
                         </tbody>
                     </table>
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr class="stat-title-row">
+                                <td>
+                                    <div id="detailed-stats-title-row"><span class="stat-title">Detailed Stats </span><i class="glyphicon glyphicon-chevron-down"></i></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="detailed-stat-wrapper" style="display: none">
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Item.Stats.SortedStats)
+                                {
+                                    if (item.DisplayValue && item.Stat.Type == Crossout.Data.StatType.Hidden)
+                                    {
+                                        <tr>
+                                            <td class="col-md-4 stat-text">@item.Stat.Name</td>
+                                            <td>@Html.Partial("parts/_stat", item)</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             }
         </div>
@@ -266,6 +295,20 @@
                 embed.slideUp();
             } else {
                 embed.slideDown();
+            }
+        });
+
+        $('#detailed-stats-title-row').click(function (e) {
+            var embed = $('#detailed-stat-wrapper');
+            var icon = $(this).find('.glyphicon');
+            if (embed.is(":visible")) {
+                embed.slideUp();
+                icon.removeClass('glyphicon-chevron-up');
+                icon.addClass('glyphicon-chevron-down');
+            } else {
+                embed.slideDown();
+                icon.removeClass('glyphicon-chevron-down');
+                icon.addClass('glyphicon-chevron-up');
             }
         });
     });

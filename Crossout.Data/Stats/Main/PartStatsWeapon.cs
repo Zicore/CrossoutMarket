@@ -48,7 +48,11 @@
             get { return overheat_rating * 100.0f; }
         }
 
-
+        [Stat("Ammo", 55)]
+        public int StatAmmo
+        {
+            get { return ammo; }
+        }
 
         //------
 
