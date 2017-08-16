@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Crossout.Model.Items;
 using Crossout.Web.Models.API.v1;
+using Crossout.Web.Models.Charts;
 using Crossout.Web.Models.Filter;
 using Crossout.Web.Models.General;
 using Crossout.Web.Models.Pagination;
@@ -120,23 +121,59 @@ namespace Crossout.Web.Modules.API.v1
                 return Response.AsJson(itemModel);
             };
 
-            //Get["/api/v1/recipe"] = x =>
-            //{
-            //    sql.Open(WebSettings.Settings.CreateDescription());
-            //    ApiDataService dataService = new ApiDataService(sql);
-            //};
+            Get["/api/v1/market/{name}/{id:int}"] = x =>
+            {
+                sql.Open(WebSettings.Settings.CreateDescription());
+
+                string name = x.name;
+                HashSet<string> validMarkets = new HashSet<string>() { "sellprice", "buyprice", "selloffers", "buyorders" };
+
+                bool unixTimeStamp = (bool)Request.Query.unixTimestamp;
+
+                string timestampColumn = "market.datetime";
+
+                if (validMarkets.Contains(name))
+                {
+                    if (unixTimeStamp)
+                    {
+                        timestampColumn = "UNIX_TIMESTAMP(market.datetime)";
+                    }
+
+                    string query = $"(SELECT {timestampColumn},market.{name} FROM market where market.itemnumber = @id ORDER BY market.Datetime desc LIMIT 40000);";
+
+                    var parmeter = new List<Parameter>
+                    {
+                        new Parameter {Identifier = "@id", Value = x.id},
+                    };
+                    var ds = sql.SelectDataSet(query, parmeter);
+                    return Response.AsJson(ds);
+                }
+                else
+                {
+                    return Response.AsJson("Market not found", HttpStatusCode.NotFound);
+                }
+            };
+
+            Get["/api/v1/market-all/{id:int}"] = x =>
+            {
+                sql.Open(WebSettings.Settings.CreateDescription());
+                string query = "(SELECT market.id,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime,UNIX_TIMESTAMP(market.datetime) as unixdatetime FROM market where market.itemnumber = @id ORDER BY market.Datetime desc LIMIT 40000) ORDER BY id ASC;";
+                var p = new Parameter { Identifier = "@id", Value = x.id };
+                var parmeter = new List<Parameter>();
+                parmeter.Add(p);
+
+                var ds = sql.SelectDataSet(query, parmeter);
+                
+                return Response.AsJson(ds);
+            };
         }
-
-
-
+        
         private dynamic RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems, string mItems, int id)
         {
             if (searchQuery == null)
             {
                 searchQuery = "";
             }
-
-            //ApiDataService db = new ApiDataService(sql);
 
             sql.Open(WebSettings.Settings.CreateDescription());
 
