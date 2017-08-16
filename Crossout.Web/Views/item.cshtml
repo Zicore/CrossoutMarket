@@ -219,7 +219,7 @@
                         <tbody>
                         @foreach (var item in Model.Item.Stats.SortedStats)
                         {
-                            if (item.DisplayValue)
+                            if (item.DisplayValue && item.Stat.Type == Crossout.Data.StatType.Exposed)
                             {
                                 <tr>
                                     <td class="col-md-2 stat-text">@item.Stat.Name</td>

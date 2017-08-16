@@ -48,6 +48,8 @@
             get { return overheat_rating * 100.0f; }
         }
 
+
+
         //------
 
         [Stat("Structure", 60)]
@@ -67,5 +69,152 @@
         {
             get { return physics_mass; }
         }
+
+        //------ Hidden Stats
+
+        [Stat("Ballistic Damage", 100, Type = StatType.Hidden)]
+        public double StatBallisticDamage
+        {
+            get { return damage; }
+        }
+
+        [Stat("Collision Damage", 105, Type = StatType.Hidden)]
+        public int StatCollisionDamage
+        {
+            get { return collision_damage; }
+        }
+
+        [Stat("Blast Damage", 110, Type = StatType.Hidden)]
+        public double StatBlastDamage
+        {
+            get { return blast_damage; }
+        }
+
+        [Stat("Blast Radius", 120, Type = StatType.Hidden)]
+        public double StatBlastRadius
+        {
+            get { return blast_radius; }
+        }
+
+        [Stat("Fire Rate", 130, Type = StatType.Hidden)]
+        public int StatFireRate
+        {
+            get { return fire_rate; }
+        }
+
+        [Stat("Optimal Range", 140, Type = StatType.Hidden)]
+        public double StatOptimalRange
+        {
+            get { return optimal_range; }
+        }
+
+        [Stat("Max Range", 150, Type = StatType.Hidden)]
+        public double StatMaxRange
+        {
+            get { return max_range; }
+        }
+
+        [Stat("Spread Static", 160, Type = StatType.Hidden)]
+        public double StatSpreadStatic
+        {
+            get { return spread_stat; }
+        }
+
+        [Stat("Maximum Spread Static", 165, Type = StatType.Hidden)]
+        public double StatMaximumSpreadStatic
+        {
+            get { return spread_stat_max; }
+        }
+
+        [Stat("Spread Moving", 170, Type = StatType.Hidden)]
+        public double StatSpreadMoving
+        {
+            get { return spread_move; }
+        }
+
+        [Stat("Maximum Spread Moving", 175, Type = StatType.Hidden)]
+        public double StatMaximumSpreadMoving
+        {
+            get { return spread_move_max; }
+        }
+
+        [Stat("Spread Increase", 180, Type = StatType.Hidden)]
+        public double StatSpreadIncrease
+        {
+            get { return spread_inc; }
+        }
+
+        [Stat("Spread Decrease", 185, Type = StatType.Hidden)]
+        public double StatSpreadDecrese
+        {
+            get { return spread_dec; }
+        }
+
+        [Stat("Spread Rotation Increase", 190, Type = StatType.Hidden)]
+        public double StatSpreadRotationIncrease
+        {
+            get { return spread_rot_inc; }
+        }
+
+        [Stat("Recoil", 195, Type = StatType.Hidden)]
+        public double StatRecoil
+        {
+            get { return recoil_impulse; }
+        }
+
+        [Stat("Maximum Heat", 200, Type = StatType.Hidden)]
+        public int StatMaximumHeat
+        {
+            get { return heat_max; }
+        }
+
+        [Stat("Heat Increase", 210, Type = StatType.Hidden)]
+        public double StatHeatIncrease
+        {
+            get { return heat_inc; }
+        }
+
+        [Stat("Heat Decrease", 215, Type = StatType.Hidden)]
+        public double StatHeatDecrease
+        {
+            get { return heat_dec; }
+        }
+
+        [Stat("Gun Elevation", 215, Type = StatType.Hidden)]
+        public int StatGunElevation
+        {
+            get { return max_pitch; }
+        }
+
+        [Stat("Gun Depression", 215, Type = StatType.Hidden)]
+        public int StatGunDepression
+        {
+            get { return min_pitch; }
+        }
+
+        [Stat("Gun Traverse Right", 220, Type = StatType.Hidden)]
+        public int StatGunTraverseRight
+        {
+            get { return max_yaw; }
+        }
+
+        [Stat("Gun Traverse Left", 225, Type = StatType.Hidden)]
+        public int StatGunTraverseLeft
+        {
+            get { return min_yaw; }
+        }
+
+        [Stat("Gun Rotation Speed", 225, Type = StatType.Hidden)]
+        public int StatGunRotationSpeed
+        {
+            get { return rot_speed; }
+        }
+
+        [Stat("Collision Resistance", 240, Type = StatType.Hidden)]
+        public int StatCollisionResistance
+        {
+            get { return collision_resist; }
+        }
+
     }
 }

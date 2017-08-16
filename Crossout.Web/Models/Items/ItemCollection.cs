@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Crossout.Web.Helper;
 using Crossout.Data;
+using System.Linq;
 
 namespace Crossout.Model.Items
 {
@@ -17,10 +18,15 @@ namespace Crossout.Model.Items
                 {
                     if (!StatTypes.Contains(stat.Stat))
                     {
-                        StatTypes.Add(stat.Stat);
+                        if (!stat.Value.Equals(0))
+                        {
+                            StatTypes.Add(stat.Stat);
+                        }
                     }
                 }
             }
+
+            StatTypes = StatTypes.OrderBy(x => x.Order).ToList();
         }
 
         public override string ToString()

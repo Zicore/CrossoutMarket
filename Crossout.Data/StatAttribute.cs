@@ -7,6 +7,13 @@ using Newtonsoft.Json;
 
 namespace Crossout.Data
 {
+    public enum StatType
+    {
+        Exposed,
+        Hidden,
+        Misc
+    }
+
     [JsonObject(ItemTypeNameHandling = TypeNameHandling.None)]
     public class StatAttribute : Attribute
     {
@@ -23,6 +30,13 @@ namespace Crossout.Data
 
         [JsonProperty("customClasses")]
         public string CustomClasses { get; set; }
+
+        private StatType type = StatType.Exposed;
+        [JsonProperty("type")]
+        public StatType Type {
+            get { return type; }
+            set { type = value; }
+        }
 
         public StatAttribute(string name, int order = 0)
         {
