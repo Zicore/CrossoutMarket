@@ -2,10 +2,7 @@
 @using Crossout.Web
 @using Crossout.Model.Items;
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Model.Items.Item>
-<tr>
-    <td style="width: 50px;">
-        <button id="compare-@Model.Id" class="btn btn-default compare-button"><i class="glyphicon glyphicon-th-list"></i></button>
-    </td>
+<tr id="compare-@Model.Id" class="compare-button">
     <td>
         <div class="clearfix content-heading">
             <div>
