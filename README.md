@@ -199,6 +199,61 @@ Examples
 /api/v1/recipe-deep/1
 ```
 
+## Market
+
+Results the market data in the form of an array. The First column is the timestamp and the second is the raw data value.
+
+```
+/api/v1/market/{name}/{id:int}
+```
+
+Mandatory Parameters
+```
+{name} : market column (sellprice, buyprice, selloffers, buyorders)
+{item:int} : item id
+```
+
+Optional Parameters
+```
+unixTimestamp : use unix timestamps instead of the datetime type
+```
+
+```
+/api/v1/market/buyprice/1
+/api/v1/market/selloffers/1?unixTimestamp
+```
+
+Please note that prices are not formatted and are represented by full decimal values.
+
+So to format, just divide by 100. For Example: `5125 / 100 = 51.25`
+
+## Market All
+
+Results all columns of market data in the form of an array.
+
+```
+0 = id
+1 = sellprice
+2 = buyprice
+3 = selloffers
+4 = buyorders
+5 = datetime
+6 = UNIX_TIMESTAMP(datetime)
+```
+
+```
+/api/v1/market-all/{id:int}
+```
+
+Mandatory Parameters
+```
+{item:int} : item id
+```
+
+```
+http://localhost/api/v1/market-all/1
+```
+
 How are we gathering Data
 ===
 
