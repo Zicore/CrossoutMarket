@@ -1,6 +1,6 @@
 ﻿namespace Crossout.Data.Stats.Main
 {
-    public partial class PartStatsWeapon : PartStatsBase
+    public partial class PartStatsWeapon
     {
         // Custom Properties
 
@@ -92,6 +92,12 @@
         public double StatBlastDamage
         {
             get { return blast_damage; }
+        }
+
+        [Stat("Projectile Velocity", 111, Type = StatType.Hidden)]
+        public double ProjectileVelocity
+        {
+            get { return projectile_speed; }
         }
 
         [Stat("Blast Radius", 120, Type = StatType.Hidden)]

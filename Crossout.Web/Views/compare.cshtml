@@ -27,19 +27,17 @@
                             <a href="~/item/@item.Id">
                                 @if (RootPathHelper.ImageExists(item.Image))
                                 {
-                                    <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@item.Image" />
+                                    <img class="pull-left item-image-search content-space" style="margin-right: 4px;" src="~/img/items/@item.Image" />
                                 }
                                 else
                                 {
-                                    <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/NoImage.png" />
+                                    <img class="pull-left item-image-search content-space" style="margin-right: 4px;" src="~/img/NoImage.png" />
                                 }
                             </a>
-                            <div class="clearfix content-heading" style="padding: 6px">
-                                <ul>
-                                    <li class="list-unstyled"><h4 class="item-title"><a href="~/item/@item.Id">@item.Name</a></h4></li>
-                                    <li class="list-unstyled">@item.Faction</li>
-                                    <li class="list-unstyled">@item.TypeName</li>
-                                </ul>
+                            <div class="clearfix content-heading" style="padding: 4px">
+                                <div class="label-md-left"><h4 class="item-title"><a href="~/item/@item.Id">@item.Name</a></h4></div>
+                                <div class="label-md-left">@item.Faction</div>
+                                <div class="label-md-left">@item.TypeName</div>
                             </div> 
                         </th>
                     }
