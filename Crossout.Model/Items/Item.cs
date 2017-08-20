@@ -19,7 +19,8 @@ namespace Crossout.Model.Items
         Rare_2 = 2,
         Epic_3 = 3,
         Legendary_4 = 4,
-        Relic_5 = 5
+        Relic_5 = 5,
+        Skins_6 = 6
     }
 
     // Matches with DB Ids
@@ -37,6 +38,7 @@ namespace Crossout.Model.Items
         Epic_447 = 447,
         Legendary_448 = 448,
         Relic_449 = 449,
+        Skins_466 = 466,
     }
 
     [JsonObject("item")]
