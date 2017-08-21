@@ -100,7 +100,19 @@
             get { return projectile_speed; }
         }
 
-        [Stat("Blast Radius", 120, Type = StatType.Hidden)]
+        [Stat("Ballisitic Impulse", 120, Type = StatType.Hidden)]
+        public double StatBallisticImpulse
+        {
+            get { return hit_impulse; }
+        }
+
+        [Stat("Blast Impulse", 121, Type = StatType.Hidden)]
+        public int StatBlastImpulse
+        {
+            get { return blast_impulse; }
+        }
+
+        [Stat("Blast Radius", 125, Type = StatType.Hidden)]
         public double StatBlastRadius
         {
             get { return blast_radius; }
@@ -110,6 +122,12 @@
         public int StatFireRate
         {
             get { return fire_rate; }
+        }
+
+        [Stat("Shooting Cooldown", 135, Type = StatType.Hidden)]
+        public double StatShootingCooldown
+        {
+            get { return shooting_cooldown; }
         }
 
         [Stat("Optimal Range", 140, Type = StatType.Hidden)]

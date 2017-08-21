@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crossout.Data.Generator
+namespace Crossout.Data.Helper
 {
     public class GeneratorDescription
     {
