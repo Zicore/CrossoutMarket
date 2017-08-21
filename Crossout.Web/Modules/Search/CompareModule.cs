@@ -27,7 +27,11 @@ namespace Crossout.Web.Modules.Search
         private dynamic RouteCompare(dynamic items)
         {
             var result = new List<int>();
-            foreach (var id in ((string)items.ids).Split(','))
+            var idsString = (string)items.ids;
+
+            var ids = idsString.Split(',');
+
+            foreach (var id in ids)
             {
                 try
                 {
