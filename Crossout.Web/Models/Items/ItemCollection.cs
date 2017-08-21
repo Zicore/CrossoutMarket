@@ -18,7 +18,7 @@ namespace Crossout.Model.Items
                 {
                     if (!StatTypes.Contains(stat.Stat))
                     {
-                        if (!stat.Value.Equals(0))
+                        if (!stat.Value.Equals(0) && !stat.Value.Equals(0.0))
                         {
                             StatTypes.Add(stat.Stat);
                         }
