@@ -44,10 +44,10 @@ namespace Crossout.Data.Stats.Main
         public int salvage_Scrap_Epic_min {get;set;}
         public int salvage_Scrap_Epic_max {get;set;}
         public string require_faction {get;set;}
-        public string perk {get;set;}
+        public string ui_perks_1_ {get;set;}
         public double skill_cooldown_mul {get;set;}
         public int death_blast_damage {get;set;}
-        public int death_blast_radius {get;set;}
+        public double death_blast_radius {get;set;}
         public double shooting_cooldown_mul {get;set;}
         public string platform_exclusive {get;set;}
         public int power {get;set;}
@@ -60,6 +60,8 @@ namespace Crossout.Data.Stats.Main
         public string item_reward {get;set;}
         public double heat_max_mul {get;set;}
         public double heat_dec_mul {get;set;}
+        public double heat_inc_high_speed {get;set;}
+        public double heat_dec_low_speed {get;set;}
         public int radar_radius {get;set;}
         public int infravision_radius {get;set;}
         public int radio_radius {get;set;}
@@ -69,6 +71,7 @@ namespace Crossout.Data.Stats.Main
         public int cooldown {get;set;}
         public bool editor_horizontal_rotation {get;set;}
         public int firing_delay {get;set;}
+        public int ammo_refill {get;set;}
         public int deploy_ammo {get;set;}
         public string deploy_def {get;set;}
         public string pre_deploy_model {get;set;}
@@ -85,8 +88,7 @@ namespace Crossout.Data.Stats.Main
         public int fire_rate {get;set;}
         public int acceleration_limit {get;set;}
         public double deploy_ammo_mul {get;set;}
-        public double heat_max_high_speed {get;set;}
-        public double heat_dec_low_speed {get;set;}
+        public string remap_texture {get;set;}
         public string behavior {get;set;}
         public double booster_ammo_mul {get;set;}
     }

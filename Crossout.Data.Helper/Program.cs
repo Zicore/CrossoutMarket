@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Crossout.Data.Generator;
 
 namespace Crossout.Data.Helper
 {
@@ -14,7 +13,7 @@ namespace Crossout.Data.Helper
         {
             // This tool is used to generate all the property classes from game files
 
-            string versionFolder = "0.7.30";
+            string versionFolder = "0.7.40";
 
             string basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Resources", "Data", versionFolder, "gamedata", "def", "ex");
             

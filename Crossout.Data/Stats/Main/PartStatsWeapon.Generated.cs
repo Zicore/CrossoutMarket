@@ -94,12 +94,14 @@ namespace Crossout.Data.Stats.Main
         public int ammo_refill {get;set;}
         public double magic_find {get;set;}
         public int pellet_count {get;set;}
+        public double damage_transmission {get;set;}
         public int collision_resist {get;set;}
         public int collision_damage {get;set;}
         public double spread_scale_x {get;set;}
         public double spread_scale_y {get;set;}
         public bool secondary_weapon {get;set;}
         public double shooting_cooldown {get;set;}
+        public string ui_perks_1_ {get;set;}
         public bool conical_explosion {get;set;}
         public bool editor_horizontal_rotation {get;set;}
         public double projectile_detonation_radius {get;set;}
