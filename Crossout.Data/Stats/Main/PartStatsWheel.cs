@@ -43,5 +43,31 @@
         {
             get { return physics_mass; }
         }
+
+        //------ Hidden
+
+        [Stat("Engine Power Multiplier", 100, Type = StatType.Hidden)]
+        public double StatEnginePowerMultiplier
+        {
+            get { return engine_power_mul; }
+        }
+
+        [Stat("Solid Surface Traction", 120, Type = StatType.Hidden)]
+        public string StatSolidSurfaceTraction
+        {
+            get { return solidSurfaceBehaviour; }
+        }
+
+        [Stat("Dense Surface Traction", 121, Type = StatType.Hidden)]
+        public string StatDenseSurfaceTraction
+        {
+            get { return denseSurfaceBehaviour; }
+        }
+
+        [Stat("Crumbly Surface Traction", 122, Type = StatType.Hidden)]
+        public string StatCrumblySurfaceTraction
+        {
+            get { return crumblySurfaceBehaviour; }
+        }
     }
 }
