@@ -29,15 +29,11 @@ namespace Crossout.Web.Modules.Search
             var result = new List<int>();
             foreach (var id in ((string)items.ids).Split(','))
             {
-                try
+                int foundId;
+                if (int.TryParse(id, out foundId))
                 {
-                    result.Add(Convert.ToInt32(id));
+                    result.Add(foundId);
                 }
-                catch
-                {
-                    return Response.AsRedirect("/");
-                }
-
             }
 
             try
