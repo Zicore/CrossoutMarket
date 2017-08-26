@@ -53,6 +53,7 @@ namespace Crossout.Data
         }
 
         private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[^=]+)=(?<value>.+)";
+        private readonly string isArrayPattern = @"\[(?<number>[^]]+)\]"; // Could be useful in the future to parse arrays :)
 
         // Function to generate UNIQUE fields for PartStats.cs
         public Dictionary<string, FieldHelper> ReadFields(string file)
@@ -60,6 +61,7 @@ namespace Crossout.Data
             Dictionary<string, FieldHelper> fields = new Dictionary<string, FieldHelper>();
 
             Regex regex = new Regex(statsPattern, RegexOptions.Singleline);
+
             using (StreamReader sr = new StreamReader(file))
             {
                 while (!sr.EndOfStream)
@@ -80,10 +82,7 @@ namespace Crossout.Data
                                 var field = match.Groups["field"].Value;
                                 var value = match.Groups["value"].Value;
 
-                                if (field.Contains("."))
-                                {
-                                    field = field.Replace(".", "_"); // Replace additional field
-                                }
+                                field = TranslateFieldToCsharp(field);
 
                                 if (value != "{}")
                                 {
@@ -127,6 +126,14 @@ namespace Crossout.Data
             }
 
             return fields;
+        }
+
+        public static string TranslateFieldToCsharp(string field)
+        {
+            field = field.Replace(".", "_"); // Replace additional field
+            field = field.Replace("[", "_");
+            field = field.Replace("]", "_");
+            return field;
         }
     }
 }

@@ -23,5 +23,13 @@
         {
             get { return physics_mass; }
         }
+
+        //------ Hidden
+
+        [Stat("Reputation Bonus (%)", 100, Type = StatType.Hidden)]
+        public int StatReputationBonus
+        {
+            get { return exp_reward_bonus; }
+        }
     }
 }

@@ -75,11 +75,8 @@ namespace Crossout.Data
                     {
                         var field = match.Groups["field"].Value;
                         var value = match.Groups["value"].Value;
-                        
-                        if (field.Contains("."))
-                        {
-                            field = field.Replace(".", "_"); // Replace additional field
-                        }
+
+                        field = StatsReader.TranslateFieldToCsharp(field);
 
                         if (value != "{}")
                         {

@@ -33,5 +33,9 @@ namespace Crossout.Data.Stats.Main
         public int max_pitch {get;set;}
         public int min_pitch {get;set;}
         public string behavior {get;set;}
+        public string work_effect {get;set;}
+        public string shield_type {get;set;}
+        public string material {get;set;}
+        public double radius {get;set;}
     }
 }
