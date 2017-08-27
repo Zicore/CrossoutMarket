@@ -14,13 +14,16 @@ namespace Crossout.Model.Items
         {
             foreach (var item in Items)
             {
-                foreach (var stat in item.Stats.SortedStats)
+                if (item.Stats != null)
                 {
-                    if (!StatTypes.Contains(stat.Stat))
+                    foreach (var stat in item.Stats.SortedStats)
                     {
-                        if (!stat.Value.Equals(0) && !stat.Value.Equals(0.0))
+                        if (!StatTypes.Contains(stat.Stat))
                         {
-                            StatTypes.Add(stat.Stat);
+                            if (!stat.Value.Equals(0) && !stat.Value.Equals(0.0))
+                            {
+                                StatTypes.Add(stat.Stat);
+                            }
                         }
                     }
                 }

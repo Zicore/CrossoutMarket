@@ -52,10 +52,7 @@ namespace Crossout.Web.Modules.Search
                 {
                     var itemModel = db.SelectItem(id, true);
                     CrossoutDataService.Instance.AddData(itemModel.Item);
-                    if (itemModel.Item.Stats != null)
-                    {
-                        itemList.Add(itemModel.Item);
-                    }
+                    itemList.Add(itemModel.Item);
                 }
                 var itemCol = new ItemCollection();
                 itemCol.Items = itemList;

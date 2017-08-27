@@ -7,6 +7,7 @@
 @using Crossout.Web.Models
 @using Crossout.Data
 @using Crossout.Data.Stats.Main
+@using System.Linq
 @using Crossout.Model.Items
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Model.Items.ItemCollection>
 
@@ -109,92 +110,85 @@
                         </td>
                     }
                 </tr>
-                <tr>
-                    <td>
-                        <div class="label-md-left">Last Update</div>
-                    </td>
-                    @foreach (Item item in Model.Items)
-                    {
-                        <td>
-                            <div class="label-md-left item-timestamp @(item.OlderThan(5) ? "item-older-than-5" : "") @(item.OlderThan(60) ? "item-older-than-60" : "")">@item.LastUpdateTime</div>
-                        </td>
-                    }
-                </tr>
-                <tr class="stat-title-row">
-                    <td>
-                        <div class="stat-title">Stats v@(Crossout.Web.WebSettings.Settings.CurrentVersion)</div>
-                    </td>
-                    @foreach (Item item in Model.Items)
-                    {
-                        <td>
-                            
-                        </td>
-                    }
-                </tr>
-                @foreach (StatAttribute stat in Model.StatTypes)
+            <tr>
+                <td>
+                    <div class="label-md-left">Last Update</div>
+                </td>
+                @foreach (Item item in Model.Items)
                 {
-                    if (stat.Type == StatType.Exposed)
-                    {
-                    <tr>
+                    <td>
+                        <div class="label-md-left item-timestamp @(item.OlderThan(5) ? "item-older-than-5" : "") @(item.OlderThan(60) ? "item-older-than-60" : "")">@item.LastUpdateTime</div>
+                    </td>
+                }
+            </tr>
+                @if (Model.StatTypes != null && Model.StatTypes.Any(x=> x.Type == StatType.Exposed))
+                {
+                    <tr class="stat-title-row">
                         <td>
-                            <div class="label-md-left">@stat.Name</div>
+                            <div class="stat-title">Stats v@(Crossout.Web.WebSettings.Settings.CurrentVersion)</div>
                         </td>
                         @foreach (Item item in Model.Items)
                         {
                             <td>
-                                @foreach (SingleStat itemStat in item.Stats.SortedStats)
-                                {
-                                    if (itemStat.Stat.Name == stat.Name)
-                                    {
 
-                                        @Html.Partial("parts/_stat", itemStat);
-
-                                        break;
-                                    }
-                                }
                             </td>
                         }
                     </tr>
-                    }
+                    @foreach (StatAttribute stat in Model.StatTypes)
+                     {
+                         if (stat.Type == StatType.Exposed)
+                         {
+                             <tr>
+                                 <td>
+                                     <div class="label-md-left">@stat.Name</div>
+                                 </td>
+                                 @foreach (Item item in Model.Items)
+                                 {
+                                     <td>
+                                         @if (item.Stats != null)
+                                         {
+                                             var statItem = item.Stats.SortedStats.FirstOrDefault(x => x.Stat.Name == stat.Name);
+                                             @Html.Partial("parts/_stat", statItem)
+                                         }
+                                     </td>
+                                 }
+                             </tr>
+                         }
+                     }
                 }
-
-                <tr class="stat-title-row">
-                    <td>
-                        <div class="stat-title">Detailed Stats</div>
-                    </td>
-                    @foreach (Item item in Model.Items)
-                    {
-                        <td></td>
-                    }
-                </tr>
-                @foreach (StatAttribute stat in Model.StatTypes)
+                @if (Model.StatTypes != null && Model.StatTypes.Any(x => x.Type == StatType.Hidden))
                 {
-                    if (stat.Type == StatType.Hidden)
-                    {
-                        <tr>
-                            <td>
-                                <div class="label-md-left">@stat.Name</div>
-                            </td>
-                            @foreach (Item item in Model.Items)
-                            {
-                                <td>
-                                    @foreach (SingleStat itemStat in item.Stats.SortedStats)
-                                    {
-                                        if (itemStat.Stat.Name == stat.Name)
-                                        {
-
-                                            @Html.Partial("parts/_stat", itemStat);
-
-                                            break;
-                                        }
-                                    }
-                                </td>
-                            }
-                        </tr>
-                    }
+                    <tr class="stat-title-row">
+                        <td>
+                            <div class="stat-title">Detailed Stats</div>
+                        </td>
+                        @foreach (Item item in Model.Items)
+                        {
+                            <td></td>
+                        }
+                    </tr>
+                    @foreach (StatAttribute stat in Model.StatTypes)
+                     {
+                         if (stat.Type == StatType.Hidden)
+                         {
+                             <tr>
+                                 <td>
+                                     <div class="label-md-left">@stat.Name</div>
+                                 </td>
+                                 @foreach (Item item in Model.Items)
+                                 {
+                                     <td>
+                                         @if (item.Stats != null)
+                                         {
+                                             var statItem = item.Stats.SortedStats.FirstOrDefault(x => x.Stat.Name == stat.Name);
+                                             @Html.Partial("parts/_stat", statItem)
+                                         }
+                                     </td>
+                                 }
+                             </tr>
+                         }
+                     }
                 }
-
-
                 </tbody>
             </table>
     </div>

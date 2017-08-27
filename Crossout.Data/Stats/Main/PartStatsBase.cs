@@ -9,7 +9,7 @@ namespace Crossout.Data.Stats.Main
         {
             this.Key = key;
         }
-
+        
         public string Key { get; set; }
 
         public Dictionary<string, object> Fields { get; } = new Dictionary<string, object>();

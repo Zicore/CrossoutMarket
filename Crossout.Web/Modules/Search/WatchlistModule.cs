@@ -50,11 +50,7 @@ namespace Crossout.Web.Modules.Search
                 foreach (var id in result)
                 {
                     var itemModel = db.SelectItem(id, true);
-                    CrossoutDataService.Instance.AddData(itemModel.Item);
-                    if (itemModel.Item.Stats != null)
-                    {
-                        itemList.Add(itemModel.Item);
-                    }
+                    itemList.Add(itemModel.Item);
                 }
                 var watchlist = new WatchlistModel();
                 watchlist.Items = itemList;
