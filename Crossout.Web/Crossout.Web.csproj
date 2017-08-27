@@ -138,7 +138,9 @@
     <Compile Include="Models\API\v1\ApiItemTypeEntry.cs" />
     <Compile Include="Models\API\v1\ApiRarityEntry.cs" />
     <Compile Include="Models\API\v1\ApiRecipeEntry.cs" />
+    <Compile Include="Models\General\WatchlistModel.cs" />
     <Compile Include="Models\Items\ItemCollection.cs" />
+    <Compile Include="Models\View\IViewFilter.cs" />
     <Compile Include="Models\View\IViewTitle.cs" />
     <Compile Include="Helper\ViewHelper.cs" />
     <Compile Include="Models\Charts\ChartItem.cs" />
@@ -161,6 +163,7 @@
     <Compile Include="Modules\Search\CompareModule.cs" />
     <Compile Include="Modules\Search\ItemModule.cs" />
     <Compile Include="Modules\Search\SearchModule.cs" />
+    <Compile Include="Modules\Search\WatchlistModule.cs" />
     <Compile Include="NancyExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -348,6 +351,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\compare.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\watchlist.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\search.cshtml">
@@ -1533,6 +1539,7 @@
     <None Include="Scripts\js.cookie.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Scripts\Internal\search.js" />
     <Content Include="SQL\Recipes.sql" />
     <Content Include="SQL\SelectNewestMarket.sql" />
     <Content Include="SQL\SelectNewestMarket2.sql" />
