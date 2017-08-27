@@ -5,7 +5,7 @@
 @using Crossout.Model.Items
 @using Crossout.Web
 @using Crossout.Web.Models
-@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.General.SearchModel>
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.General.WatchlistModel>
 
 
 @Html.Partial("header", Model)
@@ -15,12 +15,7 @@
 
 
 <div class="container-space">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            @Html.Partial("filter", Model)
-        </div>
-    </div>
-
+   
     <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center" style="margin-bottom: 20px;">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -76,18 +71,12 @@
             </thead>
 
             <tbody>
-                @foreach (Item item in Model.SearchResult)
+                @foreach (Item item in Model.Items)
                 {
                     @Html.Partial("itempart", item)
                 }
             </tbody>
         </table>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-body">
-            @Html.Partial("filter", Model)
-        </div>
     </div>
 </div>
 
