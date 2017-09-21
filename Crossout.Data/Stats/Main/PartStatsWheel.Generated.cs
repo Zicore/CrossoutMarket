@@ -63,5 +63,6 @@ namespace Crossout.Data.Stats.Main
         public int collision_damage {get;set;}
         public int saw_damage {get;set;}
         public int max_damage_speed {get;set;}
+        public int critical_angle {get;set;}
     }
 }

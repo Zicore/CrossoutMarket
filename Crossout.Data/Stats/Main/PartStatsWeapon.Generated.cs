@@ -85,8 +85,10 @@ namespace Crossout.Data.Stats.Main
         public int min_yaw {get;set;}
         public string ui_aim_type {get;set;}
         public double blast_damage {get;set;}
+        public int blast_damage_experimental {get;set;}
         public int blast_impulse {get;set;}
         public double blast_radius {get;set;}
+        public int blast_radius_experimental {get;set;}
         public bool sniper_weapon {get;set;}
         public int projectile_speed {get;set;}
         public double projectile_damping {get;set;}
@@ -112,9 +114,11 @@ namespace Crossout.Data.Stats.Main
         public bool fixed_barrel {get;set;}
         public int lock_angle {get;set;}
         public bool check_restriction_overlap {get;set;}
-        public bool damage_type_flame {get;set;}
+        public string damage_type_direct {get;set;}
         public int death_blast_damage {get;set;}
+        public int death_blast_damage_experimental {get;set;}
         public double death_blast_radius {get;set;}
+        public int death_blast_radius_experimental {get;set;}
         public double charging_time {get;set;}
         public bool big_explosion {get;set;}
         public bool ai_ignore_pitch {get;set;}
@@ -129,7 +133,12 @@ namespace Crossout.Data.Stats.Main
         public int dodge_angular_acceleration {get;set;}
         public int projectile_phase2_time {get;set;}
         public bool innate_ai {get;set;}
+        public bool lock_target {get;set;}
+        public string damage_type_blast {get;set;}
         public bool charging_need_hold {get;set;}
+        public string spell {get;set;}
+        public double score_damage_coef {get;set;}
+        public int calcination_inc {get;set;}
         public bool fire_without_target {get;set;}
         public double barrel_detonation_radius {get;set;}
         public int projectile_angular_speed {get;set;}

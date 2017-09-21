@@ -61,7 +61,9 @@ namespace Crossout.Data.Stats.Main
         public double magic_find {get;set;}
         public double detonation_radius {get;set;}
         public int blast_damage {get;set;}
+        public int blast_damage_experimental {get;set;}
         public int blast_radius {get;set;}
+        public int blast_radius_experimental {get;set;}
         public int blast_impulse {get;set;}
         public bool activate_click {get;set;}
         public int cooldown {get;set;}
