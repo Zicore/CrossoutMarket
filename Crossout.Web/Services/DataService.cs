@@ -44,13 +44,13 @@ namespace Crossout.Web.Services
             return itemModel;   
         }
 
-        public RecipeModel SelectRecipeModel(Item item, bool resolveDeep)
+        public RecipeModel SelectRecipeModel(Item item, bool resolveDeep, bool addWorkbenchItem = true)
         {
             RecipeModel recipeModel = new RecipeModel();
             RecipeCounter counter = new RecipeCounter();
             recipeModel.Recipe = new RecipeItem(counter) {Item = item,Ingredients = SelectRecipe(counter,item) };
             
-            ResolveRecipe(counter, recipeModel.Recipe, 1, resolveDeep);
+            ResolveRecipe(counter, recipeModel.Recipe, 1, resolveDeep, addWorkbenchItem);
 
             CalculateRecipe(recipeModel.Recipe);
             recipeModel.Recipe.IngredientSum = CreateIngredientItem(counter,recipeModel.Recipe);
@@ -58,7 +58,7 @@ namespace Crossout.Web.Services
             return recipeModel;
         }
 
-        public void ResolveRecipe(RecipeCounter counter,RecipeItem parent, int depth, bool resolveDeep)
+        public void ResolveRecipe(RecipeCounter counter,RecipeItem parent, int depth, bool resolveDeep, bool addWorkbenchItem)
         {
             foreach (var ingredient in parent.Ingredients)
             {
@@ -68,7 +68,7 @@ namespace Crossout.Web.Services
                 {
                     ingredient.Ingredients = SelectRecipe(counter, ingredient.Item);
                     ++depth;
-                    ResolveRecipe(counter, ingredient, depth, true);
+                    ResolveRecipe(counter, ingredient, depth, true, addWorkbenchItem);
                     CalculateRecipe(ingredient);
                     if (ingredient.Depth > 0)
                     {
@@ -78,8 +78,11 @@ namespace Crossout.Web.Services
                     depth--;
                 }
             }
-            
-            AddWorkbenchCostItem(counter, parent, depth);
+
+            if (addWorkbenchItem)
+            {
+                AddWorkbenchCostItem(counter, parent, depth);
+            }
         }
 
         public WorkbenchItemId GetWorkbenchItemIdByRarity(Rarity rarity)
