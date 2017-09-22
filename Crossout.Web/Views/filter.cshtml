@@ -32,3 +32,23 @@
         <li @(Model.FilterModel.CurrentShowMetaItems ? "class=active" : "")><a href="~/search/@Model.UriMetaItems(Model.FilterModel.CurrentShowMetaItems)">Meta Items</a></li>
     </ul>
 </div>
+
+<div class="form-inline">
+    <div class="col-md-3 form-group">
+        Sell Price: 
+        <input type="number" class="form-control input-sm" id="sellmin" name="sellmin" placeholder="From" />
+        <input type="number" class="form-control input-sm" id="sellmax" name="sellmax" placeholder="To" />
+    </div>
+
+    <div class="col-md-3 form-group">
+        Buy Price:
+        <input type="number" class="form-control input-sm" id="buymin" name="buymin" placeholder="From" />
+        <input type="number" class="form-control input-sm" id="buymax" name="buymax" placeholder="To" />
+    </div>
+
+    <div class="col-md-3 form-group">
+        Margin:
+        <input type="number" class="form-control input-sm" id="marginmin" name="marginmin" placeholder="From" />
+        <input type="number" class="form-control input-sm" id="marginmax" name="marginmax" placeholder="To" />
+    </div>
+</div>
