@@ -18,7 +18,7 @@ namespace Crossout.Model.Items
                 {
                     foreach (var stat in item.Stats.SortedStats)
                     {
-                        if (!StatTypes.Contains(stat.Stat))
+                        if (!StatTypes.Contains(stat.Stat) && stat.Value != null)
                         {
                             if (!stat.Value.Equals(0) && !stat.Value.Equals(0.0))
                             {
