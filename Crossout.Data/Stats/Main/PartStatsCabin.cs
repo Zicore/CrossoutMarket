@@ -27,7 +27,7 @@
         [Stat("Max. Speed", 20)]
         public int StatMaxSpeed
         {
-            get { return engine_max_speed; }
+            get { return speed_limit; }
         }
 
         [Stat("Power", 30)]
@@ -66,6 +66,32 @@
         public double StatMass
         {
             get { return physics_mass; }
+        }
+
+        //------
+
+        [Stat("Radar Radius", 100, Type = StatType.Hidden)]
+        public int StatRadarRadius
+        {
+            get { return radar_radius; }
+        }
+
+        [Stat("Radio Radius", 110, Type = StatType.Hidden)]
+        public int StatRadioRadius
+        {
+            get { return radio_radius; }
+        }
+
+        [Stat("Max. Velocity", 120, Type = StatType.Hidden)]
+        public int StatMaxVelocity
+        {
+            get { return max_velocity; }
+        }
+
+        [Stat("Brake Value", 130, Type = StatType.Hidden)]
+        public int StatBrakeValue
+        {
+            get { return brake_value; }
         }
     }
 }
