@@ -89,7 +89,8 @@ namespace Crossout.Model.Recipes
             119, //Coupons x100
             168, //Electronics x100
             330, //Taler x100
-            337  //Uran x100
+            337,  //Uran x100
+            522 // Sweets x100
         };
 
         private static decimal CalculatePriceByNumber(decimal price, int number, int id)
