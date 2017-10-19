@@ -134,14 +134,15 @@ namespace Crossout.Data.Stats.Main
         public int projectile_phase2_time {get;set;}
         public bool innate_ai {get;set;}
         public bool lock_target {get;set;}
-        public string damage_type_blast {get;set;}
         public bool charging_need_hold {get;set;}
+        public string damage_type_blast {get;set;}
         public string spell {get;set;}
         public double score_damage_coef {get;set;}
         public int calcination_inc {get;set;}
         public bool fire_without_target {get;set;}
-        public double barrel_detonation_radius {get;set;}
         public int projectile_angular_speed {get;set;}
+        public double barrel_detonation_radius {get;set;}
+        public int self_calcination_inc {get;set;}
         public int slow_fire_rate {get;set;}
     }
 }
