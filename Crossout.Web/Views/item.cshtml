@@ -311,6 +311,8 @@
                 icon.addClass('glyphicon-chevron-up');
             }
         });
+
+        adjustTimeStamp();
     });
 
     $.getJSON(location.protocol + '//@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)',

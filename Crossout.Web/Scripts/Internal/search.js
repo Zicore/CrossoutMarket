@@ -1,9 +1,11 @@
 ﻿$(document).ready(function () {
 
+    adjustTimeStamp();
+
     var domOption =
         "<'content-space'<'row'<'col-sm-6'p><'col-sm-4'f><'col-sm-2'l>>>" +
-            "tr" +
-            "<'content-space'<'row'<'col-sm-4'p><'col-sm-4'B><'col-sm-2'i><'col-sm-2'l>>>";
+        "tr" +
+        "<'content-space'<'row'<'col-sm-4'p><'col-sm-4'B><'col-sm-2'i><'col-sm-2'l>>>";
 
     $.fn.DataTable.ext.pager.numbers_length = 10;
 
