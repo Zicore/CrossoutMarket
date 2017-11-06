@@ -57,6 +57,10 @@ namespace Crossout.Data.Stats.Main
         public string require_faction {get;set;}
         public string platform_exclusive {get;set;}
         public int shooting_cooldown_mul_high_speed {get;set;}
+        public string saw_damage_box {get;set;}
+        public string saw_position {get;set;}
+        public int saw_damage {get;set;}
+        public double damage_rating {get;set;}
         public string hud_type {get;set;}
         public int suicide_blast_damage {get;set;}
         public int suicide_blast_damage_experimental {get;set;}

@@ -97,5 +97,8 @@ namespace Crossout.Data.Stats.Main
         public double deploy_ammo_mul {get;set;}
         public string remap_texture {get;set;}
         public double booster_ammo_mul {get;set;}
+        public int jammer_radius {get;set;}
+        public string perk {get;set;}
+        public string spell {get;set;}
     }
 }

@@ -267,7 +267,8 @@ var ResourceNumbers =
     119: true, //Coupons x100
     168: true, //Electronics x100
     330: true, //Taler x100
-    337: true //Uran x100
+    337: true, //Uran x100
+    522: true //Sweets x100
 };
 
 function filterResourcePrice(id, value) {

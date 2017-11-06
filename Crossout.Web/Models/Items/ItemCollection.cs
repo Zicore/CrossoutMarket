@@ -8,6 +8,7 @@ namespace Crossout.Model.Items
     public class ItemCollection : IViewTitle
     {
         public List<Item> Items { get; set; } = new List<Item>();
+        public List<Item> AllItems { get; set; } = new List<Item>();
         public List<StatAttribute> StatTypes = new List<StatAttribute>();
 
         public void CreateStatList()
