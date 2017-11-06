@@ -32,7 +32,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
     <script>
         // Get server time to local time offset
-        utcToServerTimeOffset = moment(@((int)(System.DateTime.Now.Subtract(new System.DateTime(1970, 1, 1))).TotalSeconds), 'X').utcOffset();
+        utcToServerTimeOffset = @((int)(System.DateTime.Now.Subtract(new System.DateTime(1970, 1, 1))).TotalSeconds - (int)(System.DateTime.UtcNow.Subtract(new System.DateTime(1970, 1, 1))).TotalSeconds) / 60;
         utcToLocalTimeOffset = moment().utcOffset();
         totalTimeOffset = utcToLocalTimeOffset - utcToServerTimeOffset;
         totalUnixOffset = totalTimeOffset * 60 * 1000;
