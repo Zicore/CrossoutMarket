@@ -36,7 +36,10 @@ namespace Crossout.Web.Modules.Search
                 int foundId;
                 if (int.TryParse(id, out foundId))
                 {
-                    result.Add(foundId);
+                    if (foundId > 0)
+                    {
+                        result.Add(foundId);
+                    }
                 }
             }
 
@@ -58,6 +61,7 @@ namespace Crossout.Web.Modules.Search
                 itemCol.Items = itemList;
 
                 itemCol.CreateStatList();
+                itemCol.AllItems = db.SelectAllActiveItems();
 
                 return View["compare", itemCol];
             }

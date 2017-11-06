@@ -131,6 +131,10 @@
             var host = '@WebSettings.Settings.DataHost';
             $.getJSON(location.protocol + '//@(Request.Url.HostName)/data/item/'+ name.name.toLowerCase() +'/' +id, function (data) {
                 var series = {};
+                // Adjust time to local time
+                $.each(data.Data, function (i, data) {
+                    data[0] = data[0] + totalUnixOffset;
+                });
                 if (name.type === 1) {
                     var color = '#44A5FF';
                     if (name.name === 'SellOffers') {

@@ -19,15 +19,11 @@ namespace Crossout.Data.Stats.Main
         public bool damageable {get;set;}
         public string collection {get;set;}
         public int rarity {get;set;}
-        public int durability {get;set;}
         public string physics_material {get;set;}
         public int physics_mass {get;set;}
         public bool ignore_collision {get;set;}
         public int universal_rating {get;set;}
         public int exp_reward_bonus {get;set;}
-        public double reward_Scrap_Common {get;set;}
-        public double reward_Scrap_Rare {get;set;}
-        public double reward_Scrap_Epic {get;set;}
         public bool salvageable {get;set;}
         public int salvage_Scrap_Common_min {get;set;}
         public int salvage_Scrap_Common_max {get;set;}
@@ -36,9 +32,8 @@ namespace Crossout.Data.Stats.Main
         public int salvage_Scrap_Epic_min {get;set;}
         public int salvage_Scrap_Epic_max {get;set;}
         public string inherit {get;set;}
-        public string release_date {get;set;}
-        public string ui_part_series {get;set;}
         public string platform_exclusive {get;set;}
+        public string release_date {get;set;}
         public bool editor_horizontal_rotation {get;set;}
         public bool lifts_camera {get;set;}
         public string bonus_faction {get;set;}

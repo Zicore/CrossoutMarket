@@ -42,6 +42,16 @@
                             </div> 
                         </th>
                     }
+                    <th>
+                        <select id="CompareAdder" class="selectpicker" name="CompareAdder" data-live-search="true" size="1">
+                            <option value="0">None</option>
+                            @foreach (var item in Model.AllItems)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+                        <button id="CompareAdderButton" class="btn btn-default">Add</button>
+                    </th>
                 </tr>
             </thead>
 
@@ -54,6 +64,7 @@
                     {
                         <td></td>
                     }
+                    <td></td>
                 </tr>
                 <tr>
                     <td>
@@ -65,6 +76,7 @@
                             <div class="label-md-left">@item.FormatSellPrice <img height="14" src="~/img/Coin.png" /></div>
                         </td>
                     }
+                    <td></td>
                 </tr>
                 <tr>
                     <td>
@@ -76,6 +88,7 @@
                             <div class="label-md-left">@item.FormatBuyPrice <img height="14" src="~/img/Coin.png" /></div>
                         </td>
                     }
+                    <td></td>
                 </tr>
                 <tr>
                     <td>
@@ -87,6 +100,7 @@
                             <div class="label-md-left">@item.SellOffers</div>
                         </td>
                     }
+                    <td></td>
                 </tr>
                 <tr>
                     <td>
@@ -98,6 +112,7 @@
                             <div class="label-md-left">@item.BuyOrders</div>
                         </td>
                     }
+                    <td></td>
                 </tr>
                 <tr>
                     <td>
@@ -109,6 +124,7 @@
                             <div class="label-md-left">@item.FormatMargin <img height="14" src="~/img/Coin.png" /></div>
                         </td>
                     }
+                    <td></td>
                 </tr>
             <tr>
                 <td>
@@ -120,6 +136,7 @@
                         <div class="label-md-left item-timestamp @(item.OlderThan(5) ? "item-older-than-5" : "") @(item.OlderThan(60) ? "item-older-than-60" : "")">@item.LastUpdateTime</div>
                     </td>
                 }
+                <td></td>
             </tr>
                 @if (Model.StatTypes != null && Model.StatTypes.Any(x=> x.Type == StatType.Exposed))
                 {
@@ -133,6 +150,7 @@
 
                             </td>
                         }
+                        <td></td>
                     </tr>
                     @foreach (StatAttribute stat in Model.StatTypes)
                      {
@@ -152,6 +170,7 @@
                                          }
                                      </td>
                                  }
+                                 <td></td>
                              </tr>
                          }
                      }
@@ -166,6 +185,7 @@
                         {
                             <td></td>
                         }
+                        <td></td>
                     </tr>
                     @foreach (StatAttribute stat in Model.StatTypes)
                      {
@@ -185,6 +205,7 @@
                                          }
                                      </td>
                                  }
+                                 <td></td>
                              </tr>
                          }
                      }
@@ -202,5 +223,14 @@
             ordering: false,
             info: false
         });
+
+        adjustTimeStamp()
+    });
+
+    $('#CompareAdderButton').on('click', function () {
+        if ($('#CompareAdder').val() > 0)
+        {
+            window.location = window.location + ',' + $('#CompareAdder').val();
+        }
     });
 </script>
