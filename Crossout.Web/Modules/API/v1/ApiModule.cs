@@ -157,10 +157,39 @@ namespace Crossout.Web.Modules.API.v1
             Get["/api/v1/market-all/{id:int}"] = x =>
             {
                 sql.Open(WebSettings.Settings.CreateDescription());
-                string query = "(SELECT market.id,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime,UNIX_TIMESTAMP(market.datetime) as unixdatetime FROM market where market.itemnumber = @id ORDER BY market.Datetime desc LIMIT 40000) ORDER BY id ASC;";
+
+                var startTimestamp = (int?)Request.Query.startTimestamp;
+                var endTimestamp = (int?)Request.Query.endTimestamp;
+
+                var whereClause = "where market.itemnumber = @id";
+
+                if (startTimestamp.HasValue && endTimestamp.HasValue)
+                {
+                    whereClause += " AND market.datetime BETWEEN FROM_UNIXTIME(@startTimestamp) AND FROM_UNIXTIME(@endTimestamp)";
+                }
+                else
+                {
+                    if (startTimestamp.HasValue)
+                        whereClause += " AND market.datetime >= FROM_UNIXTIME(@startTimestamp)";
+                    if (endTimestamp.HasValue)
+                        whereClause += " AND market.datetime <= FROM_UNIXTIME(@endTimestamp)";
+                }
+
+                string query = "(" +
+                               "SELECT market.id,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime,UNIX_TIMESTAMP(market.datetime) as unixdatetime " +
+                               "FROM market " +
+                               $"{whereClause} " +
+                               "ORDER BY market.Datetime desc LIMIT 40000" +
+                               ") ORDER BY id ASC;";
+
                 var p = new Parameter { Identifier = "@id", Value = x.id };
                 var parmeter = new List<Parameter>();
                 parmeter.Add(p);
+
+                if (startTimestamp.HasValue)
+                    parmeter.Add(new Parameter("startTimestamp", startTimestamp.Value));
+                if (endTimestamp.HasValue)
+                    parmeter.Add(new Parameter("endTimestamp", endTimestamp.Value));
 
                 var ds = sql.SelectDataSet(query, parmeter);
                 
