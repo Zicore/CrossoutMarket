@@ -156,6 +156,7 @@
     <Compile Include="Models\General\StatusModel.cs" />
     <Compile Include="Modules\Admin\AdminModule.cs" />
     <Compile Include="Modules\API\v1\ApiModule.cs" />
+    <Compile Include="Modules\API\v1\MarketAllRequest.cs" />
     <Compile Include="Modules\Data\ChartDataModule.cs" />
     <Compile Include="Models\Pagination\PagerModel.cs" />
     <Compile Include="Modules\Embed\EmbedImageModule.cs" />
