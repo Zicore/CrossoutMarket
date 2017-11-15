@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Crossout.Model.Items;
 using Crossout.Web.Models.API.v1;
 using Crossout.Web.Models.Charts;
@@ -9,6 +10,7 @@ using Crossout.Web.Models.Pagination;
 using Crossout.Web.Services;
 using Crossout.Web.Services.API.v1;
 using Nancy;
+using Nancy.ModelBinding;
 using Newtonsoft.Json;
 using ZicoreConnector.Zicore.Connector.Base;
 
@@ -20,6 +22,26 @@ namespace Crossout.Web.Modules.API.v1
 
         public ApiModule()
         {
+            OnError += (ctx, exp) =>
+            {
+                var modelBindingException = exp as ModelBindingException;
+                if (modelBindingException != null)
+                {
+                    var errorModel = new
+                    {
+                        ErrorMessage = modelBindingException.Message,
+                        PropertyBindingErrors = modelBindingException.PropertyBindingExceptions?.Select(x => new
+                        {
+                            ErrorMessage = x.Message,
+                            InnerException = x.InnerException?.Message
+                        }).ToArray()
+                    };
+                    return Response.AsJson(errorModel, HttpStatusCode.BadRequest);
+                }
+
+                return null;
+            };
+
             Get["/api/v1/rarities"] = x =>
             {
                 sql.Open(WebSettings.Settings.CreateDescription());
@@ -158,8 +180,15 @@ namespace Crossout.Web.Modules.API.v1
             {
                 sql.Open(WebSettings.Settings.CreateDescription());
 
-                var startTimestamp = (int?)Request.Query.startTimestamp;
-                var endTimestamp = (int?)Request.Query.endTimestamp;
+                var request = this.Bind<MarketAllRequest>();
+
+                var startTimestamp = request.StartTimestamp;
+                var endTimestamp = request.EndTimestamp;
+
+                if (startTimestamp.HasValue && startTimestamp < 0)
+                    return Response.AsJson(new { ErrorMessage = "Parameter startTimestamp should be positive integer less than or equal to " + int.MaxValue }, HttpStatusCode.BadRequest);
+                if (endTimestamp.HasValue && endTimestamp < 0)
+                    return Response.AsJson(new { ErrorMessage = "Parameter endTimestamp should be positive integer less than or equal to " + int.MaxValue }, HttpStatusCode.BadRequest);
 
                 var whereClause = "where market.itemnumber = @id";
 
@@ -182,7 +211,7 @@ namespace Crossout.Web.Modules.API.v1
                                "ORDER BY market.Datetime desc LIMIT 40000" +
                                ") ORDER BY id ASC;";
 
-                var p = new Parameter { Identifier = "@id", Value = x.id };
+                var p = new Parameter { Identifier = "@id", Value = request.Id };
                 var parmeter = new List<Parameter>();
                 parmeter.Add(p);
 
