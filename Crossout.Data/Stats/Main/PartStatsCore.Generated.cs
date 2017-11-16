@@ -20,41 +20,34 @@ namespace Crossout.Data.Stats.Main
         public int health {get;set;}
         public bool damageable {get;set;}
         public int rarity {get;set;}
-        public int durability {get;set;}
         public string physics_material {get;set;}
         public int physics_mass {get;set;}
-        public int power_require {get;set;}
         public int require_faction_level {get;set;}
-        public int engine_max_speed {get;set;}
-        public int engine_power {get;set;}
+        public double engine_power_mul {get;set;}
+        public double engine_max_speed_mul {get;set;}
         public int critical_mass_add {get;set;}
         public bool engine_unique {get;set;}
         public int universal_rating {get;set;}
         public bool important {get;set;}
         public string fusion {get;set;}
         public string fusion_cost {get;set;}
-        public double reward_Scrap_Common {get;set;}
-        public double reward_Scrap_Rare {get;set;}
-        public double reward_Scrap_Epic {get;set;}
         public bool salvageable {get;set;}
-        public int salvage_Scrap_Common_min {get;set;}
-        public int salvage_Scrap_Common_max {get;set;}
-        public int salvage_Scrap_Rare_min {get;set;}
-        public int salvage_Scrap_Rare_max {get;set;}
-        public int salvage_Scrap_Epic_min {get;set;}
-        public int salvage_Scrap_Epic_max {get;set;}
+        public int salvage_Scrap_Common {get;set;}
+        public int salvage_Scrap_Rare {get;set;}
+        public int salvage_Scrap_Epic {get;set;}
+        public int power_require {get;set;}
+        public int tonnage_add {get;set;}
         public string require_faction {get;set;}
         public string ui_perks_1_ {get;set;}
+        public double shooting_cooldown_mul {get;set;}
         public double skill_cooldown_mul {get;set;}
+        public string perk {get;set;}
+        public int power {get;set;}
+        public bool generator_unique {get;set;}
         public int death_blast_damage {get;set;}
         public int death_blast_damage_experimental {get;set;}
         public double death_blast_radius {get;set;}
         public int death_blast_radius_experimental {get;set;}
-        public double shooting_cooldown_mul {get;set;}
-        public string platform_exclusive {get;set;}
-        public int power {get;set;}
-        public bool generator_unique {get;set;}
-        public double magic_find {get;set;}
         public double ammo_mul {get;set;}
         public int direct_resist {get;set;}
         public int blast_resist {get;set;}
@@ -72,9 +65,8 @@ namespace Crossout.Data.Stats.Main
         public double work_time {get;set;}
         public int cooldown {get;set;}
         public bool editor_horizontal_rotation {get;set;}
-        public int firing_delay {get;set;}
-        public int ammo_refill {get;set;}
         public int deploy_ammo {get;set;}
+        public int firing_delay {get;set;}
         public string deploy_def {get;set;}
         public string pre_deploy_model {get;set;}
         public int ai_optimal_dist {get;set;}
@@ -85,6 +77,7 @@ namespace Crossout.Data.Stats.Main
         public int fov_value_min {get;set;}
         public int fov_value_step {get;set;}
         public bool is_autolifting_allowed {get;set;}
+        public int behavior_evade_radius {get;set;}
         public string deploy_design {get;set;}
         public string behavior {get;set;}
         public int heat_max {get;set;}
@@ -96,9 +89,10 @@ namespace Crossout.Data.Stats.Main
         public int acceleration_limit {get;set;}
         public double deploy_ammo_mul {get;set;}
         public string remap_texture {get;set;}
+        public string platform_exclusive {get;set;}
         public double booster_ammo_mul {get;set;}
+        public string xopedia_keyword {get;set;}
         public int jammer_radius {get;set;}
-        public string perk {get;set;}
         public string spell {get;set;}
     }
 }
