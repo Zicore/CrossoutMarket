@@ -54,26 +54,10 @@ namespace Crossout.Data.Stats.Main
         public double heat_dec {get;set;}
         public string damage_perk {get;set;}
         public int require_faction_level {get;set;}
-        public double reward_Scrap_Common {get;set;}
-        public double reward_Scrap_Rare {get;set;}
-        public double reward_Scrap_Epic {get;set;}
         public bool salvageable {get;set;}
-        public int salvage_Scrap_Common_min {get;set;}
-        public int salvage_Scrap_Common_max {get;set;}
-        public int salvage_Spares_Common_min {get;set;}
-        public int salvage_Spares_Common_max {get;set;}
-        public int salvage_Scrap_Rare_min {get;set;}
-        public int salvage_Scrap_Rare_max {get;set;}
-        public int salvage_Spares_Rare_min {get;set;}
-        public int salvage_Spares_Rare_max {get;set;}
-        public int salvage_Scrap_Epic_min {get;set;}
-        public int salvage_Scrap_Epic_max {get;set;}
-        public int salvage_Spares_Epic_min {get;set;}
-        public int salvage_Spares_Epic_max {get;set;}
-        public int salvage_Spares_Legendary_min {get;set;}
-        public int salvage_Spares_Legendary_max {get;set;}
-        public int salvage_Spares_Exotic_min {get;set;}
-        public int salvage_Spares_Exotic_max {get;set;}
+        public int salvage_Scrap_Common {get;set;}
+        public int salvage_Scrap_Rare {get;set;}
+        public int salvage_Scrap_Epic {get;set;}
         public string fusion {get;set;}
         public string fusion_cost {get;set;}
         public string perk {get;set;}
@@ -83,18 +67,17 @@ namespace Crossout.Data.Stats.Main
         public double slowdown_time {get;set;}
         public int max_yaw {get;set;}
         public int min_yaw {get;set;}
+        public string xopedia_keyword {get;set;}
         public string ui_aim_type {get;set;}
+        public int ammo {get;set;}
+        public int projectile_speed {get;set;}
+        public double projectile_damping {get;set;}
         public double blast_damage {get;set;}
         public int blast_damage_experimental {get;set;}
         public int blast_impulse {get;set;}
         public double blast_radius {get;set;}
         public int blast_radius_experimental {get;set;}
         public bool sniper_weapon {get;set;}
-        public int projectile_speed {get;set;}
-        public double projectile_damping {get;set;}
-        public int ammo {get;set;}
-        public int ammo_refill {get;set;}
-        public double magic_find {get;set;}
         public int pellet_count {get;set;}
         public double damage_transmission {get;set;}
         public int collision_resist {get;set;}
@@ -140,9 +123,12 @@ namespace Crossout.Data.Stats.Main
         public double score_damage_coef {get;set;}
         public int calcination_inc {get;set;}
         public bool fire_without_target {get;set;}
-        public int projectile_angular_speed {get;set;}
         public double barrel_detonation_radius {get;set;}
+        public int projectile_angular_speed {get;set;}
+        public int turret_work_time {get;set;}
         public int self_calcination_inc {get;set;}
+        public int cylinder_radius {get;set;}
+        public int area_speed {get;set;}
         public int slow_fire_rate {get;set;}
     }
 }

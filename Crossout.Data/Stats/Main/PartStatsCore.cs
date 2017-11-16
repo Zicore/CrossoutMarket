@@ -26,16 +26,16 @@
             get { return power; }
         }
 
-        [Stat("Engine Speed", 20)]
-        public double StatEngineSpeed
+        [Stat("Engine Speed Multiplier", 20)]
+        public double StatEngineSpeedMultiplier
         {
-            get { return engine_max_speed; }
+            get { return engine_max_speed_mul; }
         }
 
-        [Stat("Power", 30)]
-        public double StatEnginePower
+        [Stat("Engine Power Multiplier", 30)]
+        public double StatEnginePowerMultiplier
         {
-            get { return engine_power; }
+            get { return engine_power_mul; }
         }
 
         [Stat("Mass Limit", 40)]
