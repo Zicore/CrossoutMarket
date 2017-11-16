@@ -250,9 +250,20 @@ Mandatory Parameters
 {item:int} : item id
 ```
 
+Optional Parameters
+```
+startTimestamp : retrieve records starting from specified unix timestamp
+endTimestamp : limit results to records preceding specified unix timestamp
+```
+
 ```
 http://localhost/api/v1/market-all/1
+http://localhost/api/v1/market-all/1?startTimestamp=1509995910&endTimestamp=1509996509
+http://localhost/api/v1/market-all/1?startTimestamp=1509995910
+http://localhost/api/v1/market-all/1?endTimestamp=1509996509
 ```
+
+Results are limited to 40000 records.
 
 How are we gathering Data
 ===
