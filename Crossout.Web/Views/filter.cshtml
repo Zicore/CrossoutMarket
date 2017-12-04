@@ -4,32 +4,46 @@
 
 <div>
     <ul class="pagination pagination-sm" style="margin: 6px;">
-        <li><a href="~/search/@Model.UriFaction("")">X</a></li>
         @foreach (FilterItem item in Model.FilterModel.Factions)
         {
-            <li @(item.Active ? "class=active" : "")><a href="~/search/@Model.UriFaction(item.NameUri)">@item.Name</a></li>
+            <li><a class="filter-faction" href="#">@item.Name</a></li>
         }
     </ul>
 
     <ul class="pagination pagination-sm" style="margin: 6px;">
-        <li><a href="~/search/@Model.UriRarity("")">X</a></li>
         @foreach (FilterItem item in Model.FilterModel.Rarities)
         {
-            <li class="@(item.Active ? "active" : "")"><a href="~/search/@Model.UriRarity(item.NameUri)">@item.Name</a></li>
+            <li><a class="filter-rarity" href="#">@item.Name</a></li>
         }
     </ul>
 
     <ul class="pagination pagination-sm" style="margin: 6px;">
-        <li><a href="~/search/@Model.UriCategory("")">X</a></li>
         @foreach (FilterItem item in Model.FilterModel.Categories)
         {
-            <li @(item.Active ? "class=active" : "")><a href="~/search/@Model.UriCategory(item.NameUri)">@item.Name</a></li>
+            <li><a class="filter-category" href="#">@item.Name</a></li>
         }
     </ul>
 
     <ul class="pagination pagination-sm" style="margin: 6px;">
         <li @(Model.FilterModel.CurrentShowRemovedItems ? "class=active" : "")><a href="~/search/@Model.UriRemovedItems(Model.FilterModel.CurrentShowRemovedItems)">Removed Items</a></li>
         <li @(Model.FilterModel.CurrentShowMetaItems ? "class=active" : "")><a href="~/search/@Model.UriMetaItems(Model.FilterModel.CurrentShowMetaItems)">Meta Items</a></li>
+    </ul>
+</div>
+
+<div>
+    <ul class="pagination pagination-sm" style="margin: 6px;">
+        <li class="active"><a class="colvis colvis-name" href="#">Name</a></li>
+        <li class="active"><a class="colvis colvis-rarity" href="#">Rarity</a></li>
+        <li class="active"><a class="colvis colvis-faction" href="#">Faction</a></li>
+        <li><a class="colvis colvis-category" href="#">Category</a></li>
+        <li class="active"><a class="colvis colvis-type" href="#">Type</a></li>
+        <li class="active"><a class="colvis colvis-popularity" href="#">Popularity</a></li>
+        <li class="active"><a class="colvis colvis-sellprice" href="#">Sell Price</a></li>
+        <li class="active"><a class="colvis colvis colvis-selloffers" href="#">Sell Offers</a></li>
+        <li class="active"><a class="colvis colvis-buyprice" href="#">Buy Price</a></li>
+        <li class="active"><a class="colvis colvis-buyorders" href="#">Buy Orders</a></li>
+        <li class="active"><a class="colvis colvis-margin" href="#">Margin</a></li>
+        <li class="active"><a class="colvis colvis-lastupdate" href="#">Last Update</a></li>
     </ul>
 </div>
 
