@@ -186,15 +186,15 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Content\bootstrap-select.css.map" />
-    <None Include="Content\bootstrap-theme.css.map">
+    <None Include="content\bootstrap-select.css.map" />
+    <None Include="content\bootstrap-theme.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\bootstrap-theme.min.css.map" />
-    <None Include="Content\bootstrap.css.map">
+    <None Include="content\bootstrap-theme.min.css.map" />
+    <None Include="content\bootstrap.css.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\bootstrap.min.css.map" />
+    <None Include="content\bootstrap.min.css.map" />
     <None Include="fonts\glyphicons-halflings-regular.eot">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -310,7 +310,7 @@
     <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_weapons_ex.lua" />
     <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_wheels.lua" />
     <None Include="Resources\NoImage.xcf" />
-    <None Include="Scripts\jquery-2.1.3.min.map">
+    <None Include="scripts\jquery-2.1.3.min.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\chart.cshtml">
@@ -376,24 +376,24 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Content\bootstrap-select.css" />
-    <Content Include="Content\bootstrap-select.min.css" />
-    <Content Include="Content\bootstrap-theme.css">
+    <Content Include="content\bootstrap-select.css" />
+    <Content Include="content\bootstrap-select.min.css" />
+    <Content Include="content\bootstrap-theme.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\bootstrap-theme.min.css">
+    <Content Include="content\bootstrap-theme.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\bootstrap.css">
+    <Content Include="content\bootstrap.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\bootstrap.min.css">
+    <Content Include="content\bootstrap.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\dashboard.css">
+    <Content Include="content\dashboard.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\style.css">
+    <Content Include="content\style.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.svg">
@@ -1068,22 +1068,22 @@
     <None Include="img\items\314.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\bootstrap.js">
+    <None Include="scripts\bootstrap.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\bootstrap.min.js">
+    <None Include="scripts\bootstrap.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\highstock\highstock.js">
+    <None Include="scripts\highstock\highstock.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\jquery-2.1.3.intellisense.js">
+    <None Include="scripts\jquery-2.1.3.intellisense.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\jquery-2.1.3.js">
+    <None Include="scripts\jquery-2.1.3.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\jquery-2.1.3.min.js">
+    <None Include="scripts\jquery-2.1.3.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="img\items\318.png">
@@ -1936,14 +1936,14 @@
     <None Include="Resources\Data\0.8.25\strings\russian\string.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Scripts\bootstrap-select.min.js" />
-    <None Include="Scripts\Internal\item.js">
+    <Content Include="scripts\bootstrap-select.min.js" />
+    <None Include="scripts\Internal\item.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\js.cookie.js">
+    <None Include="scripts\js.cookie.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Internal\search.js">
+    <None Include="scripts\Internal\search.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="SQL\Recipes.sql" />
