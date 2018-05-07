@@ -50,54 +50,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_cabins.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_core.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_decorum.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_melee.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_structure.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_summons.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_weapons_ex.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_wheels.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_cabins.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_core.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_decorum.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_melee.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_structure.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_summons.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_weapons_ex.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_wheels.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_cabins.lua" />
+    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_core.lua" />
+    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_decorum.lua" />
+    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_melee.lua" />
+    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_structure.lua" />
+    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_summons.lua" />
+    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <None Include="Resources\Data\0.7.0\gamedata\def\ex\car_editor_wheels.lua" />
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_cabins.lua" />
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_core.lua" />
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_decorum.lua" />
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_melee.lua" />
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_structure.lua" />
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_summons.lua" />
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <None Include="Resources\Data\0.7.20\gamedata\def\ex\car_editor_wheels.lua" />
     <None Include="Resources\Data\0.8.25\gamedata\def\ex\car_editor_cabins.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -122,174 +90,62 @@
     <None Include="Resources\Data\0.8.25\gamedata\def\ex\car_editor_wheels.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_cabins.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_core.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_decorum.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_melee.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_structure.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_summons.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_weapons_ex.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_wheels.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_cabins.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_core.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_decorum.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_melee.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_structure.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_summons.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_weapons_ex.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_wheels.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_cabins.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_core.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_decorum.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_melee.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_structure.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_summons.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_weapons_ex.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_wheels.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_cabins.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_core.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_decorum.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_melee.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_structure.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_summons.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_weapons_ex.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_wheels.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_cabins.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_core.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_decorum.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_melee.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_structure.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_summons.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_weapons_ex.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_wheels.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_cabins.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_core.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_decorum.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_melee.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_structure.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_summons.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_weapons_ex.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_wheels.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_cabins.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_core.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_decorum.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_melee.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_structure.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_summons.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_weapons_ex.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_wheels.lua">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_cabins.lua" />
+    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_core.lua" />
+    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_decorum.lua" />
+    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_melee.lua" />
+    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_structure.lua" />
+    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_summons.lua" />
+    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <None Include="Resources\Data\0.8.20\gamedata\def\ex\car_editor_wheels.lua" />
+    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_cabins.lua" />
+    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_core.lua" />
+    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_decorum.lua" />
+    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_melee.lua" />
+    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_structure.lua" />
+    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_summons.lua" />
+    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <None Include="Resources\Data\0.8.10\gamedata\def\ex\car_editor_wheels.lua" />
+    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_cabins.lua" />
+    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_core.lua" />
+    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_decorum.lua" />
+    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_melee.lua" />
+    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_structure.lua" />
+    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_summons.lua" />
+    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <None Include="Resources\Data\0.8.5\gamedata\def\ex\car_editor_wheels.lua" />
+    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_cabins.lua" />
+    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_core.lua" />
+    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_decorum.lua" />
+    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_melee.lua" />
+    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_structure.lua" />
+    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_summons.lua" />
+    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_wheels.lua" />
+    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_cabins.lua" />
+    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_core.lua" />
+    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_decorum.lua" />
+    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_melee.lua" />
+    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_structure.lua" />
+    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_summons.lua" />
+    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <None Include="Resources\Data\0.7.50\gamedata\def\ex\car_editor_wheels.lua" />
+    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_cabins.lua" />
+    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_core.lua" />
+    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_decorum.lua" />
+    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_melee.lua" />
+    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_structure.lua" />
+    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_summons.lua" />
+    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <None Include="Resources\Data\0.7.40\gamedata\def\ex\car_editor_wheels.lua" />
+    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_cabins.lua" />
+    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_core.lua" />
+    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_decorum.lua" />
+    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_melee.lua" />
+    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_structure.lua" />
+    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_summons.lua" />
+    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <None Include="Resources\Data\0.7.30\gamedata\def\ex\car_editor_wheels.lua" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Crossout.Data\Crossout.Data.csproj">
@@ -298,135 +154,81 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.0\strings\english\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.0\strings\english\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.0\strings\german\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.0\strings\german\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.0\strings\russian\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.0\strings\russian\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.20\strings\english\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.20\strings\german\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\Data\0.7.20\strings\russian\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.20\strings\english\string.txt" />
+    <None Include="Resources\Data\0.7.20\strings\german\string.txt" />
+    <None Include="Resources\Data\0.7.20\strings\russian\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.30\strings\english\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.30\strings\english\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.30\strings\german\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.30\strings\german\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.30\strings\russian\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.30\strings\russian\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.40\strings\english\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.40\strings\english\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.40\strings\german\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.40\strings\german\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.40\strings\russian\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.40\strings\russian\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.50\strings\english\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.50\strings\english\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.50\strings\german\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.50\strings\german\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.7.50\strings\russian\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.7.50\strings\russian\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.0\strings\english\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.0\strings\english\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.0\strings\german\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.0\strings\german\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.0\strings\russian\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.0\strings\russian\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.5\strings\english\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.5\strings\english\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.5\strings\german\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.5\strings\german\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.5\strings\russian\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.5\strings\russian\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.10\strings\english\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.10\strings\english\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.10\strings\german\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.10\strings\german\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.10\strings\russian\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.10\strings\russian\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.20\strings\english\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.20\strings\english\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.20\strings\german\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.20\strings\german\string.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Data\0.8.20\strings\russian\string.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Resources\Data\0.8.20\strings\russian\string.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Data\0.8.25\strings\english\string.txt">

@@ -1,6 +1,7 @@
 ﻿using System;
 using Crossout.Web.Services;
 using Microsoft.Owin.Hosting;
+using NLog;
 
 namespace Crossout.Web
 {
@@ -13,6 +14,12 @@ namespace Crossout.Web
             var url = "http://+:" + WebSettings.Settings.WebserverPort;
 
             CrossoutDataService.Initialize();
+
+            Logger log = LogManager.GetCurrentClassLogger();
+
+            var rootPath = RootPathProvider.GetRootPathStatic();
+            log.Error($"RootPath: {rootPath}");
+            log.Error($"SettingsPath: {WebSettings.Settings.FilePath}");
 
             using (WebApp.Start<Startup>(url))
             {
