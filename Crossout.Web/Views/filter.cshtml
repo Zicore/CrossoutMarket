@@ -4,26 +4,23 @@
 
 <div>
     <ul class="pagination pagination-sm" style="margin: 6px;">
-        <li><a href="~/search/@Model.UriFaction("")">X</a></li>
         @foreach (FilterItem item in Model.FilterModel.Factions)
         {
-            <li @(item.Active ? "class=active" : "")><a href="~/search/@Model.UriFaction(item.NameUri)">@item.Name</a></li>
+            <li><a class="filter-faction" href="#">@item.Name</a></li>
         }
     </ul>
 
     <ul class="pagination pagination-sm" style="margin: 6px;">
-        <li><a href="~/search/@Model.UriRarity("")">X</a></li>
         @foreach (FilterItem item in Model.FilterModel.Rarities)
         {
-            <li class="@(item.Active ? "active" : "")"><a href="~/search/@Model.UriRarity(item.NameUri)">@item.Name</a></li>
+            <li><a class="filter-rarity" href="#">@item.Name</a></li>
         }
     </ul>
 
     <ul class="pagination pagination-sm" style="margin: 6px;">
-        <li><a href="~/search/@Model.UriCategory("")">X</a></li>
         @foreach (FilterItem item in Model.FilterModel.Categories)
         {
-            <li @(item.Active ? "class=active" : "")><a href="~/search/@Model.UriCategory(item.NameUri)">@item.Name</a></li>
+            <li><a class="filter-category" href="#">@item.Name</a></li>
         }
     </ul>
 

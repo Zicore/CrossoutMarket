@@ -28,7 +28,7 @@ namespace Crossout.Data.Stats.Main
         public int fire_rate {get;set;}
         public double damage {get;set;}
         public double hit_impulse {get;set;}
-        public int rot_speed {get;set;}
+        public double rot_speed {get;set;}
         public double optimal_range {get;set;}
         public double max_range {get;set;}
         public double ai_optimal_dist {get;set;}
@@ -76,7 +76,7 @@ namespace Crossout.Data.Stats.Main
         public int blast_damage_experimental {get;set;}
         public int blast_impulse {get;set;}
         public double blast_radius {get;set;}
-        public int blast_radius_experimental {get;set;}
+        public double blast_radius_experimental {get;set;}
         public bool sniper_weapon {get;set;}
         public int pellet_count {get;set;}
         public double damage_transmission {get;set;}
@@ -114,7 +114,7 @@ namespace Crossout.Data.Stats.Main
         public int zero_pitch {get;set;}
         public int heavy_unique_count {get;set;}
         public int dodge_angular_acceleration {get;set;}
-        public int projectile_phase2_time {get;set;}
+        public double projectile_phase2_time {get;set;}
         public bool innate_ai {get;set;}
         public bool lock_target {get;set;}
         public bool charging_need_hold {get;set;}

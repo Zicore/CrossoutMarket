@@ -233,7 +233,7 @@
         }
 
         [Stat("Gun Rotation Speed", 225, Type = StatType.Hidden)]
-        public int StatGunRotationSpeed
+        public double StatGunRotationSpeed
         {
             get { return rot_speed; }
         }
