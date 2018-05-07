@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Crossout.Model.Items;
 using Crossout.Web.Models.General;
 using Crossout.Web.Models.Items;
+using Nancy;
 
 namespace Crossout.Web.Helper
 {
@@ -34,6 +35,15 @@ namespace Crossout.Web.Helper
                 title += $"{item.Title}";
             }
             return title;
+        }
+
+        public static string GetHostWithPort(Request request)
+        {
+            if (request.Url.Port == 80)
+            {
+                return request.Url.HostName;
+            }
+            return $"{request.Url.HostName}:{request.Url.Port}";
         }
     }
 }

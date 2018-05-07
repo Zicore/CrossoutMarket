@@ -6,6 +6,7 @@
 @using System.Linq
 @using Crossout.Model.Recipes
 @using Crossout.Web
+@using Crossout.Web.Helper
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.Items.ItemModel>
 
 @Html.Partial("header", Model)
@@ -315,12 +316,12 @@
         adjustTimeStamp();
     });
 
-    $.getJSON(location.protocol + '//@(Request.Url.HostName)/data/recipe/@(Model.Item.Id)',
+    $.getJSON(location.protocol + '//@(ViewHelper.GetHostWithPort(Request))/data/recipe/@(Model.Item.Id)',
         function (data) {
 
            recipeData.data = data;
            recipeData.loaded = true;
-           
+
             $(".item-0").removeClass("disabled");
         });
 </script>

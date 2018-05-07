@@ -1,5 +1,6 @@
 ﻿@using Nancy.ViewEngines.Razor;
 @using Crossout.Web
+@using Crossout.Web.Helper
 @using Zicore.Settings.Json
 @using Zicore.Settings
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.Items.ItemModel>
@@ -129,7 +130,7 @@
         $.each(names, function (i, name) {
             var id = @Model.Item.Id;
             var host = '@WebSettings.Settings.DataHost';
-            $.getJSON(location.protocol + '//@(Request.Url.HostName)/data/item/'+ name.name.toLowerCase() +'/' +id, function (data) {
+            $.getJSON(location.protocol + '//@(ViewHelper.GetHostWithPort(Request))/data/item/'+ name.name.toLowerCase() +'/' +id, function (data) {
                 var series = {};
                 // Adjust time to local time
                 $.each(data.Data, function (i, data) {

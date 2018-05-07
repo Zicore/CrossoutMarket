@@ -68,7 +68,7 @@ namespace Crossout.Web.Modules.Search
                 var recipeModel = db.SelectRecipeModel(itemModel.Item, true);
 
                 itemModel.Recipe = recipeModel;
-
+                
                 return Response.AsJson(itemModel);
             }
             catch
