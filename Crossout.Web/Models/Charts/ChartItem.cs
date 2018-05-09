@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Windows.Forms.DataVisualization.Charting;
+using LineChart;
 
 namespace Crossout.Web.Models.Charts
 {

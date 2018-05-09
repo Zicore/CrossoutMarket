@@ -12,8 +12,8 @@ using Crossout.Images;
 using System.Drawing;
 using Crossout.Web.Responses;
 using Crossout.Web.Models;
-using System.Windows.Forms.DataVisualization.Charting;
 using Crossout.Web.Models.Charts;
+using LineChart;
 
 namespace Crossout.Web.Modules.Data
 {
@@ -44,7 +44,7 @@ namespace Crossout.Web.Modules.Data
 
                 string query = "SELECT market.id,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime FROM market WHERE market.itemnumber = @id AND datetime > DATE_SUB(CURRENT_TIMESTAMP, INTERVAL @days DAY);";
                 var p = new Parameter { Identifier = "@id", Value = id };
-                var p2 = new Parameter { Identifier = "@days", Value = 7 };
+                var p2 = new Parameter { Identifier = "@days", Value = 3 };
                 var parmeter = new List<Parameter>();
                 parmeter.Add(p);
                 parmeter.Add(p2);
