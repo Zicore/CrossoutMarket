@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using Crossout.Model.Items;
 using System.IO;
-using System.Windows.Forms.DataVisualization.Charting;
+using LineChart;
 
 namespace Crossout.Images
 {
@@ -19,9 +19,9 @@ namespace Crossout.Images
         string branding;
         string backgroundPath = Path.GetFullPath(@"Sources\background.png");
         string itemImagePath;
-        IList<DataPoint> itemData;
+        List<DataPoint> itemData;
 
-        public EmbedImageCreator(Item imageItem, IList<DataPoint> imageItemData, string imageBranding = "CrossoutDB.com")
+        public EmbedImageCreator(Item imageItem, List<DataPoint> imageItemData, string imageBranding = "CrossoutDB.com")
         {
             item = imageItem;
             itemData = imageItemData;
@@ -42,8 +42,8 @@ namespace Crossout.Images
         PointF itemNameLocation = new PointF(80f, 1f);
         PointF sellPriceLocation = new PointF(80f, 20f);
         PointF buyPriceLocation = new PointF(80f, 35f);
-        PointF chartLocation = new PointF(200f, 5f);
-        PointF brandingLocation = new PointF(200f, 45f);
+        PointF chartLocation = new PointF(190f, 5f);
+        PointF brandingLocation = new PointF(190f, 45f);
 
         Brush RarityColor(int rarityNumber)
         {
@@ -77,10 +77,19 @@ namespace Crossout.Images
         {
             Bitmap bitmap = (Bitmap)Image.FromFile(backgroundPath);//load the image file
             Bitmap overlay = (Bitmap)Image.FromFile(itemImagePath);
-            var chartStream = new MemoryStream();
-            ChartImageCreator cic = new ChartImageCreator();
-            cic.GenerateMinimalChart(itemData, chartStream);
-            
+            Bitmap chartImage = new Bitmap(100,40);
+
+                //ch.Height = 40;
+                //ch.Width = 100;
+            //var chartStream = new MemoryStream();
+            //ChartImageCreator cic = new ChartImageCreator();
+            //cic.GenerateMinimalChart(itemData, chartStream);
+            Graphics graphicsChart = Graphics.FromImage(chartImage);
+
+            Chart chart = new Chart();
+            chart.AddSeries(itemData);
+            chart.Bounds = new RectangleF(0,0, chartImage.Width, chartImage.Height);
+            chart.Draw(graphicsChart);
 
             Graphics graphics = Graphics.FromImage(bitmap);
             Font arialFont = new Font("Arial", 8);
@@ -92,7 +101,7 @@ namespace Crossout.Images
             graphics.DrawString(branding, arialFont, Brushes.White, brandingLocation);
 
             graphics.DrawImage(overlay, new RectangleF(overlayLocation, new SizeF(64,64)));
-            graphics.DrawImage(Image.FromStream(chartStream), chartLocation);
+            graphics.DrawImage(chartImage, chartLocation);
 
             Image img = bitmap;
 
