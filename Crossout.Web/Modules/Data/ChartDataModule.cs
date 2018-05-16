@@ -19,7 +19,7 @@ namespace Crossout.Web.Modules.Data
 
                 string name = x.name;
 
-                // Harcoded Limit of 40k data points for now
+                // Harcoded Limit of data points for now
                 // we will aggregate data soon, we should never have so much data hopefully
                 string query = "(SELECT market.id,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime FROM market where market.itemnumber = @id ORDER BY market.Datetime desc LIMIT 10000) ORDER BY id ASC;";
                 var p = new Parameter { Identifier = "@id", Value = x.id };
