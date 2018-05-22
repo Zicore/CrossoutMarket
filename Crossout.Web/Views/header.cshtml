@@ -7,20 +7,17 @@
 @{
     SearchModel m = Model as SearchModel;
 }
-
 <div class="navbar-inverse navbar-default navbar-static-top" role="navigation">
-    <div class="navbar-header">
-        <a class="navbar-left" rel="home" href="/"><img alt="CrossoutDB Logo" title="@ViewHelper.GenerateTitle(Model)" class="crossoutdb-logo" src="~/img/crossoutdb_logo.png"/></a>
-    </div>
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-
-        <div class="social-btns navbar-right navbar-inverse">
-            <a class="btn btn-default" href="https://kiwiirc.com/client/irc.kiwiirc.com/?nick=CrossoutDB|?#crossoutdb" target="_blank" role="button">
-                <i class="glyphicon glyphicon-comment"></i>
-            </a>
+    <div class="container-fluid">
+        <div class="navbar-header" style="margin-right: 24px">
+            <a class="navbar-left" rel="home" href="/"><img alt="CrossoutDB Logo" title="@ViewHelper.GenerateTitle(Model)" class="crossoutdb-logo" src="~/img/crossoutdb_logo.png" /></a>
         </div>
 
-        <div class="col-sm-3 col-md-3 navbar-right">
+        <ul class="nav navbar-nav">
+            <li><a class="navbar-left h4" style="margin: 0px" href="~/packages">Packages</a></li>
+        </ul>
+
+        <div class="navbar-right">
             <form class="navbar-form" action="/search/" role="search" method="get" id="form">
                 <div class="input-group">
                     @if (m != null)
@@ -39,12 +36,13 @@
                     </div>
                     @if (m != null)
                     {
-                        <input type="hidden" name="rarity" value="@m.FilterModel.CurrentRarity.NameUri"/>
-                        <input type="hidden" name="category" value="@m.FilterModel.CurrentCategory.NameUri"/>
+                        <input type="hidden" name="rarity" value="@m.FilterModel.CurrentRarity.NameUri" />
+                        <input type="hidden" name="category" value="@m.FilterModel.CurrentCategory.NameUri" />
                         <input type="hidden" name="faction" value="@m.FilterModel.CurrentFaction.NameUri" />
                     }
                 </div>
             </form>
         </div>
+
     </div>
 </div>

@@ -1,0 +1,137 @@
+﻿@{
+    Layout = "layout.cshtml";
+}
+
+@using Crossout.Model.Items
+@using Crossout.Web
+@using Crossout.Web.Models
+@using Crossout.Data.PremiumPackages
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.General.PremiumPackagesModel>
+
+
+@Html.Partial("header", Model)
+
+@Html.Partial("status", Model.Status)
+
+<div class="container-space">
+    <div class="row">
+        @foreach (PremiumPackage package in Model.Packages)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="panel panel-default" style="padding: 8px">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <h4>@package.Name</h4>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <button class="btn btn-default content-button pull-right" id="@(package.Key)">Show Content</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 8px;">
+                        <img class="img-responsive" src="~/img/premiumpackages/@(package.Key).jpg"/>
+                    </div>
+
+                    <div class="row" id="content-wrapper-@(package.Key)" style="display: none; margin-bottom: 8px; margin-right: 8px">
+                        @foreach (int id in package.MarketPartIDs)
+                        {
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-2">
+                                @if (RootPathHelper.ImageExists(id + ".png"))
+                                {
+                                    <a href="~/item/@(id)"><img class="item-image-search" src="~/img/items/@(id).png" /></a>
+                                }
+                                else
+                                {
+                                    <a href="~/item/@(id)"><img class="item-image-search" src="~/img/NoImage.png" /></a>
+                                }
+                                <div class="label-md-left" style="color: red">@(Model.ContainedItems[id].FormatSellPrice) <img src="~/img/Coin.png" /></div>
+                                <div class="label-md-left" style="color: green">@(Model.ContainedItems[id].FormatBuyPrice) <img src="~/img/Coin.png" /></div>
+                            </div>
+                        }
+                    </div>
+                    <div class="row" style="margin-bottom: 8px">
+                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
+
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            Sell
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            Buy
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            Item Sum
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
+                            @package.FormatSellSum
+                            <img src="~/img/Coin.png" />
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
+                            @package.FormatBuySum
+                            <img src="~/img/Coin.png" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            + Coins
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            @package.RawCoins
+                            <img src="~/img/Coin.png" />
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            @package.RawCoins
+                            <img src="~/img/Coin.png" />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 8px">
+                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            Total
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
+                            @package.FormatTotalSellSum
+                            <img src="~/img/Coin.png" />
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
+                            @package.FormatTotalBuySum
+                            <img src="~/img/Coin.png" />
+                        </div>
+                    </div>
+
+                    @foreach (Currency price in package.Prices)
+                    {
+                        <div class="row">
+                            <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                @(price.Final) @(price.CurrencyAbbriviation)
+                            </div>
+                            <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
+                                @(price.FormatSellPriceDividedByCurrency) <img src="~/img/Coin.png" />/@(price.CurrencyAbbriviation)
+                            </div>
+                            <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
+                                @(price.FormatBuyPriceDividedByCurrency) <img src="~/img/Coin.png" />/@(price.CurrencyAbbriviation)
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="~/Scripts/Internal/search.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.content-button').click(function (e) {
+            var content = $('#content-wrapper-' + $(this).attr('id'));
+            if (content.is(":visible")) {
+                $(this).text("Show Content");
+                content.slideUp();
+            } else {
+                $(this).text("Hide Content");
+                content.slideDown();
+            }
+        });
+    });
+</script>

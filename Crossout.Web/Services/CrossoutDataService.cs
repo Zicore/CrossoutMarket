@@ -32,6 +32,7 @@ namespace Crossout.Web.Services
         public PartStatsCollection MovementStatsCollection { get; } = new PartStatsCollection();
         public ReverseItemLookup ReverseItemLookup { get; } = new ReverseItemLookup();
         public StringLookup StringLookup { get; } = new StringLookup();
+        public PremiumPackagesColletion PremiumPackagesCollection { get; } = new PremiumPackagesColletion();
 
         public static void Initialize()
         {
@@ -50,6 +51,20 @@ namespace Crossout.Web.Services
             WeaponStatsCollection.ReadStats<PartStatsWeapon>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorWeaponsExLua));
             MovementStatsCollection.ReadStats<PartStatsWheel>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorWheelsLua));
             CoreStatsCollection.ReadStats<PartStatsCore>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorCoreLua));
+
+            PremiumPackagesCollection.ReadPackages(Path.Combine(rootPath, WebSettings.Settings.DirectoryPremiumPackages));
+
+            SteamAPIService.AppIDsToGet = GetAppIDList();
+            SteamAPIService.CollectAppPrices().GetAwaiter().OnCompleted( () => {
+                foreach (var package in PremiumPackagesCollection.Packages)
+                {
+                    if(SteamAPIService.AppPricesCollection.ContainsKey(package.SteamAppID))
+                    {
+                        package.Prices = SteamAPIService.AppPricesCollection[package.SteamAppID].Prices;
+                    }
+                }
+                Console.WriteLine("Steam Prices Read");
+            });
         }
 
         public PartStatsBase Get(string internalKey, PartStatsCollection statsCollection)
@@ -213,6 +228,16 @@ namespace Crossout.Web.Services
                 return "desc-green";
             }
             return "desc-default";
+        }
+
+        private List<int> GetAppIDList()
+        {
+            List<int> list = new List<int>();
+            foreach(var package in PremiumPackagesCollection.Packages)
+            {
+                list.Add(package.SteamAppID);
+            }
+            return list;
         }
 
         private static CrossoutDataService _instance;

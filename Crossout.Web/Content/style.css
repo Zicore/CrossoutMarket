@@ -125,8 +125,8 @@ body {
 }
 
 .vertical-center {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .tree-icon {
@@ -303,4 +303,40 @@ body {
 /* Datatables Button correction */
 .dataTables_button{
     margin: 2px;
+}
+
+/* Packages Site */
+.dropdown-menu-center {
+    left: 50%;
+    right: auto;
+    text-align: center;
+    transform: translate(-50%, 0);
+}
+
+.navbar-nav li a {
+    line-height: 60px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-right: 1px solid #595959;
+    border-left: 1px solid #595959;
+}
+
+.navbar-form {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
