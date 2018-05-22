@@ -5,8 +5,11 @@
 @using Zicore.Settings
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.Items.ItemModel>
 
-
+<div class="glyphicon glyphicon-refresh glyphicon-refresh-animate" id="loading-icon"></div>
 <div id="container" style="height: 600px; min-width: 310px"></div>
+<div class="text-center">
+    <button class="btn btn-xs btn-default hidden" id="grouping-button">Disable Data Grouping</button>
+</div>
 
 <script>
     $(function () {
@@ -14,72 +17,143 @@
             seriesCounter = 0,
             names = [{name:'Sell',type:0}, {name:'Buy',type:0}, {name:'SellOffers',type:1},{name:'BuyOrders',type:1}];
 
+        var toggle = false;
+
+        // Workaround to disable the '1m' and 'all' buttons
+        var buttons = [{
+            type: 'hour',
+            count: 6,
+            text: '6h',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['minute', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 12,
+            text: '12h',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['minute', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 24,
+            text: '1d',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['minute', [30]]]
+            }
+        }, {
+            type: 'hour',
+            count: 72,
+            text: '3d',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['hour', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 168,
+            text: '1w',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['hour', [6]]]
+            }
+        }, {
+            type: 'day',
+            count: 30,
+            text: '1m',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['hour', [12]]]
+            }
+        }, {
+            type: 'all',
+            text: 'all',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['hour', [12]]]
+            }
+        }];
+        var buttonsdisabledgrouping = [{
+            type: 'hour',
+            count: 6,
+            text: '6h',
+            dataGrouping: {
+                enabled: false,
+                forced: false,
+                units: [['minute', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 12,
+            text: '12h',
+            dataGrouping: {
+                enabled: false,
+                forced: false,
+                units: [['minute', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 24,
+            text: '1d',
+            dataGrouping: {
+                enabled: false,
+                forced: false,
+                units: [['minute', [30]]]
+            }
+        }, {
+            type: 'hour',
+            count: 72,
+            text: '3d',
+            dataGrouping: {
+                enabled: false,
+                forced: false,
+                units: [['hour', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 168,
+            text: '1w',
+            dataGrouping: {
+                enabled: false,
+                forced: false,
+                units: [['hour', [6]]]
+            }
+        }];
+        $('#grouping-button').on('click', function (e) {
+            if (toggle)
+            {
+                createChart(buttons);
+                $(this).text("Disable Data Grouping");
+                toggle = false;
+            }
+            else
+            {
+                createChart(buttonsdisabledgrouping);
+                $(this).text("Enable Data Grouping");
+                toggle = true;
+            }
+        });
         /**
          * Create the chart when all data is loaded
          * returns {undefined}
          */
-        function createChart() {
+        function createChart(buttons) {
 
             $('#container').highcharts('StockChart', {
 
                 rangeSelector: {
                     allButtonsEnabled: true,
-                    buttons: [{
-                        type: 'hour',
-                        count: 6,
-                        text: '6h',
-                        dataGrouping: {
-                            forced: true,
-                            units: [['minute', [1]]]
-                        }
-                    }, {
-                        type: 'hour',
-                        count: 12,
-                        text: '12h',
-                        dataGrouping: {
-                            forced: true,
-                            units: [['minute', [1]]]
-                        }
-                    }, {
-                        type: 'hour',
-                        count: 24,
-                        text: '1d',
-                        dataGrouping: {
-                            forced: true,
-                            units: [['minute', [30]]]
-                        }
-                    }, {
-                        type: 'hour',
-                        count: 72,
-                        text: '3d',
-                        dataGrouping: {
-                            forced: true,
-                            units: [['hour', [1]]]
-                        }
-                    }, {
-                        type: 'hour',
-                        count: 168,
-                        text: '1w',
-                        dataGrouping: {
-                            forced: true,
-                            units: [['hour', [6]]]
-                        }
-                    }, {
-                        type: 'day',
-                        count: 30,
-                        text: '1m',
-                        dataGrouping: {
-                            forced: true,
-                            units: [['hour', [12]]]
-                        }
-                    }, {
-                        type: 'all',
-                        text: 'all',
-                        dataGrouping: {
-                            forced: true,
-                            units: [['hour', [12]]]
-                        }
-                    }],
+                    buttons: buttons,
                     buttonTheme: {
                         width: 20
                     },
@@ -170,9 +244,11 @@
                 // we keep a counter and create the chart when all the data is loaded.
                 seriesCounter += 1;
 
+                $('#loading-icon').remove();
                 if (seriesCounter === names.length) {
-                    createChart();
+                    createChart(buttons);
                 }
+                $('#grouping-button').removeClass('hidden');
             });
         });
 
