@@ -44,6 +44,26 @@ namespace Crossout.Web.Services
             return itemModel;   
         }
 
+        public Dictionary<int, Item> SelectListOfItems(List<int> ids)
+        {
+            Dictionary<int, Item> items = new Dictionary<int, Item>();
+            string query = BuildItemsQueryFromIDList(ids);
+            var ds = DB.SelectDataSet(query);
+
+            foreach(var row in ds)
+            {
+                Item item = new Item();
+                int i = 0;
+                item.Id = row[i++].ConvertTo<int>();
+                item.Name = row[i++].ConvertTo<string>();
+                item.SellPrice = row[i++].ConvertTo<int>();
+                item.BuyPrice = row[i++].ConvertTo<int>();
+                items.Add(item.Id, item);
+            }
+
+            return items;
+        }
+
         public RecipeModel SelectRecipeModel(Item item, bool resolveDeep, bool addWorkbenchItem = true)
         {
             RecipeModel recipeModel = new RecipeModel();
@@ -396,6 +416,30 @@ namespace Crossout.Web.Services
         public static string BuildFactionsQuery()
         {
             string query = "SELECT faction.id, faction.name FROM faction ORDER BY id ASC;";
+            return query;
+        }
+
+        public static string BuildItemsQueryFromIDList(List<int> ids)
+        {
+            StringBuilder sb = new StringBuilder();
+            string query = "SELECT item.id, item.name, item.sellprice, item.buyprice FROM item WHERE ";
+            sb.Append(query);
+            int i = 0;
+            foreach(var id in ids)
+            {
+                if (i == 0)
+                {
+                    sb.Append("id=");
+                    sb.Append(id);
+                }
+                else
+                {
+                    sb.Append(" OR id=");
+                    sb.Append(id);
+                }
+                i++;
+            }
+            query = sb.ToString();
             return query;
         }
     }

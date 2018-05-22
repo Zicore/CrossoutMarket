@@ -141,8 +141,12 @@
     <Compile Include="Models\API\v1\ApiItemTypeEntry.cs" />
     <Compile Include="Models\API\v1\ApiRarityEntry.cs" />
     <Compile Include="Models\API\v1\ApiRecipeEntry.cs" />
+    <Compile Include="Models\General\LoadingDataModel.cs" />
+    <Compile Include="Models\General\PremiumPackagesModel.cs" />
     <Compile Include="Models\General\WatchlistModel.cs" />
     <Compile Include="Models\Items\ItemCollection.cs" />
+    <Compile Include="Models\SteamAPI\AppDetails.cs" />
+    <Compile Include="Models\SteamAPI\AppPrices.cs" />
     <Compile Include="Models\View\IViewFilter.cs" />
     <Compile Include="Models\View\IViewTitle.cs" />
     <Compile Include="Helper\ViewHelper.cs" />
@@ -165,6 +169,7 @@
     <Compile Include="Modules\Embed\EmbedImageModule.cs" />
     <Compile Include="Modules\Search\EditRecipeModule.cs" />
     <Compile Include="Modules\Search\CompareModule.cs" />
+    <Compile Include="Modules\Search\PremiumPackagesModule.cs" />
     <Compile Include="Modules\Search\ItemModule.cs" />
     <Compile Include="Modules\Search\SearchModule.cs" />
     <Compile Include="Modules\Search\WatchlistModule.cs" />
@@ -178,6 +183,7 @@
     <Compile Include="Services\API\v1\ApiDataService.cs" />
     <Compile Include="Services\CrossoutDataService.cs" />
     <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\SteamAPIService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WebSettings.cs" />
   </ItemGroup>
@@ -309,6 +315,16 @@
     <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_weapons_ex.lua" />
     <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_wheels.lua" />
     <None Include="Resources\NoImage.xcf" />
+    <None Include="Resources\PremiumPackages\WastelandWarrior.json" />
+    <None Include="Resources\PremiumPackages\SnakeBite.json" />
+    <None Include="Resources\PremiumPackages\TheTramp.json" />
+    <None Include="Resources\PremiumPackages\Arachnophobia.json" />
+    <None Include="Resources\PremiumPackages\TheInventor.json" />
+    <None Include="Resources\PremiumPackages\Frostburn.json" />
+    <None Include="Resources\PremiumPackages\Arsonist.json" />
+    <None Include="Resources\PremiumPackages\Pandemic.json" />
+    <None Include="Resources\PremiumPackages\WildHunt.json" />
+    <None Include="Resources\PremiumPackages\IronShield.json" />
     <None Include="scripts\jquery-2.1.3.min.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -333,6 +349,9 @@
     <None Include="Views\item.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Views\loadingdata.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Views\recipepart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -355,6 +374,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\compare.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\packages.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\watchlist.cshtml">
@@ -2038,6 +2060,36 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Data\0.8.25\strings\russian\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\Arachnophobia.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\Arsonist.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\Frostburn.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\IronShield.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\Pandemic.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\SnakeBite.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\TheInventor.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\TheTramp.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\WastelandWarrior.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\WildHunt.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="scripts\bootstrap-select.min.js" />
