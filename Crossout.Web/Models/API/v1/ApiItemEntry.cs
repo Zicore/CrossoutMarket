@@ -87,7 +87,7 @@ namespace Crossout.Web.Models.API.v1
 
         public bool OlderThan(int minutes)
         {
-            return DateTime.Now - Timestamp > new TimeSpan(0, minutes, 0);
+            return DateTime.UtcNow - Timestamp > new TimeSpan(0, minutes, 0);
         }
 
         [JsonProperty("formatbuyprice")]
