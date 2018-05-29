@@ -40,24 +40,43 @@ namespace Crossout.Web.Services
             Dictionary<int, AppPrices> appPricesCollection = new Dictionary<int, AppPrices>();
             foreach (var id in AppIDsToGet)
             {
+
                 AppPrices appPrices = new AppPrices();
                 appPrices.Prices = new List<Currency>();
                 appPrices.Id = id;
-                foreach(var currencystring in currencysToGet)
+                try
                 {
-                    AppDetails appDetails = new AppDetails();
-                    appDetails = await GetAppDetailsAsync(id, currencystring);
-                    var priceOverview = appDetails.game.data.price_overview;
-                    Currency currency = new Currency();
-                    currency.CurrencyAbbriviation = priceOverview.currency;
-                    currency.DiscountPercent = priceOverview.discount_percent;
-                    currency.Final = ((decimal)priceOverview.final / 100);
-                    currency.Initial = ((decimal)priceOverview.initial / 100);
-                    currency.Initialized = true;
-                    appPrices.Prices.Add(currency);
-                    await Task.Delay(TimeSpan.FromSeconds(1), token);
+                    foreach (var currencystring in currencysToGet)
+                    {
+                        AppDetails appDetails = new AppDetails();
+                        appDetails = await GetAppDetailsAsync(id, currencystring);
+                        var priceOverview = appDetails.game.data.price_overview;
+                        Currency currency = new Currency();
+                        currency.CurrencyAbbriviation = priceOverview.currency;
+                        currency.DiscountPercent = priceOverview.discount_percent;
+                        currency.Final = ((decimal)priceOverview.final / 100);
+                        currency.Initial = ((decimal)priceOverview.initial / 100);
+                        currency.Initialized = true;
+                        appPrices.Prices.Add(currency);
+                        await Task.Delay(TimeSpan.FromSeconds(1), token);
+                    }
+                    appPricesCollection.Add(id, appPrices);
                 }
-                appPricesCollection.Add(id, appPrices);
+                catch
+                {
+                    foreach (var currencystring in currencysToGet)
+                    {
+                        Currency currency = new Currency();
+                        currency.CurrencyAbbriviation = "NONE";
+                        currency.DiscountPercent = 0;
+                        currency.Final = 0;
+                        currency.Initial = 0;
+                        currency.Initialized = false;
+                        appPrices.Prices.Add(currency);
+                        await Task.Delay(TimeSpan.FromSeconds(1), token);
+                    }
+                    appPricesCollection.Add(id, appPrices);
+                }
             }
             AppPricesCollection = appPricesCollection;
         }

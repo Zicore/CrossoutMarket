@@ -76,8 +76,16 @@ namespace Crossout.Web.Modules.Search
                     {
                         foreach (var price in package.Prices)
                         {
-                            price.FormatSellPriceDividedByCurrency = PriceFormatter.FormatPrice(package.TotalSellSum / price.Final);
-                            price.FormatBuyPriceDividedByCurrency = PriceFormatter.FormatPrice(package.TotalBuySum / price.Final);
+                            if(price.Initialized)
+                            {
+                                price.FormatSellPriceDividedByCurrency = PriceFormatter.FormatPrice(package.TotalSellSum / price.Final);
+                                price.FormatBuyPriceDividedByCurrency = PriceFormatter.FormatPrice(package.TotalBuySum / price.Final);
+                            }
+                            else
+                            {
+                                price.FormatSellPriceDividedByCurrency = PriceFormatter.FormatPrice(0);
+                                price.FormatBuyPriceDividedByCurrency = PriceFormatter.FormatPrice(0);
+                            }
                         }
                     }
                     else
