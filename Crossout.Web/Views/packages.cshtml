@@ -44,8 +44,8 @@
                                 {
                                     <a href="~/item/@(id)"><img class="item-image-search" src="~/img/NoImage.png" /></a>
                                 }
-                                <div class="label-md-left" style="color: red">@(Model.ContainedItems[id].FormatSellPrice) <img src="~/img/Coin.png" /></div>
-                                <div class="label-md-left" style="color: green">@(Model.ContainedItems[id].FormatBuyPrice) <img src="~/img/Coin.png" /></div>
+                                <div class="label-md-left" style="color: red">@(Model.ContainedItems[id].FormatSellPrice) <img src="~/img/Coin.png" height="14" /></div>
+                                <div class="label-md-left" style="color: green">@(Model.ContainedItems[id].FormatBuyPrice) <img src="~/img/Coin.png" height="14" /></div>
                             </div>
                         }
                     </div>
@@ -66,11 +66,11 @@
                         </div>
                         <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
                             @package.FormatSellSum
-                            <img src="~/img/Coin.png" />
+                            <img src="~/img/Coin.png" height="14" />
                         </div>
                         <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
                             @package.FormatBuySum
-                            <img src="~/img/Coin.png" />
+                            <img src="~/img/Coin.png" height="14" />
                         </div>
                     </div>
                     <div class="row">
@@ -79,11 +79,11 @@
                         </div>
                         <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             @package.RawCoins
-                            <img src="~/img/Coin.png" />
+                            <img src="~/img/Coin.png" height="14" />
                         </div>
                         <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
                             @package.RawCoins
-                            <img src="~/img/Coin.png" />
+                            <img src="~/img/Coin.png" height="14" />
                         </div>
                     </div>
                     <div class="row" style="margin-bottom: 8px">
@@ -92,26 +92,39 @@
                         </div>
                         <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
                             @package.FormatTotalSellSum
-                            <img src="~/img/Coin.png" />
+                            <img src="~/img/Coin.png" height="14" />
                         </div>
                         <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
                             @package.FormatTotalBuySum
-                            <img src="~/img/Coin.png" />
+                            <img src="~/img/Coin.png" height="14" />
                         </div>
                     </div>
 
                     @foreach (Currency price in package.Prices)
                     {
-                        <div class="row">
-                            <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                @(price.Final) @(price.CurrencyAbbriviation)
-                            </div>
-                            <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
-                                @(price.FormatSellPriceDividedByCurrency) <img src="~/img/Coin.png" />/@(price.CurrencyAbbriviation)
-                            </div>
-                            <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
-                                @(price.FormatBuyPriceDividedByCurrency) <img src="~/img/Coin.png" />/@(price.CurrencyAbbriviation)
-                            </div>
+                        <div>
+                            @if (price.Initialized)
+                            {
+                                <div class="row">
+                                    <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                        @(price.Final) @(price.CurrencyAbbriviation)
+                                    </div>
+                                    <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
+                                        @(price.FormatSellPriceDividedByCurrency) <img src="~/img/Coin.png" height="14" />/@(price.CurrencyAbbriviation)
+                                    </div>
+                                    <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
+                                        @(price.FormatBuyPriceDividedByCurrency) <img src="~/img/Coin.png" height="14" />/@(price.CurrencyAbbriviation)
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="label-md-left col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1px" >
+                                        N/A
+                                    </div>
+                                </div>
+                            }
                         </div>
                     }
                 </div>
