@@ -17,7 +17,7 @@ namespace Crossout.Web.Modules.Search
     {
         public PremiumPackagesModule()
         {
-            Get["/packages"] = x =>
+            Get["/packs"] = x =>
             {
                 return RoutePackages();
             };
@@ -90,7 +90,7 @@ namespace Crossout.Web.Modules.Search
                     }
                     else
                     {
-                        LoadingDataModel loadingDataModel = new LoadingDataModel() { Referrer = "packages"};
+                        LoadingDataModel loadingDataModel = new LoadingDataModel() { Referrer = "packs"};
                         return View["loadingdata", loadingDataModel];
                     }
                 }
