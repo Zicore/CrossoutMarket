@@ -10,6 +10,7 @@ namespace Crossout.Data.PremiumPackages
     {
         public bool Initialized;
         public string CurrencyAbbriviation;
+        public string SteamCurrencyAbbriviation;
         public decimal Initial;
         public decimal Final;
         public int DiscountPercent;

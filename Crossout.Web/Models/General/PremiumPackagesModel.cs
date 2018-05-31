@@ -12,7 +12,7 @@ namespace Crossout.Web.Models.General
 {
     public class PremiumPackagesModel : IViewTitle
     {
-        public string Title => "Packages";
+        public string Title => "Packs";
 
         public List<PremiumPackage> Packages { get; set; } = new List<PremiumPackage>();
 
