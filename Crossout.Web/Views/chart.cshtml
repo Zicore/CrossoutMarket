@@ -17,8 +17,6 @@
             seriesCounter = 0,
             names = [{name:'Sell',type:0}, {name:'Buy',type:0}, {name:'SellOffers',type:1},{name:'BuyOrders',type:1}];
 
-        var toggle = false;
-
         // Workaround to disable the '1m' and 'all' buttons
         var buttons = [{
             type: 'hour',
@@ -83,7 +81,7 @@
                 units: [['hour', [12]]]
             }
         }];
-        var buttonsdisabledgrouping = [{
+        var buttonsDisabledGrouping = [{
             type: 'hour',
             count: 6,
             text: '6h',
@@ -129,18 +127,21 @@
                 units: [['hour', [6]]]
             }
         }];
+        var toggle = false;
         $('#grouping-button').on('click', function (e) {
             if (toggle)
             {
                 createChart(buttons);
                 $(this).text("Disable Data Grouping");
                 toggle = false;
+                Cookies.set("datagroupingdisabled", false);
             }
             else
             {
-                createChart(buttonsdisabledgrouping);
+                createChart(buttonsDisabledGrouping);
                 $(this).text("Enable Data Grouping");
                 toggle = true;
+                Cookies.set("datagroupingdisabled", true);
             }
         });
         /**
@@ -249,12 +250,18 @@
 
                 $('#loading-icon').remove();
                 if (seriesCounter === names.length) {
-                    createChart(buttons);
+                    if (Cookies.get("datagroupingdisabled") === "true")
+                    {
+                        createChart(buttonsDisabledGrouping);
+                    }
+                    else
+                    {
+                        createChart(buttons);
+                    }
                 }
                 $('#grouping-button').removeClass('hidden');
             });
         });
-
 
         $(document).ready(function() {
             // Load the fonts
@@ -324,6 +331,14 @@
 
             // Apply the theme
             Highcharts.setOptions(Highcharts.theme);
+
+            if (Cookies.get("datagroupingdisabled") === "true") {
+                $('#grouping-button').text("Enable Data Grouping");
+                toggle = true;
+            } else {
+                $('#grouping-button').text("Disable Data Grouping");
+                toggle = false;
+            }
         });
     });
 </script>
