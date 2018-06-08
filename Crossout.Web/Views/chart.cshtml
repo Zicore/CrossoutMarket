@@ -17,7 +17,6 @@
             seriesCounter = 0,
             names = [{name:'Sell',type:0}, {name:'Buy',type:0}, {name:'SellOffers',type:1},{name:'BuyOrders',type:1}];
 
-        // Workaround to disable the '1m' and 'all' buttons
         var buttons = [{
             type: 'hour',
             count: 6,
@@ -81,6 +80,7 @@
                 units: [['hour', [12]]]
             }
         }];
+        // Workaround to disable the '1m' and 'all' buttons
         var buttonsDisabledGrouping = [{
             type: 'hour',
             count: 6,
