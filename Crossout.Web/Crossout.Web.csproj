@@ -315,6 +315,9 @@
     <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_weapons_ex.lua" />
     <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_wheels.lua" />
     <None Include="Resources\NoImage.xcf" />
+    <None Include="Resources\PremiumPackages\thirdhalf.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PremiumPackages\spectralhunter.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -2200,6 +2203,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="img\premiumpackages\spectralhunter.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\thirdhalf.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="scripts\bootstrap-select.min.js" />
