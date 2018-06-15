@@ -65,7 +65,6 @@
     <Compile Include="TaskCollector.cs" />
     <Compile Include="TaskSettings.cs" />
     <Compile Include="Tasks\BaseTask.cs" />
-    <Compile Include="Tasks\TestTask2.cs" />
     <Compile Include="Tasks\SteamAPITask.cs" />
     <Compile Include="WorkerSettings.cs" />
   </ItemGroup>
