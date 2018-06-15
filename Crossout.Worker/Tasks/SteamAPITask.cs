@@ -63,7 +63,7 @@ namespace Crossout.Worker.Tasks
             }
         }
 
-        private static async Task<AppDetails> getAppDetailsAsync(int id, string currency)
+        private async Task<AppDetails> getAppDetailsAsync(int id, string currency)
         {
             AppDetails appDetails = null;
 
@@ -78,7 +78,7 @@ namespace Crossout.Worker.Tasks
             return appDetails;
         }
 
-        private static async Task collectAppPrices(CancellationToken token = new CancellationToken())
+        private async Task collectAppPrices(CancellationToken token = new CancellationToken())
         {
             appPricesCollection.Clear();
             foreach (var id in appIDsToGet)
