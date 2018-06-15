@@ -19,30 +19,48 @@ namespace Crossout.Worker.Tasks
         private static HttpClient client = new HttpClient();
         private static List<int> appIDsToGet = new List<int>();
         private static Dictionary<int, AppPrices> appPricesCollection = new Dictionary<int, AppPrices>();
+        private static bool isRunning = false;
 
         public override async void Workload(SqlConnector sql)
         {
-            string query = "SELECT appid FROM steamprices";
-            var dataset = sql.SelectDataSet(query);
-            appIDsToGet.Clear();
-            foreach(var row in dataset)
+            if (!isRunning)
             {
-                appIDsToGet.Add((int)row[0]);
-            }
+                isRunning = true;
+                string query = "SELECT appid FROM steamprices";
+                var dataset = sql.SelectDataSet(query);
+                appIDsToGet.Clear();
+                foreach (var row in dataset)
+                {
+                    appIDsToGet.Add((int)row[0]);
+                }
 
-            await collectAppPrices();
+                await collectAppPrices();
 
-            foreach (var app in appPricesCollection)
+                foreach (var app in appPricesCollection)
+                {
+                    if (app.Value.Prices.Count == 4)
+                    {
+                        List<Parameter> parameters = new List<Parameter>();
+                        parameters.Add(new Parameter { Identifier = "@appid", Value = app.Key });
+                        parameters.Add(new Parameter { Identifier = "@priceusd", Value = app.Value.Prices[0].Final });
+                        parameters.Add(new Parameter { Identifier = "@priceeur", Value = app.Value.Prices[1].Final });
+                        parameters.Add(new Parameter { Identifier = "@pricegbp", Value = app.Value.Prices[2].Final });
+                        parameters.Add(new Parameter { Identifier = "@pricerub", Value = app.Value.Prices[3].Final });
+                        var result = sql.ExecuteSQL("UPDATE steamprices SET steamprices.priceusd = @priceusd, steamprices.priceeur = @priceeur, steamprices.pricegbp = @pricegbp, steamprices.pricerub = @pricerub WHERE steamprices.appid = @appid", parameters);
+                    }
+                    else
+                    {
+                        List<Parameter> parameters = new List<Parameter>();
+                        parameters.Add(new Parameter { Identifier = "@appid", Value = app.Key });
+                        var result = sql.ExecuteSQL("UPDATE steamprices SET steamprices.priceusd = null, steamprices.priceeur = null, steamprices.pricegbp = null, steamprices.pricerub = null WHERE steamprices.appid = @appid", parameters);
+                    }
+                }
+                Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} finished!");
+                isRunning = false;
+            } else
             {
-                List<Parameter> parameters = new List<Parameter>();
-                parameters.Add(new Parameter { Identifier = "@appid", Value = app.Key });
-                parameters.Add(new Parameter { Identifier = "@priceusd", Value = app.Value.Prices[0].Final });
-                parameters.Add(new Parameter { Identifier = "@priceeur", Value = app.Value.Prices[1].Final });
-                parameters.Add(new Parameter { Identifier = "@pricegbp", Value = app.Value.Prices[2].Final });
-                parameters.Add(new Parameter { Identifier = "@pricerub", Value = app.Value.Prices[3].Final });
-                var result = sql.ExecuteSQL("UPDATE steamprices SET steamprices.priceusd = @priceusd, steamprices.priceeur = @priceeur, steamprices.pricegbp = @pricegbp, steamprices.pricerub = @pricerub WHERE steamprices.appid = @appid", parameters);
+                Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} already running, skipping.");
             }
-            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} finished!");
         }
 
         private static async Task<AppDetails> getAppDetailsAsync(int id, string currency)
