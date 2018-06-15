@@ -13,6 +13,7 @@ using Crossout.Web.Models.Items;
 using Crossout.Web.Models.Recipes;
 using Crossout.Web.Modules.Search;
 using ZicoreConnector.Zicore.Connector.Base;
+using Crossout.Data.PremiumPackages;
 
 namespace Crossout.Web.Services
 {
@@ -241,6 +242,23 @@ namespace Crossout.Web.Services
             return CreateAllFactionsForEdit(DB.SelectDataSet(BuildFactionsQuery()));
         }
 
+        public List<AppPrices> SelectAllSteamPrices()
+        {
+            List<AppPrices> appPrices = new List<AppPrices>();
+            var ds = DB.SelectDataSet(BuildSteamPricesQuery());
+            foreach (var row in ds)
+            {
+                List<Currency> currencys = new List<Currency>();
+                currencys.Add(new Currency() { Final = row[1].ConvertTo<int>(), CurrencyAbbriviation = "USD" });
+                currencys.Add(new Currency() { Final = row[2].ConvertTo<int>(), CurrencyAbbriviation = "EUR" });
+                currencys.Add(new Currency() { Final = row[3].ConvertTo<int>(), CurrencyAbbriviation = "GBP" });
+                currencys.Add(new Currency() { Final = row[4].ConvertTo<int>(), CurrencyAbbriviation = "RUB" });
+                AppPrices appPrice = new AppPrices() { Id = (int)row[0], Prices = currencys };
+                appPrices.Add(appPrice);
+            }
+            return appPrices;
+        }
+
         public static List<FactionModel> CreateAllFactionsForEdit(List<object[]> data)
         {
             List<FactionModel> items = new List<FactionModel>();
@@ -440,6 +458,12 @@ namespace Crossout.Web.Services
                 i++;
             }
             query = sb.ToString();
+            return query;
+        }
+
+        public static string BuildSteamPricesQuery()
+        {
+            string query = "SELECT steamprices.appid,steamprices.priceusd,steamprices.priceeur,steamprices.pricegbp,steamprices.pricerub FROM steamprices";
             return query;
         }
     }
