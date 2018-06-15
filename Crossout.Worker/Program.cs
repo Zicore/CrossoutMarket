@@ -1,0 +1,54 @@
+﻿using System;
+using System.Reflection;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Crossout.Worker.Tasks;
+using System.Threading;
+using ZicoreConnector.Zicore.Connector.Base;
+
+namespace Crossout.Worker
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Collecting tasks...");
+            TaskCollector.CollectTasks();
+            TaskCollector.GenerateDefaultSettings();
+
+            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Loading settings...");
+            WorkerSettings.Settings.Load();
+            WorkerSettings.Settings.Save(); // Saving defaults
+
+            TaskCollector.ApplySettings();
+
+            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Scheduling tasks...");
+            Scheduler.ScheduleTasks();
+
+            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Connecting to DB...");
+            SqlConnector sql = new SqlConnector(ConnectionType.MySql);
+            sql.Open(WorkerSettings.Settings.CreateDescription());
+
+            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Worker started!");
+
+            bool running = true;
+            while (running)
+            {
+                if (Scheduler.Schedule.First().Value <= DateTime.UtcNow)
+                {
+                    BaseTask task = Scheduler.Schedule.First().Key;
+                    Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Executing task: {task.Key}");
+                    Scheduler.UpdateTask(task);
+
+                    CancellationTokenSource s = new CancellationTokenSource();
+                    Task.Factory.StartNew(() =>
+                    {
+                        task.Workload(sql);
+                    }, s.Token);
+                }
+            }
+        }
+    }
+}
