@@ -103,11 +103,11 @@
                     @foreach (Currency price in package.Prices)
                     {
                         <div>
-                            @if (price.Initialized)
+                            @if (price.Final != 0)
                             {
                                 <div class="row">
                                     <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                                        @(price.Final) @(price.CurrencyAbbriviation)
+                                        @(price.FormatFinal) @(price.CurrencyAbbriviation)
                                     </div>
                                     <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
                                         @(price.FormatSellPriceDividedByCurrency) <img src="~/img/Coin.png" height="14" />/@(price.CurrencyAbbriviation)

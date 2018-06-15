@@ -6,13 +6,19 @@ using System.Threading.Tasks;
 
 namespace Crossout.Data.PremiumPackages
 {
+    public class AppPrices
+    {
+        public int Id;
+        public List<Currency> Prices;
+    }
+
     public class Currency
     {
-        public bool Initialized;
         public string CurrencyAbbriviation;
         public string SteamCurrencyAbbriviation;
-        public decimal Initial;
-        public decimal Final;
+        public int Initial;
+        public int Final;
+        public string FormatFinal;
         public int DiscountPercent;
         public string FormatSellPriceDividedByCurrency;
         public string FormatBuyPriceDividedByCurrency;

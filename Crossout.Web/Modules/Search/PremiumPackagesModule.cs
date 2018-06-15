@@ -36,6 +36,7 @@ namespace Crossout.Web.Modules.Search
 
                 var packagesCollection = CrossoutDataService.Instance.PremiumPackagesCollection;
                 var statusModel = db.SelectStatus();
+                var appPrices = db.SelectAllSteamPrices();
 
                 PremiumPackagesModel packagesModel = new PremiumPackagesModel();
 
@@ -57,6 +58,7 @@ namespace Crossout.Web.Modules.Search
 
                 foreach (var package in packagesCollection.Packages)
                 {
+                    package.Prices = appPrices.Find(x => x.Id == package.SteamAppID).Prices;
                     decimal sellSum = 0;
                     decimal buySum = 0;
                     foreach(var id in package.MarketPartIDs)
@@ -72,26 +74,14 @@ namespace Crossout.Web.Modules.Search
                     package.FormatTotalSellSum = PriceFormatter.FormatPrice(sellSum + (package.RawCoins * 100));
                     package.FormatTotalBuySum = PriceFormatter.FormatPrice(buySum + (package.RawCoins * 100));
 
-                    if (package.Prices != null)
+                    foreach (var price in package.Prices)
                     {
-                        foreach (var price in package.Prices)
+                        if(price != null && price.Final != 0)
                         {
-                            if(price.Initialized)
-                            {
-                                price.FormatSellPriceDividedByCurrency = PriceFormatter.FormatPrice(package.TotalSellSum / price.Final);
-                                price.FormatBuyPriceDividedByCurrency = PriceFormatter.FormatPrice(package.TotalBuySum / price.Final);
-                            }
-                            else
-                            {
-                                price.FormatSellPriceDividedByCurrency = PriceFormatter.FormatPrice(0);
-                                price.FormatBuyPriceDividedByCurrency = PriceFormatter.FormatPrice(0);
-                            }
+                            price.FormatFinal = PriceFormatter.FormatPrice(price.Final);
+                            price.FormatSellPriceDividedByCurrency = PriceFormatter.FormatPrice(package.TotalSellSum / ((decimal)price.Final / 100));
+                            price.FormatBuyPriceDividedByCurrency = PriceFormatter.FormatPrice(package.TotalBuySum / ((decimal)price.Final / 100));
                         }
-                    }
-                    else
-                    {
-                        LoadingDataModel loadingDataModel = new LoadingDataModel() { Referrer = "packs"};
-                        return View["loadingdata", loadingDataModel];
                     }
                 }
                 packagesModel.Packages = packagesCollection.Packages;

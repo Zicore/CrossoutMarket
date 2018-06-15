@@ -53,18 +53,6 @@ namespace Crossout.Web.Services
             CoreStatsCollection.ReadStats<PartStatsCore>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorCoreLua));
 
             PremiumPackagesCollection.ReadPackages(Path.Combine(rootPath, WebSettings.Settings.DirectoryPremiumPackages));
-
-            SteamAPIService.AppIDsToGet = GetAppIDList();
-            SteamAPIService.CollectAppPrices().GetAwaiter().OnCompleted( () => {
-                foreach (var package in PremiumPackagesCollection.Packages)
-                {
-                    if(SteamAPIService.AppPricesCollection.ContainsKey(package.SteamAppID))
-                    {
-                        package.Prices = SteamAPIService.AppPricesCollection[package.SteamAppID].Prices;
-                    }
-                }
-                Console.WriteLine("Steam Prices Read");
-            });
         }
 
         public PartStatsBase Get(string internalKey, PartStatsCollection statsCollection)
