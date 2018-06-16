@@ -38,6 +38,8 @@ namespace Crossout.Web
         public string FileCarEditorCoreLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_core.lua";
         public string FileStringsEnglish { get; set; } = @"Resources\Data\0.7.0\strings\english\string.txt";
 
+        public string DirectoryPremiumPackages { get; set; } = @"Resources\PremiumPackages";
+
         public static string Title => "Crossout DB - Crossout Market and Crafting Calculator";
 
         public void Load()

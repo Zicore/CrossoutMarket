@@ -13,6 +13,7 @@ using Crossout.Web.Models.Items;
 using Crossout.Web.Models.Recipes;
 using Crossout.Web.Modules.Search;
 using ZicoreConnector.Zicore.Connector.Base;
+using Crossout.Data.PremiumPackages;
 
 namespace Crossout.Web.Services
 {
@@ -42,6 +43,26 @@ namespace Crossout.Web.Services
             }
             itemModel.Item = item;
             return itemModel;   
+        }
+
+        public Dictionary<int, Item> SelectListOfItems(List<int> ids)
+        {
+            Dictionary<int, Item> items = new Dictionary<int, Item>();
+            string query = BuildItemsQueryFromIDList(ids);
+            var ds = DB.SelectDataSet(query);
+
+            foreach(var row in ds)
+            {
+                Item item = new Item();
+                int i = 0;
+                item.Id = row[i++].ConvertTo<int>();
+                item.Name = row[i++].ConvertTo<string>();
+                item.SellPrice = row[i++].ConvertTo<int>();
+                item.BuyPrice = row[i++].ConvertTo<int>();
+                items.Add(item.Id, item);
+            }
+
+            return items;
         }
 
         public RecipeModel SelectRecipeModel(Item item, bool resolveDeep, bool addWorkbenchItem = true)
@@ -221,6 +242,23 @@ namespace Crossout.Web.Services
             return CreateAllFactionsForEdit(DB.SelectDataSet(BuildFactionsQuery()));
         }
 
+        public List<AppPrices> SelectAllSteamPrices()
+        {
+            List<AppPrices> appPrices = new List<AppPrices>();
+            var ds = DB.SelectDataSet(BuildSteamPricesQuery());
+            foreach (var row in ds)
+            {
+                List<Currency> currencys = new List<Currency>();
+                currencys.Add(new Currency() { Final = row[1].ConvertTo<int>(), CurrencyAbbriviation = "USD" });
+                currencys.Add(new Currency() { Final = row[2].ConvertTo<int>(), CurrencyAbbriviation = "EUR" });
+                currencys.Add(new Currency() { Final = row[3].ConvertTo<int>(), CurrencyAbbriviation = "GBP" });
+                currencys.Add(new Currency() { Final = row[4].ConvertTo<int>(), CurrencyAbbriviation = "RUB" });
+                AppPrices appPrice = new AppPrices() { Id = (int)row[0], Prices = currencys };
+                appPrices.Add(appPrice);
+            }
+            return appPrices;
+        }
+
         public static List<FactionModel> CreateAllFactionsForEdit(List<object[]> data)
         {
             List<FactionModel> items = new List<FactionModel>();
@@ -396,6 +434,36 @@ namespace Crossout.Web.Services
         public static string BuildFactionsQuery()
         {
             string query = "SELECT faction.id, faction.name FROM faction ORDER BY id ASC;";
+            return query;
+        }
+
+        public static string BuildItemsQueryFromIDList(List<int> ids)
+        {
+            StringBuilder sb = new StringBuilder();
+            string query = "SELECT item.id, item.name, item.sellprice, item.buyprice FROM item WHERE ";
+            sb.Append(query);
+            int i = 0;
+            foreach(var id in ids)
+            {
+                if (i == 0)
+                {
+                    sb.Append("id=");
+                    sb.Append(id);
+                }
+                else
+                {
+                    sb.Append(" OR id=");
+                    sb.Append(id);
+                }
+                i++;
+            }
+            query = sb.ToString();
+            return query;
+        }
+
+        public static string BuildSteamPricesQuery()
+        {
+            string query = "SELECT steamprices.appid,steamprices.priceusd,steamprices.priceeur,steamprices.pricegbp,steamprices.pricerub FROM steamprices";
             return query;
         }
     }
