@@ -83,13 +83,13 @@ namespace Crossout.Model.Items
         [JsonProperty("workbenchRarity")]
         public int WorkbenchRarity { get; set; }
 
-        [JsonProperty("workbenchRarity")]
+        [JsonProperty("craftingSellSum")]
         public decimal CraftingSellSum { get; set; }
 
-        [JsonProperty("workbenchRarity")]
+        [JsonProperty("craftingBuySum")]
         public decimal CraftingBuySum { get; set; }
 
-        [JsonProperty("workbenchRarity")]
+        [JsonProperty("amount")]
         public int Amount { get; set; }
 
         [JsonProperty("margin")]
@@ -116,7 +116,7 @@ namespace Crossout.Model.Items
             get { return PriceFormatter.FormatPrice(CraftingMargin); }
         }
 
-        [JsonProperty("formatCraftingMargin")]
+        [JsonProperty("craftVsBuy")]
         public string CraftVsBuy
         {
             get { return BuyPrice <= CraftingBuySum ? "Buy" : "Craft"; }
