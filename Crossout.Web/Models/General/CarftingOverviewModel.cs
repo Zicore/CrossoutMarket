@@ -15,6 +15,6 @@ namespace Crossout.Web.Models.General
         public FilterModel FilterModel { get; set; } = new FilterModel();
         public StatusModel Status { get; set; } = new StatusModel();
 
-        public string Title => null;
+        public string Title => "Crafting";
     }
 }
