@@ -83,16 +83,43 @@ namespace Crossout.Model.Items
         [JsonProperty("workbenchRarity")]
         public int WorkbenchRarity { get; set; }
 
+        [JsonProperty("workbenchRarity")]
+        public decimal CraftingSellSum { get; set; }
+
+        [JsonProperty("workbenchRarity")]
+        public decimal CraftingBuySum { get; set; }
+
+        [JsonProperty("workbenchRarity")]
+        public int Amount { get; set; }
+
         [JsonProperty("margin")]
         public decimal Margin
         {
             get { return (decimal)(SellPrice - BuyPrice - (SellPrice * 0.1m)); }
         }
 
+        [JsonProperty("craftingMargin")]
+        public decimal CraftingMargin
+        {
+            get { return (decimal)(SellPrice - CraftingBuySum - (SellPrice * 0.1m)); }
+        }
+
         [JsonProperty("formatMargin")]
         public string FormatMargin
         {
             get { return PriceFormatter.FormatPrice(Margin); }
+        }
+
+        [JsonProperty("formatCraftingMargin")]
+        public string FormatCraftingMargin
+        {
+            get { return PriceFormatter.FormatPrice(CraftingMargin); }
+        }
+
+        [JsonProperty("formatCraftingMargin")]
+        public string CraftVsBuy
+        {
+            get { return BuyPrice <= CraftingBuySum ? "Buy" : "Craft"; }
         }
 
         [JsonProperty("timestamp")]
@@ -151,6 +178,24 @@ namespace Crossout.Model.Items
             }
         }
 
+        [JsonProperty("formatCraftingSellSum")]
+        public string FormatCraftingSellSum
+        {
+            get
+            {
+                return PriceFormatter.FormatPrice(CraftingSellSum);
+            }
+        }
+
+        [JsonProperty("formatCraftingBuySum")]
+        public string FormatCraftingBuySum
+        {
+            get
+            {
+                return PriceFormatter.FormatPrice(CraftingBuySum);
+            }
+        }
+
         [JsonProperty("image")]
         public string Image
         {
@@ -194,7 +239,10 @@ namespace Crossout.Model.Items
                 FactionNumber = row[i++].ConvertTo<int>(),
                 Faction = row[i++].ConvertTo<string>(),
                 Popularity = row[i++].ConvertTo<int>(),
-                WorkbenchRarity = row[i].ConvertTo<int>(),
+                WorkbenchRarity = row[i++].ConvertTo<int>(),
+                CraftingSellSum = row[i++].ConvertTo<decimal>(),
+                CraftingBuySum = row[i++].ConvertTo<decimal>(),
+                Amount = row[i].ConvertTo<int>()
             };
 
             return item;
