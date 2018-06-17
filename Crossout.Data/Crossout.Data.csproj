@@ -60,6 +60,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Descriptions\ItemDescription.cs" />
+    <Compile Include="PremiumPackagesColletion.cs" />
+    <Compile Include="PremiumPackages\PremiumPackage.cs" />
     <Compile Include="Stats\Main\PartStatsCabin.Generated.cs" />
     <Compile Include="Stats\Main\PartStatsCore.Generated.cs" />
     <Compile Include="Stats\Main\PartStatsDecor.Generated.cs" />
@@ -87,7 +89,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
