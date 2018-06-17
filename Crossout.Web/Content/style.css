@@ -319,3 +319,19 @@ body {
         -webkit-transform: rotate(360deg);
     }
 }
+
+.navbar-nav li a {
+    line-height: 60px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.navbar-form {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/* container-fluid fix */
+.container-fluid {
+    overflow-x: hidden;
+}

@@ -1,0 +1,45 @@
+﻿@using Crossout.Web
+@using Crossout.Web.Models.Filter
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.General.CraftingOverviewModel>
+
+<div>
+    <ul class="pagination pagination-sm" style="margin: 6px;">
+        @foreach (FilterItem item in Model.FilterModel.Factions)
+        {
+            <li><a class="filter-faction" href="#">@item.Name</a></li>
+        }
+    </ul>
+
+    <ul class="pagination pagination-sm" style="margin: 6px;">
+        @foreach (FilterItem item in Model.FilterModel.Rarities)
+        {
+            <li><a class="filter-rarity" href="#">@item.Name</a></li>
+        }
+    </ul>
+
+    <ul class="pagination pagination-sm" style="margin: 6px;">
+        @foreach (FilterItem item in Model.FilterModel.Categories)
+        {
+            <li><a class="filter-category" href="#">@item.Name</a></li>
+        }
+    </ul>
+</div>
+
+<div class="form-inline">
+    <div class="col-md-3 form-group">
+        Sell Price: 
+        <input type="number" class="form-control input-sm" id="sellmin" name="sellmin" placeholder="From" />
+        <input type="number" class="form-control input-sm" id="sellmax" name="sellmax" placeholder="To" />
+    </div>
+
+    <div class="col-md-3 form-group">
+        Buy Price:
+        <input type="number" class="form-control input-sm" id="buymin" name="buymin" placeholder="From" />
+        <input type="number" class="form-control input-sm" id="buymax" name="buymax" placeholder="To" />
+    </div>
+    <div class="col-md-4 form-group">
+        Crafting Margin:
+        <input type="number" class="form-control input-sm" id="marginmin" name="marginmin" placeholder="From" />
+        <input type="number" class="form-control input-sm" id="marginmax" name="marginmax" placeholder="To" />
+    </div>
+</div>
