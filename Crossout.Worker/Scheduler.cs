@@ -17,10 +17,10 @@ namespace Crossout.Worker
 
             foreach (var task in TaskCollector.TaskList)
             {
-                addTask(task);
+                AddTask(task);
             }
 
-            sortSchedule();
+            SortSchedule();
         }
 
         public static void UpdateTask(BaseTask task)
@@ -28,12 +28,12 @@ namespace Crossout.Worker
             if (Schedule.ContainsKey(task))
             {
                 Schedule.Remove(task);
-                addTask(task);
-                sortSchedule();
+                AddTask(task);
+                SortSchedule();
             }
         }
 
-        private static void addTask(BaseTask task)
+        private static void AddTask(BaseTask task)
         {
             if (task.ExecutionTime != DateTime.MinValue && task.ExecutionInterval == TimeSpan.Zero)
             {
@@ -73,7 +73,7 @@ namespace Crossout.Worker
             }
         }
 
-        private static void sortSchedule()
+        private static void SortSchedule()
         {
             Schedule = Schedule.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
         }
