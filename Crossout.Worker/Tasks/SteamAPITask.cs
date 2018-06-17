@@ -34,7 +34,7 @@ namespace Crossout.Worker.Tasks
                     appIDsToGet.Add((int)row[0]);
                 }
 
-                await collectAppPrices();
+                await CollectAppPrices();
 
                 foreach (var app in appPricesCollection)
                 {
@@ -63,7 +63,7 @@ namespace Crossout.Worker.Tasks
             }
         }
 
-        private async Task<AppDetails> getAppDetailsAsync(int id, string currency)
+        private async Task<AppDetails> GetAppDetailsAsync(int id, string currency)
         {
             AppDetails appDetails = null;
 
@@ -78,7 +78,7 @@ namespace Crossout.Worker.Tasks
             return appDetails;
         }
 
-        private async Task collectAppPrices(CancellationToken token = new CancellationToken())
+        private async Task CollectAppPrices(CancellationToken token = new CancellationToken())
         {
             appPricesCollection.Clear();
             foreach (var id in appIDsToGet)
@@ -91,7 +91,7 @@ namespace Crossout.Worker.Tasks
                 foreach (var currencystring in currencysToGet)
                 {
                     AppDetails appDetails = new AppDetails();
-                    appDetails = await getAppDetailsAsync(id, currencystring);
+                    appDetails = await GetAppDetailsAsync(id, currencystring);
                     var priceOverview = appDetails.game.data.price_overview;
                     Currency currency = new Currency();
                     if (priceOverview != null)
