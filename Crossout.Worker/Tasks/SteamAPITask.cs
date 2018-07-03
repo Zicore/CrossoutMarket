@@ -92,16 +92,23 @@ namespace Crossout.Worker.Tasks
                 {
                     AppDetails appDetails = new AppDetails();
                     appDetails = await GetAppDetailsAsync(id, currencystring);
-                    var priceOverview = appDetails.game.data.price_overview;
-                    Currency currency = new Currency();
-                    if (priceOverview != null)
+                    if (appDetails != null)
                     {
-                        currency.SteamCurrencyAbbriviation = currencystring;
-                        currency.CurrencyAbbriviation = priceOverview.currency;
-                        currency.DiscountPercent = priceOverview.discount_percent;
-                        currency.Final = priceOverview.final;
-                        currency.Initial = priceOverview.initial;
-                        appPrices.Prices.Add(currency);
+                        var priceOverview = appDetails.game.data.price_overview;
+                        Currency currency = new Currency();
+                        if (priceOverview != null)
+                        {
+                            currency.SteamCurrencyAbbriviation = currencystring;
+                            currency.CurrencyAbbriviation = priceOverview.currency;
+                            currency.DiscountPercent = priceOverview.discount_percent;
+                            currency.Final = priceOverview.final;
+                            currency.Initial = priceOverview.initial;
+                            appPrices.Prices.Add(currency);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key}: Couldn't get app details for app {id}");
                     }
                     await Task.Delay(TimeSpan.FromSeconds(1), token);
                 }
