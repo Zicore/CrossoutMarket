@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\CraftingCalc\CraftingSums.cs" />
+    <Compile Include="Models\MarketGrouper\MarketItem.cs" />
     <Compile Include="Models\SteamAPI\AppDetails.cs" />
     <Compile Include="Models\SteamAPI\AppPrices.cs" />
     <Compile Include="Models\SteamAPI\Currency.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="TaskSettings.cs" />
     <Compile Include="Tasks\BaseTask.cs" />
     <Compile Include="Tasks\CraftingCalcTask.cs" />
+    <Compile Include="Tasks\MarketGrouperTask.cs" />
     <Compile Include="Tasks\SteamAPITask.cs" />
     <Compile Include="WorkerSettings.cs" />
   </ItemGroup>
