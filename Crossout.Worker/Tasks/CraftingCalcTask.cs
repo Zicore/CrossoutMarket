@@ -19,7 +19,7 @@ namespace Crossout.Worker.Tasks
         private static Dictionary<int, CraftingSums> craftingCostsByID = new Dictionary<int, CraftingSums>();
         private static Dictionary<int, int> workbenchPricesByID = new Dictionary<int, int>();
         private static bool isRunning = false;
-        private enum workbenchItemId
+        private enum WorkbenchItemId
         {
             //445	Common Minimum Bench Cost
             //446	Rare Minimum Bench Cost
@@ -34,7 +34,7 @@ namespace Crossout.Worker.Tasks
             Relic_449 = 449,
             Skins_466 = 466,
         }
-        private enum rarity
+        private enum Rarity
         {
             Common_1 = 1,
             Rare_2 = 2,
@@ -50,7 +50,7 @@ namespace Crossout.Worker.Tasks
             {
                 isRunning = true;
 
-                selectWorkbenchItems(sql);
+                SelectWorkbenchItems(sql);
 
                 string collumns = "recipe.itemnumber,recipeitem.itemnumber,recipeitem.number,i1.sellprice,i1.buyprice,i1.amount,i2.raritynumber,i2.workbenchrarity";
                 string query = $"SELECT {collumns} FROM recipe LEFT JOIN recipeitem ON recipeitem.recipenumber = recipe.id LEFT JOIN item i1 ON i1.id = recipeitem.itemnumber LEFT JOIN item i2 ON i2.id = recipe.itemnumber ORDER BY recipe.itemnumber";
@@ -72,21 +72,21 @@ namespace Crossout.Worker.Tasks
                     {
                         raritynumber = workbenchrarity;
                     }
-                    int workbenchId = (int)getWorkbenchItemIdByRarity((rarity)raritynumber);
+                    int workbenchId = (int)GetWorkbenchItemIdByRarity((Rarity)raritynumber);
                     int minimumWorkbenchCost = workbenchPricesByID[workbenchId];
 
                     if (!craftingCostsByID.ContainsKey(id))
                     {
                         craftingCostsByID.Add(id, new CraftingSums() {
                             Id = id,
-                            SellSum = divideIntByIntAndRound(sellprice * multiplier, amount) + minimumWorkbenchCost,
-                            BuySum = divideIntByIntAndRound(buyprice * multiplier, amount) + minimumWorkbenchCost
+                            SellSum = DivideIntByIntAndRound(sellprice * multiplier, amount) + minimumWorkbenchCost,
+                            BuySum = DivideIntByIntAndRound(buyprice * multiplier, amount) + minimumWorkbenchCost
                         });
                     }
                     else
                     {
-                        craftingCostsByID[id].SellSum += divideIntByIntAndRound(sellprice * multiplier, amount);
-                        craftingCostsByID[id].BuySum += divideIntByIntAndRound(buyprice * multiplier, amount);
+                        craftingCostsByID[id].SellSum += DivideIntByIntAndRound(sellprice * multiplier, amount);
+                        craftingCostsByID[id].BuySum += DivideIntByIntAndRound(buyprice * multiplier, amount);
                     }
                 }
 
@@ -108,37 +108,37 @@ namespace Crossout.Worker.Tasks
             }
         }
 
-        private int divideIntByIntAndRound(int dividend, int divisor)
+        private int DivideIntByIntAndRound(int dividend, int divisor)
         {
             return (int)Math.Round(decimal.Divide(dividend, divisor));
         }
 
-        private workbenchItemId getWorkbenchItemIdByRarity(rarity rarity)
+        private static WorkbenchItemId GetWorkbenchItemIdByRarity(Rarity rarity)
         {
             switch (rarity)
             {
-                case rarity.Common_1:
-                    return workbenchItemId.Common_445;
-                case rarity.Rare_2:
-                    return workbenchItemId.Rare_446;
-                case rarity.Epic_3:
-                    return workbenchItemId.Epic_447;
-                case rarity.Legendary_4:
-                    return workbenchItemId.Legendary_448;
-                case rarity.Relic_5:
-                    return workbenchItemId.Relic_449;
-                case rarity.Skins_6:
-                    return workbenchItemId.Skins_466;
-                default: return workbenchItemId.Common_445;
+                case Rarity.Common_1:
+                    return WorkbenchItemId.Common_445;
+                case Rarity.Rare_2:
+                    return WorkbenchItemId.Rare_446;
+                case Rarity.Epic_3:
+                    return WorkbenchItemId.Epic_447;
+                case Rarity.Legendary_4:
+                    return WorkbenchItemId.Legendary_448;
+                case Rarity.Relic_5:
+                    return WorkbenchItemId.Relic_449;
+                case Rarity.Skins_6:
+                    return WorkbenchItemId.Skins_466;
+                default: return WorkbenchItemId.Common_445;
             }
         }
 
-        private void selectWorkbenchItems(SqlConnector sql)
+        private void SelectWorkbenchItems(SqlConnector sql)
         {
             StringBuilder sb = new StringBuilder();
             string query = "SELECT item.id,item.sellprice FROM crossout.item WHERE ";
             sb.Append(query);
-            foreach(int item in Enum.GetValues(typeof(workbenchItemId)))
+            foreach(int item in Enum.GetValues(typeof(WorkbenchItemId)))
             {
                 sb.Append($"item.id={item} OR ");
             }

@@ -24,9 +24,13 @@
                     <div class="media">
                         <div class="media-left">
                             <a href="~/item/@Model.Item.Id">
-                                @if (RootPathHelper.ImageExists(Model.Item.Image))
+                                @if (RootPathHelper.HighResImageExists(Model.Item.Image))
                                 {
-                                    <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@Model.Item.Image"/>
+                                    <img class="pull-left item-image-auto-size content-space" style="margin-right: 8px;" src="~/img/items-highres/@Model.Item.Image" />
+                                }
+                                else if (RootPathHelper.ImageExists(Model.Item.Image))
+                                {
+                                    <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@Model.Item.Image" />
                                 }
                                 else
                                 {
@@ -40,15 +44,18 @@
                             {
                                 <span>@Html.Raw(@Model.Item.Description.Text)</span>
                             }
+                            <div>
+                                <a href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout" class="btn btn-xs btn-info" role="button">Tweet Prices</a>
+                            </div>
                         </div>
                     </div>
                     <div>
-                        <a href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout" class="btn btn-xs btn-info" role="button">Tweet</a>
-                        <button type="button" class="btn btn-xs btn-default embed-button">
+                        
+                        @*<button type="button" class="btn btn-xs btn-default embed-button">
                             < > Embed
-                        </button>
+                        </button>*@
                     </div>
-                    <div id="embed-wrapper" style="display: none;">
+                    @*<div id="embed-wrapper" style="display: none;">
                         <div class="form-group">
                             <div class="row">
                                 <label for="directlinkembed" class="col-md-2 control-label">Direct Link</label>
@@ -93,7 +100,7 @@
                                 <a href="/item/@Model.Item.Id"><img src="/embed/image/@(Model.Item.Id).png" alt="Embed Image" style="width: 300px; height: 64px;"></a>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
             <div class="panel panel-default">

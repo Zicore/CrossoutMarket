@@ -15,32 +15,69 @@ namespace Crossout.Web.Models.Charts
         {
             get
             {
-                var data = new object[Items.Count][];
-
-                for (int i = 0; i < Items.Count; i++)
+                if (Name == "all")
                 {
-                    object[] row = new object[2];
-                    row[0] = Items[i].UnixTimestamp;
-                    if (Name == "sell")
+                    var data = new object[4][][];
+
+                    for (int i = 0; i < 4; i++)
                     {
-                        row[1] = Items[i].FormatSellPrice;
+                        data[i] = new object[Items.Count][];
+                        for(int j = 0; j < Items.Count; j++)
+                        {
+                            data[i][j] = new object[2];
+                            data[i][j][0] = Items[j].UnixTimestamp;
+                            if (i == 0)
+                            {
+                                data[i][j][1] = Items[j].FormatSellPrice;
+                            }
+                            else if (i == 1)
+                            {
+                                data[i][j][1] = Items[j].FormatBuyPrice;
+                            }
+                            else if (i == 2)
+                            {
+                                data[i][j][1] = Items[j].SellOffers;
+                            }
+                            else if (i == 3)
+                            {
+                                data[i][j][1] = Items[j].BuyOrders;
+                            }
+
+                        }
                     }
-                    else if(Name == "buy")
+
+                    return data;
+                }
+                else
+                {
+                    var data = new object[Items.Count][];
+
+                    for (int i = 0; i < Items.Count; i++)
                     {
-                        row[1] = Items[i].FormatBuyPrice;
+                        object[] row = new object[2];
+                        row[0] = Items[i].UnixTimestamp;
+                        if (Name == "sell")
+                        {
+                            row[1] = Items[i].FormatSellPrice;
+                        }
+                        else if (Name == "buy")
+                        {
+                            row[1] = Items[i].FormatBuyPrice;
+                        }
+                        else if (Name == "selloffers")
+                        {
+                            row[1] = Items[i].SellOffers;
+                        }
+                        else if (Name == "buyorders")
+                        {
+                            row[1] = Items[i].BuyOrders;
+                        }
+                        data[i] = row;
                     }
-                    else if (Name == "selloffers")
-                    {
-                        row[1] = Items[i].SellOffers;
-                    }
-                    else if (Name == "buyorders")
-                    {
-                        row[1] = Items[i].BuyOrders;
-                    }
-                    data[i] = row;
+
+                    return data;
                 }
 
-                return data;
             }
         }
 

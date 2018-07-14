@@ -72,7 +72,7 @@
         table.draw();
     });
 
-    $('.filter-faction').click(function () {
+    $('.filter-faction').click(function (e) {
         var text = $(this).text();
         $('.filter-faction').each(function () {
             if (text == $(this).text())
@@ -81,9 +81,11 @@
             }
         });
         filterTable(table);
+        updateLocationHash();
+        e.preventDefault();
     });
 
-    $('.filter-rarity').click(function () {
+    $('.filter-rarity').click(function (e) {
         var text = $(this).text();
         $('.filter-rarity').each(function () {
             if (text == $(this).text()) {
@@ -91,9 +93,11 @@
             }
         });
         filterTable(table);
+        updateLocationHash();
+        e.preventDefault();
     });
 
-    $('.filter-category').click(function () {
+    $('.filter-category').click(function (e) {
         var text = $(this).text();
         $('.filter-category').each(function () {
             if (text == $(this).text()) {
@@ -101,10 +105,14 @@
             }
         });
         filterTable(table);
+        updateLocationHash();
+        e.preventDefault();
     });
 
     getFilterStateFromCookie();
-    applyColumnVis(table)
+    applyColumnVis(table);
+
+    applyLocationHash(table);
 });
 
 const columnList = ['name', 'rarity', 'faction', 'category', 'type', 'popularity', 'sellprice', 'selloffers', 'buyprice', 'buyorders', 'margin', 'lastupdate'];

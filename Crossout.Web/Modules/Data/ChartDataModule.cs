@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Crossout.Web.Models;
 using Crossout.Web.Models.Charts;
@@ -27,6 +28,7 @@ namespace Crossout.Web.Modules.Data
                 parmeter.Add(p);
 
                 var ds = sql.SelectDataSet(query, parmeter);
+
                 ChartDataModel model = new ChartDataModel();
                 model.Name = name;
                 if (ds != null && ds.Count > 0)
@@ -38,8 +40,32 @@ namespace Crossout.Web.Modules.Data
                     }
                 }
 
+                string targetTimeEnd = ConvertDateTimeToDBString(model.Items.First().Timestamp);
+                query = "(SELECT marketgrouped.id,marketgrouped.sellprice,marketgrouped.buyprice,marketgrouped.selloffers,marketgrouped.buyorders,marketgrouped.datetime FROM marketgrouped where marketgrouped.itemnumber = @id AND marketgrouped.datetime < @time ORDER BY marketgrouped.Datetime desc LIMIT 8000) ORDER BY id ASC;";
+                p = new Parameter { Identifier = "@id", Value = x.id };
+                var p2 = new Parameter { Identifier = "@time", Value = targetTimeEnd };
+                parmeter = new List<Parameter>();
+                parmeter.Add(p);
+                parmeter.Add(p2);
+
+                ds = sql.SelectDataSet(query, parmeter);
+
+                if (ds != null && ds.Count > 0)
+                {
+                    for (int i = ds.Count - 1; i >= 0; i--)
+                    {
+                        ChartItem item = ChartItem.CreateForChart(ds[i]);
+                        model.Items.Insert(0, item);
+                    }
+                }
+
                 return Response.AsJson(model);
             };
+        }
+
+        private string ConvertDateTimeToDBString(DateTime dt)
+        {
+            return $"{dt.Year}-{dt.Month}-{dt.Day} {dt.Hour}:{dt.Minute}:{dt.Second}";
         }
     }
 }
