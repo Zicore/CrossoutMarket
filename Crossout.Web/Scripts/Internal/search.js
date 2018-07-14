@@ -72,7 +72,7 @@
         table.draw();
     });
 
-    $('.filter-faction').click(function () {
+    $('.filter-faction').click(function (e) {
         var text = $(this).text();
         $('.filter-faction').each(function () {
             if (text == $(this).text())
@@ -81,9 +81,11 @@
             }
         });
         filterTable(table);
+        updateLocationHash();
+        e.preventDefault();
     });
 
-    $('.filter-rarity').click(function () {
+    $('.filter-rarity').click(function (e) {
         var text = $(this).text();
         $('.filter-rarity').each(function () {
             if (text == $(this).text()) {
@@ -91,9 +93,11 @@
             }
         });
         filterTable(table);
+        updateLocationHash();
+        e.preventDefault();
     });
 
-    $('.filter-category').click(function () {
+    $('.filter-category').click(function (e) {
         var text = $(this).text();
         $('.filter-category').each(function () {
             if (text == $(this).text()) {
@@ -101,10 +105,14 @@
             }
         });
         filterTable(table);
+        updateLocationHash();
+        e.preventDefault();
     });
 
     getFilterStateFromCookie();
-    applyColumnVis(table)
+    applyColumnVis(table);
+
+    applyLocationHash();
 });
 
 const columnList = ['name', 'rarity', 'faction', 'category', 'type', 'popularity', 'sellprice', 'selloffers', 'buyprice', 'buyorders', 'margin', 'lastupdate'];
@@ -297,3 +305,103 @@ $.fn.dataTable.ext.search.push(
         return false;
     }
 );
+
+function applyLocationHash() {
+    var hash = location.hash;
+    var patttern = '#faction=(.*,?);rarity=(.*,?);category=(.*,?);';
+    var regEx = new RegExp(patttern, 'ig');
+    var matches = regEx.exec(hash);
+    if (matches != null) {
+        matches.forEach(function (match, i) {
+            if (i !== 0) {
+                var items = match.split(',');
+
+                items.forEach(function (item, j) {
+                    if (i === 1) {
+                        $('.filter-faction').each(function (k, e) {
+                            if (k < $('.filter-faction').toArray().length / 2) {
+                                var targetString = $(this).parent().text().toLowerCase();
+                                targetString = targetString.replace(' ', '');
+                                if (targetString === item) {
+                                    $(this).trigger('click');
+                                }
+                            }
+                        });
+                    } else if (i === 2) {
+                        $('.filter-rarity').each(function (k, e) {
+                            if (k < $('.filter-rarity').toArray().length / 2) {
+                                var targetString = $(this).parent().text().toLowerCase();
+                                targetString = targetString.replace(' ', '');
+                                if (targetString === item) {
+                                    $(this).trigger('click');
+                                }
+                            }
+                        });
+                    } else if (i === 3) {
+                        $('.filter-category').each(function (k, e) {
+                            if (k < $('.filter-category').toArray().length / 2) {
+                                var targetString = $(this).parent().text().toLowerCase();
+                                targetString = targetString.replace(' ', '');
+                                if (targetString === item) {
+                                    $(this).trigger('click');
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+}
+
+function updateLocationHash() {
+    var newHash = '#';
+
+    newHash += 'faction=';
+    $('.filter-faction').each(function (k, e) {
+        if (k < $('.filter-faction').toArray().length / 2) {
+            if ($(this).parent().hasClass('active')) {
+                var targetString = $(this).parent().text().toLowerCase();
+                targetString = targetString.replace(' ', '');
+                newHash += targetString + ',';
+            }
+        }
+    });
+    if (newHash.endsWith(',')) {
+        newHash = newHash.substr(0, newHash.length - 1);
+    }
+    newHash += ';';
+
+    newHash += 'rarity=';
+
+    $('.filter-rarity').each(function (k, e) {
+        if (k < $('.filter-rarity').toArray().length / 2) {
+            if ($(this).parent().hasClass('active')) {
+                var targetString = $(this).parent().text().toLowerCase();
+                targetString = targetString.replace(' ', '');
+                newHash += targetString + ',';
+            }
+        }
+    });
+    if (newHash.endsWith(',')) {
+        newHash = newHash.substr(0, newHash.length - 1);
+    }
+    newHash += ';';
+
+    newHash += 'category=';
+
+    $('.filter-category').each(function (k, e) {
+        if (k < $('.filter-category').toArray().length / 2) {
+            if ($(this).parent().hasClass('active')) {
+                var targetString = $(this).parent().text().toLowerCase();
+                targetString = targetString.replace(' ', '');
+                newHash += targetString + ',';
+            }
+        }
+    });
+    if (newHash.endsWith(',')) {
+        newHash = newHash.substr(0, newHash.length - 1);
+    }
+    newHash += ';';
+    location.hash = newHash;
+}
