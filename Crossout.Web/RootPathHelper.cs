@@ -14,6 +14,11 @@ namespace Crossout.Web
             return File.Exists(System.IO.Path.Combine(RootPathProvider.GetRootPathStatic(), "img", "items", path));
         }
 
+        public static bool HighResImageExists(string path)
+        {
+            return File.Exists(System.IO.Path.Combine(RootPathProvider.GetRootPathStatic(), "img", "items-highres", path));
+        }
+
         public static string AbsolutePath(string relativePath)
         {
             return System.IO.Path.Combine(RootPathProvider.GetRootPathStatic(), relativePath);
