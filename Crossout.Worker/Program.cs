@@ -38,17 +38,23 @@ namespace Crossout.Worker
             {
                 if (Scheduler.Schedule.First().Value <= DateTime.UtcNow)
                 {
-                    BaseTask task = Scheduler.Schedule.First().Key;
-                    Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Executing task: {task.Key}");
-                    Scheduler.UpdateTask(task);
-
-                    CancellationTokenSource s = new CancellationTokenSource();
-                    Task.Factory.StartNew(() =>
-                    {
-                        task.Workload(sql);
-                    }, s.Token);
+                    RunFirstTaskInSchedule(sql);
                 }
+                Thread.Sleep(100);
             }
+        }
+
+        static void RunFirstTaskInSchedule(SqlConnector sql)
+        {
+            BaseTask task = Scheduler.Schedule.First().Key;
+            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] Executing task: {task.Key}");
+            Scheduler.UpdateTask(task);
+
+            CancellationTokenSource cts = new CancellationTokenSource();
+            Task.Factory.StartNew(() =>
+            {
+                task.Workload(sql);
+            }, cts.Token);
         }
     }
 }

@@ -205,62 +205,63 @@
             });
         }
 
-        $.each(names, function (i, name) {
-            var id = @Model.Item.Id;
-            var host = '@WebSettings.Settings.DataHost';
-            $.getJSON(location.protocol + '//@(ViewHelper.GetHostWithPort(Request))/data/item/'+ name.name.toLowerCase() +'/' +id, function (data) {
-                var series = {};
+        var id = @Model.Item.Id;
+        var host = '@WebSettings.Settings.DataHost';
+        $.getJSON(location.protocol + '//@(ViewHelper.GetHostWithPort(Request))/data/item/all/' + id, function (alldata) {
+            var series = {};
+            $.each(alldata.Data, function (i, data) {
                 // Adjust time to local time
-                $.each(data.Data, function (i, data) {
-                    data[0] = data[0] + totalUnixOffset;
+                $.each(data, function (j, row) {
+                    row[0] = row[0] + totalUnixOffset;
                 });
-                if (name.type === 1) {
+
+                if (names[i].type === 1) {
                     var color = '#44A5FF';
-                    if (name.name === 'SellOffers') {
+                    if (names[i].name === 'SellOffers') {
                         color = '#939393';
                     }
                     series =
-                    {
-                        name: name.name,
-                        yAxis: 1,
-                        data: data.Data,
-                        type: 'column',
-                        zIndex: 1,
-                        color : color
-                    };
+                        {
+                            name: names[i].name,
+                            yAxis: 1,
+                            data: data,
+                            type: 'column',
+                            zIndex: 1,
+                            color: color
+                        };
                 } else {
                     var color = '#32C922';
-                    if (name.name === 'Sell') {
+                    if (names[i].name === 'Sell') {
                         color = '#FF3D23';
                     }
                     series =
-                    {
-                        name: name.name,
-                        data: data.Data,
-                        type: 'line',
-                        zIndex: 2,
-                        color : color
-                    };
+                        {
+                            name: names[i].name,
+                            data: data,
+                            type: 'line',
+                            zIndex: 2,
+                            color: color
+                        };
                 }
 
                 seriesOptions[i] = series;
                 // As we're loading the data asynchronously, we don't know what order it will arrive. So
                 // we keep a counter and create the chart when all the data is loaded.
                 seriesCounter += 1;
-
-                $('#loading-icon').remove();
-                if (seriesCounter === names.length) {
-                    if (Cookies.get("datagroupingdisabled") === "true")
-                    {
-                        createChart(buttonsDisabledGrouping);
-                    }
-                    else
-                    {
-                        createChart(buttons);
-                    }
-                }
-                $('#grouping-button').removeClass('hidden');
             });
+
+            $('#loading-icon').remove();
+            if (seriesCounter === names.length) {
+                if (Cookies.get("datagroupingdisabled") === "true")
+                {
+                    createChart(buttonsDisabledGrouping);
+                }
+                else
+                {
+                    createChart(buttons);
+                }
+            }
+            $('#grouping-button').removeClass('hidden');
         });
 
         $(document).ready(function() {
@@ -323,6 +324,12 @@
                 plotOptions: {
                     candlestick: {
                         lineColor: '#404048'
+                    },
+                    series: {
+                        // general options for all series
+                        dataGrouping: {
+                            approximation: "average"
+                        }
                     }
                 },
                 // General
