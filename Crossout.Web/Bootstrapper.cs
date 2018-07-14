@@ -4,6 +4,7 @@ using Nancy.Authentication.Forms;
 using Nancy.Bootstrapper;
 using Nancy.Conventions;
 using Nancy.Diagnostics;
+using Nancy.Gzip;
 using Nancy.SimpleAuthentication;
 using Nancy.TinyIoc;
 using Newtonsoft.Json;
@@ -76,6 +77,16 @@ namespace Crossout.Web
                 };
 
             FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
+        }
+
+        protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
+        {
+            // Enable Compression with Settings
+            var settings = new GzipCompressionSettings();
+            settings.MinimumBytes = 1024;
+            pipelines.EnableGzipCompression(settings);
+
+            base.ApplicationStartup(container, pipelines);
         }
 
         protected override IRootPathProvider RootPathProvider
