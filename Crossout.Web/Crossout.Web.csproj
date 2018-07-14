@@ -3891,7 +3891,9 @@
     <None Include="scripts\Internal\crafting.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="scripts\Internal\locationhash.js" />
+    <None Include="scripts\Internal\locationhash.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="SQL\Recipes.sql" />
     <Content Include="SQL\SelectNewestMarket.sql" />
     <Content Include="SQL\SelectNewestMarket2.sql" />
