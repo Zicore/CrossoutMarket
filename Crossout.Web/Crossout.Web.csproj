@@ -76,6 +76,9 @@
       <HintPath>..\packages\Nancy.Authentication.Forms.1.4.1\lib\net40\Nancy.Authentication.Forms.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Nancy.Gzip, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Gzip.0.1.0\lib\net45\Nancy.Gzip.dll</HintPath>
+    </Reference>
     <Reference Include="Nancy.Hosting.Self, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nancy.Hosting.Self.1.2.0\lib\net40\Nancy.Hosting.Self.dll</HintPath>
       <Private>True</Private>
