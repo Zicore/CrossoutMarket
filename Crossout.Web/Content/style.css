@@ -199,9 +199,9 @@ body {
     height:64px;
 }
 
-.item-image-extra-big {
-    width: 128px;
-    height: 128px;
+.item-image-auto-size {
+    width: auto;
+    height: auto;
 }
 
 .item-removed {
