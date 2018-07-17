@@ -1,0 +1,8 @@
+﻿{
+  "Key": "corrida",
+  "SteamAppID": 887050,
+  "Name": "Corrida",
+  "Description": "",
+  "MarketPartIDs": [ 819, 815, 815, 811, 810, 812, 809, 38, 71, 68, 68, 87, 87, 91, 91, 396, 396 ],
+  "RawCoins": 1500
+}
