@@ -131,7 +131,7 @@ function updateLocationHash(table) {
     }
 
     var newOrder = table.order();
-    if (newOrder[0].toString() != defaultOrder[0].toString() ) {
+    if (newOrder[0].toString() !== defaultOrder[0].toString()) {
         if (!newHash.includes('order=')) {
             newHash += 'order=';
         }
@@ -148,9 +148,11 @@ $('#ItemTable').on('length.dt', function (e, settings, len) {
     updateLocationHash($('#ItemTable').DataTable());
 });
 
+var isInitialSortingOver = false;
 $('#ItemTable').on('order.dt', function () {
-    var newOrder = $('#ItemTable').DataTable().order();
-    if (newOrder[0].toString() != defaultOrder[0].toString()) {
+    if (isInitialSortingOver) {
         updateLocationHash($('#ItemTable').DataTable());
+    } else {
+        isInitialSortingOver = true;
     }
 });

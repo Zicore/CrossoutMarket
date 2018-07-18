@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     $.fn.DataTable.ext.pager.numbers_length = 10;
 
-    var order = defaultOrder.slice(0);
+    var order = [[4, "asc"]];
 
     var table = $('#ItemTable').DataTable({
         paging: true,
