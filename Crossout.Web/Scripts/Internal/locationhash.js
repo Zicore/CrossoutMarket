@@ -1,15 +1,15 @@
 ﻿function applyLocationHash(table) {
     var hash = location.hash;
-    var pattern = '(?<type>faction|rarity|category|length|order)=(?<items>.*,?)';
+    var pattern = '(faction|rarity|category|length|order)=(.*,?)';
     hash = hash.replace('#', '');
     var types = hash.split('.');
     types.forEach(function (type, i) {
         var regEx = new RegExp(pattern, 'ig');
         var matches = regEx.exec(type);
         if (matches != null) {
-            var typeName = matches.groups['type'];
+            var typeName = matches[1];
 
-            var items = matches.groups['items'].split(',');
+            var items = matches[2].split(',');
 
             items.forEach(function (item, j) {
                 if (typeName === "faction") {
