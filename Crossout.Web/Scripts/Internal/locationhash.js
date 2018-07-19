@@ -16,7 +16,7 @@
                     $('.filter-faction').each(function (k, e) {
                         if (k < $('.filter-faction').toArray().length) {
                             var targetString = $(this).parent().text().toLowerCase();
-                            targetString = targetString.replace(' ', '');
+                            targetString = cleanUpString(targetString);
                             if (targetString === item) {
                                 $(this).parent().addClass('active');
                             }
@@ -26,7 +26,7 @@
                     $('.filter-rarity').each(function (k, e) {
                         if (k < $('.filter-rarity').toArray().length) {
                             var targetString = $(this).parent().text().toLowerCase();
-                            targetString = targetString.replace(' ', '');
+                            targetString = cleanUpString(targetString);
                             if (targetString === item) {
                                 $(this).parent().addClass('active');
                             }
@@ -36,7 +36,7 @@
                     $('.filter-category').each(function (k, e) {
                         if (k < $('.filter-category').toArray().length) {
                             var targetString = $(this).parent().text().toLowerCase();
-                            targetString = targetString.replace(' ', '');
+                            targetString = cleanUpString(targetString);
                             if (targetString === item) {
                                 $(this).parent().addClass('active');
                             }
@@ -70,7 +70,7 @@ function updateLocationHash(table) {
                     newHash += 'faction=';
                 }
                 var targetString = $(this).parent().text().toLowerCase();
-                targetString = targetString.replace(' ', '');
+                targetString = cleanUpString(targetString);
                 newHash += targetString + ',';
             }
         }
@@ -89,7 +89,7 @@ function updateLocationHash(table) {
                     newHash += 'rarity=';
                 }
                 var targetString = $(this).parent().text().toLowerCase();
-                targetString = targetString.replace(' ', '');
+                targetString = cleanUpString(targetString);
                 newHash += targetString + ',';
             }
         }
@@ -108,7 +108,7 @@ function updateLocationHash(table) {
                     newHash += 'category=';
                 }
                 var targetString = $(this).parent().text().toLowerCase();
-                targetString = targetString.replace(' ', '');
+                targetString = cleanUpString(targetString);
                 newHash += targetString + ',';
             }
         }
@@ -142,6 +142,12 @@ function updateLocationHash(table) {
     }
 
     location.hash = newHash;
+}
+
+function cleanUpString(targetString) {
+    targetString = targetString.replace(' ', '');
+    targetString = targetString.replace('\'', '');
+    return targetString;
 }
 
 $('#ItemTable').on('length.dt', function (e, settings, len) {
