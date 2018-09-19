@@ -1,0 +1,34 @@
+﻿{
+  "Id": "327",
+  "Key": "gunmountwheelst",
+  "Name": "Gun-mount wheel ST",
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 450
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 150
+    },
+    /* Talers x50 */
+    {
+      "Id": 329,
+      "Amount": 100
+    },
+    {
+      "Id": 126,
+      "Amount": 3
+    },
+    {
+      "Id": 163,
+      "Amount": 2
+    },
+    {
+      "Id": 96,
+      "Amount": 2
+    }
+  ]
+}

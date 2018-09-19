@@ -1,0 +1,43 @@
+﻿{
+  "Key": "corvo",
+  "Name": "Corvo",
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 650
+    },
+    /* Wires x100 */
+    {
+      "Id": 85,
+      "Amount": 500
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 600
+    },
+    /* Plastic x100 */
+    {
+      "Id": 785,
+      "Amount": 250
+    },
+    /* Talers x50 */
+    {
+      "Id": 329,
+      "Amount": 300
+    },
+    {
+      "Id": 457,
+      "Amount": 2
+    },
+    {
+      "Id": 80,
+      "Amount": 2
+    },
+    {
+      "Id": 73,
+      "Amount": 2
+    }
+  ]
+}

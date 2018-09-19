@@ -1,0 +1,131 @@
+﻿@{
+    Layout = "layout.cshtml";
+}
+
+@using Crossout.Model.Items
+@using Crossout.Web
+@using Crossout.Web.Models
+@using Crossout.Data.KnightRiders
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.General.KnightRidersModel>
+
+
+@Html.Partial("header", Model)
+
+@Html.Partial("status", Model.Status)
+
+<div class="container-space">
+    <div class="row">
+        @foreach (EventItem item in Model.EventItems)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="panel panel-default" style="padding: 8px">
+                    <div class="row">
+
+                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                            @if (RootPathHelper.ImageExists(item.Id + ".png"))
+                            {
+                                <img class="item-image-search" src="~/img/items/@(item.Id).png" style="width: 32px; height: 32px" />
+                            }
+                            else
+                            {
+                                <img class="item-image-search" src="~/img/NoImage.png" style="width: 32px; height: 32px" />
+                            }
+                        </div>
+
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <h4>@item.Name</h4>
+                        </div>
+                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                            <button class="btn btn-default content-button pull-right" id="@(item.Key)">Show Ingredients</button>
+                        </div>
+                    </div>
+
+                    <div id="content-wrapper-@(item.Key)" style="display: none; margin-bottom: 8px; margin-right: 8px">
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Item
+                                    </th>
+                                    <th>
+                                        Amount
+                                    </th>
+                                    <th class="text-right">
+                                        Sell Price
+                                    </th>
+                                    <th class="text-right">
+                                        Buy Price
+                                    </th>
+                                </tr>
+                            </thead>
+                            @foreach (Ingredient ingredient in item.Ingredients)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (RootPathHelper.ImageExists(ingredient.Id + ".png"))
+                                        {
+                                            <a href="~/item/@(ingredient.Id)"><img class="item-image-search" src="~/img/items/@(ingredient.Id).png" /></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="~/item/@(ingredient.Id)"><img class="item-image-search" src="~/img/NoImage.png" /></a>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="label-md-left">x @ingredient.Amount</div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="label-md">@(ingredient.FormatSellPrice) <img src="~/img/Coin.png" height="14" /></div>
+                                    </td>
+                                    <td class="text-right">
+                                        <div class="label-md">@(ingredient.FormatBuyPrice) <img src="~/img/Coin.png" height="14" /></div>
+                                    </td>
+                                </tr>
+                            }
+                            </table>
+                        </div>
+                    <div class="row" style="margin-bottom: 8px">
+                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
+
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            Sell
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            Buy
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            Ingredient Sum
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
+                            @item.FormatSellSum
+                            <img src="~/img/Coin.png" height="14" />
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
+                            @item.FormatBuySum
+                            <img src="~/img/Coin.png" height="14" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.content-button').click(function (e) {
+            var content = $('#content-wrapper-' + $(this).attr('id'));
+            if (content.is(":visible")) {
+                $(this).text("Show Ingredients");
+                content.slideUp();
+            } else {
+                $(this).text("Hide Ingredients");
+                content.slideDown();
+            }
+        });
+    });
+</script>

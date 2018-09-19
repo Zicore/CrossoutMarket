@@ -1,0 +1,21 @@
+﻿{
+  "Key": "drainknight",
+  "Name": "Drain Knight",
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 150
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 50
+    },
+    /* Talers x50 */
+    {
+      "Id": 329,
+      "Amount": 100
+    }
+  ]
+}
