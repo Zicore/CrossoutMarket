@@ -131,7 +131,7 @@ function updateLocationHash(table) {
     }
 
     var newOrder = table.order();
-    if (newOrder[0].toString() !== defaultOrder[0].toString()) {
+    if (newOrder.length > 0 && newOrder[0].toString() !== defaultOrder[0].toString()) {
         if (!newHash.includes('order=')) {
             newHash += 'order=';
         }

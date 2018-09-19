@@ -83,4 +83,14 @@
     </div>
 </div>
 
+<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnSortNeutral.js"></script>
+<script src="~/Scripts/Internal/locationhash.js"></script>
 <script src="~/Scripts/Internal/search.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#ItemTable').dataTable();
+
+        // Sort in the order that was originally in the HTML
+        table.fnSortNeutral();
+    });
+</script>
