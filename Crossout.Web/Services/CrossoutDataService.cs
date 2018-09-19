@@ -33,6 +33,7 @@ namespace Crossout.Web.Services
         public ReverseItemLookup ReverseItemLookup { get; } = new ReverseItemLookup();
         public StringLookup StringLookup { get; } = new StringLookup();
         public PremiumPackagesColletion PremiumPackagesCollection { get; } = new PremiumPackagesColletion();
+        public KnightRidersCollection KnightRidersCollection { get; } = new KnightRidersCollection();
 
         public static void Initialize()
         {
@@ -53,6 +54,7 @@ namespace Crossout.Web.Services
             CoreStatsCollection.ReadStats<PartStatsCore>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorCoreLua));
 
             PremiumPackagesCollection.ReadPackages(Path.Combine(rootPath, WebSettings.Settings.DirectoryPremiumPackages));
+            KnightRidersCollection.ReadPackages(Path.Combine(rootPath, WebSettings.Settings.DirectoryKnightRiders));
         }
 
         public PartStatsBase Get(string internalKey, PartStatsCollection statsCollection)

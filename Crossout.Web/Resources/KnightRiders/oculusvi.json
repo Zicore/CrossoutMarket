@@ -1,0 +1,33 @@
+﻿{
+  "Key": "oculusvi",
+  "Name": "Oculus VI",
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 600
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 300
+    },
+    /* Talers x50 */
+    {
+      "Id": 329,
+      "Amount": 150
+    },
+    {
+      "Id": 93,
+      "Amount": 2
+    },
+    {
+      "Id": 173,
+      "Amount": 2
+    },
+    {
+      "Id": 172,
+      "Amount": 2
+    }
+  ]
+}

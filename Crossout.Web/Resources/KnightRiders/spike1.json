@@ -1,0 +1,45 @@
+﻿{
+  "Id":  "321",
+  "Key": "spike1",
+  "Name": "Spike-1",
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 1000
+    },
+    /* Wires x100 */
+    {
+      "Id": 85,
+      "Amount": 1250
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 1500
+    },
+    /* Plastic x100 */
+    {
+      "Id": 785,
+      "Amount": 700
+    },
+    /* Talers x50 */
+    {
+      "Id": 329,
+      "Amount": 300
+    },
+    /* Oculus VI */
+    /* Oculus VI */
+    /* Oculus VI */
+    /* Oculus VI */
+    /* Oculus VI */
+    {
+      "Id": 373,
+      "Amount": 4
+    },
+    {
+      "Id": 129,
+      "Amount": 4
+    }
+  ]
+}

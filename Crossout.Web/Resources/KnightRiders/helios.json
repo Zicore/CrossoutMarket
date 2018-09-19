@@ -1,0 +1,43 @@
+﻿{
+  "Key": "helios",
+  "Name": "Helios",
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 1350
+    },
+    /* Batteries x100 */
+    {
+      "Id": 784,
+      "Amount": 800
+    },
+    /* Electronics x100 */
+    {
+      "Id": 168,
+      "Amount": 800
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 1350
+    },
+    /* Talers x50 */
+    {
+      "Id": 329,
+      "Amount": 500
+    },
+    {
+      "Id": 498,
+      "Amount": 2
+    },
+    {
+      "Id": 488,
+      "Amount": 2
+    },
+    {
+      "Id": 612,
+      "Amount": 1
+    }
+  ]
+}
