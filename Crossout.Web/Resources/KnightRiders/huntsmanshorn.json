@@ -2,6 +2,7 @@
   "Id": "323",
   "Key": "huntsmanshorn",
   "Name": "Huntsman's horn",
+  "Talers": 300,
   "Ingredients": [
     /* Scrap x100 */
     {
@@ -22,11 +23,6 @@
     {
       "Id": 785,
       "Amount": 600
-    },
-    /* Talers x50 */
-    {
-      "Id": 329,
-      "Amount": 300
     }
   ]
 }

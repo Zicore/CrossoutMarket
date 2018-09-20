@@ -1,6 +1,8 @@
 ﻿{
+  "Id": "830",
   "Key": "oculusvi",
   "Name": "Oculus VI",
+  "Talers": 150,
   "Ingredients": [
     /* Scrap x100 */
     {
@@ -12,18 +14,13 @@
       "Id": 43,
       "Amount": 300
     },
-    /* Talers x50 */
-    {
-      "Id": 329,
-      "Amount": 150
-    },
     {
       "Id": 93,
       "Amount": 2
     },
     {
       "Id": 173,
-      "Amount": 2
+      "Amount": 3
     },
     {
       "Id": 172,

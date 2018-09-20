@@ -21,6 +21,11 @@ namespace Crossout.Data.KnightRiders
     {
         public string Key;
         public string Name;
+        public decimal SellPrice;
+        public decimal BuyPrice;
+        public string FormatSellPrice;
+        public string FormatBuyPrice;
+        public int Talers;
         public int? Id;
         public List<Ingredient> Ingredients;
         public string FormatSellSum;

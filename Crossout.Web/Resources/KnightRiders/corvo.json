@@ -1,6 +1,8 @@
 ﻿{
+  "Id": "827",
   "Key": "corvo",
   "Name": "Corvo",
+  "Talers": 300,
   "Ingredients": [
     /* Scrap x100 */
     {
@@ -21,11 +23,6 @@
     {
       "Id": 785,
       "Amount": 250
-    },
-    /* Talers x50 */
-    {
-      "Id": 329,
-      "Amount": 300
     },
     {
       "Id": 457,
