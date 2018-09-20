@@ -1,7 +1,8 @@
 ﻿{
-  "Id":  "321",
+  "Id": "321",
   "Key": "spike1",
   "Name": "Spike-1",
+  "Talers": 300,
   "Ingredients": [
     /* Scrap x100 */
     {
@@ -23,16 +24,10 @@
       "Id": 785,
       "Amount": 700
     },
-    /* Talers x50 */
     {
-      "Id": 329,
-      "Amount": 300
+      "Id": 830,
+      "Amount": 4
     },
-    /* Oculus VI */
-    /* Oculus VI */
-    /* Oculus VI */
-    /* Oculus VI */
-    /* Oculus VI */
     {
       "Id": 373,
       "Amount": 4

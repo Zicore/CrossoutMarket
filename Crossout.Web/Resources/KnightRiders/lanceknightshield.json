@@ -1,6 +1,8 @@
 ﻿{
+  "Id": "833",
   "Key": "lanceknightshield",
   "Name": "Lance knight shield",
+  "Talers": 100,
   "Ingredients": [
     /* Scrap x100 */
     {
@@ -11,11 +13,6 @@
     {
       "Id": 43,
       "Amount": 50
-    },
-    /* Talers x50 */
-    {
-      "Id": 329,
-      "Amount": 100
     }
   ]
 }

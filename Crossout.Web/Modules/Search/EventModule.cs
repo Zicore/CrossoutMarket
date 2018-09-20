@@ -39,21 +39,23 @@ namespace Crossout.Web.Modules.Search
 
                 KnightRidersModel knightRidersModel = new KnightRidersModel();
 
-                List<int> ingredientIDs = new List<int>();
+                List<int> containedItemIDs = new List<int>();
 
                 foreach (var item in knightRidersCollection.EventItems)
                 {
                     foreach (var ingredient in item.Ingredients)
                     {
-                        if (!ingredientIDs.Contains(ingredient.Id))
+                        if (!containedItemIDs.Contains(ingredient.Id))
                         {
-                            ingredientIDs.Add(ingredient.Id);
+                            containedItemIDs.Add(ingredient.Id);
                         }
                     }
-
-
+                    if (item.Id != null)
+                    {
+                        containedItemIDs.Add((int)item.Id);
+                    }
                 }
-                knightRidersModel.ContainedItems = db.SelectListOfItems(ingredientIDs);
+                knightRidersModel.ContainedItems = db.SelectListOfItems(containedItemIDs);
 
                 foreach (var item in knightRidersCollection.EventItems)
                 {
@@ -68,6 +70,14 @@ namespace Crossout.Web.Modules.Search
                         ingredient.FormatBuyPrice = PriceFormatter.FormatPrice(ingredient.BuyPrice);
                         sellSum += ingredient.SellPrice * ingredient.Amount / knightRidersModel.ContainedItems[ingredient.Id].Amount;
                         buySum += ingredient.BuyPrice * ingredient.Amount / knightRidersModel.ContainedItems[ingredient.Id].Amount;
+                    }
+
+                    if (item.Id != null)
+                    {
+                        item.SellPrice = knightRidersModel.ContainedItems[(int)item.Id].SellPrice;
+                        item.BuyPrice = knightRidersModel.ContainedItems[(int)item.Id].BuyPrice;
+                        item.FormatSellPrice = PriceFormatter.FormatPrice(item.SellPrice);
+                        item.FormatBuyPrice = PriceFormatter.FormatPrice(item.BuyPrice);
                     }
 
                     item.FormatSellSum = PriceFormatter.FormatPrice(sellSum);

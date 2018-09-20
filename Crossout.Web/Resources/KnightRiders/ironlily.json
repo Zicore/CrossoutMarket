@@ -1,6 +1,8 @@
 ﻿{
+  "Id": "837",
   "Key": "ironlily",
   "Name": "Iron Lily",
+  "Talers": 150,
   "Ingredients": [
     /* Scrap x100 */
     {
@@ -10,11 +12,6 @@
     /* Copper x100 */
     {
       "Id": 43,
-      "Amount": 150
-    },
-    /* Talers x50 */
-    {
-      "Id": 329,
       "Amount": 150
     }
   ]

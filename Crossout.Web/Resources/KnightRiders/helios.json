@@ -1,6 +1,8 @@
 ﻿{
+  "Id": "829",
   "Key": "helios",
   "Name": "Helios",
+  "Talers": 500,
   "Ingredients": [
     /* Scrap x100 */
     {
@@ -21,11 +23,6 @@
     {
       "Id": 43,
       "Amount": 1350
-    },
-    /* Talers x50 */
-    {
-      "Id": 329,
-      "Amount": 500
     },
     {
       "Id": 498,

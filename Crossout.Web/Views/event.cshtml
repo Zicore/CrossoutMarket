@@ -24,16 +24,16 @@
                         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                             @if (RootPathHelper.ImageExists(item.Id + ".png"))
                             {
-                                <img class="item-image-search" src="~/img/items/@(item.Id).png" style="width: 32px; height: 32px" />
+                                <a href="~/item/@(item.Id)"><img class="item-image-search" src="~/img/items/@(item.Id).png" style="width: 32px; height: 32px" /></a>
                             }
                             else
                             {
-                                <img class="item-image-search" src="~/img/NoImage.png" style="width: 32px; height: 32px" />
+                                <a href="~/item/@(item.Id)"><img class="item-image-search" src="~/img/NoImage.png" style="width: 32px; height: 32px" /></a>
                             }
                         </div>
 
                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <h4>@item.Name</h4>
+                            <a href="~/item/@(item.Id)"><h4>@item.Name</h4></a>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                             <button class="btn btn-default content-button pull-right" id="@(item.Key)">Show Ingredients</button>
@@ -82,8 +82,8 @@
                                     </td>
                                 </tr>
                             }
-                            </table>
-                        </div>
+                        </table>
+                    </div>
                     <div class="row" style="margin-bottom: 8px">
                         <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
 
@@ -97,6 +97,19 @@
                     </div>
                     <div class="row">
                         <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            Price
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
+                            @item.FormatSellPrice
+                            <img src="~/img/Coin.png" height="14" />
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
+                            @item.FormatBuyPrice
+                            <img src="~/img/Coin.png" height="14" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
                             Ingredient Sum
                         </div>
                         <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
@@ -106,6 +119,17 @@
                         <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
                             @item.FormatBuySum
                             <img src="~/img/Coin.png" height="14" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                            Talers
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            @item.Talers
+                        </div>
+                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            @item.Talers
                         </div>
                     </div>
 
