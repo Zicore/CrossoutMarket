@@ -318,6 +318,30 @@
     <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_summons.lua" />
     <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_weapons_ex.lua" />
     <None Include="Resources\Data\0.8.0\gamedata\def\ex\car_editor_wheels.lua" />
+    <None Include="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_cabins.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_core.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_decorum.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_melee.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_structure.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_summons.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_weapons_ex.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_wheels.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\KnightRiders\armoredskull.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -385,6 +409,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\NoImage.xcf" />
+    <None Include="Resources\PremiumPackages\insomnia.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PremiumPackages\corrida.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -4015,6 +4042,22 @@
     <None Include="img\premiumpackages\corrida.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="img\premiumpackages\insomnia.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Resources\Data\0.9.120.87835\strings\chinese\string.txt" />
+    <None Include="Resources\Data\0.9.120.87835\strings\english\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Resources\Data\0.9.120.87835\strings\french\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\german\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\japanese\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\korean\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\polish\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\russian\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\spanish\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\tchinese\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\thai\string.txt" />
     <Content Include="scripts\bootstrap-select.min.js" />
     <None Include="scripts\Internal\item.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

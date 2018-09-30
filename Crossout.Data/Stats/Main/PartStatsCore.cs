@@ -26,27 +26,33 @@
             get { return power; }
         }
 
-        [Stat("Engine Speed Multiplier", 20)]
+        [Stat("Max. Speed", 20, ShowPercentage = true, ShowAddition = true)]
         public double StatEngineSpeedMultiplier
         {
-            get { return engine_max_speed_mul; }
+            get { return engine_max_speed_mul * 100.0f; }
         }
 
-        [Stat("Engine Power Multiplier", 30)]
+        [Stat("Power", 30, ShowPercentage = true, ShowAddition = true)]
         public double StatEnginePowerMultiplier
         {
-            get { return engine_power_mul; }
+            get { return engine_power_mul * 100.0f; }
         }
 
-        [Stat("Mass Limit", 40)]
+        [Stat("Mass Limit", 40, ShowAddition = true)]
         public double StatMassLimit
         {
             get { return critical_mass_add; }
         }
 
+        [Stat("Tonnage", 50, ShowAddition = true)]
+        public double StatTonnage
+        {
+            get { return tonnage_add; }
+        }
+
         //------
 
-        [Stat("Structure", 60)]
+        [Stat("Durability", 60)]
         public double StatStructure
         {
             get { return health; }
@@ -72,10 +78,10 @@
             get { return shooting_cooldown_mul; }
         }
 
-        [Stat("Heat Increase Multiplier", 110, Type = StatType.Hidden)]
+        [Stat("Heat Increase", 110, Type = StatType.Hidden, ShowPercentage = true)]
         public double StatHeatIncreaseMultiplier
         {
-            get { return heat_max_mul; }
+            get { return heat_inc_mul * 100.0f; }
         }
 
         [Stat("Heat Decrease Multiplier", 115, Type = StatType.Hidden)]

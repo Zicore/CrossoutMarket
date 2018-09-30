@@ -52,7 +52,7 @@ namespace Crossout.Data
 
         }
 
-        private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[^=]+)=(?<value>.+)";
+        private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[^=]+) = (?<value>.+)";
         private readonly string isArrayPattern = @"\[(?<number>[^]]+)\]"; // Could be useful in the future to parse arrays :)
 
         // Function to generate UNIQUE fields for PartStats.cs

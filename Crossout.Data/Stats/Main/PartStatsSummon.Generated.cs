@@ -19,12 +19,9 @@ namespace Crossout.Data.Stats.Main
         public int max_range {get;set;}
         public double spread_stat {get;set;}
         public string projectile {get;set;}
-        public int ammo {get;set;}
         public int blast_damage {get;set;}
-        public int blast_damage_experimental {get;set;}
         public int blast_impulse {get;set;}
         public int blast_radius {get;set;}
-        public int blast_radius_experimental {get;set;}
         public int projectile_speed {get;set;}
         public int projectile_rot_radius {get;set;}
         public int projectile_detonation_radius {get;set;}
@@ -35,6 +32,9 @@ namespace Crossout.Data.Stats.Main
         public int max_pitch {get;set;}
         public int min_pitch {get;set;}
         public string behavior {get;set;}
-        public int radius {get;set;}
+        public int cooldown {get;set;}
+        public int ammo {get;set;}
+        public double radius {get;set;}
+        public int blast_resist {get;set;}
     }
 }

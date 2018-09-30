@@ -24,12 +24,6 @@
             get { return engine_max_speed; }
         }
 
-        [Stat("Max. Speed", 20)]
-        public int StatMaxSpeed
-        {
-            get { return speed_limit; }
-        }
-
         [Stat("Power", 30)]
         public int StatEnginePower
         {
@@ -56,7 +50,7 @@
 
         //------
 
-        [Stat("Structure", 70)]
+        [Stat("Durability", 70)]
         public double StatStructure
         {
             get { return health; }
@@ -82,11 +76,11 @@
             get { return radio_radius; }
         }
 
-        [Stat("Max. Velocity", 120, Type = StatType.Hidden)]
-        public int StatMaxVelocity
-        {
-            get { return max_velocity; }
-        }
+        //[Stat("Max. Velocity", 120, Type = StatType.Hidden)]
+        //public int StatMaxVelocity
+        //{
+        //    get { return max_velocity; }
+        //}
 
         [Stat("Brake Value", 130, Type = StatType.Hidden)]
         public int StatBrakeValue
