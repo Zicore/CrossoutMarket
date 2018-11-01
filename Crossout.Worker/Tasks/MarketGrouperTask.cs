@@ -27,7 +27,17 @@ namespace Crossout.Worker.Tasks
                 isRunning = true;
                 groupedMarketItems.Clear();
                 string query = "SELECT marketgrouped.id,marketgrouped.datetime as datetime FROM marketgrouped ORDER BY marketgrouped.datetime DESC LIMIT 1";
-                var dataset = sql.SelectDataSet(query);
+                List<object[]> dataset = new List<object[]>();
+                try
+                {
+                    dataset = sql.SelectDataSet(query);
+                }
+                catch
+                {
+                    Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
+                    isRunning = false;
+                    return;
+                }
                 DateTime latestGroupedData;
                 if (dataset.Count != 0)
                 {
@@ -37,7 +47,16 @@ namespace Crossout.Worker.Tasks
                     DateTime targetTimeEnd = targetTimeStart.AddDays(1);
 
                     query = $"SELECT market.id,market.datetime as datetime FROM market ORDER BY market.datetime DESC LIMIT 1";
-                    dataset = sql.SelectDataSet(query);
+                    try
+                    {
+                        dataset = sql.SelectDataSet(query);
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
+                        isRunning = false;
+                        return;
+                    }
 
                     if (targetTimeEnd < Convert.ToDateTime(dataset.First()[1]).AddHours(-1))
                     {
@@ -47,7 +66,16 @@ namespace Crossout.Worker.Tasks
                             Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} is grouping data from {targetTimeStart.ToString()} to {targetTimeEnd.ToString()}");
 
                             query = $"SELECT market.id,market.itemnumber,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime as datetime FROM market WHERE market.datetime >= '{ConvertDateTimeToDBString(targetTimeStart)}' AND market.datetime < '{ConvertDateTimeToDBString(targetTimeEnd)}' ORDER BY market.itemnumber ASC";
-                            dataset = sql.SelectDataSet(query);
+                            try
+                            {
+                                dataset = sql.SelectDataSet(query);
+                            }
+                            catch
+                            {
+                                Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
+                                isRunning = false;
+                                return;
+                            }
 
                             if (dataset.Count != 0)
                             {
@@ -184,7 +212,17 @@ namespace Crossout.Worker.Tasks
             sb.Remove(sb.Length - 1, 1);
             sb.Append(";");
             query = sb.ToString();
-            var result = sql.ExecuteSQL(query);
+            QueryResult result = new QueryResult();
+            try
+            {
+                result = sql.ExecuteSQL(query);
+            }
+            catch
+            {
+                Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
+                isRunning = false;
+                return;
+            }
             Console.WriteLine($"Query result: Error={result.HasError}, Rows inserted={result.RowCount}, LastID={result.LastInsertedId}");
         }
     }
