@@ -27,7 +27,17 @@ namespace Crossout.Worker.Tasks
             {
                 isRunning = true;
                 string query = "SELECT appid FROM steamprices";
-                var dataset = sql.SelectDataSet(query);
+                List<object[]> dataset = new List<object[]>();
+                try
+                {
+                    dataset = sql.SelectDataSet(query);
+                }
+                catch
+                {
+                    Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
+                    isRunning = false;
+                    return;
+                }
                 appIDsToGet.Clear();
                 foreach (var row in dataset)
                 {
@@ -46,13 +56,31 @@ namespace Crossout.Worker.Tasks
                         parameters.Add(new Parameter { Identifier = "@priceeur", Value = app.Value.Prices[1].Final });
                         parameters.Add(new Parameter { Identifier = "@pricegbp", Value = app.Value.Prices[2].Final });
                         parameters.Add(new Parameter { Identifier = "@pricerub", Value = app.Value.Prices[3].Final });
-                        var result = sql.ExecuteSQL("UPDATE steamprices SET steamprices.priceusd = @priceusd, steamprices.priceeur = @priceeur, steamprices.pricegbp = @pricegbp, steamprices.pricerub = @pricerub WHERE steamprices.appid = @appid", parameters);
+                        try
+                        {
+                            var result = sql.ExecuteSQL("UPDATE steamprices SET steamprices.priceusd = @priceusd, steamprices.priceeur = @priceeur, steamprices.pricegbp = @pricegbp, steamprices.pricerub = @pricerub WHERE steamprices.appid = @appid", parameters);
+                        }
+                        catch
+                        {
+                            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
+                            isRunning = false;
+                            return;
+                        }
                     }
                     else
                     {
                         List<Parameter> parameters = new List<Parameter>();
                         parameters.Add(new Parameter { Identifier = "@appid", Value = app.Key });
-                        var result = sql.ExecuteSQL("UPDATE steamprices SET steamprices.priceusd = null, steamprices.priceeur = null, steamprices.pricegbp = null, steamprices.pricerub = null WHERE steamprices.appid = @appid", parameters);
+                        try
+                        {
+                            var result = sql.ExecuteSQL("UPDATE steamprices SET steamprices.priceusd = null, steamprices.priceeur = null, steamprices.pricegbp = null, steamprices.pricerub = null WHERE steamprices.appid = @appid", parameters);
+                        }
+                        catch
+                        {
+                            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
+                            isRunning = false;
+                            return;
+                        }
                     }
                 }
                 Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} finished!");
