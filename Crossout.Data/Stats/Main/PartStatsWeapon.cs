@@ -56,7 +56,7 @@
 
         //------
 
-        [Stat("Structure", 60)]
+        [Stat("Durability", 60)]
         public double StatStructure
         {
             get { return health; }
@@ -83,7 +83,7 @@
         }
 
         [Stat("Collision Damage", 105, Type = StatType.Hidden)]
-        public int StatCollisionDamage
+        public double StatCollisionDamage
         {
             get { return collision_damage; }
         }

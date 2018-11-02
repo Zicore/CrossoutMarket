@@ -59,6 +59,7 @@ namespace Crossout.Web.Services
                 item.Name = row[i++].ConvertTo<string>();
                 item.SellPrice = row[i++].ConvertTo<int>();
                 item.BuyPrice = row[i++].ConvertTo<int>();
+                item.Amount = row[i++].ConvertTo<int>();
                 items.Add(item.Id, item);
             }
 
@@ -440,7 +441,7 @@ namespace Crossout.Web.Services
         public static string BuildItemsQueryFromIDList(List<int> ids)
         {
             StringBuilder sb = new StringBuilder();
-            string query = "SELECT item.id, item.name, item.sellprice, item.buyprice FROM item WHERE ";
+            string query = "SELECT item.id, item.name, item.sellprice, item.buyprice, item.amount FROM item WHERE ";
             sb.Append(query);
             int i = 0;
             foreach(var id in ids)

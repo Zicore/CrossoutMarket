@@ -1,0 +1,40 @@
+﻿{
+  "Id": "321",
+  "Key": "spike1",
+  "Name": "Spike-1",
+  "Talers": 300,
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 1000
+    },
+    /* Wires x100 */
+    {
+      "Id": 85,
+      "Amount": 1250
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 1500
+    },
+    /* Plastic x100 */
+    {
+      "Id": 785,
+      "Amount": 700
+    },
+    {
+      "Id": 830,
+      "Amount": 4
+    },
+    {
+      "Id": 373,
+      "Amount": 4
+    },
+    {
+      "Id": 129,
+      "Amount": 4
+    }
+  ]
+}

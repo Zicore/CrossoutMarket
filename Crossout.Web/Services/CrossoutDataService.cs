@@ -10,11 +10,13 @@ using Crossout.Data.Descriptions;
 using Crossout.Data.Stats;
 using Crossout.Data.Stats.Main;
 using Crossout.Model.Items;
+using NLog;
 
 namespace Crossout.Web.Services
 {
     public class CrossoutDataService
     {
+        private Logger Log = LogManager.GetCurrentClassLogger();
         private string replaceColorPattern = @"(?<start>[^@]+)@(?<color>[0-9a-f]{8})(?<value>[^@]+)(?<end>.*)";
         private string replaceValuesPattern = @"(?<start>[^\$]+)\$(?<key>[^\$]+)\$(?<end>.*)";
         private readonly Regex replaceValuesRegex;
@@ -33,6 +35,7 @@ namespace Crossout.Web.Services
         public ReverseItemLookup ReverseItemLookup { get; } = new ReverseItemLookup();
         public StringLookup StringLookup { get; } = new StringLookup();
         public PremiumPackagesColletion PremiumPackagesCollection { get; } = new PremiumPackagesColletion();
+        public KnightRidersCollection KnightRidersCollection { get; } = new KnightRidersCollection();
 
         public static void Initialize()
         {
@@ -53,6 +56,7 @@ namespace Crossout.Web.Services
             CoreStatsCollection.ReadStats<PartStatsCore>(Path.Combine(rootPath, WebSettings.Settings.FileCarEditorCoreLua));
 
             PremiumPackagesCollection.ReadPackages(Path.Combine(rootPath, WebSettings.Settings.DirectoryPremiumPackages));
+            KnightRidersCollection.ReadPackages(Path.Combine(rootPath, WebSettings.Settings.DirectoryKnightRiders));
         }
 
         public PartStatsBase Get(string internalKey, PartStatsCollection statsCollection)
@@ -138,8 +142,12 @@ namespace Crossout.Web.Services
             var key = GetKey(item.Name);
             if (key != null)
             {
-                var desc = ReplaceNewLines(StringLookup.ReadDescription(key));
-                item.Description = new ItemDescription { Text = desc };
+                var desc = StringLookup.ReadDescription(key);
+                if(desc != null)
+                {
+                    desc = ReplaceNewLines(desc);
+                    item.Description = new ItemDescription { Text = desc };
+                }
             }
         }
 
@@ -172,6 +180,11 @@ namespace Crossout.Web.Services
                             {
                                 var value = item.Stats.Fields[key];
                                 result = Regex.Replace(result, replaceValuesPattern, $"${{start}}{value}${{end}}");
+                            }
+                            else
+                            {
+                                //Log.Warn($"Couldn't replace description value. Item: {item.Name} Key: {key}");
+                                break;
                             }
                         }
                     } while (match.Success);

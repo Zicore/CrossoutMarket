@@ -9,6 +9,7 @@ namespace Crossout.Data.Stats.Main
         public string @class {get;set;}
         public bool released {get;set;}
         public bool tradeable {get;set;}
+        public string xopedia_keyword {get;set;}
         public string item_type {get;set;}
         public string model {get;set;}
         public string subtype {get;set;}
@@ -18,7 +19,6 @@ namespace Crossout.Data.Stats.Main
         public string ui_part_type_icon {get;set;}
         public string ui_part_type {get;set;}
         public int health {get;set;}
-        public bool damageable {get;set;}
         public int rarity {get;set;}
         public string physics_material {get;set;}
         public int physics_mass {get;set;}
@@ -45,24 +45,22 @@ namespace Crossout.Data.Stats.Main
         public int power {get;set;}
         public bool generator_unique {get;set;}
         public int death_blast_damage {get;set;}
-        public int death_blast_damage_experimental {get;set;}
-        public double death_blast_radius {get;set;}
-        public int death_blast_radius_experimental {get;set;}
+        public int death_blast_radius {get;set;}
         public double ammo_mul {get;set;}
         public int direct_resist {get;set;}
         public int blast_resist {get;set;}
         public int gasoline_harvest {get;set;}
         public string item_reward {get;set;}
-        public double heat_max_mul {get;set;}
-        public double heat_dec_mul {get;set;}
+        public double heat_inc_mul {get;set;}
         public double heat_inc_high_speed {get;set;}
+        public double heat_dec_mul {get;set;}
         public double heat_dec_low_speed {get;set;}
         public int radar_radius {get;set;}
         public int infravision_radius {get;set;}
         public int radio_radius {get;set;}
         public string ui_hud_icon {get;set;}
         public int skill_unique_count {get;set;}
-        public double work_time {get;set;}
+        public int work_time {get;set;}
         public int cooldown {get;set;}
         public bool editor_horizontal_rotation {get;set;}
         public int deploy_ammo {get;set;}
@@ -70,6 +68,12 @@ namespace Crossout.Data.Stats.Main
         public string deploy_def {get;set;}
         public string pre_deploy_model {get;set;}
         public int ai_optimal_dist {get;set;}
+        public int heat_max {get;set;}
+        public double heat_inc {get;set;}
+        public double heat_dec {get;set;}
+        public bool activate_hold {get;set;}
+        public int booster_ammo {get;set;}
+        public int fire_rate {get;set;}
         public int boost_value {get;set;}
         public string ui_aim_type {get;set;}
         public bool highlighting {get;set;}
@@ -80,19 +84,12 @@ namespace Crossout.Data.Stats.Main
         public int behavior_evade_radius {get;set;}
         public string deploy_design {get;set;}
         public string behavior {get;set;}
-        public int heat_max {get;set;}
-        public double heat_inc {get;set;}
-        public double heat_dec {get;set;}
-        public bool activate_hold {get;set;}
-        public int booster_ammo {get;set;}
-        public int fire_rate {get;set;}
-        public int acceleration_limit {get;set;}
         public double deploy_ammo_mul {get;set;}
         public string remap_texture {get;set;}
         public string platform_exclusive {get;set;}
         public double booster_ammo_mul {get;set;}
-        public string xopedia_keyword {get;set;}
         public int jammer_radius {get;set;}
         public string spell {get;set;}
+        public double shooting_cooldown_mul_high_speed {get;set;}
     }
 }

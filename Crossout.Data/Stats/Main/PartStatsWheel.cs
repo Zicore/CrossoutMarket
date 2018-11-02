@@ -32,7 +32,7 @@
 
         //------
 
-        [Stat("Structure", 60)]
+        [Stat("Durability", 60)]
         public double StatStructure
         {
             get { return health; }

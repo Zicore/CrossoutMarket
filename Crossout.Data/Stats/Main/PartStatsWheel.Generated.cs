@@ -11,6 +11,7 @@ namespace Crossout.Data.Stats.Main
         public bool tradeable {get;set;}
         public string item_type {get;set;}
         public string subtype {get;set;}
+        public string xopedia_keyword {get;set;}
         public string model {get;set;}
         public string editor_type {get;set;}
         public string ui_part_filter {get;set;}
@@ -18,7 +19,6 @@ namespace Crossout.Data.Stats.Main
         public string ui_part_type_icon {get;set;}
         public string ui_part_type {get;set;}
         public int health {get;set;}
-        public bool damageable {get;set;}
         public int rarity {get;set;}
         public string physics_material {get;set;}
         public int physics_mass {get;set;}
@@ -50,13 +50,12 @@ namespace Crossout.Data.Stats.Main
         public int speed_limit {get;set;}
         public double impulse_resistance_mul {get;set;}
         public int traction {get;set;}
-        public double height {get;set;}
         public int blast_resist {get;set;}
         public double damage_transmission {get;set;}
-        public int critical_angle {get;set;}
+        public bool ui_hud_hidden {get;set;}
+        public double odometer_mul {get;set;}
+        public string ui_hud_icon {get;set;}
+        public bool count_stats {get;set;}
         public int collision_damage {get;set;}
-        public string xopedia_keyword {get;set;}
-        public int saw_damage {get;set;}
-        public int max_damage_speed {get;set;}
     }
 }

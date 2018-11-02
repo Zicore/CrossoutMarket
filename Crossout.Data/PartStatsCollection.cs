@@ -18,7 +18,7 @@ namespace Crossout.Data
 
         public Dictionary<string, PartStatsBase> Items { get; } = new Dictionary<string, PartStatsBase>();
 
-        private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[^=]+)=(?<value>.+)";
+        private readonly string statsPattern = @"Def\.(?<name>[\w]+)\.(?<field>[^=]+) = (?<value>.+)";
         private readonly Regex statsRegex;
         
         public PartStatsCollection()

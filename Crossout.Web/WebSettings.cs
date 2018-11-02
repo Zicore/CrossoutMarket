@@ -39,6 +39,7 @@ namespace Crossout.Web
         public string FileStringsEnglish { get; set; } = @"Resources\Data\0.7.0\strings\english\string.txt";
 
         public string DirectoryPremiumPackages { get; set; } = @"Resources\PremiumPackages";
+        public string DirectoryKnightRiders { get; set; } = @"Resources\KnightRiders";
 
         public static string Title => "Crossout DB - Crossout Market and Crafting Calculator";
 
