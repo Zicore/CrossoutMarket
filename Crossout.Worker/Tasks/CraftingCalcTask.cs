@@ -54,7 +54,17 @@ namespace Crossout.Worker.Tasks
 
                 string collumns = "recipe.itemnumber,recipeitem.itemnumber,recipeitem.number,i1.sellprice,i1.buyprice,i1.amount,i2.raritynumber,i2.workbenchrarity";
                 string query = $"SELECT {collumns} FROM recipe LEFT JOIN recipeitem ON recipeitem.recipenumber = recipe.id LEFT JOIN item i1 ON i1.id = recipeitem.itemnumber LEFT JOIN item i2 ON i2.id = recipe.itemnumber ORDER BY recipe.itemnumber";
-                var dataset = sql.SelectDataSet(query);
+                List<object[]> dataset = new List<object[]>();
+                try
+                {
+                    dataset = sql.SelectDataSet(query);
+                }
+                catch
+                {
+                    Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
+                    isRunning = false;
+                    return;
+                }
 
                 craftingCostsByID.Clear();
 
@@ -96,7 +106,16 @@ namespace Crossout.Worker.Tasks
                     parameters.Add(new Parameter { Identifier = "@id", Value = item.Key });
                     parameters.Add(new Parameter { Identifier = "@sellsum", Value = item.Value.SellSum });
                     parameters.Add(new Parameter { Identifier = "@buysum", Value = item.Value.BuySum });
-                    var result = sql.ExecuteSQL("UPDATE item SET item.craftingsellsum = @sellsum, item.craftingbuysum = @buysum WHERE item.id = @id", parameters);
+                    try
+                    {
+                        var result = sql.ExecuteSQL("UPDATE item SET item.craftingsellsum = @sellsum, item.craftingbuysum = @buysum WHERE item.id = @id", parameters);
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
+                        isRunning = false;
+                        return;
+                    }
                 }
 
                 Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} finished!");
@@ -143,11 +162,20 @@ namespace Crossout.Worker.Tasks
                 sb.Append($"item.id={item} OR ");
             }
             sb.Append("null");
-            var ds = sql.SelectDataSet(sb.ToString());
-            workbenchPricesByID.Clear();
-            foreach (var row in ds)
+            try
             {
-                workbenchPricesByID.Add((int)row[0], (int)row[1]);
+                var ds = sql.SelectDataSet(sb.ToString());
+                workbenchPricesByID.Clear();
+                foreach (var row in ds)
+                {
+                    workbenchPricesByID.Add((int)row[0], (int)row[1]);
+                }
+            }
+            catch
+            {
+                Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
+                isRunning = false;
+                return;
             }
         }
     }

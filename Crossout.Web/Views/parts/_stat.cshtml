@@ -1,7 +1,7 @@
 ﻿@using System.Globalization
 @using Crossout.Data
 @inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Data.Stats.Main.SingleStat>
-    
+
 @if (Model != null)
 {
     if (Model.Stat.ShowProgressBar)
@@ -12,7 +12,12 @@
     }
     else
     {
-        <span class="@Model.Stat.CustomClasses">@string.Format(CultureInfo.InvariantCulture, "{0}", Model.Value)</span>
+        <span class="@Model.Stat.CustomClasses">
+            @((Model.Stat.ShowAddition) ? "+" : "")
+            @((Model.Stat.ShowSubtraction) ? "-" : "")
+            @string.Format(CultureInfo.InvariantCulture, "{0}", Model.Value)
+            @((Model.Stat.ShowPercentage) ? "%" : "")
+        </span>
     }
 }
 else

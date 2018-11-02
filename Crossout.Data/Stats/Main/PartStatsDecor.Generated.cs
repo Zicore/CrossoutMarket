@@ -31,6 +31,7 @@ namespace Crossout.Data.Stats.Main
         public string inherit {get;set;}
         public string platform_exclusive {get;set;}
         public string release_date {get;set;}
+        public string xopedia_keyword {get;set;}
         public bool editor_horizontal_rotation {get;set;}
         public bool lifts_camera {get;set;}
         public string bonus_faction {get;set;}

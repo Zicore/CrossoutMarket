@@ -28,6 +28,15 @@ namespace Crossout.Data
         [JsonProperty("showProgressBar")]
         public bool ShowProgressBar { get; set; }
 
+        [JsonProperty("showPercentage")]
+        public bool ShowPercentage { get; set; }
+
+        [JsonProperty("showAddition")]
+        public bool ShowAddition { get; set; }
+
+        [JsonProperty("showSubtraction")]
+        public bool ShowSubtraction { get; set; }
+
         [JsonProperty("customClasses")]
         public string CustomClasses { get; set; }
         

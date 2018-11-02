@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿const defaultOrder = [[5, "asc"]];
+
+$(document).ready(function () {
 
     adjustTimeStamp();
 
@@ -8,6 +10,8 @@
         "<'content-space'<'row'<'col-sm-4'p><'col-sm-4'B><'col-sm-2'i><'col-sm-2'l>>>";
 
     $.fn.DataTable.ext.pager.numbers_length = 10;
+
+    var order = [[5, "asc"]];
 
     var table = $('#ItemTable').DataTable({
         paging: true,
@@ -62,7 +66,7 @@
                 }
             ]
         },
-        order: [[5, "asc"]],
+        order: order,
         lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
         pagingType: "full_numbers",
         dom: domOption
@@ -81,7 +85,7 @@
             }
         });
         filterTable(table);
-        updateLocationHash();
+        updateLocationHash(table);
         e.preventDefault();
     });
 
@@ -93,7 +97,7 @@
             }
         });
         filterTable(table);
-        updateLocationHash();
+        updateLocationHash(table);
         e.preventDefault();
     });
 
@@ -105,7 +109,7 @@
             }
         });
         filterTable(table);
-        updateLocationHash();
+        updateLocationHash(table);
         e.preventDefault();
     });
 
