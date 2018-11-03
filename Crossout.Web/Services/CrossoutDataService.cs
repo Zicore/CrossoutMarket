@@ -176,9 +176,17 @@ namespace Crossout.Web.Services
                         if (match.Success)
                         {
                             var key = match.Groups["key"].Value;
+                            
                             if (item.Stats.Fields.ContainsKey(key))
                             {
                                 var value = item.Stats.Fields[key];
+
+                                var stat = item.Stats.SortedStats.FirstOrDefault(x => x.Stat.OverrideDescriptionStat != null && x.Stat.OverrideDescriptionStat.Equals(key));
+                                if(stat != null)
+                                {
+                                    value = stat.Value;
+                                }
+
                                 result = Regex.Replace(result, replaceValuesPattern, $"${{start}}{value}${{end}}");
                             }
                             else
@@ -186,6 +194,7 @@ namespace Crossout.Web.Services
                                 //Log.Warn($"Couldn't replace description value. Item: {item.Name} Key: {key}");
                                 break;
                             }
+                            
                         }
                     } while (match.Success);
                 }
