@@ -78,7 +78,7 @@
             get { return shooting_cooldown_mul; }
         }
 
-        [Stat("Heat Increase", 110, Type = StatType.Hidden, ShowPercentage = true)]
+        [Stat("Heat Increase", 110, Type = StatType.Hidden, ShowPercentage = true, OverrideDescriptionStat = "heat_inc_mul")]
         public double StatHeatIncreaseMultiplier
         {
             get { return heat_inc_mul * 100.0f; }

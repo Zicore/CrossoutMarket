@@ -25,6 +25,9 @@ namespace Crossout.Data
         [JsonProperty("order")]
         public int Order { get; set; }
 
+        [JsonProperty("override")]
+        public string OverrideDescriptionStat { get; set; }
+
         [JsonProperty("showProgressBar")]
         public bool ShowProgressBar { get; set; }
 
