@@ -340,3 +340,13 @@ body {
 .container-fluid {
     overflow-x: hidden;
 }
+
+/* tools page */
+.fixed-panel {
+    min-height: 231px;
+}
+
+.img-crop {
+    max-height: 120px;
+    overflow: hidden;
+}

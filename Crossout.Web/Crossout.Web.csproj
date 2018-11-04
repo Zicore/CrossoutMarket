@@ -173,6 +173,7 @@
     <Compile Include="Modules\Search\EditRecipeModule.cs" />
     <Compile Include="Modules\Search\CompareModule.cs" />
     <Compile Include="Modules\Search\EventModule.cs" />
+    <Compile Include="Modules\Search\ToolsModule.cs" />
     <Compile Include="Modules\Search\PremiumPackagesModule.cs" />
     <Compile Include="Modules\Search\ItemModule.cs" />
     <Compile Include="Modules\Search\CarftingOverviewModule.cs" />
@@ -509,6 +510,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\event.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\tools.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\recipepart.cshtml">
@@ -4075,6 +4079,31 @@
     <None Include="img\premiumpackages\drive.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="img\tools\discordbot1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\discordbot2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\crossoutreddit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\crossoutreddit2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\crossouttranslator.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\grindmaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\spreadsheetenglish.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\spreadsheetrussian.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="img\tools\discord.png" />
     <Content Include="Resources\Data\0.9.120.87835\strings\chinese\string.txt" />
     <None Include="Resources\Data\0.9.120.87835\strings\english\string.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
