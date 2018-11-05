@@ -4160,6 +4160,7 @@
     <None Include="img\tools\spreadsheetrussian.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="img\tools\crossdb.png" />
     <Content Include="img\tools\discord.png" />
     <Content Include="Resources\Data\0.9.120.87835\strings\chinese\string.txt" />
     <None Include="Resources\Data\0.9.120.87835\strings\english\string.txt">
