@@ -173,6 +173,7 @@
     <Compile Include="Modules\Search\EditRecipeModule.cs" />
     <Compile Include="Modules\Search\CompareModule.cs" />
     <Compile Include="Modules\Search\EventModule.cs" />
+    <Compile Include="Modules\Search\ToolsModule.cs" />
     <Compile Include="Modules\Search\PremiumPackagesModule.cs" />
     <Compile Include="Modules\Search\ItemModule.cs" />
     <Compile Include="Modules\Search\CarftingOverviewModule.cs" />
@@ -342,6 +343,30 @@
     <None Include="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_wheels.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_cabins.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_core.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_decorum.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_melee.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_structure.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_summons.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_weapons_ex.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_wheels.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\KnightRiders\armoredskull.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -409,6 +434,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\NoImage.xcf" />
+    <None Include="Resources\PremiumPackages\drive.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PremiumPackages\insomnia.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -482,6 +510,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\event.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\tools.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\recipepart.cshtml">
@@ -4064,6 +4095,34 @@
     <None Include="img\premiumpackages\insomnia.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="img\premiumpackages\drive.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\discordbot1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\discordbot2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\crossoutreddit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\crossoutreddit2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\crossouttranslator.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\grindmaster.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\spreadsheetenglish.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\spreadsheetrussian.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="img\tools\discord.png" />
     <Content Include="Resources\Data\0.9.120.87835\strings\chinese\string.txt" />
     <None Include="Resources\Data\0.9.120.87835\strings\english\string.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -4077,6 +4136,19 @@
     <Content Include="Resources\Data\0.9.120.87835\strings\spanish\string.txt" />
     <Content Include="Resources\Data\0.9.120.87835\strings\tchinese\string.txt" />
     <Content Include="Resources\Data\0.9.120.87835\strings\thai\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\chinese\string.txt" />
+    <None Include="Resources\Data\0.9.135.91921\strings\english\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Resources\Data\0.9.135.91921\strings\french\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\german\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\japanese\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\korean\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\polish\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\russian\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\spanish\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\tchinese\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\thai\string.txt" />
     <Content Include="scripts\bootstrap-select.min.js" />
     <None Include="scripts\Internal\item.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
