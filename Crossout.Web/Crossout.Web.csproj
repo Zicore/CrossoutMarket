@@ -3960,6 +3960,25 @@
     <None Include="img\items\839.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="img\items\840.png" />
+    <Content Include="img\items\842.png" />
+    <Content Include="img\items\843.png" />
+    <Content Include="img\items\844.png" />
+    <Content Include="img\items\845.png" />
+    <Content Include="img\items\846.png" />
+    <Content Include="img\items\848.png" />
+    <Content Include="img\items\849.png" />
+    <Content Include="img\items\850.png" />
+    <Content Include="img\items\851.png" />
+    <Content Include="img\items\853.png" />
+    <Content Include="img\items\854.png" />
+    <Content Include="img\items\855.png" />
+    <Content Include="img\items\856.png" />
+    <Content Include="img\items\857.png" />
+    <Content Include="img\items\858.png" />
+    <Content Include="img\items\859.png" />
+    <Content Include="img\items\860.png" />
+    <Content Include="img\items\862.png" />
     <Content Include="img\NoImage.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
