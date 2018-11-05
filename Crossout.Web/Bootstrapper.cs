@@ -77,6 +77,7 @@ namespace Crossout.Web
                 };
 
             FormsAuthentication.Enable(pipelines, formsAuthConfiguration);
+
         }
 
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
