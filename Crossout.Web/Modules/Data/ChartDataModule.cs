@@ -22,7 +22,9 @@ namespace Crossout.Web.Modules.Data
 
                 // Harcoded Limit of data points for now
                 // we will aggregate data soon, we should never have so much data hopefully
-                string query = "(SELECT market.id,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime FROM market where market.itemnumber = @id ORDER BY market.Datetime desc LIMIT 10000) ORDER BY id ASC;";
+                string query =
+                    "(SELECT market.id,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime FROM market where market.itemnumber = @id and market.datetime BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() ORDER BY market.Datetime desc LIMIT 5000) ORDER BY datetime ASC, id ASC";
+                              
                 var p = new Parameter { Identifier = "@id", Value = x.id };
                 var parmeter = new List<Parameter>();
                 parmeter.Add(p);
@@ -41,7 +43,7 @@ namespace Crossout.Web.Modules.Data
                 }
 
                 string targetTimeEnd = ConvertDateTimeToDBString(model.Items.First().Timestamp);
-                query = "(SELECT marketgrouped.id,marketgrouped.sellprice,marketgrouped.buyprice,marketgrouped.selloffers,marketgrouped.buyorders,marketgrouped.datetime FROM marketgrouped where marketgrouped.itemnumber = @id AND marketgrouped.datetime < @time ORDER BY marketgrouped.Datetime desc LIMIT 8000) ORDER BY id ASC;";
+                query = "(SELECT marketgrouped.id,marketgrouped.sellprice,marketgrouped.buyprice,marketgrouped.selloffers,marketgrouped.buyorders,marketgrouped.datetime FROM marketgrouped where marketgrouped.itemnumber = @id AND marketgrouped.datetime < @time AND marketgrouped.datetime > DATE_SUB(@time, INTERVAL 90 DAY) ORDER BY marketgrouped.Datetime desc LIMIT 5000) ORDER BY id ASC;";
                 p = new Parameter { Identifier = "@id", Value = x.id };
                 var p2 = new Parameter { Identifier = "@time", Value = targetTimeEnd };
                 parmeter = new List<Parameter>();
