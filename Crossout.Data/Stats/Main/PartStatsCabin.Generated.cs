@@ -41,6 +41,10 @@ namespace Crossout.Data.Stats.Main
         public string ui_perks_1_ {get;set;}
         public string platform_exclusive {get;set;}
         public int speed_limit_leg_add {get;set;}
+        public int salvage_Platinum {get;set;}
+        public int salvage_Plastic {get;set;}
+        public int salvage_Accumulators {get;set;}
+        public int salvage_Gasoline {get;set;}
         public string hud_type {get;set;}
     }
 }
