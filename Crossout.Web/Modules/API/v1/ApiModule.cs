@@ -224,6 +224,13 @@ namespace Crossout.Web.Modules.API.v1
                 
                 return Response.AsJson(ds);
             };
+
+            After.AddItemToEndOfPipeline((ctx) =>
+            {
+                ctx.Response.WithHeader("Access-Control-Allow-Origin", "*")
+                    .WithHeader("Access-Control-Allow-Methods", "POST,GET")
+                    .WithHeader("Access-Control-Allow-Headers", "Accept, Origin, Content-type");
+            });
         }
         
         private dynamic RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems, string mItems, int id)
