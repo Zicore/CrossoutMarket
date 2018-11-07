@@ -148,6 +148,7 @@
     <Compile Include="Models\General\LoadingDataModel.cs" />
     <Compile Include="Models\General\KnightRidersModel.cs" />
     <Compile Include="Models\General\PremiumPackagesModel.cs" />
+    <Compile Include="Models\General\ToolsModel.cs" />
     <Compile Include="Models\General\WatchlistModel.cs" />
     <Compile Include="Models\Items\ItemCollection.cs" />
     <Compile Include="Models\View\IViewFilter.cs" />
@@ -4160,7 +4161,12 @@
     <None Include="img\tools\spreadsheetrussian.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="img\tools\discord.png" />
+    <None Include="img\tools\crossdb.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\tools\discord.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\Data\0.9.120.87835\strings\chinese\string.txt" />
     <None Include="Resources\Data\0.9.120.87835\strings\english\string.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

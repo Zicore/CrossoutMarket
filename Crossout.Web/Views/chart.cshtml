@@ -9,6 +9,7 @@
 <div id="container" style="height: 600px; min-width: 310px"></div>
 <div class="text-center">
     <button class="btn btn-xs btn-default hidden" id="grouping-button">Disable Data Grouping</button>
+    <button class="btn btn-xs btn-default hidden" id="load-more-button">Load More</button>
 </div>
 
 <script>
@@ -129,20 +130,29 @@
         }];
         var toggle = false;
         $('#grouping-button').on('click', function (e) {
+            var inThirtyDays = new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000);
             if (toggle)
             {
                 createChart(buttons);
                 $(this).text("Disable Data Grouping");
                 toggle = false;
-                Cookies.set("datagroupingdisabled", false);
+                Cookies.set("datagroupingdisabled", false, {
+                    expires: inThirtyDays
+                });
             }
             else
             {
                 createChart(buttonsDisabledGrouping);
                 $(this).text("Enable Data Grouping");
                 toggle = true;
-                Cookies.set("datagroupingdisabled", true);
+                Cookies.set("datagroupingdisabled", true, {
+                    expires: inThirtyDays
+                });
             }
+        });
+
+        $('#load-more-button').on('click', function (e) {
+            loadData(true);
         });
         /**
          * Create the chart when all data is loaded
@@ -205,53 +215,67 @@
             });
         }
 
-        var id = @Model.Item.Id;
-        var host = '@WebSettings.Settings.DataHost';
-        $.getJSON(location.protocol + '//@(ViewHelper.GetHostWithPort(Request))/data/item/all/' + id, function (alldata) {
-            var series = {};
-            $.each(alldata.Data, function (i, data) {
-                // Adjust time to local time
-                $.each(data, function (j, row) {
-                    row[0] = row[0] + totalUnixOffset;
+        function loadData(moreData = false) {
+
+            var id = @Model.Item.Id;
+            var host = '@WebSettings.Settings.DataHost';
+
+            var dataAmount = "all"
+            if (moreData) {
+                dataAmount = "full"
+            }
+
+            if (moreData) {
+                $('#load-more-button').addClass('disabled');
+                $('#loading-icon').removeClass('hidden');
+                $('#load-more-button').unbind("click");
+            }
+
+            $.getJSON(location.protocol + '//@(ViewHelper.GetHostWithPort(Request))/data/item/' + dataAmount + '/' + id, function (alldata) {
+                var series = {};
+                $.each(alldata.Data, function (i, data) {
+                    // Adjust time to local time
+                    $.each(data, function (j, row) {
+                        row[0] = row[0] + totalUnixOffset;
+                    });
+
+                    if (names[i].type === 1) {
+                        var color = '#44A5FF';
+                        if (names[i].name === 'SellOffers') {
+                            color = '#939393';
+                        }
+                        series =
+                            {
+                                name: names[i].name,
+                                yAxis: 1,
+                                data: data,
+                                type: 'column',
+                                zIndex: 1,
+                                color: color
+                            };
+                    } else {
+                        var color = '#32C922';
+                        if (names[i].name === 'Sell') {
+                            color = '#FF3D23';
+                        }
+                        series =
+                            {
+                                name: names[i].name,
+                                data: data,
+                                type: 'line',
+                                zIndex: 2,
+                                color: color
+                            };
+                    }
+
+                    seriesOptions[i] = series;
+                    // As we're loading the data asynchronously, we don't know what order it will arrive. So
+                    // we keep a counter and create the chart when all the data is loaded.
+                    seriesCounter += 1;
                 });
 
-                if (names[i].type === 1) {
-                    var color = '#44A5FF';
-                    if (names[i].name === 'SellOffers') {
-                        color = '#939393';
-                    }
-                    series =
-                        {
-                            name: names[i].name,
-                            yAxis: 1,
-                            data: data,
-                            type: 'column',
-                            zIndex: 1,
-                            color: color
-                        };
-                } else {
-                    var color = '#32C922';
-                    if (names[i].name === 'Sell') {
-                        color = '#FF3D23';
-                    }
-                    series =
-                        {
-                            name: names[i].name,
-                            data: data,
-                            type: 'line',
-                            zIndex: 2,
-                            color: color
-                        };
-                }
+                $('#loading-icon').addClass('hidden');
 
-                seriesOptions[i] = series;
-                // As we're loading the data asynchronously, we don't know what order it will arrive. So
-                // we keep a counter and create the chart when all the data is loaded.
-                seriesCounter += 1;
-            });
-
-            $('#loading-icon').remove();
-            if (seriesCounter === names.length) {
                 if (Cookies.get("datagroupingdisabled") === "true")
                 {
                     createChart(buttonsDisabledGrouping);
@@ -260,9 +284,13 @@
                 {
                     createChart(buttons);
                 }
-            }
-            $('#grouping-button').removeClass('hidden');
-        });
+
+                $('#grouping-button').removeClass('hidden');
+                $('#load-more-button').removeClass('hidden');
+            });
+        }
+
+        loadData();
 
         $(document).ready(function() {
             // Load the fonts
