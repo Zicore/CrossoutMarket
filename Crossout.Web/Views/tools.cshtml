@@ -2,7 +2,8 @@
     Layout = "layout.cshtml";
 }
 
-@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase
+@using Crossout.Web.Models.General
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<ToolsModel>
 
 
 @Html.Partial("header", Model)

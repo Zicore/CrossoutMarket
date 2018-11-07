@@ -148,6 +148,7 @@
     <Compile Include="Models\General\LoadingDataModel.cs" />
     <Compile Include="Models\General\KnightRidersModel.cs" />
     <Compile Include="Models\General\PremiumPackagesModel.cs" />
+    <Compile Include="Models\General\ToolsModel.cs" />
     <Compile Include="Models\General\WatchlistModel.cs" />
     <Compile Include="Models\Items\ItemCollection.cs" />
     <Compile Include="Models\View\IViewFilter.cs" />
