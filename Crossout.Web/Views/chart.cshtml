@@ -130,19 +130,24 @@
         }];
         var toggle = false;
         $('#grouping-button').on('click', function (e) {
+            var inThirtyDays = new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000);
             if (toggle)
             {
                 createChart(buttons);
                 $(this).text("Disable Data Grouping");
                 toggle = false;
-                Cookies.set("datagroupingdisabled", false);
+                Cookies.set("datagroupingdisabled", false, {
+                    expires: inThirtyDays
+                });
             }
             else
             {
                 createChart(buttonsDisabledGrouping);
                 $(this).text("Enable Data Grouping");
                 toggle = true;
-                Cookies.set("datagroupingdisabled", true);
+                Cookies.set("datagroupingdisabled", true, {
+                    expires: inThirtyDays
+                });
             }
         });
 
