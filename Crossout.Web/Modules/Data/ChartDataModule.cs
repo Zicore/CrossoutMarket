@@ -21,7 +21,7 @@ namespace Crossout.Web.Modules.Data
             Get["/data/item/all/{id:int}"] = x =>
             {
                 int id = x.id;
-                return RouteChartDataWithCache(id, 90);
+                return RouteChartDataWithCache(id);
             };
 
             // loads more grouped data than "all"
@@ -32,6 +32,19 @@ namespace Crossout.Web.Modules.Data
             };
         }
 
+        private dynamic RouteChartDataWithCache(int id)
+        {
+            var model = Cache.Get(id, LoadModel, DateTime.Now, new TimeSpan(0, 0, 5, 0));
+            return Response.AsJson(model.Value);
+        }
+
+        private dynamic RouteChartData(int id, int interval)
+        {
+            var model = LoadModel(id, interval);
+            return Response.AsJson(model);
+        }
+
+        // function for cache
         private ChartDataModel LoadModel(int id)
         {
             return LoadModel(id, 90);
@@ -42,9 +55,7 @@ namespace Crossout.Web.Modules.Data
             sql.Open(WebSettings.Settings.CreateDescription());
 
             string name = "all";
-
-            // Harcoded Limit of data points for now
-            // we will aggregate data soon, we should never have so much data hopefully
+            
             string query =
                 "(SELECT market.id,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime FROM market where market.itemnumber = @id and market.datetime BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() ORDER BY market.Datetime desc LIMIT 5000) ORDER BY datetime ASC, id ASC";
 
@@ -91,18 +102,6 @@ namespace Crossout.Web.Modules.Data
             model.Items.AddRange(highResData);
 
             return model;
-        }
-        
-        private dynamic RouteChartDataWithCache(int id, int interval)
-        {
-            var model = Cache.Get(id, LoadModel, DateTime.Now, new TimeSpan(0, 0, 5, 0));
-            return Response.AsJson(model.Value);
-        }
-
-        private dynamic RouteChartData(int id, int interval)
-        {
-            var model = LoadModel(id, interval);
-            return Response.AsJson(model);
         }
 
         private string ConvertDateTimeToDBString(DateTime dt)
