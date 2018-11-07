@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using Crossout.Web.Helper;
-using Crossout.Data;
 using System.Linq;
+using Crossout.Data;
+using Crossout.Model.Items;
+using Crossout.Web.Models.View;
 
-namespace Crossout.Model.Items
+namespace Crossout.Web.Models.Items
 {
     public class ItemCollection : IViewTitle
     {

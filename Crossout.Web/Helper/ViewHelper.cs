@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Crossout.Model.Items;
 using Crossout.Web.Models.General;
 using Crossout.Web.Models.Items;
+using Crossout.Web.Models.View;
 using Nancy;
 
 namespace Crossout.Web.Helper

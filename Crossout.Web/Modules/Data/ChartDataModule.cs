@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Crossout.Web.Cache;
 using Crossout.Web.Models;
 using Crossout.Web.Models.Charts;
 using Nancy;
@@ -10,7 +11,9 @@ namespace Crossout.Web.Modules.Data
 {
     public class ChartDataModule : NancyModule
     {
+        private static readonly BasicCache<int, ChartDataModel> Cache = new BasicCache<int, ChartDataModel>();
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
+
         public ChartDataModule()
         {
             // would capture routes to /products/list sent as a GET request
@@ -18,18 +21,23 @@ namespace Crossout.Web.Modules.Data
             Get["/data/item/all/{id:int}"] = x =>
             {
                 int id = x.id;
-                return RouteChartData(id);
+                return RouteChartDataWithCache(id, 90);
             };
 
             // loads more grouped data than "all"
-            Get["/data/item/full/{id:int}"] = x =>
+            Get["/data/item/all-full/{id:int}"] = x =>
             {
                 int id = x.id;
                 return RouteChartData(id, 360);
             };
         }
 
-        private dynamic RouteChartData(int id, int interval = 90)
+        private ChartDataModel LoadModel(int id)
+        {
+            return LoadModel(id, 90);
+        }
+
+        private ChartDataModel LoadModel(int id, int interval)
         {
             sql.Open(WebSettings.Settings.CreateDescription());
 
@@ -82,6 +90,18 @@ namespace Crossout.Web.Modules.Data
             model.Items.AddRange(groupedData);
             model.Items.AddRange(highResData);
 
+            return model;
+        }
+        
+        private dynamic RouteChartDataWithCache(int id, int interval)
+        {
+            var model = Cache.Get(id, LoadModel, DateTime.Now, new TimeSpan(0, 0, 5, 0));
+            return Response.AsJson(model.Value);
+        }
+
+        private dynamic RouteChartData(int id, int interval)
+        {
+            var model = LoadModel(id, interval);
             return Response.AsJson(model);
         }
 
