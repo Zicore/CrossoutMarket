@@ -19,7 +19,8 @@ namespace Crossout.Web.Modules.Search
         {
             Get["/tools"] = x =>
             {
-                return View["tools"];
+                ToolsModel model = new ToolsModel();
+                return View["tools", model];
             };
         }
     }
