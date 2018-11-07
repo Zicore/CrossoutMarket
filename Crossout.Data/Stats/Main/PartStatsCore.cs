@@ -72,10 +72,10 @@
 
         //------ Hidden
 
-        [Stat("Shooting Cooldown Multiplier", 100, Type = StatType.Hidden)]
+        [Stat("Shooting Cooldown Multiplier", 100, Type = StatType.Hidden, ShowPercentage = true)]
         public double StatShootingCooldownMultiplier
         {
-            get { return shooting_cooldown_mul; }
+            get { return shooting_cooldown_mul * 100.0f; }
         }
 
         [Stat("Heat Increase", 110, Type = StatType.Hidden, ShowPercentage = true, OverrideDescriptionStat = "heat_inc_mul")]
@@ -84,16 +84,16 @@
             get { return heat_inc_mul * 100.0f; }
         }
 
-        [Stat("Heat Decrease Multiplier", 115, Type = StatType.Hidden)]
+        [Stat("Heat Decrease Multiplier", 115, Type = StatType.Hidden, ShowPercentage = true, OverrideDescriptionStat = "heat_dec_mul")]
         public double StatHeatDecreaseMultiplier
         {
-            get { return heat_dec_mul; }
+            get { return heat_dec_mul * 100.0f; }
         }
 
-        [Stat("Ammo Multiplier", 120, Type = StatType.Hidden)]
+        [Stat("Ammo Multiplier", 120, Type = StatType.Hidden, ShowPercentage = true, OverrideDescriptionStat = "ammo_mul")]
         public double StatAmmoMultiplier
         {
-            get { return ammo_mul; }
+            get { return ammo_mul * 100.0f; }
         }
 
         [Stat("Active Duration", 130, Type = StatType.Hidden)]
