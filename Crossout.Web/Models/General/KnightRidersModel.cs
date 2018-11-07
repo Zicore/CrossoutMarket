@@ -7,6 +7,7 @@ using Crossout.Model.Items;
 using Crossout.Web.Helper;
 using Crossout.Data;
 using Crossout.Data.KnightRiders;
+using Crossout.Web.Models.View;
 
 namespace Crossout.Web.Models.General
 {

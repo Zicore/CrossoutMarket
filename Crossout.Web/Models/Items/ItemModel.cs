@@ -4,6 +4,7 @@ using Crossout.Model.Items;
 using Crossout.Web.Helper;
 using Crossout.Web.Models.General;
 using Crossout.Web.Models.Recipes;
+using Crossout.Web.Models.View;
 using Newtonsoft.Json;
 
 namespace Crossout.Web.Models.Items

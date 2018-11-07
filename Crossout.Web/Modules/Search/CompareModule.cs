@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Crossout.Model.Items;
 using Crossout.Model.Recipes;
 using Crossout.Web.Models;
+using Crossout.Web.Models.Items;
 using Crossout.Web.Services;
 using Nancy;
 using ZicoreConnector.Zicore.Connector.Base;

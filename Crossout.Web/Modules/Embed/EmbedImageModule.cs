@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Nancy;
-using Crossout.Model.Recipes;
-using ZicoreConnector.Zicore.Connector.Base;
-using Crossout.Web.Services;
-using System.IO;
-using Crossout.Images;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using Crossout.Web.Responses;
-using Crossout.Web.Models;
+using Crossout.Images;
 using Crossout.Web.Models.Charts;
+using Crossout.Web.Responses;
+using Crossout.Web.Services;
 using LineChart;
+using Nancy;
+using ZicoreConnector.Zicore.Connector.Base;
 
-namespace Crossout.Web.Modules.Data
+namespace Crossout.Web.Modules.Embed
 {
     public class ImageModule : NancyModule
     {
