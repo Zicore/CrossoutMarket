@@ -133,7 +133,7 @@ namespace Crossout.Web.Modules.Search
             foreach (var row in ds)
             {
                 Item item = Item.Create(row);
-                CrossoutDataService.Instance.AddData(item);
+                // CrossoutDataService.Instance.AddData(item);
                 searchResult.Add(item);
             }
             //  CurrentPage = page, MaxRows = count, MaxPages = maxPages
