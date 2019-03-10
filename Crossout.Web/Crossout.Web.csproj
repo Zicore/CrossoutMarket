@@ -144,13 +144,18 @@
     <Compile Include="Models\API\v1\ApiItemTypeEntry.cs" />
     <Compile Include="Models\API\v1\ApiRarityEntry.cs" />
     <Compile Include="Models\API\v1\ApiRecipeEntry.cs" />
+    <Compile Include="Models\Changes\ChangeItem.cs" />
+    <Compile Include="Models\EditRecipe\EditGeneralInfo.cs" />
     <Compile Include="Models\General\CarftingOverviewModel.cs" />
+    <Compile Include="Models\Changes\ChangesModel.cs" />
     <Compile Include="Models\General\LoadingDataModel.cs" />
     <Compile Include="Models\General\KnightRidersModel.cs" />
     <Compile Include="Models\General\PremiumPackagesModel.cs" />
     <Compile Include="Models\General\ToolsModel.cs" />
     <Compile Include="Models\General\WatchlistModel.cs" />
     <Compile Include="Models\Items\ItemCollection.cs" />
+    <Compile Include="Models\Recipes\IngredientUsageItem.cs" />
+    <Compile Include="Models\Recipes\IngredientUsageModel.cs" />
     <Compile Include="Models\View\IViewFilter.cs" />
     <Compile Include="Models\View\IViewTitle.cs" />
     <Compile Include="Helper\ViewHelper.cs" />
@@ -173,6 +178,7 @@
     <Compile Include="Modules\Data\ChartDataModule.cs" />
     <Compile Include="Models\Pagination\PagerModel.cs" />
     <Compile Include="Modules\Embed\EmbedImageModule.cs" />
+    <Compile Include="Modules\Search\ChangesModule.cs" />
     <Compile Include="Modules\Search\EditRecipeModule.cs" />
     <Compile Include="Modules\Search\CompareModule.cs" />
     <Compile Include="Modules\Search\EventModule.cs" />
@@ -437,6 +443,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\NoImage.xcf" />
+    <None Include="Resources\PremiumPackages\horsemenofapocalypsewardeluxe.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\horsemenofapocalypsewar.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PremiumPackages\drive.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -485,7 +497,13 @@
     <None Include="scripts\jquery-2.1.3.min.map">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Views\changes.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Views\chart.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Views\changesmodular.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\editpart.cshtml">
@@ -4278,6 +4296,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="img\tools\discord.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\horsemenofapocalypsewar.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="img\premiumpackages\horsemenofapocalypsewardeluxe.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Resources\Data\0.9.120.87835\strings\chinese\string.txt" />
