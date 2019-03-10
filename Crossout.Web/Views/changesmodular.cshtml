@@ -1,0 +1,166 @@
+﻿@using Crossout.Model.Items
+@using Crossout.Web
+@using Crossout.Web.Models
+@using Crossout.Web.Models.Changes
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Crossout.Web.Models.Changes.ChangesModel>
+
+
+        <table id="ChangesTable" class="table table-striped table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>
+                        Change Number
+                    </th>
+                    <th>
+                        Affected Item
+                    </th>
+                    <th>
+                        Change Type
+                    </th>
+                    <th>
+                        Changed Variable
+                    </th>
+                    <th>
+                        Old Value
+                    </th>
+                    <th>
+                        New Value
+                    </th>
+                    <th>
+                        Timestamp
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (ChangeItem item in Model.Changes)
+                {
+                    <tr class="selected-row" data-id="@item.Id">
+                        <td>
+                            <div class="label-md-left">#@item.Id</div>
+                        </td>
+                        <td>
+                            <div class="clearfix content-heading">
+                                <div>
+                                    @if (RootPathHelper.ImageExists(Convert.ToString(item.ItemId) + ".png"))
+                                    {
+                                        <a href="~/item/@item.ItemId">
+                                            <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/items/@(item.ItemId).png" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="~/item/@item.ItemId">
+                                            <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/NoImage.png" />
+                                        </a>
+                                    }
+                                </div>
+                                <div>
+                                    <a href="~/item/@item.ItemId"><h4 class="item-title">@Model.ContainedItems[item.ItemId].Name</h4></a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="label-md-left">@item.ChangeType</div>
+                        </td>
+                        <td>
+                            <div class="label-md-left">@item.TranslatedField</div>
+                        </td>
+                        <td>
+                            @if (item.Field == "ingredient" && item.OldValue != "")
+                            {
+                                int id = Convert.ToInt32(item.OldValue);
+
+                                @if (RootPathHelper.ImageExists(Convert.ToString(id) + ".png"))
+                                {
+                                    <a href="~/item/@id">
+                                        <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/items/@(id).png" />
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="~/item/@id">
+                                        <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/NoImage.png" />
+                                    </a>
+                                }
+                                <div>
+                                    <a href="~/item/@id"><h4 class="item-title">@Model.ContainedItems[id].Name</h4></a>
+                                </div>
+                            }
+                            else if (item.Field == "rarity" && item.OldValue != "")
+                            {
+                                string rarity = Model.AllRarites[Convert.ToInt32(item.OldValue)];
+                                <div class="label label-@rarity">@rarity</div>
+                            }
+                            else if (item.Field == "category" && item.OldValue != "")
+                            {
+                                <div class="label-md-left">@Model.AllCategories[Convert.ToInt32(item.OldValue)]</div>
+                            }
+                            else if (item.Field == "type" && item.OldValue != "")
+                            {
+                                <div class="label-md-left">@Model.AllTypes[Convert.ToInt32(item.OldValue)]</div>
+                            }
+                            else if (item.Field == "removed" && item.OldValue != "")
+                            {
+                                <span class="label-md-left">@item.OldValue <span class="glyphicon glyphicon-flag"></span></span>
+                            }
+                            else
+                            {
+                                <div class="label-md-left">@item.OldValue</div>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Field == "ingredient" && item.NewValue != "")
+                            {
+                                int id = Convert.ToInt32(item.NewValue);
+
+                                @if (RootPathHelper.ImageExists(Convert.ToString(id) + ".png"))
+                                {
+                                    <a href="~/item/@id">
+                                        <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/items/@(id).png" />
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="~/item/@id">
+                                        <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/NoImage.png" />
+                                    </a>
+                                }
+                                <div>
+                                    <a href="~/item/@id"><h4 class="item-title">@Model.ContainedItems[id].Name</h4></a>
+                                </div>
+                            }
+                            else if (item.Field == "rarity" && item.NewValue != "")
+                            {
+                                string rarity = Model.AllRarites[Convert.ToInt32(item.NewValue)];
+                                <div class="label label-@rarity">@rarity</div>
+                            }
+                            else if (item.Field == "category" && item.NewValue != "")
+                            {
+                                <div class="label-md-left">@Model.AllCategories[Convert.ToInt32(item.NewValue)]</div>
+                            }
+                            else if (item.Field == "type" && item.NewValue != "")
+                            {
+                                <div class="label-md-left">@Model.AllTypes[Convert.ToInt32(item.NewValue)]</div>
+                            }
+                            else if (item.Field == "removed" && item.NewValue != "")
+                            {
+                                <span class="label-md-left">@item.NewValue <span class="glyphicon glyphicon-flag"></span></span>
+                            }
+                            else
+                            {
+                                <div class="label-md-left">@item.NewValue</div>
+                            }
+                        </td>
+                        <td>
+                            <div class="label-md-left item-timestamp">@item.TimestampString</div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+<script>
+    $(document).ready(function () {
+        adjustTimeStamp();
+    });
+</script>

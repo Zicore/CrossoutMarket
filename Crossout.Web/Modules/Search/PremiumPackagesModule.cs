@@ -10,6 +10,7 @@ using Crossout.Web.Services;
 using Crossout.Model.Formatter;
 using Nancy;
 using ZicoreConnector.Zicore.Connector.Base;
+using Crossout.Data.PremiumPackages;
 
 namespace Crossout.Web.Modules.Search
 {
@@ -42,6 +43,7 @@ namespace Crossout.Web.Modules.Search
 
                 List<int> itemIDs = new List<int>();
 
+                //Load contained items
                 foreach (var package in packagesCollection.Packages)
                 {
                     foreach (var itemID in package.MarketPartIDs)
@@ -56,6 +58,8 @@ namespace Crossout.Web.Modules.Search
                 }
                 packagesModel.ContainedItems = db.SelectListOfItems(itemIDs);
 
+
+                //Calc prizes
                 foreach (var package in packagesCollection.Packages)
                 {
                     package.Prices = appPrices.Find(x => x.Id == package.SteamAppID).Prices;
@@ -84,7 +88,43 @@ namespace Crossout.Web.Modules.Search
                         }
                     }
                 }
-                packagesModel.Packages = packagesCollection.Packages;
+
+                //Add all possible categories to dict
+                var listOfCategories = new List<int>();
+                listOfCategories.Clear();
+                listOfCategories.Add(1);
+                listOfCategories.Add(99);
+                foreach (var package in packagesCollection.Packages)
+                {
+                    if (!listOfCategories.Contains(package.Category) && package.Category != 0)
+                    {
+                        listOfCategories.Add(package.Category);
+                    }
+                }
+                listOfCategories.Sort();
+                foreach (var category in listOfCategories)
+                {
+                    packagesModel.Packages.Add(category, new List<PremiumPackage>());
+                }
+
+                //Categorize
+                foreach (var package in packagesCollection.Packages)
+                {
+
+                    if (package.Prices.Any(x => x.Final != 0))
+                    {
+                        if (package.Category == 0)
+                        {
+                            package.Category = 1;
+                        }
+                    }
+                    else
+                    {
+                        package.Category = 99;
+                    }
+
+                    packagesModel.Packages[package.Category].Add(package);
+                }
 
                 packagesModel.Status = statusModel;
 

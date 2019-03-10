@@ -15,7 +15,7 @@ namespace Crossout.Web.Models.General
     {
         public string Title => "Packs";
 
-        public List<PremiumPackage> Packages { get; set; } = new List<PremiumPackage>();
+        public Dictionary<int, List<PremiumPackage>> Packages { get; set; } = new Dictionary<int, List<PremiumPackage>>();
 
         public Dictionary<int, Item> ContainedItems { get; set; } = new Dictionary<int, Item>();
 
