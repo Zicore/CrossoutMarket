@@ -14,8 +14,28 @@
 @Html.Partial("status", Model.Status)
 
 <div class="container-space">
-    <div class="row">
-        @foreach (PremiumPackage package in Model.Packages)
+
+    @foreach (var packageList in Model.Packages)
+    {
+        <h3>
+            @switch (packageList.Key)
+            {
+                case 1:
+                    @Html.Raw("");
+                    break;
+                case 2:
+                    @Html.Raw("Horsemen of Apocalypse");
+                    break;
+                case 99:
+                    @Html.Raw("Discontinued");
+                    break;
+                default:
+                    @Html.Raw("Unnamed");
+                    break;
+            }
+        </h3>
+        <div class="row">
+        @foreach (PremiumPackage package in packageList.Value)
         {
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="panel panel-default" style="padding: 8px">
@@ -29,7 +49,7 @@
                     </div>
 
                     <div style="margin-bottom: 8px;">
-                        <img class="img-responsive" src="~/img/premiumpackages/@(package.Key).jpg"/>
+                        <img class="img-responsive" src="~/img/premiumpackages/@(package.Key).jpg" />
                     </div>
 
                     <div class="row" id="content-wrapper-@(package.Key)" style="display: none; margin-bottom: 8px; margin-right: 8px">
@@ -120,7 +140,7 @@
                             else
                             {
                                 <div class="row">
-                                    <div class="label-md-left col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1.38px" >
+                                    <div class="label-md-left col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 1.38px">
                                         N/A
                                     </div>
                                 </div>
@@ -130,7 +150,8 @@
                 </div>
             </div>
         }
-    </div>
+        </div>
+    }
 </div>
 
 <script>

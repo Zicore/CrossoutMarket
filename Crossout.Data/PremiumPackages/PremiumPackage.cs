@@ -29,6 +29,7 @@ namespace Crossout.Data.PremiumPackages
         public string Key;
         public int SteamAppID;
         public string Name;
+        public int Category;
         public string Description;
         public int[] MarketPartIDs;
         public string FormatSellSum;
