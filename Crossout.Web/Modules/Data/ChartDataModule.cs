@@ -77,7 +77,7 @@ namespace Crossout.Web.Modules.Data
                 }
             }
 
-            string targetTimeEnd = ConvertDateTimeToDBString(highResData.First().Timestamp);
+            string targetTimeEnd = (highResData.Count > 0) ? ConvertDateTimeToDBString(highResData.First().Timestamp) : ConvertDateTimeToDBString(DateTime.UtcNow);
             query = "(SELECT marketgrouped.id,marketgrouped.sellprice,marketgrouped.buyprice,marketgrouped.selloffers,marketgrouped.buyorders,marketgrouped.datetime FROM marketgrouped where marketgrouped.itemnumber = @id AND marketgrouped.datetime < @time AND marketgrouped.datetime > DATE_SUB(@time, INTERVAL @interval DAY) ORDER BY marketgrouped.Datetime desc LIMIT 11000) ORDER BY id ASC;";
             p = new Parameter { Identifier = "@id", Value = id };
             var p2 = new Parameter { Identifier = "@time", Value = targetTimeEnd };

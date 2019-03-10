@@ -36,6 +36,7 @@ namespace Crossout.Web.Modules.Search
                 var id = (int)x.id;
 
                 var items = this.Bind<List<EditItem>>();
+                var generalItemInfo = this.Bind<EditGeneralInfo>();
                 var recipeNumber = this.Bind<EditModelSave>();
 
                 sql.Open(WebSettings.Settings.CreateDescription());
@@ -43,6 +44,7 @@ namespace Crossout.Web.Modules.Search
                 DataService db = new DataService(sql);
 
                 db.SaveRecipe(recipeNumber, items);
+                db.SaveGeneralItemInfo(generalItemInfo, recipeNumber);
 
                 return RouteItem(id);
             };
@@ -62,10 +64,16 @@ namespace Crossout.Web.Modules.Search
                 var recipeModel = db.SelectRecipeModel(itemModel.Item, true, false);
                 var statusModel = db.SelectStatus();
                 var factions = db.SelectAllFactions();
+                var rarities = db.SelectAllRarities();
+                var categories = db.SelectAllCategories();
+                var types = db.SelectAllTypes();
 
                 itemModel.Recipe = recipeModel;
                 itemModel.Status = statusModel;
                 itemModel.AllFactions = factions;
+                itemModel.AllRarities = rarities;
+                itemModel.AllCategories = categories;
+                itemModel.AllTypes = types;
                 itemModel.AllItems = db.SelectAllActiveItems();
                 itemModel.SelectedFaction = new FactionModel { Id = itemModel.Item.FactionNumber, Name = itemModel.Item.Faction};
 

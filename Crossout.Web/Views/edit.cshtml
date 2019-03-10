@@ -21,6 +21,66 @@
                 <h2><a href="~/edit/@Model.Item.Id">@Model.Item.Name (Item: @Model.Item.Id, Recipe: @Model.Item.RecipeId)</a></h2>
                 <input type="hidden" value="@Model.SelectedFaction.Id" name="OldFactionNumber" />
                 <input type="hidden" value="@Model.Item.Id" name="ItemNumber" />
+                <table class="table table-hover table-condensed" id="general-options">
+                    <thead>
+                        <tr class="tr_clone">
+                            <th>
+                                Localized Name
+                            </th>
+                            <th>
+                                Rarity
+                            </th>
+                            <th>
+                                Category
+                            </th>
+                            <th>
+                                Type
+                            </th>
+                            <th>
+                                Removed
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input class="form-control" type="text" name="NewItemName" value="@Model.Item.Name" />
+                            </td>
+                            <td>
+                                <label>@Model.Item.RarityName (@Model.Item.RarityId)</label>
+                                <select class="selectpicker" name="NewRarity" size="1">
+                                    <option @(Model.Item.RarityId == 0 ? "selected='selected'" : "") value="0">None (0)</option>
+                                    @foreach (var item in Model.AllRarities)
+                                    {
+                                        <option @(Model.Item.RarityId == item.Key ? "selected='selected'" : "") value="@item.Key">@item.Value (@item.Key)</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <label>@Model.Item.CategoryName (@Model.Item.CategoryId)</label>
+                                <select class="selectpicker" name="NewCategory" size="1">
+                                    <option @(Model.Item.CategoryId == 0 ? "selected='selected'" : "") value="0">None (0)</option>
+                                    @foreach (var item in Model.AllCategories)
+                                    {
+                                        <option @(Model.Item.CategoryId == item.Key ? "selected='selected'" : "") value="@item.Key">@item.Value (@item.Key)</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <label>@Model.Item.TypeName (@Model.Item.TypeId)</label>
+                                <select class="selectpicker" name="NewType" data-live-search="true" size="1">
+                                    @foreach (var item in Model.AllTypes)
+                                    {
+                                        <option @(Model.Item.TypeId == item.Key ? "selected='selected'" : "") value="@item.Key">@item.Value (@item.Key)</option>
+                                    }
+                                </select>
+                            </td>
+                            <td>
+                                <label class="checkbox-inline"><input type="checkbox" name="NewRemovedStatus" @(Model.Item.Removed == 1 ? "checked" : "") />Removed</label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 <label>@Model.SelectedFaction.Name (@Model.SelectedFaction.Id)</label>
                 <select class="selectpicker" name="FactionNumber" size="1">
                     @foreach (var item in Model.AllFactions)

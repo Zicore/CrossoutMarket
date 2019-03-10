@@ -14,6 +14,7 @@ using Crossout.Web.Models.Recipes;
 using Crossout.Web.Modules.Search;
 using ZicoreConnector.Zicore.Connector.Base;
 using Crossout.Data.PremiumPackages;
+using Crossout.Web.Models.Changes;
 
 namespace Crossout.Web.Services
 {
@@ -221,6 +222,33 @@ namespace Crossout.Web.Services
             return RecipeItem.Create(counter, new RecipeItem(counter) {Item = item}, ds);
         }
 
+        public IngredientUsageModel SelectIngredientUsage(int itemId)
+        {
+            var parmeter = new List<Parameter>();
+            parmeter.Add(new Parameter { Identifier = "itemnumber", Value = itemId });
+            string query = BuildIngredientUsageQuery();
+            var ds = DB.SelectDataSet(query, parmeter);
+            var ingredientUsageModel = new IngredientUsageModel();
+            foreach (var row in ds)
+            {
+                if (!row.Any(x => x == null))
+                {
+                    int i = 0;
+                    var item = new IngredientUsageItem
+                    {
+                        RecipeId = row[i++].ConvertTo<int>(),
+                        ItemId = row[i++].ConvertTo<int>(),
+                        Amount = row[i++].ConvertTo<int>()
+                    };
+                    if (item.ItemId != 0)
+                    {
+                        ingredientUsageModel.IngredientUsageList.Add(item);
+                    }
+                }
+            }
+            return ingredientUsageModel;
+        }
+
         public StatusModel SelectStatus()
         {
             var ds = DB.SelectDataSet(BuildStatusQuery());
@@ -233,14 +261,47 @@ namespace Crossout.Web.Services
             return model;
         }
 
-        public List<Item> SelectAllActiveItems()
+        public List<Item> SelectAllActiveItems(bool excludeRemovedItems = true)
         {
-            return Item.CreateAllItemsForEdit(DB.SelectDataSet(BuildAllActiveItemsQuery()));
+            return Item.CreateAllItemsForEdit(DB.SelectDataSet(BuildAllActiveItemsQuery(excludeRemovedItems)));
         }
 
         public List<FactionModel> SelectAllFactions()
         {
             return CreateAllFactionsForEdit(DB.SelectDataSet(BuildFactionsQuery()));
+        }
+
+        public Dictionary<int, string> SelectAllRarities()
+        {
+            var dict = new Dictionary<int, string>();
+            var ds = DB.SelectDataSet(BuildRarityQuery());
+            foreach (var row in ds)
+            {
+                dict.Add(row[0].ConvertTo<int>(), row[1].ConvertTo<string>());
+            }
+            return dict;
+        }
+
+        public Dictionary<int, string> SelectAllCategories()
+        {
+            var dict = new Dictionary<int, string>();
+            var ds = DB.SelectDataSet(BuildCategoryQuery());
+            foreach (var row in ds)
+            {
+                dict.Add(row[0].ConvertTo<int>(), row[1].ConvertTo<string>());
+            }
+            return dict;
+        }
+
+        public Dictionary<int, string> SelectAllTypes()
+        {
+            var dict = new Dictionary<int, string>();
+            var ds = DB.SelectDataSet(BuildTypeQuery());
+            foreach (var row in ds)
+            {
+                dict.Add(row[0].ConvertTo<int>(), row[1].ConvertTo<string>());
+            }
+            return dict;
         }
 
         public List<AppPrices> SelectAllSteamPrices()
@@ -258,6 +319,55 @@ namespace Crossout.Web.Services
                 appPrices.Add(appPrice);
             }
             return appPrices;
+        }
+
+        public ChangesModel SelectChanges(int itemId = 0)
+        {
+            string query = BuildChangesQuery(itemId);
+            var ds = DB.SelectDataSet(query);
+            var changesModel = new ChangesModel();
+            foreach (var row in ds)
+            {
+                int i = 0;
+                var changeItem = new ChangeItem
+                {
+                    Id = row[i++].ConvertTo<int>(),
+                    ItemId = row[i++].ConvertTo<int>(),
+                    ChangeType = row[i++].ConvertTo<string>(),
+                    Field = (row[i++].ConvertTo<string>()),
+                    OldValue = row[i++].ConvertTo<string>(),
+                    NewValue = row[i++].ConvertTo<string>(),
+                    Timestamp = row[i].ConvertTo<DateTime>()
+                };
+                changeItem.TranslatedField = TranslateFieldName(changeItem.Field);
+                changesModel.Changes.Add(changeItem);
+            }
+            return changesModel;
+        }
+
+        public string TranslateFieldName(string toTranslate)
+        {
+            switch (toTranslate)
+            {
+                case "name":
+                    return "Name";
+                case "rarity":
+                    return "Rarity";
+                case "category":
+                    return "Category";
+                case "type":
+                    return "Type";
+                case "removed":
+                    return "Removed Flag";
+                case "recipe":
+                    return "Recipe";
+                case "ingredient":
+                    return "Ingredient";
+                case "item":
+                    return "Item";
+                default:
+                    return toTranslate;
+            }
         }
 
         public static List<FactionModel> CreateAllFactionsForEdit(List<object[]> data)
@@ -281,6 +391,7 @@ namespace Crossout.Web.Services
             {
                 var result = DB.Insert("recipe", new string[] {"itemnumber", "factionnumber"}, new object[] { editModelSave.ItemNumber, editModelSave.FactionNumber });
                 editModelSave.RecipeNumber = (int)result.LastInsertedId;
+                RecordChange(editModelSave.ItemNumber, "ADD", "recipe");
             }
 
             foreach (var item in items)
@@ -303,6 +414,12 @@ namespace Crossout.Web.Services
                             new object[] {item.Id, item.Number},
                             "recipenumber = @recipenumberWhere AND recipeitem.id = @recipeitemnumber",
                             parameters);
+
+                        if (item.OldId != item.Id)
+                        {
+                            RecordChange(editModelSave.ItemNumber, "UPDATE", "ingredient", item.OldId.ToString(), item.Id.ToString());
+                        }
+
                     }
                     else
                     {
@@ -310,14 +427,30 @@ namespace Crossout.Web.Services
                         List<Parameter> parameters = new List<Parameter>();
                         parameters.Add(new Parameter
                         {
-                            Identifier = "@recipenumberWhere",
+                            Identifier = "@recipenumber",
                             Value = editModelSave.RecipeNumber
                         });
                         parameters.Add(new Parameter {Identifier = "@recipeitemnumber", Value = item.RecipeItemNumber});
                         var result =
                             DB.ExecuteSQL(
-                                "DELETE FROM recipeitem WHERE recipenumber = @recipenumberWhere AND recipeitem.id = @recipeitemnumber;",
+                                "DELETE FROM recipeitem WHERE recipeitem.recipenumber = @recipenumber AND recipeitem.id = @recipeitemnumber;",
                                 parameters);
+                        RecordChange(editModelSave.ItemNumber, "DELETE", "ingredient", item.OldId.ToString());
+
+                        if (!items.Any(x => x.Id != 0))
+                        {
+                            List<Parameter> parameters2 = new List<Parameter>();
+                            parameters2.Add(new Parameter
+                            {
+                                Identifier = "@recipenumber",
+                                Value = editModelSave.RecipeNumber
+                            });
+                            var result2 =
+                                DB.ExecuteSQL(
+                                    "DELETE FROM recipe WHERE recipe.id = @recipenumber;",
+                                    parameters);
+                            RecordChange(editModelSave.ItemNumber, "DELETE", "recipe");
+                        }
                     }
                 }
                 if (item.OldId == 0)
@@ -326,6 +459,7 @@ namespace Crossout.Web.Services
                     {
                         DB.Insert("recipeitem", new string[] {"recipenumber", "itemnumber", "number"},
                             new object[] {editModelSave.RecipeNumber, item.Id, item.Number});
+                        RecordChange(editModelSave.ItemNumber, "ADD", "ingredient", "", item.Id.ToString());
                     }
                 }
             }
@@ -337,6 +471,60 @@ namespace Crossout.Web.Services
                 parameters.Add(new Parameter { Identifier = "@recipenumber", Value = editModelSave.RecipeNumber });
                 var result = DB.ExecuteSQL("UPDATE recipe SET recipe.factionnumber = @factionnumber WHERE recipe.id = @recipenumber", parameters);
             }
+        }
+
+        public void SaveGeneralItemInfo(EditGeneralInfo info, EditModelSave editModelSave)
+        {
+            var item = SelectItem(editModelSave.ItemNumber, false);
+
+            if (item.Item.Name != info.NewItemName)
+            {
+                RecordChange(item.Item.Id, "UPDATE", "name", item.Item.Name, info.NewItemName);
+            }
+
+            if (item.Item.RarityId != info.NewRarity)
+            {
+                RecordChange(item.Item.Id, "UPDATE", "rarity", item.Item.RarityId.ToString(), info.NewRarity.ToString());
+            }
+
+            if (item.Item.CategoryId != info.NewCategory)
+            {
+                RecordChange(item.Item.Id, "UPDATE", "category", item.Item.CategoryId.ToString(), info.NewCategory.ToString());
+            }
+
+            if (item.Item.TypeId != info.NewType)
+            {
+                RecordChange(item.Item.Id, "UPDATE", "type", item.Item.TypeId.ToString(), info.NewType.ToString());
+            }
+
+            if (item.Item.Removed != Convert.ToInt32(info.NewRemovedStatus))
+            {
+                RecordChange(item.Item.Id, "UPDATE", "removed", Convert.ToString(item.Item.Removed), Convert.ToString(Convert.ToInt32(info.NewRemovedStatus)));
+            }
+
+            int removed = 0;
+            if (info.NewRemovedStatus)
+                removed = 1;
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter { Identifier = "@id", Value = editModelSave.ItemNumber });
+            parameters.Add(new Parameter { Identifier = "@locname", Value = info.NewItemName });
+            parameters.Add(new Parameter { Identifier = "@rarity", Value = info.NewRarity });
+            parameters.Add(new Parameter { Identifier = "@category", Value = info.NewCategory });
+            parameters.Add(new Parameter { Identifier = "@type", Value = info.NewType });
+            parameters.Add(new Parameter { Identifier = "@removed", Value = removed });
+            var result = DB.ExecuteSQL("UPDATE item SET item.name = @locname, item.raritynumber = @rarity, item.categorynumber = @category, item.typenumber = @type, item.removed = @removed WHERE item.id = @id", parameters);
+        }
+
+        public void RecordChange(int itemId, string type, string field, string oldValue = "", string newValue = "")
+        {
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter { Identifier = "@itemid", Value = itemId });
+            parameters.Add(new Parameter { Identifier = "@type", Value = type });
+            parameters.Add(new Parameter { Identifier = "@field", Value = field });
+            parameters.Add(new Parameter { Identifier = "@oldValue", Value = oldValue });
+            parameters.Add(new Parameter { Identifier = "@newValue", Value = newValue });
+            parameters.Add(new Parameter { Identifier = "@datetime", Value = DateTime.UtcNow });
+            var result = DB.ExecuteSQL("INSERT INTO changes SET changes.itemid = @itemid, changes.changetype = @type, changes.field = @field,  changes.oldValue = @oldValue,  changes.newValue = @newValue, changes.datetime = @datetime", parameters);
         }
 
         public static string BuildStatusQuery()
@@ -360,6 +548,14 @@ namespace Crossout.Web.Services
                 "LEFT JOIN faction faction ON faction.id = recipe.factionnumber " +
                 "WHERE recipe.id = @id";
 
+            return query;
+        }
+
+        public static string BuildIngredientUsageQuery()
+        {
+            string collumns = "recipe.id, recipe.itemnumber, recipeitem.number";
+            string tables = "crossout.recipeitem LEFT JOIN recipe ON recipeitem.recipenumber = recipe.id";
+            string query = $"SELECT {collumns} FROM {tables} WHERE recipeitem.itemnumber = @itemnumber";
             return query;
         }
 
@@ -426,15 +622,38 @@ namespace Crossout.Web.Services
             return query;
         }
 
-        public static string BuildAllActiveItemsQuery()
+        public static string BuildAllActiveItemsQuery(bool excludeRemovedItems = true)
         {
-            string query = "SELECT item.id,item.name FROM item where removed = 0 ORDER BY item.name ASC,item.id ASC;";
+            string removedItems = "";
+            if (excludeRemovedItems)
+            {
+                removedItems = "WHERE removed = 0";
+            }
+            string query = $"SELECT item.id,item.name FROM item {removedItems} ORDER BY item.name ASC,item.id ASC;";
             return query;
         }
 
         public static string BuildFactionsQuery()
         {
             string query = "SELECT faction.id, faction.name FROM faction ORDER BY id ASC;";
+            return query;
+        }
+
+        public static string BuildRarityQuery()
+        {
+            string query = "SELECT rarity.id, rarity.name FROM rarity ORDER BY id ASC;";
+            return query;
+        }
+
+        public static string BuildCategoryQuery()
+        {
+            string query = "SELECT category.id, category.name FROM category ORDER BY id ASC;";
+            return query;
+        }
+
+        public static string BuildTypeQuery()
+        {
+            string query = "SELECT type.id, type.name FROM type ORDER BY id ASC;";
             return query;
         }
 
@@ -474,6 +693,23 @@ namespace Crossout.Web.Services
             string collumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount";
             string tables = "item LEFT JOIN rarity on rarity.id = item.raritynumber LEFT JOIN category on category.id = item.categorynumber LEFT JOIN type on type.id = item.typenumber LEFT JOIN recipe ON recipe.itemnumber = item.id LEFT JOIN faction ON faction.id = recipe.factionnumber";
             string query = $"SELECT {collumns} FROM {tables} WHERE removed=0 AND meta=0 AND craftingsellsum!=0 AND craftingbuysum!=0 ORDER BY item.id";
+            return query;
+        }
+
+        public static string BuildChangesQuery(int itemId = 0)
+        {
+            string collumns = "changes.id,changes.itemid,changes.changetype,changes.field,changes.oldvalue,changes.newvalue,changes.datetime";
+            string tables = "changes";
+            string query;
+            if (itemId != 0)
+            {
+                query = $"SELECT {collumns} FROM {tables} WHERE changes.itemid = {itemId} ORDER BY changes.id DESC LIMIT 100";
+            }
+            else
+            {
+                query = $"SELECT {collumns} FROM {tables} ORDER BY changes.id DESC LIMIT 500";
+            }
+            
             return query;
         }
     }
