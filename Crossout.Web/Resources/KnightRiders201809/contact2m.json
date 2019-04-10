@@ -1,0 +1,30 @@
+﻿{
+  "Id": "826",
+  "Key": "contact2m",
+  "Name": "Contact 2M",
+  "Talers": 150,
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 600
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 300
+    },
+    {
+      "Id": 96,
+      "Amount": 3
+    },
+    {
+      "Id": 120,
+      "Amount": 2
+    },
+    {
+      "Id": 99,
+      "Amount": 2
+    }
+  ]
+}
