@@ -1,0 +1,40 @@
+﻿{
+  "Id": "929",
+  "Key": "mg14arbiter",
+  "Name": "MG14 Arbiter",
+  "Talers": 500,
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 1350
+    },
+    /* Batteries x100 */
+    {
+      "Id": 784,
+      "Amount": 800
+    },
+    /* Electronics x100 */
+    {
+      "Id": 168,
+      "Amount": 800
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 1350
+    },
+    {
+      "Id": 31,
+      "Amount": 2
+    },
+    {
+      "Id": 614,
+      "Amount": 2
+    },
+    {
+      "Id": 764,
+      "Amount": 1
+    }
+  ]
+}
