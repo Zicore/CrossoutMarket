@@ -387,7 +387,7 @@ namespace Crossout.Web.Services
 
         public void SaveRecipe(EditModelSave editModelSave, List<EditItem> items)
         {
-            if (editModelSave.RecipeNumber == 0)
+            if (editModelSave.RecipeNumber == 0 && items.Any(x => x.Id > 0))
             {
                 var result = DB.Insert("recipe", new string[] {"itemnumber", "factionnumber"}, new object[] { editModelSave.ItemNumber, editModelSave.FactionNumber });
                 editModelSave.RecipeNumber = (int)result.LastInsertedId;
