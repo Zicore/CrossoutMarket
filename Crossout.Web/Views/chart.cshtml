@@ -10,9 +10,12 @@
 <div class="text-center">
     <button class="btn btn-xs btn-default hidden" id="grouping-button">Disable Data Grouping</button>
     <button class="btn btn-xs btn-default hidden" id="load-more-button">Load More</button>
+    <button class="btn btn-xs btn-default hidden" id="csv-button"><a id="csv-link" href="#" style="color: black; text-decoration: none;">Download CSV</a></button>
 </div>
 
 <script>
+    var chart;
+
     $(function () {
         var seriesOptions = [],
             seriesCounter = 0,
@@ -160,8 +163,11 @@
          */
         function createChart(buttons) {
 
-            $('#container').highcharts('StockChart', {
+            chart = new Highcharts.StockChart({
 
+                chart: {
+                    renderTo: 'container'
+                },
                 rangeSelector: {
                     allButtonsEnabled: true,
                     buttons: buttons,
@@ -208,7 +214,9 @@
 
                 tooltip: {
                     pointFormat: '<span style="color:{series.color};font-size:16px;">{series.name}</span>: <b>{point.y}</b><br/>',
-                    valueDecimals: 2
+                    valueDecimals: 2,
+                    shared: true,
+                    split: false
                 },
 
                 series: seriesOptions
@@ -287,6 +295,7 @@
 
                 $('#grouping-button').removeClass('hidden');
                 $('#load-more-button').removeClass('hidden');
+                $('#csv-button').removeClass('hidden');
             });
         }
 
@@ -374,6 +383,11 @@
                 $('#grouping-button').text("Disable Data Grouping");
                 toggle = false;
             }
+
+            $('#csv-link').on('click', function (e) {
+                $(this).attr('href', 'data:text/csv;charset=utf-8,' + escape(chart.getCSV()));
+                $(this).attr('download', "@(Model.Item.Id)-data.csv");
+            });
         });
     });
 </script>
