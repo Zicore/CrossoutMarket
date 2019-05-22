@@ -5,6 +5,7 @@ using Nancy.Bootstrapper;
 using Nancy.Conventions;
 using Nancy.Diagnostics;
 using Nancy.Gzip;
+using Nancy.Security;
 using Nancy.SimpleAuthentication;
 using Nancy.TinyIoc;
 using Newtonsoft.Json;
@@ -26,7 +27,7 @@ namespace Crossout.Web
             userRepository = new SqlUserRepository(sql);
             userMapper = new UserMapper(userRepository);
         }
-
+        
         protected override void ConfigureConventions(NancyConventions nancyConventions)
         {
             base.ConfigureConventions(nancyConventions);
@@ -63,6 +64,8 @@ namespace Crossout.Web
 
         protected override void RequestStartup(TinyIoCContainer requestContainer, IPipelines pipelines, NancyContext context)
         {
+            //pipelines.BeforeRequest.AddItemToStartOfPipeline(SecurityHooks.RequiresHttps(true, 443));
+            SSLProxy.RewriteSchemeUsingForwardedHeaders(pipelines);
             // At request startup we modify the request pipelines to
             // include forms authentication - passing in our now request
             // scoped user name mapper.
