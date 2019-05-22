@@ -1,0 +1,9 @@
+﻿{
+  "Key": "horsemenofapocalypsedeath",
+  "SteamAppID": 1049120,
+  "Name": "Death",
+  "Category": 2,
+  "Description": "",
+  "MarketPartIDs": [ 940, 936, 936, 933, 933, 932, 934, 934, 94, 77, 142, 100, 600, 600, 600, 600, 600, 600, 138, 138, 138, 138, 218, 396, 396 ],
+  "RawCoins": 1500
+}
