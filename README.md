@@ -4,6 +4,8 @@ Crossout DB
 # Disclaimer
 We are not affiliated with Gaijin or Targem games in any way. We are just two guys with a passion for markets and games :smile:
 
+# Readme Update: 2019-05-24
+A few months ago, when a Crossout patch encrypted the game files, we contacted the developers of Crossout and we got in touch whith each other. They worked with us to provide a very basic, private API to get the current market data every ~5 min, this enabled us to continue this project.
 
 Crafting Calculator, Price Graphs, Margins and more.
 ===
@@ -280,18 +282,19 @@ How are we gathering Data
 Manual Work, we go ingame and enter it manually in our database :smile:
 
 ## Market Data
-We are currently reading the clients memory every ~5 minutes to get the most up to date market data.
+We are working with the developers of Crossout and have a very basic, readonly, private API access to the market data, which updates every ~5 minutes.
 
 ## Stats and Descriptions
-We basically unpack the game files and read them.
+This is not really possible anymore, the files are encrypted now.
 
 FAQ
 ===
 
+Update: 2019-05-24
+
 Q: I don't find the part that reads the data from the market in your repo.
 
-A: It's not part of the repository and not open source (yet), since we don't want that anyone plays with the games memory, also you 
-could get banned for doing so.
+A: It's not part of the repository and not open source (yet), we currently use a very simple tool that queries the private API we have to the Crossout market.
 
 &nbsp;
 
