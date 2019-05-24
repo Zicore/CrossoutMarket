@@ -5,7 +5,7 @@ Crossout DB
 We are not affiliated with Gaijin or Targem games in any way. We are just two guys with a passion for markets and games :smile:
 
 # Readme Update: 2019-05-24
-A few months ago, when a Crossout patch encrypted the game files, we contacted the developers of Crossout and we got in touch whith each other. They worked with us to provide a very basic, private API to get the current market data every ~5 min, this enabled us to continue this project.
+A few months ago, when a Crossout patch encrypted the game files, we contacted the developers of Crossout and we got in touch whith each other. They worked with us to provide a very basic, private API to get the current market data every ~5 min. This enabled us to continue this project.
 
 Crafting Calculator, Price Graphs, Margins and more.
 ===
