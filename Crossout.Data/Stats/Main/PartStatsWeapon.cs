@@ -95,7 +95,7 @@
         }
 
         [Stat("Projectile Velocity", 111, Type = StatType.Hidden)]
-        public double ProjectileVelocity
+        public double StatProjectileVelocity
         {
             get { return projectile_speed; }
         }
