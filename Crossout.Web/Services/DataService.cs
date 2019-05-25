@@ -231,7 +231,7 @@ namespace Crossout.Web.Services
             var ingredientUsageModel = new IngredientUsageModel();
             foreach (var row in ds)
             {
-                if (!row.Any(x => x == null))
+                if (row.All(x => x != null))
                 {
                     int i = 0;
                     var item = new IngredientUsageItem
