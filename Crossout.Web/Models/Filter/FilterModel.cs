@@ -20,7 +20,7 @@ namespace Crossout.Web.Models.Filter
 
         public FilterItem VerifyRarity(string rarity)
         {
-            var item = Rarities.FirstOrDefault(x => x.NameUri == rarity);
+            var item = Rarities.FirstOrDefault(x => x.NameUri == rarity.ToLower());
             if (item != null)
             {
                 item.Active = true;
@@ -32,7 +32,7 @@ namespace Crossout.Web.Models.Filter
 
         public FilterItem VerifyCategory(string category)
         {
-            var item = Categories.FirstOrDefault(x => x.NameUri == category);
+            var item = Categories.FirstOrDefault(x => x.NameUri == category.ToLower());
             if (item != null)
             {
                 item.Active = true;
@@ -44,7 +44,7 @@ namespace Crossout.Web.Models.Filter
 
         public FilterItem VerifyFaction(string faction)
         {
-            var item = Factions.FirstOrDefault(x => x.NameUri == faction);
+            var item = Factions.FirstOrDefault(x => x.NameUri == faction.ToLower());
             if (item != null)
             {
                 item.Active = true;
