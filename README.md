@@ -137,6 +137,9 @@ metaItems : shows meta items (default false)
 query : search string
 ```
 
+Filters except the search query are omitted if they do not match one of the corresponding options.
+Use the designated endpoints (described above) to get a list of possible options.
+
 Examples
 ```
 /api/v1/items?query=shotgun
