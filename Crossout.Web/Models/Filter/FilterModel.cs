@@ -20,36 +20,45 @@ namespace Crossout.Web.Models.Filter
 
         public FilterItem VerifyRarity(string rarity)
         {
-            var item = Rarities.FirstOrDefault(x => x.NameUri == rarity.ToLower());
-            if (item != null)
+            if (rarity != null)
             {
-                item.Active = true;
-                CurrentRarity = item;
-                return item;
+                var item = Rarities.FirstOrDefault(x => x.NameUri == rarity.ToLower());
+                if (item != null)
+                {
+                    item.Active = true;
+                    CurrentRarity = item;
+                    return item;
+                }
             }
             return null;
         }
 
         public FilterItem VerifyCategory(string category)
         {
-            var item = Categories.FirstOrDefault(x => x.NameUri == category.ToLower());
-            if (item != null)
+            if (category != null)
             {
-                item.Active = true;
-                CurrentCategory = item;
-                return item;
+                var item = Categories.FirstOrDefault(x => x.NameUri == category.ToLower());
+                if (item != null)
+                {
+                    item.Active = true;
+                    CurrentCategory = item;
+                    return item;
+                }
             }
             return null;
         }
 
         public FilterItem VerifyFaction(string faction)
         {
-            var item = Factions.FirstOrDefault(x => x.NameUri == faction.ToLower());
-            if (item != null)
+            if (faction != null)
             {
-                item.Active = true;
-                CurrentFaction = item;
-                return item;
+                var item = Factions.FirstOrDefault(x => x.NameUri == faction.ToLower());
+                if (item != null)
+                {
+                    item.Active = true;
+                    CurrentFaction = item;
+                    return item;
+                }
             }
             return null;
         }
