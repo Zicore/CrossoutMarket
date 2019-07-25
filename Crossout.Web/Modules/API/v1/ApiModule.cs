@@ -158,7 +158,7 @@ namespace Crossout.Web.Modules.API.v1
                 {
                     if (unixTimeStamp)
                     {
-                        timestampColumn = "UNIX_TIMESTAMP(market.datetime)";
+                        timestampColumn = "UNIX_TIMESTAMP(CONVERT_TZ(market.datetime, '+00:00', @@global.time_zone))";
                     }
 
                     string query = $"(SELECT {timestampColumn},market.{name} FROM market where market.itemnumber = @id ORDER BY market.Datetime desc LIMIT 40000);";
@@ -194,18 +194,18 @@ namespace Crossout.Web.Modules.API.v1
 
                 if (startTimestamp.HasValue && endTimestamp.HasValue)
                 {
-                    whereClause += " AND market.datetime BETWEEN FROM_UNIXTIME(@startTimestamp) AND FROM_UNIXTIME(@endTimestamp)";
+                    whereClause += " AND market.datetime BETWEEN CONVERT_TZ(FROM_UNIXTIME(@startTimestamp), @@global.time_zone, '+00:00') AND CONVERT_TZ(FROM_UNIXTIME(@endTimestamp), @@global.time_zone, '+00:00')";
                 }
                 else
                 {
                     if (startTimestamp.HasValue)
-                        whereClause += " AND market.datetime >= FROM_UNIXTIME(@startTimestamp)";
+                        whereClause += " AND market.datetime >= CONVERT_TZ(FROM_UNIXTIME(@startTimestamp), @@global.time_zone, '+00:00')";
                     if (endTimestamp.HasValue)
-                        whereClause += " AND market.datetime <= FROM_UNIXTIME(@endTimestamp)";
+                        whereClause += " AND market.datetime <= CONVERT_TZ(FROM_UNIXTIME(@endTimestamp), @@global.time_zone, '+00:00')";
                 }
 
                 string query = "(" +
-                               "SELECT market.id,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime,UNIX_TIMESTAMP(market.datetime) as unixdatetime " +
+                               "SELECT market.id,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime,UNIX_TIMESTAMP(CONVERT_TZ(market.datetime, '+00:00', @@global.time_zone)) as unixdatetime " +
                                "FROM market " +
                                $"{whereClause} " +
                                "ORDER BY market.Datetime desc LIMIT 40000" +
