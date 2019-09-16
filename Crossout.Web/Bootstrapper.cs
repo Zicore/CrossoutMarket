@@ -38,6 +38,7 @@ namespace Crossout.Web
             nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("content"));
             nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("fonts"));
             nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("scripts"));
+            nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddFile("/ads.txt","/Ads/ads.txt"));
         }
 
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
