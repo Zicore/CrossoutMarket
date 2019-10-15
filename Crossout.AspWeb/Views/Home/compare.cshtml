@@ -11,7 +11,7 @@
 @model Crossout.Web.Models.Items.ItemCollection
 
 
-@Html.PartialAsync("header", Model)
+@Html.Partial("header", Model)
 
 <div class="container-space">
     <div class="panel panel-default">
@@ -200,7 +200,7 @@
                                          @if (item.Stats != null)
                                          {
                                              var statItem = item.Stats.SortedStats.FirstOrDefault(x => x.Stat.Name == stat.Name);
-                                             @Html.PartialAsync("parts/_stat", statItem)
+                                             @Html.Partial("parts/_stat", statItem)
                                          }
                                      </td>
                                  }

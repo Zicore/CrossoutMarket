@@ -5,28 +5,19 @@
 @using Crossout.Model.Items
 @using Crossout.Web
 @using Crossout.Web.Models
-@model Crossout.Web.Models.General.WatchlistModel
+@model Crossout.Web.Models.General.CraftingOverviewModel
 
 
-@Html.PartialAsync("header", Model)
+@Html.Partial("header", Model)
 
-@Html.PartialAsync("status", Model.Status)
+@Html.Partial("status", Model.Status)
 
 
 
 <div class="container-space">
-   
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3 text-center" style="margin-bottom: 20px;">
-            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- Leaderboard -->
-            <ins class="adsbygoogle"
-                 style="display:inline-block;width:728px;height:90px"
-                 data-ad-client="ca-pub-1215488197322962"
-                 data-ad-slot="3124709022"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            @Html.Partial("craftingfilter", Model)
         </div>
     </div>
 
@@ -46,9 +37,6 @@
                     <th>
                         Category
                     </th>
-                    <th>
-                        Type
-                    </th>
                     <th class="text-right">
                         Popularity
                     </th>
@@ -56,16 +44,19 @@
                         Sell Price
                     </th>
                     <th class="text-right">
-                        Sell Offers
+                        Crafting Cost (Sell)
                     </th>
                     <th class="text-right">
                         Buy Price
                     </th>
                     <th class="text-right">
-                        Buy Orders
+                        Crafting Cost (Buy)
                     </th>
                     <th class="text-right">
-                        Margin
+                        Crafting Margin
+                    </th>
+                    <th class="text-right">
+                        Craft or Buy?
                     </th>
                     <th class="text-right">
                         Last Update
@@ -76,21 +67,18 @@
             <tbody>
                 @foreach (Item item in Model.Items)
                 {
-                    @Html.PartialAsync("itempart", item)
+                    @Html.Partial("craftingitempart", item)
                 }
             </tbody>
         </table>
     </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            @Html.Partial("craftingfilter", Model)
+        </div>
+    </div>
 </div>
 
-<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnSortNeutral.js"></script>
 <script src="~/Scripts/Internal/locationhash.js"></script>
-<script src="~/Scripts/Internal/search.js"></script>
-<script>
-    $(document).ready(function () {
-        var table = $('#ItemTable').dataTable();
-
-        // Sort in the order that was originally in the HTML
-        table.fnSortNeutral();
-    });
-</script>
+<script src="~/Scripts/Internal/crafting.js"></script>

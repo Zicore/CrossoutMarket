@@ -1,23 +1,33 @@
-﻿@{
-    Layout = "layout.cshtml";
+﻿@using System.Net
+@using Crossout.Model.Items
+@{
+    Layout = "_Layout";
 }
 
-@using Crossout.Model.Items
-@using Crossout.Web
-@using Crossout.Web.Models
-@model Crossout.Web.Models.General.CraftingOverviewModel
+@model Crossout.Web.Models.General.SearchModel
 
-
-@Html.PartialAsync("header", Model)
-
-@Html.PartialAsync("status", Model.Status)
-
+<partial name="header" model="@Model"/>
+<partial name="status" model="@Model.Status" />
 
 
 <div class="container-space">
     <div class="panel panel-default">
         <div class="panel-body">
-            @Html.PartialAsync("craftingfilter", Model)
+            <partial name="filter" model="@Model"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 text-center" style="margin-bottom: 20px;">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- Leaderboard -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:728px;height:90px"
+                 data-ad-client="ca-pub-1215488197322962"
+                 data-ad-slot="3124709022"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
 
@@ -37,6 +47,9 @@
                     <th>
                         Category
                     </th>
+                    <th>
+                        Type
+                    </th>
                     <th class="text-right">
                         Popularity
                     </th>
@@ -44,19 +57,16 @@
                         Sell Price
                     </th>
                     <th class="text-right">
-                        Crafting Cost (Sell)
+                        Sell Offers
                     </th>
                     <th class="text-right">
                         Buy Price
                     </th>
                     <th class="text-right">
-                        Crafting Cost (Buy)
+                        Buy Orders
                     </th>
                     <th class="text-right">
-                        Crafting Margin
-                    </th>
-                    <th class="text-right">
-                        Craft or Buy?
+                        Margin
                     </th>
                     <th class="text-right">
                         Last Update
@@ -65,9 +75,9 @@
             </thead>
 
             <tbody>
-                @foreach (Item item in Model.Items)
+                @foreach (Item item in Model.SearchResult)
                 {
-                    @Html.PartialAsync("craftingitempart", item)
+                    <partial name="itempart" model="@item" />
                 }
             </tbody>
         </table>
@@ -75,10 +85,10 @@
 
     <div class="panel panel-default">
         <div class="panel-body">
-            @Html.PartialAsync("craftingfilter", Model)
+            <partial name="filter" model="@Model" />
         </div>
     </div>
 </div>
 
 <script src="~/Scripts/Internal/locationhash.js"></script>
-<script src="~/Scripts/Internal/crafting.js"></script>
+<script src="~/Scripts/Internal/search.js"></script>

@@ -6,12 +6,12 @@
 
 
   <ItemGroup>
-    <Content Remove="Pages\edit.cshtml" />
-    <Content Remove="Pages\editpart.cshtml" />
-    <Content Remove="Pages\NotMigrated\admin.cshtml" />
-    <Content Remove="Pages\NotMigrated\edit.cshtml" />
-    <Content Remove="Pages\NotMigrated\editpart.cshtml" />
-    <Content Remove="Pages\NotMigrated\recipe.cshtml" />
+    <Content Remove="Views\edit.cshtml" />
+    <Content Remove="Views\editpart.cshtml" />
+    <Content Remove="Views\NotMigrated\admin.cshtml" />
+    <Content Remove="Views\NotMigrated\edit.cshtml" />
+    <Content Remove="Views\NotMigrated\editpart.cshtml" />
+    <Content Remove="Views\NotMigrated\recipe.cshtml" />
     <Content Remove="Resources\crossoutdb_logo.png" />
     <Content Remove="Resources\crossoutdb_logo3.xcf" />
     <Content Remove="Resources\Data\0.7.0\gamedata\def\ex\car_editor_cabins.lua" />
@@ -213,33 +213,24 @@
     <Content Remove="Resources\PremiumPackages\thirdhalf.json" />
     <Content Remove="Resources\PremiumPackages\wastelandwarrior.json" />
     <Content Remove="Resources\PremiumPackages\wildhunt.json" />
-    <Content Remove="Views\admin.cshtml" />
-    <Content Remove="Views\changes.cshtml" />
-    <Content Remove="Views\changesmodular.cshtml" />
-    <Content Remove="Views\chart.cshtml" />
-    <Content Remove="Views\compare.cshtml" />
-    <Content Remove="Views\crafting.cshtml" />
-    <Content Remove="Views\craftingfilter.cshtml" />
-    <Content Remove="Views\craftingitempart.cshtml" />
-    <Content Remove="Views\edit.cshtml" />
-    <Content Remove="Views\editpart.cshtml" />
-    <Content Remove="Views\event.cshtml" />
-    <Content Remove="Views\filter.cshtml" />
-    <Content Remove="Views\footer.cshtml" />
-    <Content Remove="Views\header.cshtml" />
-    <Content Remove="Views\index.cshtml" />
-    <Content Remove="Views\item.cshtml" />
-    <Content Remove="Views\itempart.cshtml" />
-    <Content Remove="Views\layout.cshtml" />
-    <Content Remove="Views\packages.cshtml" />
-    <Content Remove="Views\pager.cshtml" />
-    <Content Remove="Pages\parts\_stat.cshtml" />
-    <Content Remove="Views\recipe.cshtml" />
-    <Content Remove="Views\recipepart.cshtml" />
-    <Content Remove="Views\search.cshtml" />
-    <Content Remove="Views\status.cshtml" />
-    <Content Remove="Views\tools.cshtml" />
-    <Content Remove="Views\watchlist.cshtml" />
+    <Content Remove="Views\parts\_stat.cshtml" />
+    <Content Remove="wwwroot\content\bootstrap-select.css" />
+    <Content Remove="wwwroot\content\bootstrap-select.css.map" />
+    <Content Remove="wwwroot\content\bootstrap-select.min.css" />
+    <Content Remove="wwwroot\content\bootstrap-theme.css" />
+    <Content Remove="wwwroot\content\bootstrap-theme.css.map" />
+    <Content Remove="wwwroot\content\bootstrap-theme.min.css" />
+    <Content Remove="wwwroot\content\bootstrap-theme.min.css.map" />
+    <Content Remove="wwwroot\content\bootstrap.css" />
+    <Content Remove="wwwroot\content\bootstrap.css.map" />
+    <Content Remove="wwwroot\content\bootstrap.min.css" />
+    <Content Remove="wwwroot\content\bootstrap.min.css.map" />
+    <Content Remove="wwwroot\content\dashboard.css" />
+    <Content Remove="wwwroot\content\style.css" />
+    <Content Remove="wwwroot\fonts\glyphicons-halflings-regular.eot" />
+    <Content Remove="wwwroot\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Remove="wwwroot\fonts\glyphicons-halflings-regular.woff" />
+    <Content Remove="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
 
 
@@ -478,73 +469,124 @@
     <None Include="Resources\PremiumPackages\wildhunt.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\changes.cshtml">
+    <None Include="Views\Home\changes.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\changesmodular.cshtml">
+    <None Include="Views\Home\changesmodular.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\chart.cshtml">
+    <None Include="Views\Home\chart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\compare.cshtml">
+    <None Include="Views\Home\compare.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\crafting.cshtml">
+    <None Include="Views\Home\crafting.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\craftingfilter.cshtml">
+    <None Include="Views\Home\craftingfilter.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\craftingitempart.cshtml">
+    <None Include="Views\Home\craftingitempart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\event.cshtml">
+    <None Include="Views\Home\event.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\filter.cshtml">
+    <None Include="Views\Home\filter.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\footer.cshtml">
+    <None Include="Views\Shared\footer.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\header.cshtml">
+    <None Include="Views\Home\header.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\index.cshtml">
+    <None Include="Views\Home\index.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\item.cshtml">
+    <None Include="Views\Home\item.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\itempart.cshtml">
+    <None Include="Views\Home\itempart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\layout.cshtml">
+    <None Include="Views\Home\layout.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\packages.cshtml">
+    <None Include="Views\Home\packages.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\pager.cshtml">
+    <None Include="Views\Home\pager.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\parts\_stat.cshtml">
+    <None Include="Views\parts\_stat.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\recipepart.cshtml">
+    <None Include="Views\Home\recipepart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\search.cshtml">
+    <None Include="Views\Home\search.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\status.cshtml">
+    <None Include="Views\Home\status.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\tools.cshtml">
+    <None Include="Views\Home\tools.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Pages\watchlist.cshtml">
+    <None Include="Views\Home\watchlist.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\bootstrap-select.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\bootstrap-select.css.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\bootstrap-select.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\bootstrap-theme.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\bootstrap-theme.css.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\bootstrap-theme.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\bootstrap-theme.min.css.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\bootstrap.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\bootstrap.css.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\bootstrap.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\bootstrap.min.css.map">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\dashboard.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\content\style.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -650,13 +692,15 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="nlog" Version="4.6.7" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="4.6.0" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <Folder Include="Pages\NotMigrated\" />
+    <Folder Include="Views\NotMigrated\" />
     <Folder Include="Responses\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
 
@@ -666,6 +710,21 @@
     <ProjectReference Include="..\Crossout.Model\Crossout.Model.csproj" />
     <ProjectReference Include="..\Zicore.Settings.Json\Zicore.Settings.Json.csproj" />
     <ProjectReference Include="..\ZicoreConnector\ZicoreConnector.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>..\ZicoreConnector\Connector\MySql.Data.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="wwwroot\fonts\glyphicons-halflings-regular.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

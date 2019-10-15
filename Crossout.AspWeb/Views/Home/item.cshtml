@@ -9,9 +9,9 @@
 @using Crossout.Web.Helper
 @model Crossout.Web.Models.Items.ItemModel
 
-@Html.PartialAsync("header", Model)
+@Html.Partial("header", Model)
 
-@Html.PartialAsync("status", Model.Status)
+@Html.Partial("status", Model.Status)
 
 <div class="container-space container-fluid">
     <div class="row">
@@ -137,7 +137,7 @@
                     </thead>
 
                     <tbody>
-                        @Html.PartialAsync("recipepart", Model.Recipe.Recipe)
+                        @Html.Partial("recipepart", Model.Recipe.Recipe)
 
                     @*
                         TODO: fix tree in ASP.NET Core
@@ -161,7 +161,7 @@
 
                         @if (Model.Recipe.Recipe.IngredientSum != null)
                         {
-                            @Html.PartialAsync("recipepart", Model.Recipe.Recipe.IngredientSum)
+                            @Html.Partial("recipepart", Model.Recipe.Recipe.IngredientSum)
                         }
                     </tbody>
                 </table>
@@ -325,7 +325,7 @@
                     <h2 class="panel-title">Chart</h2>
                 </div>
                 <div class="panel-body">
-                    @Html.PartialAsync("chart", Model)
+                    @Html.Partial("chart", Model)
                 </div>
             </div>
         </div>
@@ -336,7 +336,7 @@
                     <div class="panel-heading">
                         <h2 class="panel-title">Changes</h2>
                     </div>
-                    @Html.PartialAsync("changesmodular", Model.Changes)
+                    @Html.Partial("changesmodular", Model.Changes)
                 </div>
             </div>
         }
