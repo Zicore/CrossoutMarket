@@ -1,0 +1,26 @@
+﻿@{
+    Layout = "layout.cshtml";
+}
+
+@using Crossout.Model.Items
+@using Crossout.Web
+@using Crossout.Web.Models
+@using Crossout.Web.Models.Changes
+@model Crossout.Web.Models.Changes.ChangesModel
+
+
+@Html.PartialAsync("header", Model)
+
+@Html.PartialAsync("status", Model.Status)
+
+<div class="container-space">
+    <div class="panel panel-default">
+        @Html.PartialAsync("changesmodular", Model)
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        adjustTimeStamp();
+    });
+</script>

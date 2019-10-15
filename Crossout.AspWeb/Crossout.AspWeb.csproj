@@ -1,0 +1,671 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <Content Remove="Pages\edit.cshtml" />
+    <Content Remove="Pages\editpart.cshtml" />
+    <Content Remove="Pages\NotMigrated\admin.cshtml" />
+    <Content Remove="Pages\NotMigrated\edit.cshtml" />
+    <Content Remove="Pages\NotMigrated\editpart.cshtml" />
+    <Content Remove="Pages\NotMigrated\recipe.cshtml" />
+    <Content Remove="Resources\crossoutdb_logo.png" />
+    <Content Remove="Resources\crossoutdb_logo3.xcf" />
+    <Content Remove="Resources\Data\0.7.0\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.7.0\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.7.0\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.7.0\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.7.0\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.7.0\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.7.0\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.7.0\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.7.0\strings\english\string.txt" />
+    <Content Remove="Resources\Data\0.7.0\strings\german\string.txt" />
+    <Content Remove="Resources\Data\0.7.0\strings\russian\string.txt" />
+    <Content Remove="Resources\Data\0.7.20\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.7.20\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.7.20\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.7.20\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.7.20\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.7.20\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.7.20\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.7.20\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.7.20\strings\english\string.txt" />
+    <Content Remove="Resources\Data\0.7.20\strings\german\string.txt" />
+    <Content Remove="Resources\Data\0.7.20\strings\russian\string.txt" />
+    <Content Remove="Resources\Data\0.7.30\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.7.30\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.7.30\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.7.30\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.7.30\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.7.30\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.7.30\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.7.30\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.7.30\strings\english\string.txt" />
+    <Content Remove="Resources\Data\0.7.30\strings\german\string.txt" />
+    <Content Remove="Resources\Data\0.7.30\strings\russian\string.txt" />
+    <Content Remove="Resources\Data\0.7.40\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.7.40\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.7.40\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.7.40\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.7.40\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.7.40\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.7.40\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.7.40\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.7.40\strings\english\string.txt" />
+    <Content Remove="Resources\Data\0.7.40\strings\german\string.txt" />
+    <Content Remove="Resources\Data\0.7.40\strings\russian\string.txt" />
+    <Content Remove="Resources\Data\0.7.50\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.7.50\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.7.50\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.7.50\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.7.50\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.7.50\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.7.50\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.7.50\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.7.50\strings\english\string.txt" />
+    <Content Remove="Resources\Data\0.7.50\strings\german\string.txt" />
+    <Content Remove="Resources\Data\0.7.50\strings\russian\string.txt" />
+    <Content Remove="Resources\Data\0.8.0\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.8.0\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.8.0\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.8.0\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.8.0\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.8.0\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.8.0\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.8.0\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.8.0\strings\english\string.txt" />
+    <Content Remove="Resources\Data\0.8.0\strings\german\string.txt" />
+    <Content Remove="Resources\Data\0.8.0\strings\russian\string.txt" />
+    <Content Remove="Resources\Data\0.8.10\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.8.10\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.8.10\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.8.10\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.8.10\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.8.10\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.8.10\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.8.10\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.8.10\strings\english\string.txt" />
+    <Content Remove="Resources\Data\0.8.10\strings\german\string.txt" />
+    <Content Remove="Resources\Data\0.8.10\strings\russian\string.txt" />
+    <Content Remove="Resources\Data\0.8.20\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.8.20\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.8.20\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.8.20\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.8.20\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.8.20\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.8.20\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.8.20\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.8.20\strings\english\string.txt" />
+    <Content Remove="Resources\Data\0.8.20\strings\german\string.txt" />
+    <Content Remove="Resources\Data\0.8.20\strings\russian\string.txt" />
+    <Content Remove="Resources\Data\0.8.25\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.8.25\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.8.25\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.8.25\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.8.25\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.8.25\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.8.25\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.8.25\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.8.25\strings\english\string.txt" />
+    <Content Remove="Resources\Data\0.8.25\strings\german\string.txt" />
+    <Content Remove="Resources\Data\0.8.25\strings\russian\string.txt" />
+    <Content Remove="Resources\Data\0.8.5\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.8.5\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.8.5\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.8.5\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.8.5\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.8.5\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.8.5\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.8.5\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.8.5\strings\english\string.txt" />
+    <Content Remove="Resources\Data\0.8.5\strings\german\string.txt" />
+    <Content Remove="Resources\Data\0.8.5\strings\russian\string.txt" />
+    <Content Remove="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.9.120.87835\strings\english\string.txt" />
+    <Content Remove="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_cabins.lua" />
+    <Content Remove="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_core.lua" />
+    <Content Remove="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_decorum.lua" />
+    <Content Remove="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_melee.lua" />
+    <Content Remove="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_structure.lua" />
+    <Content Remove="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_summons.lua" />
+    <Content Remove="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_weapons_ex.lua" />
+    <Content Remove="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_wheels.lua" />
+    <Content Remove="Resources\Data\0.9.135.91921\strings\english\string.txt" />
+    <Content Remove="Resources\KnightRiders201809\armoredskull.json" />
+    <Content Remove="Resources\KnightRiders201809\bludgeon.json" />
+    <Content Remove="Resources\KnightRiders201809\contact2m.json" />
+    <Content Remove="Resources\KnightRiders201809\corvo.json" />
+    <Content Remove="Resources\KnightRiders201809\drainknight.json" />
+    <Content Remove="Resources\KnightRiders201809\fleurdelis.json" />
+    <Content Remove="Resources\KnightRiders201809\gunmountwheel.json" />
+    <Content Remove="Resources\KnightRiders201809\gunmountwheelst.json" />
+    <Content Remove="Resources\KnightRiders201809\helios.json" />
+    <Content Remove="Resources\KnightRiders201809\huntsmanshorn.json" />
+    <Content Remove="Resources\KnightRiders201809\ironlily.json" />
+    <Content Remove="Resources\KnightRiders201809\jouster.json" />
+    <Content Remove="Resources\KnightRiders201809\knightrider.json" />
+    <Content Remove="Resources\KnightRiders201809\lanceknightshield.json" />
+    <Content Remove="Resources\KnightRiders201809\lionrampant.json" />
+    <Content Remove="Resources\KnightRiders201809\materialplatesteel.json" />
+    <Content Remove="Resources\KnightRiders201809\nidhogg.json" />
+    <Content Remove="Resources\KnightRiders201809\oculusvi.json" />
+    <Content Remove="Resources\KnightRiders201809\spike1.json" />
+    <Content Remove="Resources\KnightRiders201809\teutoniccross.json" />
+    <Content Remove="Resources\KnightRiders201809\teutoniceagle.json" />
+    <Content Remove="Resources\KnightRiders201809\teutonicstripes.json" />
+    <Content Remove="Resources\KnightRiders\armoredskull.json" />
+    <Content Remove="Resources\KnightRiders\bastion.json" />
+    <Content Remove="Resources\KnightRiders\bludgeon.json" />
+    <Content Remove="Resources\KnightRiders\contact2m.json" />
+    <Content Remove="Resources\KnightRiders\corvo.json" />
+    <Content Remove="Resources\KnightRiders\drainknight.json" />
+    <Content Remove="Resources\KnightRiders\fleurdelis.json" />
+    <Content Remove="Resources\KnightRiders\gunmountwheel.json" />
+    <Content Remove="Resources\KnightRiders\gunmountwheelst.json" />
+    <Content Remove="Resources\KnightRiders\harpy.json" />
+    <Content Remove="Resources\KnightRiders\huntsmanshorn.json" />
+    <Content Remove="Resources\KnightRiders\ironlily.json" />
+    <Content Remove="Resources\KnightRiders\jouster.json" />
+    <Content Remove="Resources\KnightRiders\knightrider.json" />
+    <Content Remove="Resources\KnightRiders\lanceknightshield.json" />
+    <Content Remove="Resources\KnightRiders\lionrampant.json" />
+    <Content Remove="Resources\KnightRiders\m29protector.json" />
+    <Content Remove="Resources\KnightRiders\materialplatesteel.json" />
+    <Content Remove="Resources\KnightRiders\mg14arbiter.json" />
+    <Content Remove="Resources\KnightRiders\photon.json" />
+    <Content Remove="Resources\KnightRiders\pulsar.json" />
+    <Content Remove="Resources\KnightRiders\rift2m.json" />
+    <Content Remove="Resources\KnightRiders\spike1.json" />
+    <Content Remove="Resources\KnightRiders\teutoniccross.json" />
+    <Content Remove="Resources\KnightRiders\teutoniceagle.json" />
+    <Content Remove="Resources\KnightRiders\teutonicstripes.json" />
+    <Content Remove="Resources\NoImage.xcf" />
+    <Content Remove="Resources\PremiumPackages\arachnophobia.json" />
+    <Content Remove="Resources\PremiumPackages\arsonist.json" />
+    <Content Remove="Resources\PremiumPackages\corrida.json" />
+    <Content Remove="Resources\PremiumPackages\drive.json" />
+    <Content Remove="Resources\PremiumPackages\freshblood.json" />
+    <Content Remove="Resources\PremiumPackages\frostburn.json" />
+    <Content Remove="Resources\PremiumPackages\horsemenofapocalypsedeath.json" />
+    <Content Remove="Resources\PremiumPackages\horsemenofapocalypsedeathdeluxe.json" />
+    <Content Remove="Resources\PremiumPackages\horsemenofapocalypsefamine.json" />
+    <Content Remove="Resources\PremiumPackages\horsemenofapocalypsefaminedeluxe.json" />
+    <Content Remove="Resources\PremiumPackages\horsemenofapocalypsewar.json" />
+    <Content Remove="Resources\PremiumPackages\horsemenofapocalypsewardeluxe.json" />
+    <Content Remove="Resources\PremiumPackages\insomnia.json" />
+    <Content Remove="Resources\PremiumPackages\ironshield.json" />
+    <Content Remove="Resources\PremiumPackages\pandemic.json" />
+    <Content Remove="Resources\PremiumPackages\snakebite.json" />
+    <Content Remove="Resources\PremiumPackages\spectralhunter.json" />
+    <Content Remove="Resources\PremiumPackages\theinventor.json" />
+    <Content Remove="Resources\PremiumPackages\thetramp.json" />
+    <Content Remove="Resources\PremiumPackages\thirdhalf.json" />
+    <Content Remove="Resources\PremiumPackages\wastelandwarrior.json" />
+    <Content Remove="Resources\PremiumPackages\wildhunt.json" />
+    <Content Remove="Views\admin.cshtml" />
+    <Content Remove="Views\changes.cshtml" />
+    <Content Remove="Views\changesmodular.cshtml" />
+    <Content Remove="Views\chart.cshtml" />
+    <Content Remove="Views\compare.cshtml" />
+    <Content Remove="Views\crafting.cshtml" />
+    <Content Remove="Views\craftingfilter.cshtml" />
+    <Content Remove="Views\craftingitempart.cshtml" />
+    <Content Remove="Views\edit.cshtml" />
+    <Content Remove="Views\editpart.cshtml" />
+    <Content Remove="Views\event.cshtml" />
+    <Content Remove="Views\filter.cshtml" />
+    <Content Remove="Views\footer.cshtml" />
+    <Content Remove="Views\header.cshtml" />
+    <Content Remove="Views\index.cshtml" />
+    <Content Remove="Views\item.cshtml" />
+    <Content Remove="Views\itempart.cshtml" />
+    <Content Remove="Views\layout.cshtml" />
+    <Content Remove="Views\packages.cshtml" />
+    <Content Remove="Views\pager.cshtml" />
+    <Content Remove="Pages\parts\_stat.cshtml" />
+    <Content Remove="Views\recipe.cshtml" />
+    <Content Remove="Views\recipepart.cshtml" />
+    <Content Remove="Views\search.cshtml" />
+    <Content Remove="Views\status.cshtml" />
+    <Content Remove="Views\tools.cshtml" />
+    <Content Remove="Views\watchlist.cshtml" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Include="Resources\Data\0.9.120.87835\strings\chinese\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\french\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\german\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\japanese\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\korean\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\polish\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\russian\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\spanish\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\tchinese\string.txt" />
+    <Content Include="Resources\Data\0.9.120.87835\strings\thai\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\chinese\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\french\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\german\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\japanese\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\korean\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\polish\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\russian\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\spanish\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\tchinese\string.txt" />
+    <Content Include="Resources\Data\0.9.135.91921\strings\thai\string.txt" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="Resources\KnightRiders201809\armoredskull.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\bludgeon.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\contact2m.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\corvo.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\drainknight.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\fleurdelis.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\gunmountwheel.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\gunmountwheelst.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\helios.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\huntsmanshorn.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\ironlily.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\jouster.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\knightrider.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\lanceknightshield.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\lionrampant.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\materialplatesteel.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\nidhogg.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\oculusvi.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\spike1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\teutoniccross.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\teutoniceagle.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders201809\teutonicstripes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\armoredskull.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\bastion.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\bludgeon.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\contact2m.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\corvo.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\drainknight.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\fleurdelis.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\gunmountwheel.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\gunmountwheelst.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\harpy.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\huntsmanshorn.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\ironlily.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\jouster.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\knightrider.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\lanceknightshield.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\lionrampant.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\m29protector.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\materialplatesteel.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\mg14arbiter.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\photon.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\pulsar.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\rift2m.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\spike1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\teutoniccross.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\teutoniceagle.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\KnightRiders\teutonicstripes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\arachnophobia.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\arsonist.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\corrida.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\drive.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\freshblood.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\frostburn.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\horsemenofapocalypsedeath.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\horsemenofapocalypsedeathdeluxe.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\horsemenofapocalypsefamine.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\horsemenofapocalypsefaminedeluxe.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\horsemenofapocalypsewar.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\horsemenofapocalypsewardeluxe.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\insomnia.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\ironshield.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\pandemic.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\snakebite.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\spectralhunter.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\theinventor.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\thetramp.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\thirdhalf.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\wastelandwarrior.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\wildhunt.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\changes.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\changesmodular.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\chart.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\compare.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\crafting.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\craftingfilter.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\craftingitempart.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\event.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\filter.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\footer.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\header.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\index.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\item.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\itempart.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\layout.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\packages.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\pager.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\parts\_stat.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\recipepart.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\search.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\status.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\tools.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Pages\watchlist.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Update="Resources\Data\0.8.25\gamedata\def\ex\car_editor_cabins.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.8.25\gamedata\def\ex\car_editor_core.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.8.25\gamedata\def\ex\car_editor_decorum.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.8.25\gamedata\def\ex\car_editor_melee.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.8.25\gamedata\def\ex\car_editor_structure.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.8.25\gamedata\def\ex\car_editor_summons.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.8.25\gamedata\def\ex\car_editor_weapons_ex.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.8.25\gamedata\def\ex\car_editor_wheels.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.8.25\strings\english\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.8.25\strings\german\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.8.25\strings\russian\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_cabins.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_core.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_decorum.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_melee.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_structure.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_summons.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_weapons_ex.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.120.87835\gamedata\def\ex\car_editor_wheels.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.120.87835\strings\english\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_cabins.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_core.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_decorum.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_melee.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_structure.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_summons.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_weapons_ex.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_wheels.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Data\0.9.135.91921\strings\english\string.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="nlog" Version="4.6.7" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Pages\NotMigrated\" />
+    <Folder Include="Responses\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Crossout.Data\Crossout.Data.csproj" />
+    <ProjectReference Include="..\Crossout.Images\Crossout.Images.csproj" />
+    <ProjectReference Include="..\Crossout.Model\Crossout.Model.csproj" />
+    <ProjectReference Include="..\Zicore.Settings.Json\Zicore.Settings.Json.csproj" />
+    <ProjectReference Include="..\ZicoreConnector\ZicoreConnector.csproj" />
+  </ItemGroup>
+
+</Project>

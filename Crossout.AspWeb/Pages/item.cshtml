@@ -1,0 +1,407 @@
+﻿@{
+    Layout = "layout.cshtml";
+}
+
+@using System.Collections.Generic
+@using System.Linq
+@using Crossout.Model.Recipes
+@using Crossout.Web
+@using Crossout.Web.Helper
+@model Crossout.Web.Models.Items.ItemModel
+
+@Html.PartialAsync("header", Model)
+
+@Html.PartialAsync("status", Model.Status)
+
+<div class="container-space container-fluid">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Item Description</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="~/item/@Model.Item.Id">
+                                
+                                <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@Model.Item.Image" />
+                                
+                                @* TODO: add check if image exists
+                                    @if (RootPathHelper.HighResImageExists(Model.Item.Image))
+                                {
+                                    <img class="pull-left item-image-auto-size content-space" style="margin-right: 8px;" src="~/img/items-highres/@Model.Item.Image"/>
+                                }
+                                else if (RootPathHelper.ImageExists(Model.Item.Image))
+                                {
+                                    <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@Model.Item.Image"/>
+                                }
+                                else
+                                {
+                                    <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/NoImage.png"/>
+                                }*@
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h3 style="margin-top: 6px; margin-bottom: 2px;">@Model.Item.Name</h3>
+                            @if (Model.Item.Description != null)
+                            {
+                                <span>@Html.Raw(@Model.Item.Description.Text)</span>
+                            }
+                            <div>
+                                <a href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout" class="btn btn-xs btn-info" role="button">Tweet Prices</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+
+                        @*<button type="button" class="btn btn-xs btn-default embed-button">
+                            < > Embed
+                        </button>*@
+                    </div>
+                    @*<div id="embed-wrapper" style="display: none;">
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="directlinkembed" class="col-md-2 control-label">Direct Link</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" id="directlinkembed" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="bbcodeembed" class="col-md-2 control-label">BB-Code</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" id="bbcodeembed" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="htmlembed" class="col-md-2 control-label">HTML</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" id="htmlembed" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <b>Preview</b>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <a href="/item/@Model.Item.Id"><img src="/embed/image/@(Model.Item.Id).png" alt="Embed Image" style="width: 300px; height: 64px;"></a>
+                            </div>
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Recipe</h2>
+                </div>
+                <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Rarity
+                            </th>
+                            <th>
+                                <div class="text-left pull-left">Number</div>
+                                <div class="text-right clearfix rec-right">Sell Price</div>
+                            </th>
+                            <th>
+                            </th>
+                            <th>
+                                <div class="text-left pull-left">Number</div>
+                                <div class="text-right clearfix rec-right">Buy Price</div>
+                            </th>
+                            <th class="text-right">
+                                Margin
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @Html.PartialAsync("recipepart", Model.Recipe.Recipe)
+
+                    @*
+                        TODO: fix tree in ASP.NET Core
+                        @ShowTree(Model.Recipe.Recipe.Ingredients)
+
+                        @helper ShowTree(List<RecipeItem> items)
+                        {
+                            foreach (RecipeItem item in items)
+                            {
+                                @Html.Partial("recipepart", item)
+                                if (item != null && item.Ingredients.Count > 0)
+                                {
+                                    @ShowTree(item.Ingredients)
+                                }
+                                if (item.IngredientSum != null)
+                                {
+                                    @Html.Partial("recipepart", item.IngredientSum)
+                                }
+                            }
+                        }*@
+
+                        @if (Model.Recipe.Recipe.IngredientSum != null)
+                        {
+                            @Html.PartialAsync("recipepart", Model.Recipe.Recipe.IngredientSum)
+                        }
+                    </tbody>
+                </table>
+
+                @if (Model.Recipe.Recipe.Ingredients.Count > 0)
+                {
+                    <div id="shopping-list-wrapper" class="collapse">
+                        <h4>Shopping List</h4>
+                        <table class="table table-hover table-condensed" id="shopping-list">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Rarity
+                                    </th>
+                                    <th class="text-right">
+                                        Number
+                                    </th>
+                                    <th>
+                                        <div class="text-right clearfix rec-right">Sell Price</div>
+                                    </th>
+                                    <th>
+                                    </th>
+                                    <th>
+                                        <div class="text-right clearfix rec-right">Buy Price</div>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Advertisement</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="content-space">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-1215488197322962"
+                             data-ad-slot="4105484332"
+                             data-ad-format="auto"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Item.Stats != null && Model.Item.Stats.SortedStats.Count > 0)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Stats v@(Crossout.Web.WebSettings.Settings.CurrentVersion)</h4>
+                    </div>
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Item.Stats.SortedStats)
+                            {
+                                if (item.DisplayValue && item.Stat.Type == Crossout.Data.StatType.Exposed)
+                                {
+                                    <tr>
+                                        <td class="col-md-4 stat-text">@item.Stat.Name</td>
+                                        <td>@Html.Partial("parts/_stat", item)</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr class="stat-title-row">
+                                <td>
+                                    <div id="detailed-stats-title-row"><span class="stat-title">Detailed Stats </span><i class="glyphicon glyphicon-chevron-down"></i></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="detailed-stat-wrapper" style="display: none">
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Item.Stats.SortedStats)
+                                {
+                                    if (item.DisplayValue && item.Stat.Type == Crossout.Data.StatType.Hidden)
+                                    {
+                                        <tr>
+                                            <td class="col-md-4 stat-text">@item.Stat.Name</td>
+                                            <td>@Html.Partial("parts/_stat", item)</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+
+            @if (Model.IngredientUsage != null && Model.IngredientUsage.IngredientUsageList.Count > 0)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Item Recipe Usage</h4>
+                    </div>
+                    <table id="ingredientUsageTable" class="table table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Item
+                                </th>
+                                <th>
+                                    Amount
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.IngredientUsage.IngredientUsageList)
+                            {
+                            <tr>
+                                <td>
+                                    <a href="~/item/@item.ItemId">
+                                        @if (true) /* TODO: Fix image exists (RootPathHelper.ImageExists(item.ItemId + ".png"))*/
+                                        {
+                                            <img class="pull-left item-image-big content-space" style="width: 32px; height: 32px; margin-right: 8px;" src="~/img/items/@(item.ItemId).png" />
+                                        }
+                                        else
+                                        {
+                                            <img class="pull-left item-image-big content-space" style="width: 32px; height: 32px; margin-right: 8px;" src="~/img/NoImage.png" />
+                                        }
+                                    </a>
+                                    <a href="~/item/@item.ItemId"><h4 class="item-title">@(Model.Changes.ContainedItems.ContainsKey(item.ItemId) == true ? Model.Changes.ContainedItems[item.ItemId].Name : item.ItemId.ToString())</h4></a>
+                                </td>
+                                <td>
+                                    @item.Amount
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Chart</h2>
+                </div>
+                <div class="panel-body">
+                    @Html.PartialAsync("chart", Model)
+                </div>
+            </div>
+        </div>
+        @if (Model.Changes.Changes.Count > 0)
+        {
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Changes</h2>
+                    </div>
+                    @Html.PartialAsync("changesmodular", Model.Changes)
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="~/Scripts/Internal/item.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#ingredientUsageTable').DataTable({
+            "info": false,
+            "paging": false,
+            "searching": false,
+            deferRender: true,
+            scrollY: 300,
+            scrollCollapse: true,
+            scroller: {
+                loadingIndicator: true
+            }
+        });
+
+        $('#directlinkembed').val(location.origin + "/embed/image/@(Model.Item.Id).png");
+        $('#bbcodeembed').val('[url="' +
+            location.origin +
+            '/item/@(Model.Item.Id)"][img]' +
+            location.origin +
+            '/embed/image/@(Model.Item.Id).png[/img][/url]');
+        $('#htmlembed').val('<a href="' +
+            location.origin +
+            '/item/@(Model.Item.Id)"><img src="' +
+            location.origin +
+            '/embed/image/@(Model.Item.Id).png"/></a>');
+
+        $('.embed-button').click(function (e) {
+            var embed = $('#embed-wrapper');
+            if (embed.is(":visible")) {
+                embed.slideUp();
+            } else {
+                embed.slideDown();
+            }
+        });
+
+        $('#detailed-stats-title-row').click(function (e) {
+            var embed = $('#detailed-stat-wrapper');
+            var icon = $(this).find('.glyphicon');
+            if (embed.is(":visible")) {
+                embed.slideUp();
+                icon.removeClass('glyphicon-chevron-up');
+                icon.addClass('glyphicon-chevron-down');
+            } else {
+                embed.slideDown();
+                icon.removeClass('glyphicon-chevron-down');
+                icon.addClass('glyphicon-chevron-up');
+            }
+        });
+
+        adjustTimeStamp();
+    });
+
+    $.getJSON(location.protocol + '//@(ViewHelper.GetHostWithPort())/data/recipe/@(Model.Item.Id)',
+        function (data) {
+
+           recipeData.data = data;
+           recipeData.loaded = true;
+
+            $(".item-0").removeClass("disabled");
+        });
+</script>

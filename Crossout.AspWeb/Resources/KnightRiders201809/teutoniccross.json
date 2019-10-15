@@ -1,0 +1,18 @@
+﻿{
+  "Id": "320",
+  "Key": "teutoniccross",
+  "Name": "Teutonic Cross",
+  "Talers": 150,
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 450
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 150
+    }
+  ]
+}
