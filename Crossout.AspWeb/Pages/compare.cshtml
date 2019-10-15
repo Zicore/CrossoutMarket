@@ -1,0 +1,235 @@
+﻿@{
+    Layout = "layout.cshtml";
+}
+
+@using Crossout.Model.Items
+@using Crossout.Web
+@using Crossout.Web.Models
+@using Crossout.Data
+@using Crossout.Data.Stats.Main
+@using System.Linq
+@model Crossout.Web.Models.Items.ItemCollection
+
+
+@Html.PartialAsync("header", Model)
+
+<div class="container-space">
+    <div class="panel panel-default">
+        <table id="CompareTable" class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <th>
+                            <a href="~/item/@item.Id">
+                                @if (true) //TODO: fix image exists (RootPathHelper.ImageExists(item.Image))
+                                {
+                                    <img class="pull-left item-image-search content-space" style="margin-right: 4px;" src="~/img/items/@item.Image" />
+                                }
+                                else
+                                {
+                                    <img class="pull-left item-image-search content-space" style="margin-right: 4px;" src="~/img/NoImage.png" />
+                                }
+                            </a>
+                            <div class="clearfix content-heading" style="padding: 4px">
+                                <div class="label-md-left"><h4 class="item-title"><a href="~/item/@item.Id">@item.Name</a></h4></div>
+                                <div class="label-md-left">@item.Faction</div>
+                                <div class="label-md-left">@item.TypeName</div>
+                            </div> 
+                        </th>
+                    }
+                    <th>
+                        <select id="CompareAdder" class="selectpicker" name="CompareAdder" data-live-search="true" size="1">
+                            <option value="0">None</option>
+                            @foreach (var item in Model.AllItems)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        </select>
+                        <button id="CompareAdderButton" class="btn btn-default">Add</button>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="stat-title-row">
+                    <td>
+                        <div class="stat-title">Market</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td></td>
+                    }
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Sell Price</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.FormatSellPrice <img height="14" src="~/img/Coin.png" /></div>
+                        </td>
+                    }
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Buy Price</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.FormatBuyPrice <img height="14" src="~/img/Coin.png" /></div>
+                        </td>
+                    }
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Sell Offers</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.SellOffers</div>
+                        </td>
+                    }
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Buy Orders</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.BuyOrders</div>
+                        </td>
+                    }
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="label-md-left">Margin</div>
+                    </td>
+                    @foreach (Item item in Model.Items)
+                    {
+                        <td>
+                            <div class="label-md-left">@item.FormatMargin <img height="14" src="~/img/Coin.png" /></div>
+                        </td>
+                    }
+                    <td></td>
+                </tr>
+            <tr>
+                <td>
+                    <div class="label-md-left">Last Update</div>
+                </td>
+                @foreach (Item item in Model.Items)
+                {
+                    <td>
+                        <div class="label-md-left item-timestamp @(item.OlderThan(5) ? "item-older-than-5" : "") @(item.OlderThan(60) ? "item-older-than-60" : "")">@item.LastUpdateTime</div>
+                    </td>
+                }
+                <td></td>
+            </tr>
+                @if (Model.StatTypes != null && Model.StatTypes.Any(x=> x.Type == StatType.Exposed))
+                {
+                    <tr class="stat-title-row">
+                        <td>
+                            <div class="stat-title">Stats v@(Crossout.Web.WebSettings.Settings.CurrentVersion)</div>
+                        </td>
+                        @foreach (Item item in Model.Items)
+                        {
+                            <td>
+
+                            </td>
+                        }
+                        <td></td>
+                    </tr>
+                    @foreach (StatAttribute stat in Model.StatTypes)
+                     {
+                         if (stat.Type == StatType.Exposed)
+                         {
+                             <tr>
+                                 <td>
+                                     <div class="label-md-left">@stat.Name</div>
+                                 </td>
+                                 @foreach (Item item in Model.Items)
+                                 {
+                                     <td>
+                                         @if (item.Stats != null)
+                                         {
+                                             var statItem = item.Stats.SortedStats.FirstOrDefault(x => x.Stat.Name == stat.Name);
+                                             @Html.Partial("parts/_stat", statItem)
+                                         }
+                                     </td>
+                                 }
+                                 <td></td>
+                             </tr>
+                         }
+                     }
+                }
+                @if (Model.StatTypes != null && Model.StatTypes.Any(x => x.Type == StatType.Hidden))
+                {
+                    <tr class="stat-title-row">
+                        <td>
+                            <div class="stat-title">Detailed Stats</div>
+                        </td>
+                        @foreach (Item item in Model.Items)
+                        {
+                            <td></td>
+                        }
+                        <td></td>
+                    </tr>
+                    @foreach (StatAttribute stat in Model.StatTypes)
+                     {
+                         if (stat.Type == StatType.Hidden)
+                         {
+                             <tr>
+                                 <td>
+                                     <div class="label-md-left">@stat.Name</div>
+                                 </td>
+                                 @foreach (Item item in Model.Items)
+                                 {
+                                     <td>
+                                         @if (item.Stats != null)
+                                         {
+                                             var statItem = item.Stats.SortedStats.FirstOrDefault(x => x.Stat.Name == stat.Name);
+                                             @Html.PartialAsync("parts/_stat", statItem)
+                                         }
+                                     </td>
+                                 }
+                                 <td></td>
+                             </tr>
+                         }
+                     }
+                }
+                </tbody>
+            </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $('#CompareTable').DataTable({
+            paging: false,
+            searching: false,
+            ordering: false,
+            info: false
+        });
+
+        adjustTimeStamp()
+    });
+
+    $('#CompareAdderButton').on('click', function () {
+        if ($('#CompareAdder').val() > 0)
+        {
+            window.location = window.location + ',' + $('#CompareAdder').val();
+        }
+    });
+</script>

@@ -1,0 +1,392 @@
+﻿@using Crossout.Web
+@using Crossout.Web.Helper
+@using Zicore.Settings.Json
+@using Zicore.Settings
+@model Crossout.Web.Models.Items.ItemModel
+
+<div class="glyphicon glyphicon-refresh glyphicon-refresh-animate" id="loading-icon"></div>
+<div id="container" style="height: 600px; min-width: 310px"></div>
+<div class="text-center">
+    <button class="btn btn-xs btn-default hidden" id="grouping-button">Disable Data Grouping</button>
+    <button class="btn btn-xs btn-default hidden" id="load-more-button">Load More</button>
+    <button class="btn btn-xs btn-default hidden" id="csv-button"><a id="csv-link" href="#" style="color: black; text-decoration: none;">Download CSV</a></button>
+</div>
+
+<script>
+    var chart;
+
+    $(function () {
+        var seriesOptions = [],
+            seriesCounter = 0,
+            names = [{name:'Sell',type:0}, {name:'Buy',type:0}, {name:'SellOffers',type:1},{name:'BuyOrders',type:1}];
+
+        var buttons = [{
+            type: 'hour',
+            count: 6,
+            text: '6h',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['minute', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 12,
+            text: '12h',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['minute', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 24,
+            text: '1d',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['minute', [30]]]
+            }
+        }, {
+            type: 'hour',
+            count: 72,
+            text: '3d',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['hour', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 168,
+            text: '1w',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['hour', [6]]]
+            }
+        }, {
+            type: 'day',
+            count: 30,
+            text: '1m',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['hour', [12]]]
+            }
+        }, {
+            type: 'all',
+            text: 'all',
+            dataGrouping: {
+                enabled: true,
+                forced: true,
+                units: [['hour', [12]]]
+            }
+        }];
+        // Workaround to disable the '1m' and 'all' buttons
+        var buttonsDisabledGrouping = [{
+            type: 'hour',
+            count: 6,
+            text: '6h',
+            dataGrouping: {
+                enabled: false,
+                forced: false,
+                units: [['minute', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 12,
+            text: '12h',
+            dataGrouping: {
+                enabled: false,
+                forced: false,
+                units: [['minute', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 24,
+            text: '1d',
+            dataGrouping: {
+                enabled: false,
+                forced: false,
+                units: [['minute', [30]]]
+            }
+        }, {
+            type: 'hour',
+            count: 72,
+            text: '3d',
+            dataGrouping: {
+                enabled: false,
+                forced: false,
+                units: [['hour', [1]]]
+            }
+        }, {
+            type: 'hour',
+            count: 168,
+            text: '1w',
+            dataGrouping: {
+                enabled: false,
+                forced: false,
+                units: [['hour', [6]]]
+            }
+        }];
+        var toggle = false;
+        $('#grouping-button').on('click', function (e) {
+            var inThirtyDays = new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000);
+            if (toggle)
+            {
+                createChart(buttons);
+                $(this).text("Disable Data Grouping");
+                toggle = false;
+                Cookies.set("datagroupingdisabled", false, {
+                    expires: inThirtyDays
+                });
+            }
+            else
+            {
+                createChart(buttonsDisabledGrouping);
+                $(this).text("Enable Data Grouping");
+                toggle = true;
+                Cookies.set("datagroupingdisabled", true, {
+                    expires: inThirtyDays
+                });
+            }
+        });
+
+        $('#load-more-button').on('click', function (e) {
+            loadData(true);
+        });
+        /**
+         * Create the chart when all data is loaded
+         * returns {undefined}
+         */
+        function createChart(buttons) {
+
+            chart = new Highcharts.StockChart({
+
+                chart: {
+                    renderTo: 'container'
+                },
+                rangeSelector: {
+                    allButtonsEnabled: true,
+                    buttons: buttons,
+                    buttonTheme: {
+                        width: 20
+                    },
+                    selected: 2
+                },
+                title: {
+                    text: 'Item Chart Data',
+                    x: -20 //center
+                },
+                xAxis: {
+                    ordinal: false
+                },
+                yAxis: [{
+                    title: {
+                        text: 'Prices'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 2
+                    }]
+                },{
+                    title: {
+                        text: 'Volumes'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 2
+                    }],
+                    opposite :false
+                }],
+
+                tooltip: {
+                    pointFormat: '<span style="color:{series.color};font-size:16px;">{series.name}</span>: <b>{point.y}</b><br/>',
+                    valueDecimals: 2,
+                    shared: true,
+                    split: false
+                },
+
+                series: seriesOptions
+            });
+        }
+
+        function loadData(moreData = false) {
+
+            var id = @Model.Item.Id;
+            var host = '@WebSettings.Settings.DataHost';
+
+            var dataAmount = "all";
+            if (moreData) {
+                dataAmount = "all-full";
+            }
+
+            if (moreData) {
+                $('#load-more-button').addClass('disabled');
+                $('#loading-icon').removeClass('hidden');
+                $('#load-more-button').unbind("click");
+            }
+
+            $.getJSON(location.protocol + '//@(ViewHelper.GetHostWithPort())/data/item/' + dataAmount + '/' + id, function (alldata) {
+                var series = {};
+                $.each(alldata.Data, function (i, data) {
+                    // Adjust time to local time
+                    $.each(data, function (j, row) {
+                        row[0] = row[0] + totalUnixOffset;
+                    });
+
+                    if (names[i].type === 1) {
+                        var color = '#44A5FF';
+                        if (names[i].name === 'SellOffers') {
+                            color = '#939393';
+                        }
+                        series =
+                            {
+                                name: names[i].name,
+                                yAxis: 1,
+                                data: data,
+                                type: 'column',
+                                zIndex: 1,
+                                color: color
+                            };
+                    } else {
+                        var color = '#32C922';
+                        if (names[i].name === 'Sell') {
+                            color = '#FF3D23';
+                        }
+                        series =
+                            {
+                                name: names[i].name,
+                                data: data,
+                                type: 'line',
+                                zIndex: 2,
+                                color: color
+                            };
+                    }
+
+                    seriesOptions[i] = series;
+                    // As we're loading the data asynchronously, we don't know what order it will arrive. So
+                    // we keep a counter and create the chart when all the data is loaded.
+                    seriesCounter += 1;
+                });
+
+                $('#loading-icon').addClass('hidden');
+
+                if (Cookies.get("datagroupingdisabled") === "true")
+                {
+                    createChart(buttonsDisabledGrouping);
+                }
+                else
+                {
+                    createChart(buttons);
+                }
+
+                $('#grouping-button').removeClass('hidden');
+                $('#load-more-button').removeClass('hidden');
+                $('#csv-button').removeClass('hidden');
+            });
+        }
+
+        loadData();
+
+        $(document).ready(function() {
+            // Load the fonts
+            Highcharts.createElement('link', {
+                href: 'https://fonts.googleapis.com/css?family=Dosis:400,600',
+                rel: 'stylesheet',
+                type: 'text/css'
+            }, null, document.getElementsByTagName('head')[0]);
+
+            Highcharts.theme = {
+                colors: ["#7cb5ec", "#f7a35c", "#90ee7e", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee","#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+                chart: {
+                    backgroundColor: null,
+                    style: {
+                        fontFamily: "Dosis, sans-serif"
+                    }
+                },
+                title: {
+                    style: {
+                        fontSize: '16px',
+                        fontWeight: 'bold',
+                        textTransform: 'uppercase'
+                    }
+                },
+                tooltip: {
+                    borderWidth: 0,
+                    backgroundColor: 'rgba(239,239,236,0.8)',
+                    shadow: false
+                },
+                legend: {
+                    itemStyle: {
+                        fontWeight: 'bold',
+                        fontSize: '13px'
+                    }
+                },
+                xAxis: {
+                    gridLineWidth: 1,
+                    labels: {
+                        style: {
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                yAxis: {
+                    minorTickInterval: 'auto',
+                    title: {
+                        style: {
+                            fontWeight: 'bold',
+                            textTransform: 'uppercase'
+
+                        }
+                    },
+                    labels: {
+                        style: {
+                            fontSize: '14px'
+                        }
+                    }
+                },
+                plotOptions: {
+                    candlestick: {
+                        lineColor: '#404048'
+                    },
+                    series: {
+                        // general options for all series
+                        dataGrouping: {
+                            approximation: "average"
+                        }
+                    }
+                },
+                // General
+                background2: '#F0F0EA'
+            };
+
+            // Apply the theme
+            Highcharts.setOptions(Highcharts.theme);
+
+            if (Cookies.get("datagroupingdisabled") === "true") {
+                $('#grouping-button').text("Enable Data Grouping");
+                toggle = true;
+            } else {
+                $('#grouping-button').text("Disable Data Grouping");
+                toggle = false;
+            }
+
+            $('#csv-link').on('click', function (e) {
+                $(this).attr('href', 'data:text/csv;charset=utf-8,' + escape(chart.getCSV()));
+                $(this).attr('download', "@(Model.Item.Id)-data.csv");
+            });
+        });
+    });
+</script>

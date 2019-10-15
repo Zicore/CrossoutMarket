@@ -1,0 +1,64 @@
+﻿@using System.Linq
+@using Crossout.Web
+@using Crossout.Model.Items;
+@using Microsoft.Extensions.Hosting;
+@model Crossout.Model.Items.Item
+<tr class="selected-row" data-id="@Model.Id">
+    <td>
+        <div class="clearfix content-heading">
+            <div>
+                @if (true) //(RootPathHelper.ImageExists(Url,Model.Image))
+                {
+                    <a href="~/item/@Model.Id">
+                        <img class="pull-left item-image-search" style="margin-right: 8px;" src="~/img/items/@Model.Image"/>
+                    </a>
+                }
+                else
+                {
+                    <a href="~/item/@Model.Id">
+                        <img class="pull-left item-image-search" style="margin-right: 8px;" src="~/img/NoImage.png" />
+                    </a>
+                }
+            </div>
+            @*<div>
+                <a href="~/item/@Model.Id"><h4 class="item-title @(Model.Removed > 0 ? "item-removed" : "")">@Model.Name @(Model.Removed > 0 ? "(Removed)" : "")</h4></a>
+                @if(Context.CurrentUser != null && Context.CurrentUser.Claims.Contains("Admin")){ 
+                    <a href="~/edit/@Model.Id">Edit</a>
+                }
+            </div>*@
+        </div>
+    </td>
+    <td>
+        <span class="label label-@Model.RarityName">@Model.RarityName</span>
+    </td>
+    <td>
+        <div class="label-md-left">@Model.Faction</div>
+    </td>
+    <td>
+        <div class="label-md-left">@Model.CategoryName</div>
+    </td>
+    <td>
+        <div class="label-md-left">@Model.TypeName</div>
+    </td>
+    <td>
+        <div class="label-md">@Model.Popularity</div>
+    </td>
+    <td>
+        <div class="label-md">@Model.FormatSellPrice <img height="14" src="~/img/Coin.png" /></div>
+    </td>
+    <td>
+        <div class="label-md">@Model.SellOffers</div>
+    </td>
+    <td>
+        <div class="label-md">@Model.FormatBuyPrice <img height="14" src="~/img/Coin.png" /></div>
+    </td>
+    <td>
+        <div class="label-md">@Model.BuyOrders</div>
+    </td>
+    <td>
+        <div class="label-md">@Model.FormatMargin <img height="14" src="~/img/Coin.png" /></div>
+    </td>
+    <td>
+        <div class="label-md item-timestamp @(Model.OlderThan(5) ? "item-older-than-5" : "") @(Model.OlderThan(60) ? "item-older-than-60" : "")">@Model.LastUpdateTime</div>
+    </td>
+</tr>

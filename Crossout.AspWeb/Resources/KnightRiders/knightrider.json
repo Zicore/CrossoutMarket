@@ -1,0 +1,28 @@
+﻿{
+  "Id": "835",
+  "Key": "knightrider",
+  "Name": "Knight Rider",
+  "Talers": 300,
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 750
+    },
+    /* Wires x100 */
+    {
+      "Id": 85,
+      "Amount": 1250
+    },
+    /* Plastic x100 */
+    {
+      "Id": 785,
+      "Amount": 600
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 900
+    }
+  ]
+}
