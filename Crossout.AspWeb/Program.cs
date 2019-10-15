@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Crossout.Web;
 using Crossout.Web.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,11 @@ namespace Crossout.AspWeb
     {
         public static void Main(string[] args)
         {
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+            WebSettings.Settings.Load();
+            WebSettings.Settings.Save(); // Saving defaults
+
             CreateHostBuilder(args).Build().Run();
         }
 

@@ -1,24 +1,21 @@
-﻿@using System.Net
-@using Crossout.Model.Items
-@{
-    Layout = "_Layout";
+﻿@{
+    Layout = "layout.cshtml";
 }
 
-@model Crossout.Web.Models.General.SearchModel
+@using Crossout.Model.Items
+@using Crossout.Web
+@using Crossout.Web.Models
+@model Crossout.Web.Models.General.WatchlistModel
 
-@Html.PartialAsync("header", Model)
 
-@Html.PartialAsync("status", Model.Status)
+@Html.Partial("header", Model)
+
+@Html.Partial("status", Model.Status)
 
 
 
 <div class="container-space">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            @Html.PartialAsync("filter", Model)
-        </div>
-    </div>
-
+   
     <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center" style="margin-bottom: 20px;">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -77,20 +74,23 @@
             </thead>
 
             <tbody>
-                @foreach (Item item in Model.SearchResult)
+                @foreach (Item item in Model.Items)
                 {
-                    @Html.PartialAsync("itempart", item);
+                    @Html.Partial("itempart", item)
                 }
             </tbody>
         </table>
     </div>
-
-    <div class="panel panel-default">
-        <div class="panel-body">
-            @Html.PartialAsync("filter", Model)
-        </div>
-    </div>
 </div>
 
+<script src="https://cdn.datatables.net/plug-ins/1.10.19/api/fnSortNeutral.js"></script>
 <script src="~/Scripts/Internal/locationhash.js"></script>
 <script src="~/Scripts/Internal/search.js"></script>
+<script>
+    $(document).ready(function () {
+        var table = $('#ItemTable').dataTable();
+
+        // Sort in the order that was originally in the HTML
+        table.fnSortNeutral();
+    });
+</script>
