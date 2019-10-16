@@ -513,7 +513,7 @@
     <None Include="Views\Home\layout.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\packages.cshtml">
+    <None Include="Views\PremiumPackages\packages.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\pager.cshtml">
