@@ -469,10 +469,10 @@
     <None Include="Resources\PremiumPackages\wildhunt.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\changes.cshtml">
+    <None Include="Views\Changes\changes.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\changesmodular.cshtml">
+    <None Include="Views\Shared\changesmodular.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\chart.cshtml">
@@ -499,7 +499,7 @@
     <None Include="Views\Shared\footer.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\header.cshtml">
+    <None Include="Views\Shared\header.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\index.cshtml">
@@ -529,7 +529,7 @@
     <None Include="Views\Home\search.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\status.cshtml">
+    <None Include="Views\Shared\status.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\tools.cshtml">

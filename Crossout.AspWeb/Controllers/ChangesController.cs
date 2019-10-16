@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Crossout.AspWeb.Helper;
 using Crossout.Model.Items;
 using Crossout.Web;
 using Crossout.Web.Models.Items;
@@ -13,6 +14,13 @@ namespace Crossout.AspWeb.Controllers
 {
     public class ChangesController : Controller
     {
+        private readonly RootPathHelper pathProvider;
+
+        public ChangesController(RootPathHelper pathProvider)
+        {
+            this.pathProvider = pathProvider;
+        }
+
         [Route("changes")]
         public IActionResult Changes()
         {
@@ -46,6 +54,7 @@ namespace Crossout.AspWeb.Controllers
 
                 foreach (var item in allItems)
                 {
+                    item.SetImageExists(pathProvider);
                     itemDict.Add(item.Id, item);
                 }
                 changesModel.ContainedItems = itemDict;

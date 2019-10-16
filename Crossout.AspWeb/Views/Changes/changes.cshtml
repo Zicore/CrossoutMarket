@@ -1,21 +1,20 @@
-﻿@{
-    Layout = "layout.cshtml";
-}
-
-@using Crossout.Model.Items
+﻿@using Crossout.Model.Items
 @using Crossout.Web
 @using Crossout.Web.Models
 @using Crossout.Web.Models.Changes
+
+@{
+    Layout = "_Layout";
+}
+
 @model Crossout.Web.Models.Changes.ChangesModel
 
-
-@Html.Partial("header", Model)
-
-@Html.Partial("status", Model.Status)
+<partial name="header" model="@Model" />
+<partial name="status" model="@Model.Status" />
 
 <div class="container-space">
     <div class="panel panel-default">
-        @Html.Partial("changesmodular", Model)
+        <partial name="changesmodular" model="@Model" />
     </div>
 </div>
 
