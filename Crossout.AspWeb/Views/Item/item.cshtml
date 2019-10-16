@@ -134,27 +134,6 @@
 
                     <tbody>
                         <partial name="recipepart" model="@Model.Recipe.Recipe" />
-                    @*
-                            TODO: fix tree in ASP.NET Core
-                            @ShowTree(Model.Recipe.Recipe.Ingredients)
-
-                            @helper ShowTree(List<RecipeItem> items)
-                            {
-                                foreach (RecipeItem item in items)
-                                {
-                                    @Html.Partial("recipepart", item)
-                                    if (item != null && item.Ingredients.Count > 0)
-                                    {
-                                        @ShowTree(item.Ingredients)
-                                    }
-                                    if (item.IngredientSum != null)
-                                    {
-                                        @Html.Partial("recipepart", item.IngredientSum)
-                                    }
-                                }
-                            }*@
-
-                    
                     </tbody>
                 </table>
 
