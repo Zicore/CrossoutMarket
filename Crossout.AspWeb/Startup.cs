@@ -30,7 +30,7 @@ namespace Crossout.AspWeb
             services.AddMvc();
             services.AddRouting(options => options.LowercaseUrls = true);
 
-            services.AddSingleton<IRootPathHelper, RootPathHelper>();
+            services.AddSingleton<RootPathHelper, RootPathHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

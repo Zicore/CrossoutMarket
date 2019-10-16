@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Crossout.AspWeb.Helper;
 using Crossout.Model.Items;
 using Crossout.Web;
 using Crossout.Web.Models.Filter;
@@ -16,9 +17,9 @@ namespace Crossout.AspWeb.Controllers
 {
     public class HomeController : Controller
     {
-        private IRootPathHelper pathProvider;
+        private readonly RootPathHelper pathProvider;
 
-        public HomeController(IRootPathHelper pathProvider)
+        public HomeController(RootPathHelper pathProvider)
         {
             this.pathProvider = pathProvider;
         }
@@ -109,7 +110,7 @@ namespace Crossout.AspWeb.Controllers
             foreach (var row in ds)
             {
                 Item item = Item.Create(row);
-                item.ImageExists = pathProvider.ImageExists(item.Image);
+                item.SetImageExists(pathProvider);
                 // CrossoutDataService.Instance.AddData(item);
                 searchResult.Add(item);
             }
