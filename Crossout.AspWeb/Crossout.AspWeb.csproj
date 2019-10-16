@@ -474,7 +474,7 @@
     <None Include="Views\Shared\changesmodular.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\chart.cshtml">
+    <None Include="Views\Shared\chart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Compare\compare.cshtml">
@@ -504,7 +504,7 @@
     <None Include="Views\Home\index.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\item.cshtml">
+    <None Include="Views\Item\item.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\itempart.cshtml">
@@ -522,7 +522,7 @@
     <None Include="Views\Shared\_stat.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\recipepart.cshtml">
+    <None Include="Views\Shared\recipepart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\search.cshtml">
