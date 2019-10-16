@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "layout.cshtml";
+    Layout = "_Layout";
 }
 
 @using Crossout.Model.Items
@@ -11,7 +11,7 @@
 @model Crossout.Web.Models.Items.ItemCollection
 
 
-@Html.Partial("header", Model)
+<partial name="header" model="@Model" />
 
 <div class="container-space">
     <div class="panel panel-default">
@@ -25,7 +25,7 @@
                     {
                         <th>
                             <a href="~/item/@item.Id">
-                                @if (true) //TODO: fix image exists (RootPathHelper.ImageExists(item.Image))
+                                @if (item.ImageExists)
                                 {
                                     <img class="pull-left item-image-search content-space" style="margin-right: 4px;" src="~/img/items/@item.Image" />
                                 }
@@ -161,13 +161,13 @@
                                  </td>
                                  @foreach (Item item in Model.Items)
                                  {
-                                     <td>
-                                         @if (item.Stats != null)
-                                         {
-                                             var statItem = item.Stats.SortedStats.FirstOrDefault(x => x.Stat.Name == stat.Name);
-                                             @Html.Partial("parts/_stat", statItem)
-                                         }
-                                     </td>
+                             <td>
+                                 @if (item.Stats != null)
+                                 {
+                                     var statItem = item.Stats.SortedStats.FirstOrDefault(x => x.Stat.Name == stat.Name);
+                                     <partial name="_stat" model="@statItem" />
+                                 }
+                             </td>
                                  }
                                  <td></td>
                              </tr>
@@ -197,11 +197,11 @@
                                  @foreach (Item item in Model.Items)
                                  {
                                      <td>
-                                         @if (item.Stats != null)
-                                         {
-                                             var statItem = item.Stats.SortedStats.FirstOrDefault(x => x.Stat.Name == stat.Name);
-                                             @Html.Partial("parts/_stat", statItem)
-                                         }
+                                        @if (item.Stats != null)
+                                        {
+                                            var statItem = item.Stats.SortedStats.FirstOrDefault(x => x.Stat.Name == stat.Name);
+                                            <partial name="_stat" model="@statItem" />
+                                        }
                                      </td>
                                  }
                                  <td></td>
