@@ -42,7 +42,7 @@
                         <td>
                             <div class="clearfix content-heading">
                                 <div>
-                                    @if (true) // TODO: fix image exists (RootPathHelper.ImageExists(Convert.ToString(item.ItemId) + ".png"))
+                                    @if (Model.ContainedItems[item.ItemId].ImageExists)
                                     {
                                         <a href="~/item/@item.ItemId">
                                             <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/items/@(item.ItemId).png" />
@@ -71,7 +71,7 @@
                             {
                                 int id = Convert.ToInt32(item.OldValue);
 
-                                @if (true) // TODO: fix image exists (RootPathHelper.ImageExists(Convert.ToString(id) + ".png"))
+                                @if (Model.ContainedItems[id].ImageExists)
                                 {
                                     <a href="~/item/@id">
                                         <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/items/@(id).png" />
@@ -114,7 +114,7 @@
                             {
                                 int id = Convert.ToInt32(item.NewValue);
 
-                                @if (true) // TODO: fix image exists (RootPathHelper.ImageExists(Convert.ToString(id) + ".png"))
+                                @if (Model.ContainedItems[id].ImageExists)
                                 {
                                     <a href="~/item/@id">
                                         <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/items/@(id).png" />
