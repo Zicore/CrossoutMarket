@@ -213,7 +213,6 @@
     <Content Remove="Resources\PremiumPackages\thirdhalf.json" />
     <Content Remove="Resources\PremiumPackages\wastelandwarrior.json" />
     <Content Remove="Resources\PremiumPackages\wildhunt.json" />
-    <Content Remove="Views\parts\_stat.cshtml" />
     <Content Remove="wwwroot\content\bootstrap-select.css" />
     <Content Remove="wwwroot\content\bootstrap-select.css.map" />
     <Content Remove="wwwroot\content\bootstrap-select.min.css" />
@@ -478,7 +477,7 @@
     <None Include="Views\Home\chart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\compare.cshtml">
+    <None Include="Views\Compare\compare.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\crafting.cshtml">
@@ -520,7 +519,7 @@
     <None Include="Views\Home\pager.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\parts\_stat.cshtml">
+    <None Include="Views\Shared\_stat.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\recipepart.cshtml">
