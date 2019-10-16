@@ -24,8 +24,6 @@
                         <div class="media-left">
                             <a href="~/item/@Model.Item.Id">
 
-                                <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@Model.Item.Image" />
-
                                 @if (Model.Item.HighResImageExists)
                                 {
                                     <img class="pull-left item-image-auto-size content-space" style="margin-right: 8px;" src="~/img/items-highres/@Model.Item.Image" />
@@ -155,16 +153,8 @@
                                     }
                                 }
                             }*@
-                    
-                        @foreach (var item in Model.Recipe.Recipe.Ingredients)
-                        {
-                            <partial name="recipepart" model="@item"/>
-                        }
 
-                        @if (Model.Recipe.Recipe.IngredientSum != null)
-                        {
-                            <partial name="recipepart" model="@Model.Recipe.Recipe.IngredientSum" />
-                        }
+                    
                     </tbody>
                 </table>
 
@@ -398,7 +388,8 @@
         adjustTimeStamp();
     });
 
-    $.getJSON(location.protocol + '//@(ViewHelper.GetHostWithPort())/data/recipe/@(Model.Item.Id)',
+    // TODO: fix host:port
+    $.getJSON(location.protocol + '//localhost:44324/data/recipe/@(Model.Item.Id)',
         function (data) {
 
            recipeData.data = data;
