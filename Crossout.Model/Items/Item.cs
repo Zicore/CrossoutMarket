@@ -203,7 +203,10 @@ namespace Crossout.Model.Items
         }
 
         [JsonIgnore]
-        public bool ImageExists;
+        public bool ImageExists { get; set; }
+
+        [JsonIgnore]
+        public bool HighResImageExists { get; set; }
 
         [JsonIgnore]
         public PartStatsBase Stats { get; set; }
