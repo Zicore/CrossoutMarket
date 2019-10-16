@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Crossout.AspWeb.Helper;
 using Crossout.Model.Items;
 using Crossout.Web;
 using Crossout.Web.Services;
@@ -12,6 +13,13 @@ namespace Crossout.AspWeb.Controllers
 {
     public class ItemController : Controller
     {
+        private readonly RootPathHelper pathProvider;
+
+        public ItemController(RootPathHelper pathProvider)
+        {
+            this.pathProvider = pathProvider;
+        }
+
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
 
         [Route("item/{id}")]
@@ -36,6 +44,7 @@ namespace Crossout.AspWeb.Controllers
                 DataService db = new DataService(sql);
 
                 var itemModel = db.SelectItem(id, true);
+                itemModel.Item.SetImageExists(pathProvider);
                 var recipeModel = db.SelectRecipeModel(itemModel.Item, true);
                 var statusModel = db.SelectStatus();
                 var changesModel = db.SelectChanges(id);

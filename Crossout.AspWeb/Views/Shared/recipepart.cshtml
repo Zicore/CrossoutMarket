@@ -19,7 +19,7 @@
                 {
                     if (true) //TODO: fix image exists (RootPathHelper.ImageExists(item.Image))
                     {
-                        <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image"/></a>
+                        <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image" /></a>
                     }
                     else
                     {
@@ -55,7 +55,7 @@
                         {
                             if (true) //TODO: fix image exists (RootPathHelper.ImageExists(item.Image))
                             {
-                                <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image"/></a>
+                                <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image" /></a>
                             }
                             else
                             {
@@ -153,7 +153,6 @@
         }
     </td>
     <td>
-        
     </td>
     <td class="col-md-2">
         @if (Model.IsSumRow || Model.Depth == 0)
@@ -226,7 +225,7 @@
                 if (recipeData.loaded) {
                     var recipe = $(this).data('recipe');
                     var uniqueid = $(this).data('uniqueid');
-            
+
                     if ($(this).hasClass('glyphicon-plus')) {
                         $(this).removeClass('glyphicon-plus').addClass('glyphicon-minus');
                         window.updateTree(classname, recipe, uniqueid, true);
@@ -246,4 +245,16 @@
             });
         });
     </script>
+}
+
+@if (Model != null && Model.Ingredients.Count > 0)
+{
+    foreach (var modelIngredient in Model.Ingredients)
+    {
+        <partial name="recipepart" model="@modelIngredient" />
+    }
+}
+@if (Model.IngredientSum != null)
+{
+    <partial name="recipepart" model="@Model.IngredientSum" />
 }
