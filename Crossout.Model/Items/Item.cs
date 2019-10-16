@@ -203,6 +203,9 @@ namespace Crossout.Model.Items
         }
 
         [JsonIgnore]
+        public bool ImageExists;
+
+        [JsonIgnore]
         public PartStatsBase Stats { get; set; }
 
         [JsonProperty("sortedStats")]

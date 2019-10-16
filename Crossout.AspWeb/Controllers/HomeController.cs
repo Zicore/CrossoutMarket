@@ -16,6 +16,13 @@ namespace Crossout.AspWeb.Controllers
 {
     public class HomeController : Controller
     {
+        private IRootPathHelper pathProvider;
+
+        public HomeController(IRootPathHelper pathProvider)
+        {
+            this.pathProvider = pathProvider;
+        }
+
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
 
         [Route("")]
@@ -102,6 +109,7 @@ namespace Crossout.AspWeb.Controllers
             foreach (var row in ds)
             {
                 Item item = Item.Create(row);
+                item.ImageExists = pathProvider.ImageExists(item.Image);
                 // CrossoutDataService.Instance.AddData(item);
                 searchResult.Add(item);
             }
