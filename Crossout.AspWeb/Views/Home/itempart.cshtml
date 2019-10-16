@@ -7,10 +7,10 @@
     <td>
         <div class="clearfix content-heading">
             <div>
-                @if (true) //(RootPathHelper.ImageExists(Url,Model.Image))
+                @if (Model.ImageExists) //(RootPathHelper.ImageExists(Url,Model.Image))
                 {
                     <a href="~/item/@Model.Id">
-                        <img class="pull-left item-image-search" style="margin-right: 8px;" src="~/img/items/@Model.Image"/>
+                        <img class="pull-left item-image-search" style="margin-right: 8px;" src="~/img/items/@Model.Image" />
                     </a>
                 }
                 else
@@ -22,10 +22,13 @@
             </div>
             @*<div>
                 <a href="~/item/@Model.Id"><h4 class="item-title @(Model.Removed > 0 ? "item-removed" : "")">@Model.Name @(Model.Removed > 0 ? "(Removed)" : "")</h4></a>
-                @if(Context.CurrentUser != null && Context.CurrentUser.Claims.Contains("Admin")){ 
+                @if(Context.CurrentUser != null && Context.CurrentUser.Claims.Contains("Admin")){
                     <a href="~/edit/@Model.Id">Edit</a>
                 }
             </div>*@
+            <div>
+                <a href="~/item/@Model.Id"><h4 class="item-title @(Model.Removed > 0 ? "item-removed" : "")">@Model.Name @(Model.Removed > 0 ? "(Removed)" : "")</h4></a>
+            </div>
         </div>
     </td>
     <td>

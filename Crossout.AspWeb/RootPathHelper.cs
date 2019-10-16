@@ -9,7 +9,12 @@ using Microsoft.Extensions.Hosting.Internal;
 
 namespace Crossout.Web
 {
-    public class RootPathHelper
+    public interface IRootPathHelper
+    {
+        bool ImageExists(string path);
+    }
+
+    public class RootPathHelper : IRootPathHelper
     {
         public RootPathHelper(IWebHostEnvironment webHostEnvironment)
         {
@@ -18,9 +23,9 @@ namespace Crossout.Web
 
         public IWebHostEnvironment WebHostEnvironment { get; }
 
-        public bool ImageExists(IWebHostEnvironment hostingEnvironment, string path)
+        public bool ImageExists(string path)
         {
-            return File.Exists(System.IO.Path.Combine(hostingEnvironment.WebRootPath, "img", "items", path));
+            return File.Exists(System.IO.Path.Combine(WebHostEnvironment.WebRootPath, "img", "items", path));
         }
 
         public bool HighResImageExists(IWebHostEnvironment hostingEnvironment, string path)
