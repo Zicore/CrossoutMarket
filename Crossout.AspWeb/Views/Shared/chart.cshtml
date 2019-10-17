@@ -238,7 +238,7 @@
                 $('#load-more-button').unbind("click");
             }
 
-            $.getJSON(location.protocol + '//localhost:44324/data/item/' + dataAmount + '/' + id, function (alldata) {
+            $.getJSON(location.origin + '/data/item/' + dataAmount + '/' + id, function (alldata) {
                 var series = {};
                 $.each(alldata.Data, function (i, data) {
                     // Adjust time to local time
