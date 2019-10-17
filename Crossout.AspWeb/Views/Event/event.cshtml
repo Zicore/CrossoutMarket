@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "layout.cshtml";
+    Layout = "_Layout";
 }
 
 @using Crossout.Model.Items
@@ -8,10 +8,8 @@
 @using Crossout.Data.KnightRiders
 @model Crossout.Web.Models.General.KnightRidersModel
 
-
-@Html.Partial("header", Model)
-
-@Html.Partial("status", Model.Status)
+<partial name="header" model="@Model" />
+<partial name="status" model="@Model.Status" />
 
 <div class="container-space">
     <div class="row">
@@ -22,7 +20,7 @@
                     <div class="row">
 
                         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                            @if (true) // TODO: fix image exists (RootPathHelper.ImageExists(item.Id + ".png"))
+                            @if (Model.ContainedItems[(int)item.Id].ImageExists)
                             {
                                 <a href="~/item/@(item.Id)"><img class="item-image-search" src="~/img/items/@(item.Id).png" style="width: 32px; height: 32px" /></a>
                             }
@@ -62,7 +60,7 @@
                             {
                                 <tr>
                                     <td>
-                                        @if (true) // TODO: Fix image exists (RootPathHelper.ImageExists(ingredient.Id + ".png"))
+                                        @if (Model.ContainedItems[(int)ingredient.Id].ImageExists)
                                         {
                                             <a href="~/item/@(ingredient.Id)"><img class="item-image-search" src="~/img/items/@(ingredient.Id).png" /></a>
                                         }
