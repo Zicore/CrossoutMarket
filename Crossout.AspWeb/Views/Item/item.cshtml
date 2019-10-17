@@ -368,7 +368,7 @@
     });
 
     // TODO: fix host:port
-    $.getJSON(location.protocol + '//localhost:44324/data/recipe/@(Model.Item.Id)',
+    $.getJSON(location.origin + '/data/recipe/@(Model.Item.Id)',
         function (data) {
 
            recipeData.data = data;
