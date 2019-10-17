@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "layout.cshtml";
+    Layout = "_Layout";
 }
 
 @using Crossout.Model.Items
@@ -8,16 +8,15 @@
 @model Crossout.Web.Models.General.CraftingOverviewModel
 
 
-@Html.Partial("header", Model)
-
-@Html.Partial("status", Model.Status)
+<partial name="header" model="@Model" />
+<partial name="status" model="@Model.Status" />
 
 
 
 <div class="container-space">
     <div class="panel panel-default">
         <div class="panel-body">
-            @Html.Partial("craftingfilter", Model)
+            <partial name="craftingfilter" model="@Model" />
         </div>
     </div>
 
@@ -67,7 +66,7 @@
             <tbody>
                 @foreach (Item item in Model.Items)
                 {
-                    @Html.Partial("craftingitempart", item)
+                    <partial name="craftingitempart" model="@item" />
                 }
             </tbody>
         </table>
@@ -75,7 +74,7 @@
 
     <div class="panel panel-default">
         <div class="panel-body">
-            @Html.Partial("craftingfilter", Model)
+            <partial name="craftingfilter" model="@Model" />
         </div>
     </div>
 </div>
