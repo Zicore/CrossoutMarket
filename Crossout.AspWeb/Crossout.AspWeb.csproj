@@ -6,6 +6,10 @@
 
 
   <ItemGroup>
+    <Content Remove="Resources\PremiumPackages\bornfree.json" />
+    <Content Remove="Resources\PremiumPackages\borntofly.json" />
+    <Content Remove="Resources\PremiumPackages\horsemenofapocalypsepestilence.json" />
+    <Content Remove="Resources\PremiumPackages\immortalwarrior.json" />
     <Content Remove="Views\edit.cshtml" />
     <Content Remove="Views\editpart.cshtml" />
     <Content Remove="Views\NotMigrated\admin.cshtml" />
@@ -230,6 +234,27 @@
     <Content Remove="wwwroot\fonts\glyphicons-halflings-regular.ttf" />
     <Content Remove="wwwroot\fonts\glyphicons-halflings-regular.woff" />
     <Content Remove="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Remove="wwwroot\img\items\960.png" />
+    <Content Remove="wwwroot\img\items\962.png" />
+    <Content Remove="wwwroot\img\items\963.png" />
+    <Content Remove="wwwroot\img\items\964.png" />
+    <Content Remove="wwwroot\img\items\965.png" />
+    <Content Remove="wwwroot\img\items\966.png" />
+    <Content Remove="wwwroot\img\items\967.png" />
+    <Content Remove="wwwroot\img\items\968.png" />
+    <Content Remove="wwwroot\img\items\970.png" />
+    <Content Remove="wwwroot\img\items\971.png" />
+    <Content Remove="wwwroot\img\items\972.png" />
+    <Content Remove="wwwroot\img\items\975.png" />
+    <Content Remove="wwwroot\img\items\976.png" />
+    <Content Remove="wwwroot\img\items\978.png" />
+    <Content Remove="wwwroot\img\items\980.png" />
+    <Content Remove="wwwroot\img\items\981.png" />
+    <Content Remove="wwwroot\img\items\982.png" />
+    <Content Remove="wwwroot\img\premiumpackages\bornfree.jpg" />
+    <Content Remove="wwwroot\img\premiumpackages\borntofly.jpg" />
+    <Content Remove="wwwroot\img\premiumpackages\horsemenofapocalypsepestilence.jpg" />
+    <Content Remove="wwwroot\img\premiumpackages\immortalwarrior.jpg" />
   </ItemGroup>
 
 
@@ -408,6 +433,12 @@
     <None Include="Resources\PremiumPackages\arsonist.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\PremiumPackages\bornfree.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\borntofly.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PremiumPackages\corrida.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -432,10 +463,16 @@
     <None Include="Resources\PremiumPackages\horsemenofapocalypsefaminedeluxe.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\PremiumPackages\horsemenofapocalypsepestilence.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PremiumPackages\horsemenofapocalypsewar.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\PremiumPackages\horsemenofapocalypsewardeluxe.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\immortalwarrior.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\PremiumPackages\insomnia.json">
@@ -586,6 +623,69 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\960.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\962.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\963.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\964.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\965.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\966.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\967.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\968.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\970.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\971.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\972.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\975.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\976.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\978.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\980.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\981.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\items\982.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\premiumpackages\bornfree.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\premiumpackages\borntofly.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\premiumpackages\horsemenofapocalypsepestilence.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\premiumpackages\immortalwarrior.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
