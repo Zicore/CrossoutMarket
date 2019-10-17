@@ -17,7 +17,7 @@
                 }
                 @if (Model.IsSumRow)
                 {
-                    if (true) //TODO: fix image exists (RootPathHelper.ImageExists(item.Image))
+                    if (item.ImageExists)
                     {
                         <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image" /></a>
                     }
@@ -42,7 +42,7 @@
                     <div>
                         @if (Model.Depth == 0)
                         {
-                            if (true) //TODO: fix image exists (RootPathHelper.ImageExists(item.Image))
+                            if (item.ImageExists)
                             {
                                 <a href="~/item/@item.Id"><img class="item-image-big" style="margin-right: 8px;" src="~/img/items/@item.Image" /></a>
                             }
@@ -53,7 +53,7 @@
                         }
                         else
                         {
-                            if (true) //TODO: fix image exists (RootPathHelper.ImageExists(item.Image))
+                            if (item.ImageExists)
                             {
                                 <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image" /></a>
                             }

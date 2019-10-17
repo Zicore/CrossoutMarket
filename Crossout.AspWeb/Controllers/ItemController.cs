@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Crossout.AspWeb.Helper;
 using Crossout.Model.Items;
+using Crossout.Model.Recipes;
 using Crossout.Web;
 using Crossout.Web.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,10 @@ namespace Crossout.AspWeb.Controllers
 
                 var itemModel = db.SelectItem(id, true);
                 itemModel.Item.SetImageExists(pathProvider);
+
                 var recipeModel = db.SelectRecipeModel(itemModel.Item, true);
+                SetImageExistsRecursive(recipeModel.Recipe);
+
                 var statusModel = db.SelectStatus();
                 var changesModel = db.SelectChanges(id);
                 var ingredientUsageModel = db.SelectIngredientUsage(id);
@@ -106,6 +110,24 @@ namespace Crossout.AspWeb.Controllers
             catch
             {
                 return Redirect("/");
+            }
+        }
+
+        private void SetImageExistsRecursive(RecipeItem item)
+        {
+            item.Item.SetImageExists(pathProvider);
+
+            if (item.IngredientSum != null)
+            {
+                item.IngredientSum.Item.SetImageExists(pathProvider);
+            }
+
+            if (item.Ingredients != null)
+            {
+                foreach (var ingredient in item.Ingredients)
+                {
+                    SetImageExistsRecursive(ingredient);
+                }
             }
         }
     }
