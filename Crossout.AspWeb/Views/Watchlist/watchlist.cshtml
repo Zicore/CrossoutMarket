@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "layout.cshtml";
+    Layout = "_Layout";
 }
 
 @using Crossout.Model.Items
@@ -8,14 +8,12 @@
 @model Crossout.Web.Models.General.WatchlistModel
 
 
-@Html.Partial("header", Model)
-
-@Html.Partial("status", Model.Status)
-
+<partial name="header" model="@Model" />
+<partial name="status" model="@Model.Status" />
 
 
 <div class="container-space">
-   
+
     <div class="row">
         <div class="col-md-6 col-md-offset-3 text-center" style="margin-bottom: 20px;">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -76,7 +74,7 @@
             <tbody>
                 @foreach (Item item in Model.Items)
                 {
-                    @Html.Partial("itempart", item)
+                    <partial name="itempart" model="@item" />
                 }
             </tbody>
         </table>

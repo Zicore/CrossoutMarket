@@ -507,7 +507,7 @@
     <None Include="Views\Item\item.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\itempart.cshtml">
+    <None Include="Views\Shared\itempart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\layout.cshtml">
@@ -534,7 +534,7 @@
     <None Include="Views\Tools\tools.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\watchlist.cshtml">
+    <None Include="Views\Watchlist\watchlist.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\content\bootstrap-select.css">
