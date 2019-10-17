@@ -480,13 +480,13 @@
     <None Include="Views\Compare\compare.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\crafting.cshtml">
+    <None Include="Views\Crafting\crafting.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\craftingfilter.cshtml">
+    <None Include="Views\Crafting\craftingfilter.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\craftingitempart.cshtml">
+    <None Include="Views\Crafting\craftingitempart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\event.cshtml">

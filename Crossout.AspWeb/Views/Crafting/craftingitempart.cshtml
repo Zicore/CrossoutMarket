@@ -6,7 +6,7 @@
     <td>
         <div class="clearfix content-heading">
             <div>
-                @if (true) //TODO: fix image exists (RootPathHelper.ImageExists(@Model.Image))
+                @if (Model.ImageExists)
                 {
                     <a href="~/item/@Model.Id">
                         <img class="pull-left item-image-search" style="margin-right: 8px;" src="~/img/items/@Model.Image"/>
