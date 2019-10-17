@@ -1,12 +1,11 @@
 ﻿@{
-    Layout = "layout.cshtml";
+    Layout = "_Layout";
 }
 
 @using Crossout.Web.Models.General
 @model ToolsModel
 
-
-@Html.Partial("header", Model)
+<partial name="header" model="@Model" />
 
 <div class="container-space">
     <div class="row">

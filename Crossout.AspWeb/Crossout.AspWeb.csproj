@@ -531,7 +531,7 @@
     <None Include="Views\Shared\status.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\tools.cshtml">
+    <None Include="Views\Tools\tools.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\watchlist.cshtml">
