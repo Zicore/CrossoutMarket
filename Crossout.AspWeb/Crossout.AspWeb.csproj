@@ -489,7 +489,7 @@
     <None Include="Views\Crafting\craftingitempart.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Views\Home\event.cshtml">
+    <None Include="Views\Event\event.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Views\Home\filter.cshtml">
