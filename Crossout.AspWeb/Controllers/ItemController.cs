@@ -55,6 +55,7 @@ namespace Crossout.AspWeb.Controllers
 
                 foreach (var item in allItems)
                 {
+                    item.SetImageExists(pathProvider);
                     itemDict.Add(item.Id, item);
                 }
                 changesModel.ContainedItems = itemDict;
