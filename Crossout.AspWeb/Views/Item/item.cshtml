@@ -269,7 +269,7 @@
                                 <tr>
                                     <td>
                                         <a href="~/item/@item.ItemId">
-                                            @if (true) /* TODO: Fix image exists (RootPathHelper.ImageExists(item.ItemId + ".png"))*/
+                                            @if (Model.Changes.ContainedItems[item.ItemId].ImageExists)
                                             {
                                                 <img class="pull-left item-image-big content-space" style="width: 32px; height: 32px; margin-right: 8px;" src="~/img/items/@(item.ItemId).png" />
                                             }
@@ -367,7 +367,6 @@
         adjustTimeStamp();
     });
 
-    // TODO: fix host:port
     $.getJSON(location.origin + '/data/recipe/@(Model.Item.Id)',
         function (data) {
 
