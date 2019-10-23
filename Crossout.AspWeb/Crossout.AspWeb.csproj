@@ -217,6 +217,7 @@
     <Content Remove="Resources\PremiumPackages\thirdhalf.json" />
     <Content Remove="Resources\PremiumPackages\wastelandwarrior.json" />
     <Content Remove="Resources\PremiumPackages\wildhunt.json" />
+    <Content Remove="wwwroot\favicon.ico" />
   </ItemGroup>
 
 
@@ -465,6 +466,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\PremiumPackages\wildhunt.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\favicon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
