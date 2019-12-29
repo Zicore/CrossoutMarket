@@ -1,0 +1,28 @@
+﻿{
+  "Id": "986",
+  "Key": "taco",
+  "Name": "Taco",
+  "Talers": 200,
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 250
+    },
+    /* Wires x100 */
+    {
+      "Id": 85,
+      "Amount": 500
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 450
+    },
+    /* Plastic x100 */
+    {
+      "Id": 785,
+      "Amount": 250
+    }
+  ]
+}

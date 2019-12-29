@@ -24,11 +24,11 @@
                     <div class="media">
                         <div class="media-left">
                             <a href="~/item/@Model.Item.Id">
-                                @if (Model.Item.HighResImageExists)
+                                @if (RootPathHelper.HighResImageExists(Model.Item.Image))
                                 {
                                     <img class="pull-left item-image-auto-size content-space" style="margin-right: 8px;" src="~/img/items-highres/@Model.Item.Image" />
                                 }
-                                else if (Model.Item.ImageExists)
+                                else if (RootPathHelper.ImageExists(Model.Item.Image))
                                 {
                                     <img class="pull-left item-image-big content-space" style="margin-right: 8px;" src="~/img/items/@Model.Item.Image" />
                                 }

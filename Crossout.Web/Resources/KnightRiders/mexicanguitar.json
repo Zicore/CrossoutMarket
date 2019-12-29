@@ -1,0 +1,18 @@
+﻿{
+  "Id": "984",
+  "Key": "mexicanguitar",
+  "Name": "Mexican Guitar",
+  "Talers": 100,
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 400
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 150
+    }
+  ]
+}

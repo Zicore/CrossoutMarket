@@ -1,0 +1,28 @@
+﻿{
+  "Id": "534",
+  "Key": "pumpalloons",
+  "Name": "Pumpalloons",
+  "Talers": 300,
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 100
+    },
+    /* Electronics x100 */
+    {
+      "Id": 168,
+      "Amount": 500
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 750
+    },
+    /* Batteries x100 */
+    {
+      "Id": 784,
+      "Amount": 500
+    }
+  ]
+}
