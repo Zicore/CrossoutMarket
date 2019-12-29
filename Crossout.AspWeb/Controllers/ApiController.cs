@@ -68,11 +68,11 @@ namespace Crossout.AspWeb.Controllers
             return Json(model);
         }
 
-        [Route("/api/v1/items")]
-        public IActionResult ItemsAllAction()
-        {
-            return RouteSearch(null, 0, null, null, null, null, null, 0);
-        }
+        //[Route("/api/v1/items")]
+        //public IActionResult ItemsAllAction()
+        //{
+        //    return RouteSearch(null, 0, null, null, null, null, null, 0);
+        //}
 
         [Route("/api/v1/items")]
         public IActionResult ItemsAllSearchAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int id)
