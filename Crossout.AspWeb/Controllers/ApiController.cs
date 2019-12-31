@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Crossout.AspWeb.Filters;
 using Crossout.Model.Items;
 using Crossout.Web;
 using Crossout.Web.Models.Filter;
@@ -14,6 +15,9 @@ using ZicoreConnector.Zicore.Connector.Base;
 
 namespace Crossout.AspWeb.Controllers
 {
+    [AddHeader("Access-Control-Allow-Origin", "*")]
+    [AddHeader("Access-Control-Allow-Methods", "POST,GET")]
+    [AddHeader("Access-Control-Allow-Headers", "Accept, Origin, Content-type")]
     public class ApiController : Controller
     {
         private readonly RootPathHelper pathProvider;
