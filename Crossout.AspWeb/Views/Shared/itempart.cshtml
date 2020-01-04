@@ -10,7 +10,7 @@
                 @if (Model.ImageExists) //(RootPathHelper.ImageExists(Url,Model.Image))
                 {
                     <a href="~/item/@Model.Id">
-                        <img class="pull-left item-image-search" style="margin-right: 8px;" src="~/img/items/@Model.Image" />
+                        <img class="pull-left item-image-search lazy" style="margin-right: 8px;" src="~/img/loading.png" data-src="/img/items/@Model.Image" />
                     </a>
                 }
                 else
