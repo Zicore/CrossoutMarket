@@ -43,12 +43,12 @@ namespace Crossout.Web.Models.General
 
         public string UriRemovedItems(bool showRemovedItems)
         {
-            return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={!showRemovedItems}&mitems={FilterModel.CurrentShowMetaItems}";
+            return $"?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={!showRemovedItems}&mitems={FilterModel.CurrentShowMetaItems}";
         }
 
         public string UriMetaItems(bool showMetaItems)
         {
-            return $"{Pager.CurrentPage}/?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={FilterModel.CurrentShowRemovedItems}&mitems={!showMetaItems}";
+            return $"?query={CurrentQuery}&rarity={FilterModel.CurrentRarity.NameUri}&category={FilterModel.CurrentCategory.NameUri}&faction={FilterModel.CurrentFaction.NameUri}&rmditems={FilterModel.CurrentShowRemovedItems}&mitems={!showMetaItems}";
         }
 
         public string Title => null;
