@@ -8,6 +8,8 @@
   <ItemGroup>
     <Content Remove="Resources\PremiumPackages\bornfree.json" />
     <Content Remove="Resources\PremiumPackages\borntofly.json" />
+    <Content Remove="Resources\PremiumPackages\dayofthedead.json" />
+    <Content Remove="Resources\PremiumPackages\frostburndeluxe.json" />
     <Content Remove="Resources\PremiumPackages\horsemenofapocalypsepestilence.json" />
     <Content Remove="Resources\PremiumPackages\immortalwarrior.json" />
     <Content Remove="Views\edit.cshtml" />
@@ -218,6 +220,8 @@
     <Content Remove="Resources\PremiumPackages\wastelandwarrior.json" />
     <Content Remove="Resources\PremiumPackages\wildhunt.json" />
     <Content Remove="wwwroot\favicon.ico" />
+    <Content Remove="wwwroot\img\premiumpackages\dayofthedead.jpg" />
+    <Content Remove="wwwroot\img\premiumpackages\frostburndeluxe.jpg" />
   </ItemGroup>
 
 
@@ -405,6 +409,9 @@
     <None Include="Resources\PremiumPackages\corrida.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\PremiumPackages\dayofthedead.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PremiumPackages\drive.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -412,6 +419,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\PremiumPackages\frostburn.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\frostburndeluxe.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\PremiumPackages\horsemenofapocalypsedeath.json">
@@ -469,6 +479,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\premiumpackages\dayofthedead.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\img\premiumpackages\frostburndeluxe.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
