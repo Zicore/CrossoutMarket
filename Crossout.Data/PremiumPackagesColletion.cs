@@ -16,7 +16,7 @@ namespace Crossout.Data
     {
         private Logger Log = LogManager.GetCurrentClassLogger();
 
-        public List<PremiumPackage> Packages { get; } = new List<PremiumPackage>();
+        public List<PremiumPackage> Packages { get; private set; } = new List<PremiumPackage>();
         
         public PremiumPackagesColletion()
         {
@@ -37,6 +37,8 @@ namespace Crossout.Data
                 package = JsonConvert.DeserializeObject<PremiumPackage>(output);
                 Packages.Add(package);
             }
+
+            Packages = Packages.OrderBy(x => x.Name).ToList();
         }
     }
 }
