@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "bootstrap@4.4.1",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "dist/js/bootstrap.min.js"
+      ]
+    }
+  ]
+}
