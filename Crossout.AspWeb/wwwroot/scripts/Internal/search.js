@@ -81,7 +81,7 @@ $(document).ready(function () {
         $('.filter-faction').each(function () {
             if (text == $(this).text())
             {
-                $(this).parent().toggleClass('active');
+                $(this).toggleClass('active');
             }
         });
         filterTable(table);
@@ -93,7 +93,7 @@ $(document).ready(function () {
         var text = $(this).text();
         $('.filter-rarity').each(function () {
             if (text == $(this).text()) {
-                $(this).parent().toggleClass('active');
+                $(this).toggleClass('active');
             }
         });
         filterTable(table);
@@ -105,7 +105,7 @@ $(document).ready(function () {
         var text = $(this).text();
         $('.filter-category').each(function () {
             if (text == $(this).text()) {
-                $(this).parent().toggleClass('active');
+                $(this).toggleClass('active');
             }
         });
         filterTable(table);
@@ -136,9 +136,9 @@ function filterTable(table) {
     var filterFactionString;
     var j = 0;
     $('.filter-faction').each(function (i, e) {
-        if ($(this).parent().hasClass('active'))
+        if ($(this).hasClass('active'))
         {
-            var faction = $(this).parent().text();
+            var faction = $(this).text();
             faction = faction.split(' ')[0];
 
             if (j == 0) {
@@ -159,11 +159,11 @@ function filterTable(table) {
     var filterRarityString;
     j = 0;
     $('.filter-rarity').each(function (i, e) {
-        if ($(this).parent().hasClass('active')) {
+        if ($(this).hasClass('active')) {
             if (j == 0) {
-                filterRarityString = $(this).parent().text();
+                filterRarityString = $(this).text();
             } else {
-                filterRarityString += '|' + $(this).parent().text();
+                filterRarityString += '|' + $(this).text();
             }
             j++;
         }
@@ -177,8 +177,8 @@ function filterTable(table) {
     var filterCategoryString;
     j = 0;
     $('.filter-category').each(function (i, e) {
-        if ($(this).parent().hasClass('active')) {
-            var category = $(this).parent().text();
+        if ($(this).hasClass('active')) {
+            var category = $(this).text();
             category = category.split(' ')[0];
 
             if (j == 0) {

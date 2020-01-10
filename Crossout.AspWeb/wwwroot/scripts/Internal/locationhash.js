@@ -15,30 +15,30 @@
                 if (typeName === "faction") {
                     $('.filter-faction').each(function (k, e) {
                         if (k < $('.filter-faction').toArray().length) {
-                            var targetString = $(this).parent().text().toLowerCase();
+                            var targetString = $(this).text().toLowerCase();
                             targetString = cleanUpString(targetString);
                             if (targetString === item) {
-                                $(this).parent().addClass('active');
+                                $(this).addClass('active');
                             }
                         }
                     });
                 } else if (typeName === "rarity") {
                     $('.filter-rarity').each(function (k, e) {
                         if (k < $('.filter-rarity').toArray().length) {
-                            var targetString = $(this).parent().text().toLowerCase();
+                            var targetString = $(this).text().toLowerCase();
                             targetString = cleanUpString(targetString);
                             if (targetString === item) {
-                                $(this).parent().addClass('active');
+                                $(this).addClass('active');
                             }
                         }
                     });
                 } else if (typeName === "category") {
                     $('.filter-category').each(function (k, e) {
                         if (k < $('.filter-category').toArray().length) {
-                            var targetString = $(this).parent().text().toLowerCase();
+                            var targetString = $(this).text().toLowerCase();
                             targetString = cleanUpString(targetString);
                             if (targetString === item) {
-                                $(this).parent().addClass('active');
+                                $(this).addClass('active');
                             }
                         }
                     });
@@ -65,11 +65,11 @@ function updateLocationHash(table) {
 
     $('.filter-faction').each(function (k, e) {
         if (k < $('.filter-faction').toArray().length / 2) {
-            if ($(this).parent().hasClass('active')) {
+            if ($(this).hasClass('active')) {
                 if (!newHash.includes('faction=')) {
                     newHash += 'faction=';
                 }
-                var targetString = $(this).parent().text().toLowerCase();
+                var targetString = $(this).text().toLowerCase();
                 targetString = cleanUpString(targetString);
                 newHash += targetString + ',';
             }
@@ -84,11 +84,11 @@ function updateLocationHash(table) {
 
     $('.filter-rarity').each(function (k, e) {
         if (k < $('.filter-rarity').toArray().length / 2) {
-            if ($(this).parent().hasClass('active')) {
+            if ($(this).hasClass('active')) {
                 if (!newHash.includes('rarity=')) {
                     newHash += 'rarity=';
                 }
-                var targetString = $(this).parent().text().toLowerCase();
+                var targetString = $(this).text().toLowerCase();
                 targetString = cleanUpString(targetString);
                 newHash += targetString + ',';
             }
@@ -103,11 +103,11 @@ function updateLocationHash(table) {
 
     $('.filter-category').each(function (k, e) {
         if (k < $('.filter-category').toArray().length / 2) {
-            if ($(this).parent().hasClass('active')) {
+            if ($(this).hasClass('active')) {
                 if (!newHash.includes('category=')) {
                     newHash += 'category=';
                 }
-                var targetString = $(this).parent().text().toLowerCase();
+                var targetString = $(this).text().toLowerCase();
                 targetString = cleanUpString(targetString);
                 newHash += targetString + ',';
             }
