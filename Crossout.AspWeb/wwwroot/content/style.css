@@ -296,7 +296,7 @@ body {
 }
 
 .crossoutdb-logo {
-    height: 60px;
+    height: 40px;
     image-rendering: -webkit-optimize-contrast;
 }
 
@@ -349,4 +349,10 @@ body {
 .img-crop {
     max-height: 120px;
     overflow: hidden;
+}
+
+.half-hd-container {
+    max-width: 960px;
+    margin-right: auto;
+    margin-left: auto;
 }

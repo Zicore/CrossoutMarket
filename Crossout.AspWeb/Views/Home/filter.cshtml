@@ -2,52 +2,64 @@
 @using Crossout.Web.Models.Filter
 @model Crossout.Web.Models.General.SearchModel
 
-<div>
-    <nav aria-label="Filter Buttons">
-        <ul class="pagination pagination-sm" style="margin: 6px;">
-            @foreach (FilterItem item in Model.FilterModel.Factions)
-            {
-                <li class="page-item"><a class="page-link filter-faction" href="#">@item.Name</a></li>
-            }
-        </ul>
+<div class="card my-1">
+    <div class="card-body">
+        <div class="btn-toolbar justify-content-center my-1">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Faction Filter">
+                @foreach (FilterItem item in Model.FilterModel.Factions)
+                {
+                    <button class="btn btn-outline-secondary filter-faction" type="button">@item.Name</button>
+                }
+            </div>
+        </div>
 
-        <ul class="pagination pagination-sm" style="margin: 6px;">
-            @foreach (FilterItem item in Model.FilterModel.Rarities)
-            {
-                <li class="page-item"><a class="page-link filter-rarity" href="#">@item.Name</a></li>
-            }
-        </ul>
+        <div class="btn-toolbar justify-content-center my-1">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Rarity Filter">
+                @foreach (FilterItem item in Model.FilterModel.Rarities)
+                {
+                    <button class="btn btn-outline-secondary filter-rarity" type="button">@item.Name</button>
+                }
+            </div>
+        </div>
 
-        <ul class="pagination pagination-sm" style="margin: 6px;">
-            @foreach (FilterItem item in Model.FilterModel.Categories)
-            {
-                <li class="page-item"><a class="page-link filter-category" href="#">@item.Name</a></li>
-            }
-        </ul>
+        <div class="btn-toolbar justify-content-center my-1">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Category Filter">
+                @foreach (FilterItem item in Model.FilterModel.Categories)
+                {
+                    <button class="btn btn-outline-secondary filter-category" type="button">@item.Name</button>
+                }
+            </div>
+        </div>
 
-        <ul class="pagination pagination-sm" style="margin: 6px;">
-            <li @(Model.FilterModel.CurrentShowRemovedItems ? "class=active page-item" : "class=page-item")><a class="page-link" href="~/search/@Model.UriRemovedItems(Model.FilterModel.CurrentShowRemovedItems)">Removed Items</a></li>
-            <li @(Model.FilterModel.CurrentShowMetaItems ? "class=active page-item" : "class=page-item")><a class="page-link" href="~/search/@Model.UriMetaItems(Model.FilterModel.CurrentShowMetaItems)">Meta Items</a></li>
-        </ul>
-    </nav>
-</div>
+        <div class="btn-toolbar justify-content-center my-1">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Special Filter">
+                <a class="btn btn-outline-secondary @(Model.FilterModel.CurrentShowRemovedItems ? "active" : "")" href="~/search/@Model.UriRemovedItems(Model.FilterModel.CurrentShowRemovedItems)">Removed Items</a>
+                <a class="btn btn-outline-secondary @(Model.FilterModel.CurrentShowMetaItems ? "active" : "")" href="~/search/@Model.UriMetaItems(Model.FilterModel.CurrentShowMetaItems)">Meta Items</a>
+            </div>
+        </div>
 
-<div class="form-inline">
-    <div class="col-md-3 form-group">
-        Sell Price:
-        <input type="number" class="form-control input-sm" id="sellmin" name="sellmin" placeholder="From" />
-        <input type="number" class="form-control input-sm" id="sellmax" name="sellmax" placeholder="To" />
-    </div>
+        <div class="input-group my-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Sell Price</span>
+            </div>
+            <input type="text" class="form-control" id="sellmin" name="sellmin" aria-label="From Amount" placeholder="From">
+            <input type="text" class="form-control" id="sellmax" name="sellmax" aria-label="To Amount" placeholder="To">
+        </div>
 
-    <div class="col-md-3 form-group">
-        Buy Price:
-        <input type="number" class="form-control input-sm" id="buymin" name="buymin" placeholder="From" />
-        <input type="number" class="form-control input-sm" id="buymax" name="buymax" placeholder="To" />
-    </div>
+        <div class="input-group my-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Buy Price</span>
+            </div>
+            <input type="text" class="form-control" id="buymin" name="buymin" aria-label="From Amount" placeholder="From">
+            <input type="text" class="form-control" id="buymax" name="buymax" aria-label="To Amount" placeholder="To">
+        </div>
 
-    <div class="col-md-3 form-group">
-        Margin:
-        <input type="number" class="form-control input-sm" id="marginmin" name="marginmin" placeholder="From" />
-        <input type="number" class="form-control input-sm" id="marginmax" name="marginmax" placeholder="To" />
+        <div class="input-group my-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Margin</span>
+            </div>
+            <input type="text" class="form-control" id="marginmin" name="marginmin" aria-label="From Amount" placeholder="From">
+            <input type="text" class="form-control" id="marginmax" name="marginmax" aria-label="To Amount" placeholder="To">
+        </div>
     </div>
 </div>

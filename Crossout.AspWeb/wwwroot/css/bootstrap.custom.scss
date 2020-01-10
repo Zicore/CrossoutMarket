@@ -1,13 +1,12 @@
 ﻿/*$body-bg: #ffffff;
 $body-color: #fff;*/
-.feather {
-    width: 24px;
-    height: 24px;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    fill: none;
-}
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 954px,
+    xl: 1200px
+);
 
 @import "../lib/bootstrap/scss/bootstrap";

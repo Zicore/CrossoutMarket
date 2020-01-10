@@ -6,41 +6,67 @@
 @{
     SearchModel m = Model as SearchModel;
 }
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
-    <a class="navbar-brand" href="/">
-        <img alt="CrossoutDB Logo" title="@ViewHelper.GenerateTitle(Model)" class="crossoutdb-logo" src="~/img/crossoutdb_logo.png" />
-    </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<div class="bg-dark">
+    <div class="half-hd-container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0" role="navigation">
+            <a class="navbar-brand" href="/">
+                <img alt="CrossoutDB Logo" title="@ViewHelper.GenerateTitle(Model)" class="crossoutdb-logo" src="~/img/crossoutdb_logo.png" />
+            </a>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="nav navbar-nav">
-            <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Crafting" ? "active" : "")"><a class="nav-link" href="~/crafting">Crafting</a></li>
-            <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Packages" ? "active" : "")"><a class="nav-link" href="~/packs">Packs</a></li>
-            <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Tools" ? "active" : "")"><a class="nav-link" href="~/tools">Community Tools</a></li>
-            <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Changes" ? "active" : "")"><a class="nav-link" href="~/changes">Changes</a></li>
-        </ul>
+            @*Spacer to have the same height across devices*@
+            <div style="height: 60px"></div>
 
-        <form class="form-inline my-2 my-lg-0 ml-auto">
-            @if (m != null)
-            {
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" size="30" name="query" id="query" value="@m.CurrentQuery">
-            }
-            else
-            {
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" size="30" name="query" id="query" value="">
-            }
-            @if (m != null)
-            {
-                <input type="hidden" name="rarity" value="@m.FilterModel.CurrentRarity.NameUri" />
-                <input type="hidden" name="category" value="@m.FilterModel.CurrentCategory.NameUri" />
-                <input type="hidden" name="faction" value="@m.FilterModel.CurrentFaction.NameUri" />
-            }
-            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Go!</button>
-        </form>
+            <form class="form-inline mr-3 d-lg-none flex-fill">
+                @if (m != null)
+                {
+                    <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search" size="30" name="query" id="query" value="@m.CurrentQuery">
+                }
+                else
+                {
+                    <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search" size="30" name="query" id="query" value="">
+                }
+                @if (m != null)
+                {
+                    <input type="hidden" name="rarity" value="@m.FilterModel.CurrentRarity.NameUri" />
+                    <input type="hidden" name="category" value="@m.FilterModel.CurrentCategory.NameUri" />
+                    <input type="hidden" name="faction" value="@m.FilterModel.CurrentFaction.NameUri" />
+                }
+            </form>
 
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav">
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Crafting" ? "active" : "")"><a class="nav-link" href="~/crafting">Crafting</a></li>
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Packages" ? "active" : "")"><a class="nav-link" href="~/packs">Packs</a></li>
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Tools" ? "active" : "")"><a class="nav-link" href="~/tools">Community Tools</a></li>
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Changes" ? "active" : "")"><a class="nav-link" href="~/changes">Changes</a></li>
+                </ul>
+            </div>
+
+            <div class="d-none d-lg-block">
+                <form class="form-inline ml-auto">
+                    @if (m != null)
+                    {
+                        <input class="form-control mr-1" type="search" placeholder="Search" aria-label="Search" size="30" name="query" id="query" value="@m.CurrentQuery">
+                    }
+                    else
+                    {
+                        <input class="form-control mr-1" type="search" placeholder="Search" aria-label="Search" size="30" name="query" id="query" value="">
+                    }
+                    @if (m != null)
+                    {
+                        <input type="hidden" name="rarity" value="@m.FilterModel.CurrentRarity.NameUri" />
+                        <input type="hidden" name="category" value="@m.FilterModel.CurrentCategory.NameUri" />
+                        <input type="hidden" name="faction" value="@m.FilterModel.CurrentFaction.NameUri" />
+                    }
+                    <button class="btn btn-outline-secondary" type="submit">Go!</button>
+                </form>
+            </div>
+
+        </nav>
     </div>
-</nav>
+</div>
