@@ -1,4 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿import "../lib/jquery/dist/jquery";
+import "../lib/bootstrap/dist/js/bootstrap";
 
-// Write your Javascript code.
+import "../scripts/Internal/locationhash";

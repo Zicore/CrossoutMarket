@@ -6,6 +6,7 @@
 
 
   <ItemGroup>
+    <Content Remove="compilerconfig.json" />
     <Content Remove="Resources\PremiumPackages\bornfree.json" />
     <Content Remove="Resources\PremiumPackages\borntofly.json" />
     <Content Remove="Resources\PremiumPackages\dayofthedead.json" />
@@ -250,6 +251,7 @@
 
 
   <ItemGroup>
+    <None Include="compilerconfig.json" />
     <None Include="Resources\KnightRiders201809\armoredskull.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -582,6 +584,7 @@
 
 
   <ItemGroup>
+    <PackageReference Include="bootstrap.sass" Version="4.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
@@ -623,6 +626,9 @@
 
 
   <ItemGroup>
+    <Content Update="Views\Shared\_Layout.cshtml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\fonts\glyphicons-halflings-regular.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
