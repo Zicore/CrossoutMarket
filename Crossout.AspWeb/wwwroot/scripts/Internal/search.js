@@ -1,75 +1,89 @@
-﻿const defaultOrder = [[5, "asc"]];
+﻿const defaultOrder = [[7, "desc"]];
 
 $(document).ready(function () {
 
+    $('#table-wrapper').removeClass('d-none');
     adjustTimeStamp();
 
     var domOption =
-        "<'content-space'<'row'<'col-sm-6'p><'col-sm-4'f><'col-sm-2'l>>>" +
-        "tr" +
-        "<'content-space'<'row'<'col-sm-4'p><'col-sm-4'B><'col-sm-2'i><'col-sm-2'l>>>";
+        "<'row m-1'<'d-inline-flex justify-content-start'p><'d-inline-flex ml-auto'l>>" +
+        "<tr>" +
+        "<'row m-1'<'d-inline-flex justify-content-start'p><'d-none d-sm-inline-flex ml-auto'i>>";
 
-    $.fn.DataTable.ext.pager.numbers_length = 10;
+    $.fn.DataTable.ext.pager.numbers_length = 5;
 
-    var order = [[5, "asc"]];
+    var order = [[7, "desc"]];
 
     var table = $('#ItemTable').DataTable({
         paging: true,
         searching: true,
         search: {
             smart: false,
-            regex: true
+            regex: false
         },
+        autoWidth: false,
+        responsive: {
+            details: {
+                type: 'inline'
+            }
+        },
+        columnDefs: [
+            { targets: 0, width: '25%' },
+            { targets: '_all', width: '15%' }
+        ],
         buttons: {
             dom: {
-                container: {
-                    tag: 'ul',
-                    className: 'pagination dataTables_button'
-                },
-                buttonContainer: {
-                    tag: 'li',
-                    className: 'paginate_button'
-                },
+                //container: {
+                //    tag: 'ul',
+                //    className: 'pagination dataTables_button'
+                //},
+                //buttonContainer: {
+                //    tag: 'li',
+                //    className: 'paginate_button'
+                //},
                 button: {
-                    tag: 'a',
-                    className: ''
+                    tag: 'button',
+                    className: 'btn btn-sm btn-outline-secondary'
                 }
             },
             buttons: [{
-                    extend: 'excel',
-                    text: 'Export as Excel',
-                    filename: 'CrossoutDBExcelExport',
-                    exportOptions: {
-                        modifier: {
-                            page: 'current'
-                        }
+                extend: 'excel',
+                text: 'Export as Excel',
+                filename: 'CrossoutDBExcelExport',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
                     }
-                }, {
-                    extend: 'csv',
-                    text: 'Export as CSV',
-                    filename: 'CrossoutDBCSVExport',
-                    exportOptions: {
-                        modifier: {
-                            page: 'current'
-                        }
-                    }
-                }, {
-                    action: function () {
-                        compareSelected();
-                    },
-                    text: 'Compare selected'
-                }, {
-                    action: function () {
-                        watchlistSelected();
-                    },
-                    text: 'Watchlist selected'
                 }
+            }, {
+                extend: 'csv',
+                text: 'Export as CSV',
+                filename: 'CrossoutDBCSVExport',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    }
+                }
+            }, {
+                action: function () {
+                    compareSelected();
+                },
+                text: 'Compare selected'
+            }, {
+                action: function () {
+                    watchlistSelected();
+                },
+                text: 'Watchlist selected'
+            }
             ]
         },
         order: order,
         lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
-        pagingType: "full_numbers",
-        dom: domOption
+        pagingType: "simple_numbers",
+        dom: domOption,
+        drawCallback: function () {
+            $('.dataTables_paginate > .pagination').addClass('pagination-sm');
+        }
     });
 
     $('#sellmin, #sellmax, #buymin, #buymax, #marginmin, #marginmax').keyup(function () {
@@ -79,8 +93,7 @@ $(document).ready(function () {
     $('.filter-faction').click(function (e) {
         var text = $(this).text();
         $('.filter-faction').each(function () {
-            if (text == $(this).text())
-            {
+            if (text == $(this).text()) {
                 $(this).toggleClass('active');
             }
         });
@@ -113,10 +126,21 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
+    $('#searchBar, #searchBarMobile').keyup(function () {
+        updateLocationHash(table);
+        applyLocationHash(table);
+    });
+
     getFilterStateFromCookie();
     applyColumnVis(table);
 
     applyLocationHash(table);
+
+    // Place buttons in container
+    table.buttons().container().appendTo('#dt-buttons');
+
+    // Remove ugly classes in length selector
+    $('#ItemTable_length').children().children().removeClass('custom-select custom-select-sm');
 });
 
 const columnList = ['name', 'rarity', 'faction', 'category', 'type', 'popularity', 'sellprice', 'selloffers', 'buyprice', 'buyorders', 'margin', 'lastupdate'];
@@ -135,13 +159,16 @@ function getFilterStateFromCookie() {
 function filterTable(table) {
     var filterFactionString;
     var j = 0;
+
+    var searchVal = $('#searchBar').val();
+    table.search(searchVal);
+
     $('.filter-faction').each(function (i, e) {
-        if ($(this).hasClass('active'))
-        {
+        if ($(this).hasClass('active')) {
             var faction = $(this).text();
             faction = faction.split(' ')[0];
 
-            if (j == 0) {
+            if (j === 0) {
                 filterFactionString = faction;
             } else {
                 filterFactionString += '|' + faction;
@@ -149,8 +176,7 @@ function filterTable(table) {
             j++;
         }
     });
-    if (filterFactionString !== undefined)
-    {
+    if (filterFactionString !== undefined) {
         table.column(2).search(filterFactionString, true);
     } else {
         table.column(2).search('');
@@ -160,7 +186,7 @@ function filterTable(table) {
     j = 0;
     $('.filter-rarity').each(function (i, e) {
         if ($(this).hasClass('active')) {
-            if (j == 0) {
+            if (j === 0) {
                 filterRarityString = $(this).text();
             } else {
                 filterRarityString += '|' + $(this).text();
@@ -181,7 +207,7 @@ function filterTable(table) {
             var category = $(this).text();
             category = category.split(' ')[0];
 
-            if (j == 0) {
+            if (j === 0) {
                 filterCategoryString = category;
             } else {
                 filterCategoryString += '|' + category;
@@ -202,8 +228,7 @@ function applyColumnVis(table) {
     $('.colvis').each(function () {
         currentCol = $(this);
         columnList.forEach(function (e, i) {
-            if (currentCol.hasClass('colvis-' + e))
-            {
+            if (currentCol.hasClass('colvis-' + e)) {
                 var col = table.column(i)
                 if (currentCol.parent().hasClass('active')) {
                     col.visible(true);
@@ -218,7 +243,7 @@ function applyColumnVis(table) {
 }
 
 var selectedList = [];
-var highlightSelectClass = 'info';
+var highlightSelectClass = 'table-info';
 
 $('.selected-row').click(function () {
     if ($(this).hasClass(highlightSelectClass)) {
