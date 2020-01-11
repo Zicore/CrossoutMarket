@@ -23,13 +23,6 @@
   border-radius: 50%;
 }
 
-
-td {
-    padding-left: 4px;
-    padding-right: 4px;
-    text-align: left;
-}
-
 .modal-title {
     font-size: 18px;
 }
@@ -84,22 +77,27 @@ body {
 
 .label-Common{
   background: #696969;
+  color: white;
 }
 
 .label-Rare {
-  background: #0040fd;
+    background: #0040fd;
+    color: white;
 }
 
 .label-Epic {
-  background: #6a0082;
+    background: #6a0082;
+    color: white;
 }
 
 .label-Legendary {
-  background: #daa520;
+    background: #daa520;
+    color: white;
 }
 
 .label-Relic {
-  background: #d2691e;
+    background: #d2691e;
+    color: white;
 }
 
 .label-md {
@@ -209,7 +207,6 @@ body {
 }
 
 .item-timestamp {
-    font-weight: bold;
     color: green;
 }
 
@@ -355,4 +352,17 @@ body {
     max-width: 960px;
     margin-right: auto;
     margin-left: auto;
+}
+
+.filter-range-text {
+    width: 100px;
+}
+
+#topButton {
+    position: fixed; /* Fixed/sticky position */
+    bottom: 20px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    padding: 15px; /* Some padding */
+    font-size: 18px; /* Increase font size */
 }

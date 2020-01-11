@@ -1,18 +1,21 @@
 ﻿function applyLocationHash(table) {
     var hash = location.hash;
-    var pattern = '(faction|rarity|category|length|order)=(.*,?)';
+    var pattern = '(search|faction|rarity|category|length|order)=(.*,?)';
     hash = hash.replace('#', '');
     var types = hash.split('.');
     types.forEach(function (type, i) {
         var regEx = new RegExp(pattern, 'ig');
         var matches = regEx.exec(type);
-        if (matches != null) {
+        if (matches !== null) {
             var typeName = matches[1];
 
             var items = matches[2].split(',');
 
             items.forEach(function (item, j) {
-                if (typeName === "faction") {
+                if (typeName === "search") {
+                    $('#searchBar, #searchBarMobile').val(decodeURI(item));
+                }
+                else if (typeName === "faction") {
                     $('.filter-faction').each(function (k, e) {
                         if (k < $('.filter-faction').toArray().length) {
                             var targetString = $(this).text().toLowerCase();
@@ -46,11 +49,12 @@
                     table.page.len(item).draw();
                 } 
                 else if (typeName === "order") {
+                    var columnNumber;
                     if (item.includes('asc')) {
-                        var columnNumber = item.replace('asc', '');
+                        columnNumber = item.replace('asc', '');
                         table.order([columnNumber, 'asc']);
                     } else if (item.includes('desc')) {
-                        var columnNumber = item.replace('desc', '');
+                        columnNumber = item.replace('desc', '');
                         table.order([columnNumber, 'desc']);
                     }
                 }
@@ -62,6 +66,10 @@
 
 function updateLocationHash(table) {
     var newHash = '#';
+
+    var searchVal = $('#searchBar').val();
+    if (searchVal !== '')
+        newHash += 'search=' + searchVal + '.';
 
     $('.filter-faction').each(function (k, e) {
         if (k < $('.filter-faction').toArray().length / 2) {
