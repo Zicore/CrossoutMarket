@@ -74,6 +74,9 @@ namespace Crossout.Model.Items
         [JsonProperty("buyPrice")]
         public decimal BuyPrice { get; set; }
 
+        [JsonProperty("meta")]
+        public int Meta { get; set; }
+
         [JsonProperty("removed")]
         public int Removed { get; set; }
 
@@ -242,6 +245,7 @@ namespace Crossout.Model.Items
                 TypeName = row[i++].ConvertTo<string>(),
                 RecipeId = row[i++].ConvertTo<int>(),
                 Removed = row[i++].ConvertTo<int>(),
+                Meta = row[i++].ConvertTo<int>(),
                 FactionNumber = row[i++].ConvertTo<int>(),
                 Faction = row[i++].ConvertTo<string>(),
                 Popularity = row[i++].ConvertTo<int>(),

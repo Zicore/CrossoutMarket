@@ -43,8 +43,8 @@
                 Other
             </button>
             <div class="dropdown-menu" aria-labelledby="otherDropdown">
-                <a class="dropdown-item @(Model.FilterModel.CurrentShowRemovedItems ? "active" : "")" href="~/search/@Model.UriRemovedItems(Model.FilterModel.CurrentShowRemovedItems)">Removed Items</a>
-                <a class="dropdown-item @(Model.FilterModel.CurrentShowMetaItems ? "active" : "")" href="~/search/@Model.UriMetaItems(Model.FilterModel.CurrentShowMetaItems)">Meta Items</a>
+                <a class="dropdown-item" id="filterRemovedItems">Removed Items</a>
+                <a class="dropdown-item" id="filterMetaItems">Meta Items</a>
             </div>
         </div>
     </div>
@@ -69,8 +69,8 @@
             }
         </div>
         <div class="btn-group-vertical btn-group-sm align-self-start col" role="group" aria-label="special filter">
-            <a class="btn btn-outline-secondary @(Model.FilterModel.CurrentShowRemovedItems ? "active" : "")" href="~/search/@Model.UriRemovedItems(Model.FilterModel.CurrentShowRemovedItems)">Removed Items</a>
-            <a class="btn btn-outline-secondary @(Model.FilterModel.CurrentShowMetaItems ? "active" : "")" href="~/search/@Model.UriMetaItems(Model.FilterModel.CurrentShowMetaItems)">Meta Items</a>
+            <a class="btn btn-outline-secondary" id="filterRemovedItems">Removed Items</a>
+            <a class="btn btn-outline-secondary" id="filterMetaItems">Meta Items</a>
         </div>
     </div>
 

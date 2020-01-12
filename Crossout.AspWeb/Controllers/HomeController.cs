@@ -71,7 +71,7 @@ namespace Crossout.AspWeb.Controllers
             filterModel.CurrentShowRemovedItems = showRemovedItems;
             filterModel.CurrentShowMetaItems = showMetaItems;
 
-            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true, false, false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems);
+            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true, false, false, rarityItem != null, categoryItem != null, factionItem != null, true, true);
 
             if (hasFilter)
             {

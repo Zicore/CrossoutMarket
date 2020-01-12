@@ -1,6 +1,6 @@
 ﻿function applyLocationHash(table) {
     var hash = location.hash;
-    var pattern = '(search|faction|rarity|category|length|order)=(.*,?)';
+    var pattern = '(search|faction|rarity|category|length|order|removed|meta)=(.*,?)';
     hash = hash.replace('#', '');
     var types = hash.split('.');
     types.forEach(function (type, i) {
@@ -46,9 +46,6 @@
                         }
                     });
                 }
-                //else if (typeName === "length") {
-                //    table.page.len(item).draw();
-                //} 
                 else if (typeName === "order") {
                     var columnNumber;
                     if (item.includes('asc')) {
@@ -59,10 +56,17 @@
                         table.order([columnNumber, 'desc']);
                     }
                 }
+                else if (typeName === "removed") {
+                    $('#filterRemovedItems').addClass('active');
+                }
+                else if (typeName === "meta") {
+                    $('#filterMetaItems').addClass('active');
+                }
             });
-            filterTable(table);
         }
     }); 
+
+    filterTable(table);
 }
 
 function updateLocationHash(table) {
@@ -129,15 +133,13 @@ function updateLocationHash(table) {
         newHash += '.';
     }
 
-    //if (table.page.info().length !== $.fn.DataTable.ext.pager.numbers_length) {
-    //    if (!newHash.includes('length=')) {
-    //        newHash += 'length=';
-    //    }
-    //    newHash += table.page.info().length;
-    //}
-    //if (newHash.includes('length=')) {
-    //    newHash += '.';
-    //}
+    if ($('#filterRemovedItems').hasClass('active')) {
+        newHash += 'removed=true.';
+    }
+
+    if ($('#filterMetaItems').hasClass('active')) {
+        newHash += 'meta=true.';
+    }
 
     var newOrder = table.order();
     if (newOrder.length > 0 && newOrder[0].toString() !== defaultOrder[0].toString()) {
