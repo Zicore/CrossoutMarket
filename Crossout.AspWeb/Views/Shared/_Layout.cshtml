@@ -84,11 +84,17 @@
         });
     </script>
 
+    <script src="~/scripts/internal/settings.js"></script>
+
 
     <title>@ViewHelper.GenerateTitle(Model)</title>
 
 </head>
 <body>
+
+    <script>
+        readCookie();
+    </script>
 
     @RenderBody()
     <partial name="footer" />
@@ -96,6 +102,7 @@
     <button class="btn btn-secondary d-none" onclick="topFunction()" id="topButton" title="Go to top">Top</button>
 
     <script>
+
         window.twttr = (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0],
                 t = window.twttr || {};

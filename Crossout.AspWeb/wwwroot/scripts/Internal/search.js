@@ -136,6 +136,13 @@ $(document).ready(function () {
 
     applyLocationHash(table);
 
+    table.page.len(settings.search['length']).draw();
+
+    $('#ItemTable').on('length.dt', function (e, options, len) {
+        settings.search['length'] = table.page.info().length;
+        writeCookie();
+    });
+
     // Place buttons in container
     table.buttons().container().appendTo('#dt-buttons');
 
