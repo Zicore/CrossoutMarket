@@ -3,6 +3,7 @@
 $(document).ready(function () {
 
     $('#table-wrapper').removeClass('d-none');
+    $('#dtButtonWrapper').removeClass('d-none');
     adjustTimeStamp();
 
     var domOption =
@@ -136,11 +137,10 @@ $(document).ready(function () {
 
     applyLocationHash(table);
 
-    table.page.len(settings.search['length']).draw();
+    table.page.len(readSetting('length')).draw();
 
     $('#ItemTable').on('length.dt', function (e, options, len) {
-        settings.search['length'] = table.page.info().length;
-        writeCookie();
+        writeSetting('length', table.page.info().length);
     });
 
     // Place buttons in container

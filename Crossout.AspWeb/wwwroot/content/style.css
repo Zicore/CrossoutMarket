@@ -32,7 +32,6 @@ html {
 }
 
 body {
-  padding-bottom: 46px;
   background: white;
 }
 
@@ -371,7 +370,7 @@ body {
 .feather {
     width: 24px;
     height: 24px;
-    stroke: #6c757d;
+    stroke: rgba(255, 255, 255, 0.5);
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -379,7 +378,7 @@ body {
 }
 
 .feather:hover {
-    stroke: #cccecf;
+    stroke: rgba(255, 255, 255, 0.75);
 }
 
 li.active a svg {
@@ -388,4 +387,18 @@ li.active a svg {
 
 li.active a svg:hover {
     stroke: white;
+}
+
+.dropdown-menu a {
+    cursor: pointer;
+}
+
+.feather-footer {
+    width: 14px;
+    height: 14px;
+    stroke: rgba(255, 255, 255, 0.5);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
 }
