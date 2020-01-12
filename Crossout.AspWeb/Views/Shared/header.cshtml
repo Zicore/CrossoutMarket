@@ -19,22 +19,6 @@
             <div style="height: 60px"></div>
 
             <div class="d-flex flex-fill">
-                @*<form class="form-inline mr-3 d-lg-none flex-fill">
-                        @if (m != null)
-                        {
-                            <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search" name="query" id="query" value="@m.CurrentQuery">
-                        }
-                        else
-                        {
-                            <input class="form-control w-100" type="search" placeholder="Search" aria-label="Search" name="query" id="query" value="">
-                        }
-                        @if (m != null)
-                        {
-                            <input type="hidden" name="rarity" value="@m.FilterModel.CurrentRarity.NameUri" />
-                            <input type="hidden" name="category" value="@m.FilterModel.CurrentCategory.NameUri" />
-                            <input type="hidden" name="faction" value="@m.FilterModel.CurrentFaction.NameUri" />
-                        }
-                    </form>*@
                 <input class="form-control w-100 mr-3 d-lg-none flex-fill" type="search" placeholder="Search" aria-label="Search" id="searchBarMobile">
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,23 +43,6 @@
             </div>
 
             <div class="d-none d-lg-block">
-                @*<form class="form-inline ml-auto">
-                        @if (m != null)
-                        {
-                            <input class="form-control mr-1" type="search" placeholder="Search" aria-label="Search" size="30" name="query" id="query" value="@m.CurrentQuery">
-                        }
-                        else
-                        {
-                            <input class="form-control mr-1" type="search" placeholder="Search" aria-label="Search" size="30" name="query" id="query" value="">
-                        }
-                        @if (m != null)
-                        {
-                            <input type="hidden" name="rarity" value="@m.FilterModel.CurrentRarity.NameUri" />
-                            <input type="hidden" name="category" value="@m.FilterModel.CurrentCategory.NameUri" />
-                            <input type="hidden" name="faction" value="@m.FilterModel.CurrentFaction.NameUri" />
-                        }
-                        <button class="btn btn-outline-secondary" type="submit">Go!</button>
-                    </form>*@
                 <input class="form-control mr-1 ml-auto" type="search" placeholder="Search" aria-label="Search" size="30" id="searchBar">
             </div>
 

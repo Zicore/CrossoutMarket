@@ -68,7 +68,4 @@ function importCookie() {
 function resetSettings() {
     settings = defaultSettings;
     writeCookie();
-
-    // REMOVE BEFORE DEPLOYING!!!
-    alert('Cookie Reset!');
 }

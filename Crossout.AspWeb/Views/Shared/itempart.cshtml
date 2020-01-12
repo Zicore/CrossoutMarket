@@ -5,7 +5,7 @@
 @model Crossout.Model.Items.Item
 <tr class="selected-row" data-id="@Model.Id">
     <td>
-        <div class="">
+        <div class="d-flex align-items-center">
             <div>
                 @if (Model.ImageExists) //(RootPathHelper.ImageExists(Url,Model.Image))
                 {
@@ -20,12 +20,6 @@
                     </a>
                 }
             </div>
-            @*<div>
-                <a href="~/item/@Model.Id"><h4 class="item-title @(Model.Removed > 0 ? "item-removed" : "")">@Model.Name @(Model.Removed > 0 ? "(Removed)" : "")</h4></a>
-                @if(Context.CurrentUser != null && Context.CurrentUser.Claims.Contains("Admin")){
-                    <a href="~/edit/@Model.Id">Edit</a>
-                }
-            </div>*@
             <div>
                 <a href="~/item/@Model.Id"><span class="@(Model.Removed > 0 ? "item-removed" : "")">@Model.Name @(Model.Removed > 0 ? "(Removed)" : "")</span></a>
             </div>
