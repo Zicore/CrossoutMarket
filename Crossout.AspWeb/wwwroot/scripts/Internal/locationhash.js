@@ -45,9 +45,10 @@
                             }
                         }
                     });
-                } else if (typeName === "length") {
-                    table.page.len(item).draw();
-                } 
+                }
+                //else if (typeName === "length") {
+                //    table.page.len(item).draw();
+                //} 
                 else if (typeName === "order") {
                     var columnNumber;
                     if (item.includes('asc')) {
@@ -128,15 +129,15 @@ function updateLocationHash(table) {
         newHash += '.';
     }
 
-    if (table.page.info().length !== $.fn.DataTable.ext.pager.numbers_length) {
-        if (!newHash.includes('length=')) {
-            newHash += 'length=';
-        }
-        newHash += table.page.info().length;
-    }
-    if (newHash.includes('length=')) {
-        newHash += '.';
-    }
+    //if (table.page.info().length !== $.fn.DataTable.ext.pager.numbers_length) {
+    //    if (!newHash.includes('length=')) {
+    //        newHash += 'length=';
+    //    }
+    //    newHash += table.page.info().length;
+    //}
+    //if (newHash.includes('length=')) {
+    //    newHash += '.';
+    //}
 
     var newOrder = table.order();
     if (newOrder.length > 0 && newOrder[0].toString() !== defaultOrder[0].toString()) {
@@ -158,9 +159,9 @@ function cleanUpString(targetString) {
     return targetString;
 }
 
-$('#ItemTable').on('length.dt', function (e, settings, len) {
-    updateLocationHash($('#ItemTable').DataTable());
-});
+//$('#ItemTable').on('length.dt', function (e, settings, len) {
+//    updateLocationHash($('#ItemTable').DataTable());
+//});
 
 var isInitialSortingOver = false;
 $('#ItemTable').on('order.dt', function () {
