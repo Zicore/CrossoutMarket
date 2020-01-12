@@ -40,6 +40,12 @@
         <span>@Model.TypeName</span>
     </td>
     <td>
+        <span>@(Model.Removed == 0 ? "Yes" : "No")</span>
+    </td>
+    <td>
+        <span>@(Model.Meta == 1 ? "Yes" : "No")</span>
+    </td>
+    <td>
         <span>@Model.Popularity</span>
     </td>
     <td class="align-middle">
