@@ -402,3 +402,8 @@ li.active a svg:hover {
     stroke-linejoin: round;
     fill: none;
 }
+
+.changes-image {
+    width: 16px;
+    height: 16px;
+}
