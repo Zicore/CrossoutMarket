@@ -199,8 +199,12 @@
 
             @if (Model.Item.Stats != null && Model.Item.Stats.SortedStats.Count > 0)
             {
-
                 <div class="tab-pane" id="stats" aria-labelledby="stats-tab">
+
+                    <div class="text-center alert-warning">
+                        The stats are outdated and can't be updated anymore. Stats version: 0.9.135.91921
+                    </div>
+
                     <table class="table table-hover table-striped table-borderless">
                         <thead>
                         </thead>
