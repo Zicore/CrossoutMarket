@@ -2,7 +2,10 @@
     'cookie-health': true,
     'dropdown': true,
     'length': 10,
-    'data-grouping': true
+    'data-grouping': true,
+    'recipe-other-costs-amount': 1,
+    'recipe-other-costs-sellprice': 0,
+    'recipe-other-costs-buyprice': 0
 };
 
 var settings = {};
