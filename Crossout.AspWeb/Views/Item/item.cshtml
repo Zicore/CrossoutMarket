@@ -1,13 +1,13 @@
-﻿@{
-    Layout = "_Layout";
-}
-
-@using System.Collections.Generic
+﻿@using System.Collections.Generic
 @using System.Linq
 @using Crossout.Model.Recipes
 @using Crossout.Web
 @using Crossout.Web.Helper
 @model Crossout.Web.Models.Items.ItemModel
+
+@{
+    Layout = "_Layout";
+}
 
 <partial name="header" model="@Model" />
 <partial name="status" model="@Model.Status" />
@@ -17,7 +17,6 @@
         <div class="media m-1">
             <div class="align-self-center mr-3">
                 <a href="~/item/@Model.Item.Id">
-
                     @if (Model.Item.HighResImageExists)
                     {
                         <img class="item-image-auto-size" src="~/img/items-highres/@Model.Item.Image" />
@@ -100,37 +99,8 @@
             @if (Model.Recipe.Recipe.Ingredients.Count > 0)
             {
                 <div class="tab-pane" id="recipe" aria-labelledby="recipe-tab">
-                    <table class="table table-hover table-condensed">
-                        <thead>
-                            <tr>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Rarity
-                                </th>
-                                <th>
-                                    <div>Number</div>
-                                    <div>Sell Price</div>
-                                </th>
-                                <th>
-                                </th>
-                                <th>
-                                    <div>Number</div>
-                                    <div>Buy Price</div>
-                                </th>
-                                <th>
-                                    Margin
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <partial name="recipepart" model="@Model.Recipe.Recipe" />
-                        </tbody>
-                    </table>
-                    <div id="shopping-list-wrapper">
-                        <table class="table table-hover table-condensed" id="shopping-list">
+                    <div style="min-width: 740px">
+                        <table class="table table-hover table-borderless">
                             <thead>
                                 <tr>
                                     <th>
@@ -139,23 +109,50 @@
                                     <th>
                                         Rarity
                                     </th>
-                                    <th>
-                                        Number
-                                    </th>
-                                    <th>
-                                        <div class="rec-right">Sell Price</div>
+                                    <th class="d-flex justify-content-between">
+                                        <div class="">Number</div>
+                                        <div class="">Sell Price</div>
                                     </th>
                                     <th>
                                     </th>
-                                    <th>
-                                        <div class="rec-right">Buy Price</div>
+                                    <th class="d-flex justify-content-between">
+                                        <div class="">Number</div>
+                                        <div class="">Buy Price</div>
                                     </th>
                                 </tr>
                             </thead>
 
-                            <tbody></tbody>
+                            <tbody>
+                                <partial name="recipepart" model="@Model.Recipe.Recipe" />
+                            </tbody>
                         </table>
+                        <div id="shopping-list-wrapper">
+                            <table class="table table-hover table-borderless" id="shopping-list">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 15%">
+                                            Name
+                                        </th>
+                                        <th style="width: 5%">
+                                            Rarity
+                                        </th>
+                                        <th style="width: 10%">
+                                            Number
+                                        </th>
+                                        <th style="width: 35%">
+                                            <div>Sell Price</div>
+                                        </th>
+                                        <th style="width: 35%">
+                                            <div>Buy Price</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
+
                 </div>
             }
 
@@ -228,8 +225,8 @@
                                     </tr>
                                 }
                             }
-                            </tbody>
-                        </table>
+                        </tbody>
+                    </table>
                 </div>
             }
 
@@ -247,18 +244,6 @@
 <script src="~/scripts/internal/item.js"></script>
 <script>
     $(document).ready(function () {
-        $('#ingredientUsageTable').DataTable({
-            "info": false,
-            "paging": false,
-            "searching": false,
-            autoWidth = true,
-            scrollY: 300,
-            scrollCollapse: true,
-            scroller: {
-                loadingIndicator: true
-            }
-        });
-
         adjustTimeStamp();
     });
 

@@ -127,7 +127,8 @@ body {
 }
 
 .tree-icon {
-    margin: 3px;
+    width: 32px;
+    height: 32px;
 }
 
 .collapsing {
@@ -177,8 +178,7 @@ body {
 }
 
 .item-type {
-    font-weight: bold;
-    font-size: 14px;
+    font-size: 11px;
 }
 
 .item-faction {
@@ -194,6 +194,11 @@ body {
 .item-image-big {
     width:64px;
     height:64px;
+}
+
+.item-image-med {
+    width: 32px;
+    height: 32px;
 }
 
 .item-image-auto-size {
@@ -406,4 +411,16 @@ li.active a svg:hover {
 .changes-image {
     width: 16px;
     height: 16px;
+}
+
+.folded-in:after {
+    content: '+';
+}
+
+.folded-out:after {
+    content: '-';
+}
+
+.nav-tabs li a {
+    color: #6c757d;
 }

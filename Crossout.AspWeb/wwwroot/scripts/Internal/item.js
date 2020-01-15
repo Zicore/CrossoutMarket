@@ -10,7 +10,6 @@ var recipeData = {
     data: {}
 };
 
-
 function updateTree(classname, recipe, uniqueid, show) {
     if (classname !== 'recipe-0') {
         $('.' + classname).each(function (i, obj) {
@@ -20,12 +19,12 @@ function updateTree(classname, recipe, uniqueid, show) {
             var classname2 = 'recipe-' + $(this).data('recipe');
             if (currentParentUniqueid === uniqueid) {
                 if (show) {
-                    $(this).show();
+                    $(this).removeClass('d-none');
                     //$('#shopping-list-wrapper').show();
                 } else {
-                    $(this).hide();
+                    $(this).addClass('d-none');
                     //$('#shopping-list-wrapper').hide();
-                    $(this).find('button').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+                    $(this).find('button').removeClass('folded-out').addClass('folded-in');
                     window.updateTree(classname2, currentRecipe, currentUniqueid, show);
                 }
             }
@@ -103,6 +102,8 @@ function updateSums(recipe, uniqueid) {
                 var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
                 var sellBuyClass = sellBuyProfit > 0 ? 'sum-pos' : 'sum-neg';
 
+                var sumAdivce = sumBuy < buyPrice ? 'Craft' : 'Buy';
+
                 // Please if someone has a way to avoid this mess without huge frameworks like angular or react message me :)
 
                 $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-fee').text(toPrice(sellFeePrice));
@@ -114,6 +115,7 @@ function updateSums(recipe, uniqueid) {
                 $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellClass).text(toPrice(sellProfit));
                 $('#uniqueid-' + sumItem.uniqueId).find('.sum-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).text(toPrice(buyProfit));
                 $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).text(toPrice(sellBuyProfit));
+                $('#uniqueid-' + sumItem.uniqueId).find('.sum-advice').text(sumAdivce);
 
                 if (mainItem.uniqueId === root.uniqueId) {
                     for (var key in result.shoppinglist) {
@@ -132,8 +134,6 @@ function updateSums(recipe, uniqueid) {
                                 htmlNumberInput(number, 'input-number-' + item.id) +
                                 '</td><td>' +
                                 htmlPriceInput(toPrice(item.sellPrice), 'input-sell-' + item.id) +
-                                '</td><td>' +
-                                '' +
                                 '</td><td>' +
                                 htmlPriceInput(toPrice(item.buyPrice), 'input-buy-' + item.id) +
                                 '</td></tr>');
@@ -164,8 +164,6 @@ function updateSums(recipe, uniqueid) {
                                 '</td><td>' +
                                 htmlPriceInput(getCookieOrDefault('workbench-sellprice',0), 'input-sell-workbench') +
                                 '</td><td>' +
-                                '' +
-                                '</td><td>' +
                                 htmlPriceInput(getCookieOrDefault('workbench-buyprice',0), 'input-buy-workbench') +
                                 '</td></tr>');
 
@@ -194,8 +192,6 @@ function updateSums(recipe, uniqueid) {
                         '' +
                         '</td><td>' +
                         htmlPriceSum(toPrice(0), 'sell', root.item.id) +
-                        '</td><td>' +
-                        '' +
                         '</td><td>' +
                         htmlPriceSum(toPrice(0), 'buy', root.item.id) +
                         '</td></tr>');
@@ -286,41 +282,38 @@ function htmlShoppingListTitle(title) {
 
 // Ugh...
 function htmlName(item) {
-    return '<div class="clearfix content-heading">' +
-        '<div class="clearfix vertical-center pull-left">' +
+    return '<div class="d-flex align-items-center">' +
+        '<div>' +
         '<div>' +
         '<a href="/item/' +
         item.id +
         '">' +
-        '<img style="margin-right: 8px; height: 32px;" src="/img/items/' +
+        '<img class="item-image-med mr-1" src="/img/items/' +
         item.image +
         '" /></a>' +
         '</div>' +
         '</div>' +
         '<a href="/item/' +
         item.id +
-        '" style="font-weight: bold;">' +
+        '">' +
         item.name +
         '</a>' +
-        '<div style="font-size: 11px; font-weight: bold;">' +
-        item.typeName +
-        '</div>' +
         '</div>';
 }
 
 function htmlRarity(item) {
-    return '<span class="label label-' + item.rarityName + '">' + item.rarityName + '</span>';
+    return '<span class="badge label-' + item.rarityName + '">' + item.rarityName + '</span>';
 }
 
 function htmlNumber(value) {
-    return '<div class="label-md rec-right">' + value + '</div>';
+    return '<div>' + value + '</div>';
 }
 
 function htmlPriceSum(value, side, id) {
-    var r = '<div class="label-md pull-left">' +
+    var r = '<div class="d-flex justify-content-between"><div>' +
         'Price -10 %' +
         '</div>' +
-        '<div class="recipe-price label-md rec-right">' +
+        '<div class="recipe-price">' +
         '<div class="text-right sum-value" id="sum-fee-' +
         side +
         '-' +
@@ -328,11 +321,11 @@ function htmlPriceSum(value, side, id) {
         '">' +
         '</div>' +
         '<img height="14" src="/img/Coin.png" />' +
-        '</div>' +
-        '<div class="label-md pull-left">' +
+        '</div></div>' +
+        '<div class="d-flex justify-content-between"><div>' +
         'Cost' +
         '</div>' +
-        '<div class="recipe-price label-md rec-right">' +
+        '<div class="recipe-price">' +
         '<div class="text-right sum-value" id="sum-' +
         side +
         '-' +
@@ -340,11 +333,11 @@ function htmlPriceSum(value, side, id) {
         '">' +
         '</div>' +
         '<img height="14" src="/img/Coin.png" />' +
-        '</div>' +
-        '<div class="label-md pull-left">' +
+        '</div></div>' +
+        '<div class="d-flex justify-content-between"><div>' +
         'Profit' +
         '</div>' +
-        '<div class="recipe-price label-md rec-right">' +
+        '<div class="recipe-price">' +
         '<div class="text-right sum-value" id="sum-diff-' +
         side +
         '-' +
@@ -352,25 +345,25 @@ function htmlPriceSum(value, side, id) {
         '">' +
         '</div>' +
         '<img height="14" src="/img/Coin.png" />' +
-        '</div>';
+        '</div></div>';
     if (side === 'sell') {
-        r += '<div class="label-md pull-left">' +
+        r += '<div class="d-flex justify-content-between"><div>' +
             'Sell-Buy Profit' +
             '</div>' +
-            '<div class="recipe-price label-md rec-right">' +
+            '<div class="recipe-price">' +
             '<div class="text-right sum-value" id="sum-sell-buy-diff-' +
             id +
             '">' +
             '</div>' +
             '<img height="14" src="/img/Coin.png" />' +
-            '</div>';
+            '</div></div>';
     }
 
     return r;
 }
 
 function htmlNumberInput(value, id) {
-    return '<div class="recipe-price label-md rec-right"><input class="text-right" id="' +
+    return '<div class="recipe-price"><input class="text-right" size="4" id="' +
         id +
         '" type="text" value="' +
         value +
@@ -378,7 +371,7 @@ function htmlNumberInput(value, id) {
 }
 
 function htmlPriceInput(value, id) {
-    return '<div class="recipe-price label-md rec-right"><input class="text-right" id="' +
+    return '<div class="recipe-price d-flex align-items-center"><input class="text-right w-100" id="' +
         id +
         '" type="text" value="' +
         value +
