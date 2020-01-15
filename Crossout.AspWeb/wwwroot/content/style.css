@@ -424,3 +424,7 @@ li.active a svg:hover {
 .nav-tabs li a {
     color: #6c757d;
 }
+
+.pack-table tr td {
+    padding: 0;
+}
