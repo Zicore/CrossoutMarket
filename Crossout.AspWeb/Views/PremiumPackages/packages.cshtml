@@ -14,10 +14,32 @@
 
 <div class="half-hd-container px-3">
 
-    @foreach (var packageList in Model.Packages)
-    {
+    <div class="card my-1">
+        <div class="d-flex justify-content-around">
+            <div class="d-flex align-items-center px-1">
+                <div>
+                    Sort by <img src="~/img/Coin.png" height="14" />/USD
+                </div>
+                <div class="btn-group btn-group-sm m-1">
+                    <button class="btn btn-outline-secondary" onclick="sortPacks('value', 'asc')">Ascending</button>
+                    <button class="btn btn-outline-secondary" onclick="sortPacks('value', 'desc')">Descending</button>
+                </div>
+            </div>
+            <div class="d-flex align-items-center px-1">
+                <div>
+                    Sort by Name
+                </div>
+                <div class="btn-group btn-group-sm m-1">
+                    <button class="btn btn-outline-secondary" onclick="sortPacks('name', 'asc')">Ascending</button>
+                    <button class="btn btn-outline-secondary" onclick="sortPacks('name', 'desc')">Descending</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        @switch (packageList.Key)
+
+
+    @*@switch (packageList.Key)
         {
             case 1:
                 @Html.Raw("");
@@ -31,11 +53,13 @@
             default:
                 @Html.Raw("<h3>Unnamed</h3>");
                 break;
-        }
-        <div class="row">
+        }*@
+    <div class="row" id="packageWrapper">
+        @foreach (var packageList in Model.Packages)
+        {
             @foreach (PremiumPackage package in packageList.Value)
             {
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-6 col-sm-12 pack-container" data-packagename="@(package.Name)" data-packagevalue="@(package.Prices[0].FormatSellPriceDividedByCurrency)">
                     <div class="card my-1">
                         <div class="m-1 d-flex justify-content-between align-items-center">
                             <div>
@@ -161,8 +185,9 @@
                     </div>
                 </div>
             }
-        </div>
-    }
+
+        }
+    </div>
 </div>
 
 <script>
@@ -177,5 +202,27 @@
                 content.slideDown();
             }
         });
+
+
     });
+
+    function sortPacks(type, order) {
+        var $wrapper = $('#packageWrapper');
+        $wrapper.find('.pack-container').sort(function (a, b) {
+            if (type === 'value') {
+                if (order === 'asc') {
+                    return +a.dataset.packagevalue - +b.dataset.packagevalue;
+                } else {
+                    return +b.dataset.packagevalue - +a.dataset.packagevalue;
+                }
+            }
+            else if (type === 'name') {
+                if (order === 'asc') {
+                    return a.dataset.packagename.localeCompare(b.dataset.packagename);
+                } else {
+                    return b.dataset.packagename.localeCompare(a.dataset.packagename);
+                }
+            }
+        }).appendTo($wrapper);
+    }
 </script>
