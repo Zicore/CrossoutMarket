@@ -40,167 +40,167 @@ function toFixed(number) {
     return number.toFixed(2);
 }
 
-function getCookieOrDefault(name, defaultValue) {
-    var cookieValue = Cookies.get(name);
-    if (cookieValue !== undefined && !isNaN(cookieValue)) {
-        return cookieValue;
-    }
-    return defaultValue;
-}
+//function getCookieOrDefault(name, defaultValue) {
+//    var cookieValue = Cookies.get(name);
+//    if (cookieValue !== undefined && !isNaN(cookieValue)) {
+//        return cookieValue;
+//    }
+//    return defaultValue;
+//}
 
-function setCookieNumber(name, value) {
-    if (!isNaN(value)) {
-        Cookies.set(name, value);
-    }
-}
+//function setCookieNumber(name, value) {
+//    if (!isNaN(value)) {
+//        Cookies.set(name, value);
+//    }
+//}
 
 function updateSums(recipe, uniqueid) {
 
     $('#shopping-list > tbody').empty();
 
-        $('.sum-row:visible').each(function (j, obj) {
-            var sumuniqueid = $(this).data('uniqueid');
+    $('.sum-row:visible').each(function (j, obj) {
+        var sumuniqueid = $(this).data('uniqueid');
 
-            var root = recipeData.data.recipe.recipe;
-            var mainItem = findSumItem(root, sumuniqueid);
-            var sumItem = mainItem.ingredientSum;
-            var result = { items: new Array(), map: {}, shoppinglist: {} }
+        var root = recipeData.data.recipe.recipe;
+        var mainItem = findSumItem(root, sumuniqueid);
+        var sumItem = mainItem.ingredientSum;
+        var result = { items: new Array(), map: {}, shoppinglist: {} }
 
-            if (sumItem !== null) {
-                updateSum(root, mainItem, result, recipe);
+        if (sumItem !== null) {
+            updateSum(root, mainItem, result, recipe);
 
-                var sumBuy = 0;
-                var sumSell = 0;
-                var list = result.shoppinglist;
-                var number;
-                var item;
-                var rec;
-                for (var k in list) {
-                    if (list.hasOwnProperty(k)) {
-                        rec = list[k].item;
-                        item = rec.item;
-                        number = list[k].number;
-                        var sell = item.sellPrice;
-                        var buy = item.buyPrice;
+            var sumBuy = 0;
+            var sumSell = 0;
+            var list = result.shoppinglist;
+            var number;
+            var item;
+            var rec;
+            for (var k in list) {
+                if (list.hasOwnProperty(k)) {
+                    rec = list[k].item;
+                    item = rec.item;
+                    number = list[k].number;
+                    var sell = item.sellPrice;
+                    var buy = item.buyPrice;
 
-                        sumSell += filterResourcePrice(item.id, sell) * number;
-                        sumBuy += filterResourcePrice(item.id, buy) * number;
-                    }
-                }
-
-                var sellPrice = mainItem.item.sellPrice * Math.max(mainItem.rootNumber, 1);
-                var buyPrice = mainItem.item.buyPrice * Math.max(mainItem.rootNumber, 1);
-
-                var sellFeePrice = sellPrice * 0.9;
-                var buyFeePrice = buyPrice * 0.9;
-
-                var sellProfit = sellFeePrice - sumSell;
-                var buyProfit = buyFeePrice - sumBuy;
-                var sellBuyProfit = sellFeePrice - sumBuy;
-
-                var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
-                var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
-                var sellBuyClass = sellBuyProfit > 0 ? 'sum-pos' : 'sum-neg';
-
-                var sumAdivce = sumBuy < buyPrice ? 'Craft' : 'Buy';
-
-                // Please if someone has a way to avoid this mess without huge frameworks like angular or react message me :)
-
-                $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-fee').text(toPrice(sellFeePrice));
-                $('#uniqueid-' + sumItem.uniqueId).find('.sum-buy-fee').text(toPrice(buyFeePrice));
-
-                $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell').text(toPrice(-sumSell));
-                $('#uniqueid-' + sumItem.uniqueId).find('.sum-buy').text(toPrice(-sumBuy));
-
-                $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellClass).text(toPrice(sellProfit));
-                $('#uniqueid-' + sumItem.uniqueId).find('.sum-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).text(toPrice(buyProfit));
-                $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).text(toPrice(sellBuyProfit));
-                $('#uniqueid-' + sumItem.uniqueId).find('.sum-advice').text(sumAdivce);
-
-                if (mainItem.uniqueId === root.uniqueId) {
-                    for (var key in result.shoppinglist) {
-                        if (result.shoppinglist.hasOwnProperty(key)) {
-                            rec = result.shoppinglist[key].item;
-                            item = rec.item;
-                            number = result.shoppinglist[key].number;
-                            $('#shopping-list').append(
-                                '<tr data-item-id="' +
-                                item.id +
-                                '"><td>' +
-                                htmlName(item) +
-                                '</td><td>' +
-                                htmlRarity(item) +
-                                '</td><td>' +
-                                htmlNumberInput(number, 'input-number-' + item.id) +
-                                '</td><td>' +
-                                htmlPriceInput(toPrice(item.sellPrice), 'input-sell-' + item.id) +
-                                '</td><td>' +
-                                htmlPriceInput(toPrice(item.buyPrice), 'input-buy-' + item.id) +
-                                '</td></tr>');
-                            $('#input-sell-' + item.id).on('input',
-                                function (e) {
-                                    calculateShoppingList(root, result.shoppinglist);
-                                });
-                            $('#input-buy-' + item.id).on('input',
-                                function (e) {
-                                    calculateShoppingList(root, result.shoppinglist);
-                                });
-                            $('#input-number-' + item.id).on('input',
-                                function (e) {
-                                    calculateShoppingList(root, result.shoppinglist);
-                                });
-                        }
-                    }
-
-                    $('#shopping-list').append(
-                                '<tr data-item-id="' +
-                                "workbench" +
-                                '"><td>' +
-                                htmlShoppingListTitle("Other costs") +
-                                '</td><td>' +
-                                "" +
-                                '</td><td>' +
-                                htmlNumberInput(getCookieOrDefault('workbench-number',1), 'input-number-workbench') +
-                                '</td><td>' +
-                                htmlPriceInput(getCookieOrDefault('workbench-sellprice',0), 'input-sell-workbench') +
-                                '</td><td>' +
-                                htmlPriceInput(getCookieOrDefault('workbench-buyprice',0), 'input-buy-workbench') +
-                                '</td></tr>');
-
-                    $('#input-number-workbench').on('input',
-                    function (e) {
-                        calculateShoppingList(root, result.shoppinglist);
-                    });
-                    $('#input-sell-workbench').on('input',
-                        function (e) {
-                            calculateShoppingList(root, result.shoppinglist);
-                        });
-                    $('#input-buy-workbench').on('input',
-                    function (e) {
-                        calculateShoppingList(root, result.shoppinglist);
-                    });
-                    
-
-                    $('#shopping-list').append(
-                        '<tr data-item-id="' +
-                        root.item.id +
-                        '"><td>' +
-                        htmlName(root.item) +
-                        '</td><td>' +
-                        htmlRarity(root.item) +
-                        '</td><td>' +
-                        '' +
-                        '</td><td>' +
-                        htmlPriceSum(toPrice(0), 'sell', root.item.id) +
-                        '</td><td>' +
-                        htmlPriceSum(toPrice(0), 'buy', root.item.id) +
-                        '</td></tr>');
-
-                    calculateShoppingList(root, result.shoppinglist);
+                    sumSell += filterResourcePrice(item.id, sell) * number;
+                    sumBuy += filterResourcePrice(item.id, buy) * number;
                 }
             }
-        });
-    
+
+            var sellPrice = mainItem.item.sellPrice * Math.max(mainItem.rootNumber, 1);
+            var buyPrice = mainItem.item.buyPrice * Math.max(mainItem.rootNumber, 1);
+
+            var sellFeePrice = sellPrice * 0.9;
+            var buyFeePrice = buyPrice * 0.9;
+
+            var sellProfit = sellFeePrice - sumSell;
+            var buyProfit = buyFeePrice - sumBuy;
+            var sellBuyProfit = sellFeePrice - sumBuy;
+
+            var sellClass = sellProfit > 0 ? 'sum-pos' : 'sum-neg';
+            var buyClass = buyProfit > 0 ? 'sum-pos' : 'sum-neg';
+            var sellBuyClass = sellBuyProfit > 0 ? 'sum-pos' : 'sum-neg';
+
+            var sumAdivce = sumBuy < buyPrice ? 'Craft' : 'Buy';
+
+            // Please if someone has a way to avoid this mess without huge frameworks like angular or react message me :)
+
+            $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-fee').text(toPrice(sellFeePrice));
+            $('#uniqueid-' + sumItem.uniqueId).find('.sum-buy-fee').text(toPrice(buyFeePrice));
+
+            $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell').text(toPrice(-sumSell));
+            $('#uniqueid-' + sumItem.uniqueId).find('.sum-buy').text(toPrice(-sumBuy));
+
+            $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellClass).text(toPrice(sellProfit));
+            $('#uniqueid-' + sumItem.uniqueId).find('.sum-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).text(toPrice(buyProfit));
+            $('#uniqueid-' + sumItem.uniqueId).find('.sum-sell-buy-diff').removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).text(toPrice(sellBuyProfit));
+            $('#uniqueid-' + sumItem.uniqueId).find('.sum-advice').text(sumAdivce);
+
+            if (mainItem.uniqueId === root.uniqueId) {
+                for (var key in result.shoppinglist) {
+                    if (result.shoppinglist.hasOwnProperty(key)) {
+                        rec = result.shoppinglist[key].item;
+                        item = rec.item;
+                        number = result.shoppinglist[key].number;
+                        $('#shopping-list').append(
+                            '<tr data-item-id="' +
+                            item.id +
+                            '"><td>' +
+                            htmlName(item) +
+                            '</td><td>' +
+                            htmlRarity(item) +
+                            '</td><td>' +
+                            htmlNumberInput(number, 'input-number-' + item.id) +
+                            '</td><td>' +
+                            htmlPriceInput(toPrice(item.sellPrice), 'input-sell-' + item.id) +
+                            '</td><td>' +
+                            htmlPriceInput(toPrice(item.buyPrice), 'input-buy-' + item.id) +
+                            '</td></tr>');
+                        $('#input-sell-' + item.id).on('input',
+                            function (e) {
+                                calculateShoppingList(root, result.shoppinglist);
+                            });
+                        $('#input-buy-' + item.id).on('input',
+                            function (e) {
+                                calculateShoppingList(root, result.shoppinglist);
+                            });
+                        $('#input-number-' + item.id).on('input',
+                            function (e) {
+                                calculateShoppingList(root, result.shoppinglist);
+                            });
+                    }
+                }
+
+                $('#shopping-list').append(
+                    '<tr data-item-id="' +
+                    "workbench" +
+                    '"><td>' +
+                    htmlShoppingListTitle("Other costs") +
+                    '</td><td>' +
+                    "" +
+                    '</td><td>' +
+                    htmlNumberInput(readSetting('recipe-other-costs-amount'), 'input-number-workbench') +
+                    '</td><td>' +
+                    htmlPriceInput(readSetting('recipe-other-costs-sellprice'), 'input-sell-workbench') +
+                    '</td><td>' +
+                    htmlPriceInput(readSetting('recipe-other-costs-buyprice'), 'input-buy-workbench') +
+                    '</td></tr>');
+
+                $('#input-number-workbench').on('input',
+                    function (e) {
+                        calculateShoppingList(root, result.shoppinglist);
+                    });
+                $('#input-sell-workbench').on('input',
+                    function (e) {
+                        calculateShoppingList(root, result.shoppinglist);
+                    });
+                $('#input-buy-workbench').on('input',
+                    function (e) {
+                        calculateShoppingList(root, result.shoppinglist);
+                    });
+
+
+                $('#shopping-list').append(
+                    '<tr data-item-id="' +
+                    root.item.id +
+                    '"><td>' +
+                    htmlName(root.item) +
+                    '</td><td>' +
+                    htmlRarity(root.item) +
+                    '</td><td>' +
+                    '' +
+                    '</td><td>' +
+                    htmlPriceSum(toPrice(0), 'sell', root.item.id) +
+                    '</td><td>' +
+                    htmlPriceSum(toPrice(0), 'buy', root.item.id) +
+                    '</td></tr>');
+
+                calculateShoppingList(root, result.shoppinglist);
+            }
+        }
+    });
+
 }
 
 function calculateShoppingList(root, list) {
@@ -225,9 +225,9 @@ function calculateShoppingList(root, list) {
     var sell = parseFloat($('#input-sell-workbench').val());
     var buy = parseFloat($('#input-buy-workbench').val());
 
-    setCookieNumber('workbench-number', number);
-    setCookieNumber('workbench-sellprice', sell);
-    setCookieNumber('workbench-buyprice', buy);
+    writeSetting('recipe-other-costs-amount', number);
+    writeSetting('recipe-other-costs-sellprice', sell);
+    writeSetting('recipe-other-costs-buyprice', buy);
 
     sumSell += sell * number;
     sumBuy += buy * number;
@@ -404,7 +404,7 @@ function updateSum(root, item, result, recipe) {
             }
         }
     }
-    
+
     if (valueSet && foundItem != null) {
         result.map[foundItem.parentUniqueId] = true;
     }
