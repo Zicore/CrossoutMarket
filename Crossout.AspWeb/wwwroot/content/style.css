@@ -428,3 +428,7 @@ li.active a svg:hover {
 .pack-table tr td {
     padding: 0;
 }
+
+html, body {
+    overflow-x: hidden;
+}
