@@ -6,5 +6,9 @@
   {
     "outputFile": "wwwroot/js/site.es5.js",
     "inputFile": "wwwroot/js/site.js"
+  },
+  {
+    "outputFile": "wwwroot/content/dark-mode.css",
+    "inputFile": "wwwroot/content/dark-mode.scss"
   }
 ]

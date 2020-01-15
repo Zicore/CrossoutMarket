@@ -1,0 +1,122 @@
+﻿$blue: #007bff;
+$indigo: #6610f2;
+$purple: #6f42c1;
+$pink: #e83e8c;
+$red: #dc3545;
+$orange: #fd7e14;
+$yellow: #ffc107;
+$green: #28a745;
+$teal: #20c997;
+$cyan: #17a2b8;
+
+$white: #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black: #000;
+
+$primary: $blue;
+$secondary: $gray-600;
+$success: $green;
+$info: #008B8B;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-800;
+
+$dark-bg-color: #1e1e1e;
+$dark-font-color-main: $gray-400;
+$dark-font-color-main-hover: $white;
+$dark-border-color: $gray-800;
+$table-info: rgba(23, 162, 184, 0.1);
+$table-info-hover: rgba(23, 162, 184, 0.15);
+
+.dark-mode body {
+    background-color: $dark-bg-color;
+}
+
+.dark-mode main {
+    color: $dark-font-color-main;
+}
+
+.dark-mode .card {
+    background-color: $dark-bg-color;
+    border-color: $dark-border-color;
+}
+
+.dark-mode .table {
+    color: $dark-font-color-main;
+}
+
+.dark-mode .table-hover tbody tr:hover {
+    color: $dark-font-color-main-hover;
+}
+
+.dark-mode .table .odd {
+    background-color: $gray-900;
+}
+
+.dark-mode .table-info,
+.dark-mode .table-info th,
+.dark-mode .table-info td {
+    background-color: $table-info !important;
+}
+
+.dark-mode .table-info:hover,
+.dark-mode .table-info:hover th,
+.dark-mode .table-info:hover td {
+    background-color: $table-info-hover !important;
+}
+
+.dark-mode table.dataTable > tbody > tr.child ul.dtr-details > li {
+    border-bottom: 1px solid $dark-border-color;
+}
+
+.dark-mode .page-link {
+    background-color: $gray-800 ;
+    border: 1px solid $dark-border-color ;
+}
+
+.dark-mode .page-link:hover {
+    color: $white;
+    background-color: $gray-600;
+    border-color: $gray-600;
+}
+
+.dark-mode .page-item.active .page-link {
+    color: $white ;
+    background-color: $gray-600 ;
+    border-color: $gray-600 ;
+}
+
+.dark-mode .page-item.disabled .page-link {
+    background-color: $gray-900 ;
+    border-color: $dark-border-color ;
+}
+
+.dark-mode .dropdown-menu {
+    background-color: $dark-bg-color;
+    color: $dark-font-color-main;
+}
+
+.dark-mode .form-control,
+.dark-mode .form-control:focus {
+    background-color: $dark-bg-color;
+    border-color: $dark-border-color;
+    color: $dark-font-color-main;
+}
+
+.dark-mode .input-group-text {
+    background-color: $gray-900;
+    border-color: $dark-border-color;
+}
+
+.dark-mode .btn-outline-secondary {
+    border-color: $dark-border-color;
+}

@@ -432,3 +432,11 @@ li.active a svg:hover {
 html, body {
     overflow-x: hidden;
 }
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child::before,
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::before {
+    background-color: transparent !important;
+    color: #6c757d !important;
+    border: 1px solid #6c757d !important;
+    box-shadow: none !important;
+}
