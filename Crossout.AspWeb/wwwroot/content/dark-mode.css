@@ -54,7 +54,15 @@
 
 .dark-mode .dropdown-menu {
   background-color: #1e1e1e;
-  color: #f8f9fa; }
+  color: #f8f9fa;
+  border-color: #6c757d; }
+
+.dark-mode .dropdown-item {
+  color: #6c757d; }
+
+.dark-mode .dropdown-item:hover, .dropdown-item:focus {
+  color: #fff;
+  background-color: #6c757d; }
 
 .dark-mode .form-control,
 .dark-mode .form-control:focus {

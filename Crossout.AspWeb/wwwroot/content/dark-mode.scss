@@ -108,6 +108,16 @@ $table-info-hover: rgba(23, 162, 184, 0.15);
 .dark-mode .dropdown-menu {
     background-color: $dark-bg-color;
     color: $dark-font-color-main;
+    border-color: $gray-600;
+}
+
+.dark-mode .dropdown-item {
+    color: $gray-600;
+}
+
+.dark-mode .dropdown-item:hover, .dropdown-item:focus {
+    color: $dark-font-color-main-hover;
+    background-color: $gray-600;
 }
 
 .dark-mode .form-control,
