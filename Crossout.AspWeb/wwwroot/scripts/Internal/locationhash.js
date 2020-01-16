@@ -133,11 +133,11 @@ function updateLocationHash(table) {
         newHash += '.';
     }
 
-    if ($('#filterRemovedItems').hasClass('active')) {
+    if ($('.filterRemovedItems').first().hasClass('active')) {
         newHash += 'removed=true.';
     }
 
-    if ($('#filterMetaItems').hasClass('active')) {
+    if ($('.filterMetaItems').first().hasClass('active')) {
         newHash += 'meta=true.';
     }
 

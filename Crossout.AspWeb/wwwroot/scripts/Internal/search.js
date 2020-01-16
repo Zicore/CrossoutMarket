@@ -127,15 +127,15 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
-    $('#filterRemovedItems').click(function(e) {
-        $(this).toggleClass('active');
+    $('.filterRemovedItems').click(function (e) {
+        $('.filterRemovedItems').toggleClass('active');
         filterTable(table);
         updateLocationHash(table);
         e.preventDefault();
     });
 
-    $('#filterMetaItems').click(function(e) {
-        $(this).toggleClass('active');
+    $('.filterMetaItems').click(function(e) {
+        $('.filterMetaItems').toggleClass('active');
         filterTable(table);
         updateLocationHash(table);
         e.preventDefault();
@@ -244,13 +244,13 @@ function filterTable(table) {
         table.column(3).search('');
     }
 
-    if ($('#filterRemovedItems').hasClass('active')) {
+    if ($('.filterRemovedItems').first().hasClass('active')) {
         table.column(5).search('no');
     } else {
         table.column(5).search('yes');
     }
 
-    if ($('#filterMetaItems').hasClass('active')) {
+    if ($('.filterMetaItems').first().hasClass('active')) {
         table.column(6).search('yes');
     } else {
         table.column(6).search('no');
