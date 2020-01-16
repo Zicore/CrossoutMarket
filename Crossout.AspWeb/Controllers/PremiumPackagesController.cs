@@ -70,7 +70,7 @@ namespace Crossout.AspWeb.Controllers
                 //Calc prizes
                 foreach (var package in packagesCollection.Packages)
                 {
-                    package.Prices = appPrices.Find(x => x.Id == package.SteamAppID).Prices;
+                    package.AppPrices = appPrices.Find(x => x.Id == package.SteamAppID);
                     decimal sellSum = 0;
                     decimal buySum = 0;
                     foreach (var id in package.MarketPartIDs)
@@ -86,7 +86,7 @@ namespace Crossout.AspWeb.Controllers
                     package.FormatTotalSellSum = PriceFormatter.FormatPrice(sellSum + (package.RawCoins * 100));
                     package.FormatTotalBuySum = PriceFormatter.FormatPrice(buySum + (package.RawCoins * 100));
 
-                    foreach (var price in package.Prices)
+                    foreach (var price in package.AppPrices.Prices)
                     {
                         if (price != null && price.Final != 0)
                         {
@@ -119,7 +119,7 @@ namespace Crossout.AspWeb.Controllers
                 foreach (var package in packagesCollection.Packages)
                 {
 
-                    if (package.Prices.Any(x => x.Final != 0))
+                    if (package.AppPrices.Prices.Any(x => x.Final != 0))
                     {
                         if (package.Category == 0)
                         {

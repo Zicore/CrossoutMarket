@@ -440,3 +440,19 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::
     border: 1px solid #6c757d !important;
     box-shadow: none !important;
 }
+
+.img-overlay {
+    position: relative;
+    text-align: center;
+}
+
+.img-overlay-bottom-right {
+    position: absolute;
+    top: 38px;
+    right: 0px;
+}
+
+.discount {
+    color: #a4d007;
+    background: #4c6b22;
+}
