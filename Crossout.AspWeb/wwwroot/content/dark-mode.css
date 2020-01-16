@@ -2,7 +2,7 @@
   background-color: #1e1e1e; }
 
 .dark-mode main {
-  color: #ced4da; }
+  color: #f8f9fa; }
 
 .dark-mode .card {
   background-color: #1e1e1e;
@@ -12,7 +12,7 @@
   border-color: #343a40; }
 
 .dark-mode .table {
-  color: #ced4da; }
+  color: #f8f9fa; }
 
 .dark-mode .table-hover tbody tr:hover {
   background-color: #212529;
@@ -54,13 +54,13 @@
 
 .dark-mode .dropdown-menu {
   background-color: #1e1e1e;
-  color: #ced4da; }
+  color: #f8f9fa; }
 
 .dark-mode .form-control,
 .dark-mode .form-control:focus {
   background-color: #1e1e1e;
   border-color: #343a40;
-  color: #ced4da; }
+  color: #f8f9fa; }
 
 .dark-mode .input-group-text {
   background-color: #212529;
@@ -71,7 +71,7 @@
 
 .dark-mode .nav-tabs .nav-link.active,
 .dark-mode .nav-tabs .nav-item.show .nav-link {
-  color: #ced4da;
+  color: #f8f9fa;
   background-color: #1e1e1e;
   border-color: #343a40;
   border-bottom-color: transparent; }
@@ -84,7 +84,7 @@
   background-color: #212529; }
 
 .dark-mode .progress-bar {
-  color: #ced4da; }
+  color: #f8f9fa; }
 
 .dark-mode .sum-row {
   background-color: #212529; }
@@ -96,7 +96,7 @@
   fill: #6c757d !important; }
 
 .dark-mode .highcharts-button-pressed text {
-  fill: #ced4da !important; }
+  fill: #f8f9fa !important; }
 
 .dark-mode .highcharts-range-input text {
   fill: #6c757d !important; }
