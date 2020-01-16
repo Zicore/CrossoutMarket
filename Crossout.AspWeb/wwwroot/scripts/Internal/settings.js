@@ -1,4 +1,5 @@
 ﻿const defaultSettings = {
+    'dark-mode': false,
     'cookie-health': true,
     'dropdown': true,
     'length': 10,

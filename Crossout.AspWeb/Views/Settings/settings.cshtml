@@ -8,6 +8,15 @@
 
 <div class="half-hd-container px-3">
     <div class="card my-1 p-1">
+        <p class="text-secondary">General Settings</p>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="darkModeSwitch">
+            <label class="custom-control-label" for="darkModeSwitch">Dark Mode</label>
+        </div>
+
+        <hr />
+
         <p class="text-secondary">Search Page Settings</p>
 
         <div class="custom-control custom-switch my-1">
@@ -16,7 +25,7 @@
         </div>
 
         <div class="form-inline my-1">
-            <select class="custom-select form-control form-control-sm mr-1" id="lengthSelect">
+            <select class="form-control form-control-sm mr-1" id="lengthSelect">
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="50">50</option>
@@ -72,6 +81,8 @@
 
 <script>
     function applySettings() {
+        // General settings darkModeSwitch
+        $('#darkModeSwitch').prop('checked', readSetting('dark-mode'));
         // Search settings
         $('#dropdownSwitch').prop('checked', readSetting('dropdown'));
         $('#lengthSelect').val(readSetting('length'));
@@ -85,6 +96,15 @@
     // Apply current settings
     $(document).ready(function () {
         applySettings();
+    });
+
+    // General settings darkModeSwitch
+    $('#darkModeSwitch').change(function () {
+        writeSetting('dark-mode', this.checked);
+        if (this.checked)
+            $('html').addClass('dark-mode');
+        else
+            $('html').removeClass('dark-mode');
     });
 
     // Search settings
