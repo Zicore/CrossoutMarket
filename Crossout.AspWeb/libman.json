@@ -15,6 +15,15 @@
       "files": [
         "dist/umd/popper.min.js"
       ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "js-cookie@2.2.1",
+      "destination": "wwwroot/lib/js-cookie/",
+      "files": [
+        "src/js.cookie.js",
+        "src/js.cookie.min.js"
+      ]
     }
   ]
 }
