@@ -314,7 +314,7 @@ namespace Crossout.Web.Services
                 currencys.Add(new Currency() { Final = row[2].ConvertTo<int>(), CurrencyAbbriviation = "EUR" });
                 currencys.Add(new Currency() { Final = row[3].ConvertTo<int>(), CurrencyAbbriviation = "GBP" });
                 currencys.Add(new Currency() { Final = row[4].ConvertTo<int>(), CurrencyAbbriviation = "RUB" });
-                AppPrices appPrice = new AppPrices() { Id = (int)row[0], Prices = currencys };
+                AppPrices appPrice = new AppPrices() { Id = (int)row[0], Prices = currencys, Discount = row[5].ConvertTo<int>(), SuccessTimestamp = row[6].ConvertTo<DateTime>() };
                 appPrices.Add(appPrice);
             }
             return appPrices;
@@ -682,7 +682,7 @@ namespace Crossout.Web.Services
 
         public static string BuildSteamPricesQuery()
         {
-            string collumns = "steamprices.appid,steamprices.priceusd,steamprices.priceeur,steamprices.pricegbp,steamprices.pricerub";
+            string collumns = "steamprices.appid,steamprices.priceusd,steamprices.priceeur,steamprices.pricegbp,steamprices.pricerub,steamprices.discount,steamprices.successtimestamp";
             string query = $"SELECT {collumns} FROM steamprices";
             return query;
         }
