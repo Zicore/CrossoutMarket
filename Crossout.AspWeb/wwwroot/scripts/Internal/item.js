@@ -363,7 +363,7 @@ function htmlPriceSum(value, side, id) {
 }
 
 function htmlNumberInput(value, id) {
-    return '<div class="recipe-price"><input class="text-right" size="4" id="' +
+    return '<div class="recipe-price"><input class="form-control text-right" size="4" id="' +
         id +
         '" type="text" value="' +
         value +
@@ -371,7 +371,7 @@ function htmlNumberInput(value, id) {
 }
 
 function htmlPriceInput(value, id) {
-    return '<div class="recipe-price d-flex align-items-center"><input class="text-right w-100" id="' +
+    return '<div class="recipe-price d-flex align-items-center"><input class="form-control text-right w-100" id="' +
         id +
         '" type="text" value="' +
         value +

@@ -50,11 +50,16 @@ $table-info-hover: rgba(23, 162, 184, 0.15);
     border-color: $dark-border-color;
 }
 
+.dark-mode hr {
+    border-color: $dark-border-color;
+}
+
 .dark-mode .table {
     color: $dark-font-color-main;
 }
 
 .dark-mode .table-hover tbody tr:hover {
+    background-color: $gray-900;
     color: $dark-font-color-main-hover;
 }
 
@@ -119,4 +124,66 @@ $table-info-hover: rgba(23, 162, 184, 0.15);
 
 .dark-mode .btn-outline-secondary {
     border-color: $dark-border-color;
+}
+
+.dark-mode .nav-tabs .nav-link.active,
+.dark-mode .nav-tabs .nav-item.show .nav-link {
+    color: $dark-font-color-main;
+    background-color: $dark-bg-color;
+    border-color: $dark-border-color;
+    border-bottom-color: transparent;
+}
+
+.dark-mode .card-header {
+    background-color: $gray-900;
+    border-color: $dark-border-color;
+}
+
+.dark-mode .progress {
+    background-color: $gray-900;
+}
+
+.dark-mode .progress-bar {
+    color: $dark-font-color-main;
+}
+
+.dark-mode .sum-row {
+    background-color: $gray-900;
+}
+
+.dark-mode .highcharts-button-box {
+    fill: $gray-800;
+}
+
+.dark-mode .highcharts-button-normal text {
+    fill: $gray-600 !important;
+}
+
+.dark-mode .highcharts-button-pressed text {
+    fill: $dark-font-color-main !important;
+}
+
+.dark-mode .highcharts-range-input text {
+    fill: $gray-600 !important;
+}
+
+.dark-mode .highcharts-grid-line,
+.dark-mode .highcharts-minor-grid-line {
+    stroke: $gray-900;
+}
+
+.dark-mode .highcharts-navigator-handle,
+.dark-mode .highcharts-scrollbar-thumb,
+.dark-mode .highcharts-scrollbar-button {
+    fill: $gray-600;
+    stroke: $gray-800;
+}
+
+.dark-mode .highcharts-scrollbar-track {
+    fill: $gray-700;
+    stroke: $gray-800;
+}
+
+.dark-mode .highcharts-navigator-outline {
+    stroke: $gray-800;
 }

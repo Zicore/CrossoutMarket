@@ -8,10 +8,14 @@
   background-color: #1e1e1e;
   border-color: #343a40; }
 
+.dark-mode hr {
+  border-color: #343a40; }
+
 .dark-mode .table {
   color: #ced4da; }
 
 .dark-mode .table-hover tbody tr:hover {
+  background-color: #212529;
   color: #fff; }
 
 .dark-mode .table .odd {
@@ -64,3 +68,52 @@
 
 .dark-mode .btn-outline-secondary {
   border-color: #343a40; }
+
+.dark-mode .nav-tabs .nav-link.active,
+.dark-mode .nav-tabs .nav-item.show .nav-link {
+  color: #ced4da;
+  background-color: #1e1e1e;
+  border-color: #343a40;
+  border-bottom-color: transparent; }
+
+.dark-mode .card-header {
+  background-color: #212529;
+  border-color: #343a40; }
+
+.dark-mode .progress {
+  background-color: #212529; }
+
+.dark-mode .progress-bar {
+  color: #ced4da; }
+
+.dark-mode .sum-row {
+  background-color: #212529; }
+
+.dark-mode .highcharts-button-box {
+  fill: #343a40; }
+
+.dark-mode .highcharts-button-normal text {
+  fill: #6c757d !important; }
+
+.dark-mode .highcharts-button-pressed text {
+  fill: #ced4da !important; }
+
+.dark-mode .highcharts-range-input text {
+  fill: #6c757d !important; }
+
+.dark-mode .highcharts-grid-line,
+.dark-mode .highcharts-minor-grid-line {
+  stroke: #212529; }
+
+.dark-mode .highcharts-navigator-handle,
+.dark-mode .highcharts-scrollbar-thumb,
+.dark-mode .highcharts-scrollbar-button {
+  fill: #6c757d;
+  stroke: #343a40; }
+
+.dark-mode .highcharts-scrollbar-track {
+  fill: #495057;
+  stroke: #343a40; }
+
+.dark-mode .highcharts-navigator-outline {
+  stroke: #343a40; }
