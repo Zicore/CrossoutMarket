@@ -326,7 +326,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var sellmin = parseInt($('#sellmin').val(), 10);
         var sellmax = parseInt($('#sellmax').val(), 10);
-        var sellprice = parseFloat(data[6]) || 0;
+        var sellprice = parseFloat(data[8]) || 0;
 
         if ((isNaN(sellmin) && isNaN(sellmax)) ||
             (isNaN(sellmin) && sellprice <= sellmax) ||
@@ -342,7 +342,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var buymin = parseInt($('#buymin').val(), 10);
         var buymax = parseInt($('#buymax').val(), 10);
-        var buyprice = parseFloat(data[8]) || 0;
+        var buyprice = parseFloat(data[10]) || 0;
 
         if ((isNaN(buymin) && isNaN(buymax)) ||
             (isNaN(buymin) && buyprice <= buymax) ||
@@ -358,7 +358,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var marginmin = parseInt($('#marginmin').val(), 10);
         var marginmax = parseInt($('#marginmax').val(), 10);
-        var margin = parseFloat(data[10]) || 0;
+        var margin = parseFloat(data[12]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
