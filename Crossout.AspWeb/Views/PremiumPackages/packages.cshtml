@@ -14,24 +14,18 @@
 
 <div class="half-hd-container px-3">
 
-    <div class="card my-1">
-        <div class="d-sm-inline-flex d-md-flex justify-content-md-around justify-content-sm-center">
-            <div class="d-flex align-items-center px-1">
-                <div>
-                    Sort by <img src="~/img/Coin.png" height="14" />/USD
-                </div>
-                <div class="btn-group btn-group-sm m-1">
-                    <button class="btn btn-outline-secondary" onclick="sortPacks('value', 'asc')">Ascending</button>
-                    <button class="btn btn-outline-secondary" onclick="sortPacks('value', 'desc')">Descending</button>
-                </div>
-            </div>
-            <div class="d-flex align-items-center px-1">
-                <div>
-                    Sort by Name
-                </div>
-                <div class="btn-group btn-group-sm m-1">
-                    <button class="btn btn-outline-secondary" onclick="sortPacks('name', 'asc')">Ascending</button>
-                    <button class="btn btn-outline-secondary" onclick="sortPacks('name', 'desc')">Descending</button>
+    <div class="my-1">
+        <div class="d-sm-inline-flex d-md-flex justify-content-end">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="sortButton">
+                    <a class="dropdown-item sort-dropdown" id="nameSort" onclick="sortPacks('name', 'asc')">Name</a>
+                    <a class="dropdown-item sort-dropdown" id="sumSort" onclick="sortPacks('sum', 'desc')">Item Sum</a>
+                    <a class="dropdown-item sort-dropdown" id="coinsSort" onclick="sortPacks('coins', 'desc')">+ Coins</a>
+                    <a class="dropdown-item sort-dropdown" id="totalSort" onclick="sortPacks('total', 'desc')">Total</a>
+                    <a class="dropdown-item sort-dropdown" id="valueSort" onclick="sortPacks('value', 'desc')"><img src="~/img/Coin.png" height="14" />/USD</a>
                 </div>
             </div>
         </div>
@@ -40,7 +34,7 @@
     <div class="row" id="packageWrapper">
         @foreach (var package in Model.Packages)
         {
-            <div class="col-md-6 col-sm-12 pack-container @(package.AppPrices.OlderThan(180) ? "discontinued" : "available")" data-packagename="@(package.Name)" data-packagevalue="@(package.AppPrices.Prices[0].FormatSellPriceDividedByCurrency)">
+            <div class="col-md-6 col-sm-12 pack-container @(package.AppPrices.OlderThan(180) ? "discontinued" : "available")" data-packagename="@(package.Name)" data-packagevalue="@(package.AppPrices.Prices[0].FormatSellPriceDividedByCurrency)" data-packagecoins="@(package.RawCoins)" data-packagetotal="@(package.FormatTotalSellSum)" data-packagesum="@(package.FormatSellSum)">
                 <div class="card my-1">
                     <div class="m-1 d-flex justify-content-between align-items-center">
                         <div>
@@ -199,9 +193,12 @@
     });
 
     function sortPacks(type, order) {
+        var activeClass = 'active';
         var $wrapper = $('#packageWrapper');
         $wrapper.find('.pack-container').sort(function (a, b) {
             if (type === 'value') {
+                $('.sort-dropdown').removeClass(activeClass);
+                $('#valueSort').addClass(activeClass);
                 if (order === 'asc') {
                     return +a.dataset.packagevalue - +b.dataset.packagevalue;
                 } else {
@@ -209,10 +206,39 @@
                 }
             }
             else if (type === 'name') {
+                $('.sort-dropdown').removeClass(activeClass);
+                $('#nameSort').addClass(activeClass);
                 if (order === 'asc') {
                     return a.dataset.packagename.localeCompare(b.dataset.packagename);
                 } else {
                     return b.dataset.packagename.localeCompare(a.dataset.packagename);
+                }
+            }
+            else if (type === 'coins') {
+                $('.sort-dropdown').removeClass(activeClass);
+                $('#coinsSort').addClass(activeClass);
+                if (order === 'asc') {
+                    return +a.dataset.packagecoins - +b.dataset.packagecoins;
+                } else {
+                    return +b.dataset.packagecoins - +a.dataset.packagecoins;
+                }
+            }
+            else if (type === 'total') {
+                $('.sort-dropdown').removeClass(activeClass);
+                $('#totalSort').addClass(activeClass);
+                if (order === 'asc') {
+                    return +a.dataset.packagetotal - +b.dataset.packagetotal;
+                } else {
+                    return +b.dataset.packagetotal - +a.dataset.packagetotal;
+                }
+            }
+            else if (type === 'sum') {
+                $('.sort-dropdown').removeClass(activeClass);
+                $('#sumSort').addClass(activeClass);
+                if (order === 'asc') {
+                    return +a.dataset.packagesum - +b.dataset.packagesum;
+                } else {
+                    return +b.dataset.packagesum - +a.dataset.packagesum;
                 }
             }
         }).appendTo($wrapper);
