@@ -37,173 +37,152 @@
         </div>
     </div>
 
-
-
-    @*@switch (packageList.Key)
-        {
-            case 1:
-                @Html.Raw("");
-                break;
-            case 2:
-                @Html.Raw("<h3>Horsemen of Apocalypse</h3>");
-                break;
-            case 99:
-                @Html.Raw("<h3>Discontinued</h3>");
-                break;
-            default:
-                @Html.Raw("<h3>Unnamed</h3>");
-                break;
-        }*@
     <div class="row" id="packageWrapper">
-        @foreach (var packageList in Model.Packages)
+        @foreach (var package in Model.Packages)
         {
-            @foreach (PremiumPackage package in packageList.Value)
-            {
-                <div class="col-md-6 col-sm-12 pack-container @(package.AppPrices.OlderThan(180) ? "discontinued" : "available")" data-packagename="@(package.Name)" data-packagevalue="@(package.AppPrices.Prices[0].FormatSellPriceDividedByCurrency)">
-                    <div class="card my-1">
-                        <div class="m-1 d-flex justify-content-between align-items-center">
-                            <div>
-                                <a href="https://store.steampowered.com/app/@(package.SteamAppID)">@package.Name</a>
-                            </div>
-                            <div>
-                                <button class="btn btn-outline-secondary btn-sm content-button" id="@(package.Key)">Show Content</button>
-                            </div>
+            <div class="col-md-6 col-sm-12 pack-container @(package.AppPrices.OlderThan(180) ? "discontinued" : "available")" data-packagename="@(package.Name)" data-packagevalue="@(package.AppPrices.Prices[0].FormatSellPriceDividedByCurrency)">
+                <div class="card my-1">
+                    <div class="m-1 d-flex justify-content-between align-items-center">
+                        <div>
+                            <a href="https://store.steampowered.com/app/@(package.SteamAppID)">@package.Name</a>
                         </div>
-
-                        <div class="mb-1">
-                            <img class="img-overlay img-fluid" src="~/img/premiumpackages/@(package.Key).jpg" />
-                            @if (package.AppPrices.Discount > 0)
-                            {
-                                <div class="img-overlay-bottom-right"><h4 class="discount p-1">-@(package.AppPrices.Discount)%</h4></div>
-                            }
+                        <div>
+                            <button class="btn btn-outline-secondary btn-sm content-button" id="@(package.Key)">Show Content</button>
                         </div>
+                    </div>
 
-                        <div id="content-wrapper-@(package.Key)" style="display: none;">
-                            <table class="table table-borderless table-condensed pack-table mx-1">
-                                <thead>
-                                    <tr>
-                                        <th>Item</th>
-                                        <th>Sell</th>
-                                        <th>Buy</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (int id in package.MarketPartIDs)
-                                    {
+                    <div class="mb-1">
+                        <img class="img-overlay img-fluid" src="~/img/premiumpackages/@(package.Key).jpg" />
+                        @if (package.AppPrices.Discount > 0)
+                        {
+                            <div class="img-overlay-bottom-right"><h4 class="discount p-1">-@(package.AppPrices.Discount)%</h4></div>
+                        }
+                    </div>
 
-                                        <tr>
-                                            <td>
-                                                @if (Model.ContainedItems[id].ImageExists)
-                                                {
-                                                    <a href="~/item/@(id)"><img class="item-image-med" src="~/img/items/@(id).png" /></a>
-                                                }
-                                                else
-                                                {
-                                                    <a href="~/item/@(id)"><img class="item-image-med" src="~/img/NoImage.png" /></a>
-                                                }
-                                                <a href="~/item/@(id)">@Model.ContainedItems[id].Name</a>
-                                            </td>
-                                            <td>
-                                                <div class="mx-auto" style="color: red">@(Model.ContainedItems[id].FormatSellPrice) <img src="~/img/Coin.png" height="14" /></div>
-                                            </td>
-                                            <td>
-                                                <div class="mx-auto" style="color: green">@(Model.ContainedItems[id].FormatBuyPrice) <img src="~/img/Coin.png" height="14" /></div>
-                                            </td>
-                                        </tr>
-
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
+                    <div id="content-wrapper-@(package.Key)" style="display: none;">
                         <table class="table table-borderless table-condensed pack-table mx-1">
                             <thead>
                                 <tr>
-                                    <td></td>
-                                    <td class="font-weight-bold">Sell</td>
-                                    <td class="font-weight-bold">Buy</td>
+                                    <th>Item</th>
+                                    <th>Sell</th>
+                                    <th>Buy</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="font-weight-bold text-right pr-3">Item Sum</td>
-                                    <td style="color: red">
-                                        @package.FormatSellSum
-                                        <img src="~/img/Coin.png" height="14" />
-                                    </td>
-                                    <td style="color: green">
-                                        @package.FormatBuySum
-                                        <img src="~/img/Coin.png" height="14" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-bold text-right pr-3">+ Coins</td>
-                                    <td>
-                                        @package.RawCoins
-                                        <img src="~/img/Coin.png" height="14" />
-                                    </td>
-                                    <td>
-                                        @package.RawCoins
-                                        <img src="~/img/Coin.png" height="14" />
-                                    </td>
-                                </tr>
-                                <tr class="mb-2">
-                                    <td class="font-weight-bold text-right pr-3">Total</td>
-                                    <td style="color: red">
-                                        @package.FormatTotalSellSum
-                                        <img src="~/img/Coin.png" height="14" />
-                                    </td>
-                                    <td style="color: green">
-                                        @package.FormatTotalBuySum
-                                        <img src="~/img/Coin.png" height="14" />
-                                    </td>
-                                </tr>
-
-                                @foreach (Currency price in package.AppPrices.Prices)
+                                @foreach (int id in package.MarketPartIDs)
                                 {
-                                    <tr>
-                                        @if (price.Final != 0)
-                                        {
 
-                                            <td class="text-right pr-3">
-                                                @(price.FormatFinal) @(price.CurrencyAbbriviation)
-                                            </td>
-                                            <td style="color: red">
-                                                @(price.FormatSellPriceDividedByCurrency) <img src="~/img/Coin.png" height="14" />/@(price.CurrencyAbbriviation)
-                                            </td>
-                                            <td style="color: green">
-                                                @(price.FormatBuyPriceDividedByCurrency) <img src="~/img/Coin.png" height="14" />/@(price.CurrencyAbbriviation)
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td class="text-right pr-3">
-                                                N/A
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                        }
+                                    <tr>
+                                        <td>
+                                            @if (Model.ContainedItems[id].ImageExists)
+                                            {
+                                                <a href="~/item/@(id)"><img class="item-image-med" src="~/img/items/@(id).png" /></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="~/item/@(id)"><img class="item-image-med" src="~/img/NoImage.png" /></a>
+                                            }
+                                            <a href="~/item/@(id)">@Model.ContainedItems[id].Name</a>
+                                        </td>
+                                        <td>
+                                            <div class="mx-auto" style="color: red">@(Model.ContainedItems[id].FormatSellPrice) <img src="~/img/Coin.png" height="14" /></div>
+                                        </td>
+                                        <td>
+                                            <div class="mx-auto" style="color: green">@(Model.ContainedItems[id].FormatBuyPrice) <img src="~/img/Coin.png" height="14" /></div>
+                                        </td>
                                     </tr>
+
                                 }
                             </tbody>
                         </table>
-                        <div class="d-flex justify-content-center align-items-center m-1">
-                            @*<div>
-                                    - @package.AppPrices.Discount %
-                                </div>*@
-                            <div class="d-inline-flex text-right">
-                                <div class="mx-1">
-                                    Last Currency Update:
-                                </div>
-                                <div class="item-timestamp @(package.AppPrices.OlderThan(60) ? "item-older-than-5" : "") @(package.AppPrices.OlderThan(180) ? "item-older-than-60" : "")">
-                                    @package.AppPrices.FormatSuccessTimestamp
-                                </div>
+                    </div>
+                    <table class="table table-borderless table-condensed pack-table mx-1">
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <td class="font-weight-bold">Sell</td>
+                                <td class="font-weight-bold">Buy</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-weight-bold text-right pr-3">Item Sum</td>
+                                <td style="color: red">
+                                    @package.FormatSellSum
+                                    <img src="~/img/Coin.png" height="14" />
+                                </td>
+                                <td style="color: green">
+                                    @package.FormatBuySum
+                                    <img src="~/img/Coin.png" height="14" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold text-right pr-3">+ Coins</td>
+                                <td>
+                                    @package.RawCoins
+                                    <img src="~/img/Coin.png" height="14" />
+                                </td>
+                                <td>
+                                    @package.RawCoins
+                                    <img src="~/img/Coin.png" height="14" />
+                                </td>
+                            </tr>
+                            <tr class="mb-2">
+                                <td class="font-weight-bold text-right pr-3">Total</td>
+                                <td style="color: red">
+                                    @package.FormatTotalSellSum
+                                    <img src="~/img/Coin.png" height="14" />
+                                </td>
+                                <td style="color: green">
+                                    @package.FormatTotalBuySum
+                                    <img src="~/img/Coin.png" height="14" />
+                                </td>
+                            </tr>
+
+                            @foreach (Currency price in package.AppPrices.Prices)
+                            {
+                                <tr>
+                                    @if (price.Final != 0)
+                                    {
+
+                                        <td class="text-right pr-3">
+                                            @(price.FormatFinal) @(price.CurrencyAbbriviation)
+                                        </td>
+                                        <td style="color: red">
+                                            @(price.FormatSellPriceDividedByCurrency) <img src="~/img/Coin.png" height="14" />/@(price.CurrencyAbbriviation)
+                                        </td>
+                                        <td style="color: green">
+                                            @(price.FormatBuyPriceDividedByCurrency) <img src="~/img/Coin.png" height="14" />/@(price.CurrencyAbbriviation)
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td class="text-right pr-3">
+                                            N/A
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="d-flex justify-content-center align-items-center m-1">
+                        @*<div>
+                                - @package.AppPrices.Discount %
+                            </div>*@
+                        <div class="d-inline-flex text-right">
+                            <div class="mx-1">
+                                Last Currency Update:
+                            </div>
+                            <div class="item-timestamp @(package.AppPrices.OlderThan(60) ? "item-older-than-5" : "") @(package.AppPrices.OlderThan(180) ? "item-older-than-60" : "")">
+                                @package.AppPrices.FormatSuccessTimestamp
                             </div>
                         </div>
-
                     </div>
-                </div>
-            }
 
+                </div>
+            </div>
         }
     </div>
 

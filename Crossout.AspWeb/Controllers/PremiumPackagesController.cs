@@ -95,44 +95,10 @@ namespace Crossout.AspWeb.Controllers
                             price.FormatBuyPriceDividedByCurrency = PriceFormatter.FormatPrice(package.TotalBuySum / ((decimal)price.Final / 100));
                         }
                     }
+
+                    packagesModel.Packages.Add(package);
                 }
 
-                //Add all possible categories to dict
-                var listOfCategories = new List<int>();
-                listOfCategories.Clear();
-                listOfCategories.Add(1);
-                listOfCategories.Add(99);
-                foreach (var package in packagesCollection.Packages)
-                {
-                    if (!listOfCategories.Contains(package.Category) && package.Category != 0)
-                    {
-                        listOfCategories.Add(package.Category);
-                    }
-                }
-                listOfCategories.Sort();
-                foreach (var category in listOfCategories)
-                {
-                    packagesModel.Packages.Add(category, new List<PremiumPackage>());
-                }
-
-                //Categorize
-                foreach (var package in packagesCollection.Packages)
-                {
-
-                    if (package.AppPrices.Prices.Any(x => x.Final != 0))
-                    {
-                        if (package.Category == 0)
-                        {
-                            package.Category = 1;
-                        }
-                    }
-                    else
-                    {
-                        package.Category = 99;
-                    }
-
-                    packagesModel.Packages[package.Category].Add(package);
-                }
 
                 packagesModel.Status = statusModel;
 
