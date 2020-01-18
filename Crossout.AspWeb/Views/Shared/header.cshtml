@@ -28,7 +28,6 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav">
-                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Crafting" ? "active" : "")"><a class="nav-link" href="~/crafting">Crafting</a></li>
                     <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Packages" ? "active" : "")"><a class="nav-link" href="~/packs">Packs</a></li>
                     <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Tools" ? "active" : "")"><a class="nav-link" href="~/tools">Community Tools</a></li>
                     <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Changes" ? "active" : "")"><a class="nav-link" href="~/changes">Changes</a></li>

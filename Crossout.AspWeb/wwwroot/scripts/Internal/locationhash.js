@@ -1,6 +1,6 @@
 ﻿function applyLocationHash(table) {
     var hash = location.hash;
-    var pattern = '(search|faction|rarity|category|length|order|removed|meta)=(.*,?)';
+    var pattern = '(preset|search|faction|rarity|category|length|order|craftable|removed|meta)=(.*,?)';
     hash = hash.replace('#', '');
     var types = hash.split('.');
     types.forEach(function (type, i) {
@@ -12,7 +12,10 @@
             var items = matches[2].split(',');
 
             items.forEach(function (item, j) {
-                if (typeName === "search") {
+                if (typeName === 'preset') {
+                    switchPreset(item);
+                }
+                else if (typeName === "search") {
                     $('#searchBar, #searchBarMobile').val(decodeURI(item));
                 }
                 else if (typeName === "faction") {
@@ -56,21 +59,42 @@
                         table.order([columnNumber, 'desc']);
                     }
                 }
+                else if (typeName === 'craftable') {
+                    $('.filterCraftableItems').addClass('active');
+                }
                 else if (typeName === "removed") {
-                    $('#filterRemovedItems').addClass('active');
+                    $('.filterRemovedItems').addClass('active');
                 }
                 else if (typeName === "meta") {
-                    $('#filterMetaItems').addClass('active');
+                    $('.filterMetaItems').addClass('active');
                 }
             });
         }
-    }); 
+    });
 
     filterTable(table);
 }
 
 function updateLocationHash(table) {
     var newHash = '#';
+    var defaultPreset = 'defaultPreset';
+
+    $('.filter-preset').each(function (k, e) {
+        if ($(this).hasClass('active') && $(this).attr('id') !== defaultPreset) {
+            if (!newHash.includes('preset=')) {
+                newHash += 'preset=';
+            }
+            var targetString = $(this).text().toLowerCase();
+            targetString = cleanUpString(targetString);
+            newHash += targetString + ',';
+        }
+    });
+    if (newHash.endsWith(',')) {
+        newHash = newHash.substr(0, newHash.length - 1);
+    }
+    if (newHash.includes('preset=')) {
+        newHash += '.';
+    }
 
     var searchVal = $('#searchBar').val();
     if (searchVal !== '')
@@ -131,6 +155,10 @@ function updateLocationHash(table) {
     }
     if (newHash.includes('category=')) {
         newHash += '.';
+    }
+
+    if ($('.filterCraftableItems').first().hasClass('active')) {
+        newHash += 'craftable=true.';
     }
 
     if ($('.filterRemovedItems').first().hasClass('active')) {

@@ -3,7 +3,6 @@
 @model Crossout.Web.Models.General.SearchModel
 
 <div class="card my-1 px-1 d-none" id="filterWrapper">
-
     <div class="d-flex justify-content-center my-1 row" id="dropdownFilter">
         <div class="btn-group btn-group-sm align-self-start col" role="group">
             <button id="factionsDropdown" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -12,7 +11,7 @@
             <div class="dropdown-menu" aria-labelledby="factionsDropdown">
                 @foreach (FilterItem item in Model.FilterModel.Factions)
                 {
-                    <a class="dropdown-item filter-faction">@item.Name</a>
+                    <a class="dropdown-item item-filter filter-faction">@item.Name</a>
                 }
             </div>
         </div>
@@ -23,7 +22,7 @@
             <div class="dropdown-menu" aria-labelledby="categoryDropdown">
                 @foreach (FilterItem item in Model.FilterModel.Categories)
                 {
-                    <a class="dropdown-item filter-category">@item.Name</a>
+                    <a class="dropdown-item item-filter filter-category">@item.Name</a>
                 }
             </div>
         </div>
@@ -34,7 +33,7 @@
             <div class="dropdown-menu" aria-labelledby="rarityDropdown">
                 @foreach (FilterItem item in Model.FilterModel.Rarities)
                 {
-                    <a class="dropdown-item filter-rarity">@item.Name</a>
+                    <a class="dropdown-item item-filter filter-rarity">@item.Name</a>
                 }
             </div>
         </div>
@@ -43,8 +42,9 @@
                 Other
             </button>
             <div class="dropdown-menu" aria-labelledby="otherDropdown">
-                <a class="dropdown-item filterRemovedItems">Removed Items</a>
-                <a class="dropdown-item filterMetaItems">Meta Items</a>
+                <a class="dropdown-item item-filter filterCraftableItems">Craftable</a>
+                <a class="dropdown-item item-filter filterRemovedItems">Removed</a>
+                <a class="dropdown-item item-filter filterMetaItems">Meta</a>
             </div>
         </div>
     </div>
@@ -53,24 +53,25 @@
         <div class="btn-group-vertical btn-group-sm align-self-start col" role="group" aria-label="Faction Filter">
             @foreach (FilterItem item in Model.FilterModel.Factions)
             {
-                <button class="btn btn-outline-secondary filter-faction" type="button">@item.Name</button>
+                <button class="btn btn-outline-secondary item-filter filter-faction" type="button">@item.Name</button>
             }
         </div>
         <div class="btn-group-vertical btn-group-sm align-self-start col" role="group" aria-label="Category Filter">
             @foreach (FilterItem item in Model.FilterModel.Categories)
             {
-                <button class="btn btn-outline-secondary filter-category" type="button">@item.Name</button>
+                <button class="btn btn-outline-secondary item-filter filter-category" type="button">@item.Name</button>
             }
         </div>
         <div class="btn-group-vertical btn-group-sm align-self-start col" role="group" aria-label="Rarity Filter">
             @foreach (FilterItem item in Model.FilterModel.Rarities)
             {
-                <button class="btn btn-outline-secondary filter-rarity" type="button">@item.Name</button>
+                <button class="btn btn-outline-secondary item-filter filter-rarity" type="button">@item.Name</button>
             }
         </div>
         <div class="btn-group-vertical btn-group-sm align-self-start col" role="group" aria-label="Special filter">
-            <button class="btn btn-outline-secondary filterRemovedItems">Removed Items</button>
-            <button class="btn btn-outline-secondary filterMetaItems">Meta Items</button>
+            <button class="btn btn-outline-secondary item-filter filterCraftableItems">Craftable</button>
+            <button class="btn btn-outline-secondary item-filter filterRemovedItems">Removed</button>
+            <button class="btn btn-outline-secondary item-filter filterMetaItems">Meta</button>
         </div>
     </div>
 
@@ -96,6 +97,16 @@
         </div>
         <input type="text" class="form-control" id="marginmin" name="marginmin" aria-label="From Amount" placeholder="From">
         <input type="text" class="form-control" id="marginmax" name="marginmax" aria-label="To Amount" placeholder="To">
+    </div>
+
+    <div class="dropdown my-1">
+        <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="presetButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Filter Preset
+        </button>
+        <div class="dropdown-menu" aria-labelledby="presetButton">
+            <a class="dropdown-item filter-preset active" id="defaultPreset" onclick="switchPreset('default')">Default</a>
+            <a class="dropdown-item filter-preset" id="craftingPreset" onclick="switchPreset('crafting')">Crafting</a>
+        </div>
     </div>
 </div>
 

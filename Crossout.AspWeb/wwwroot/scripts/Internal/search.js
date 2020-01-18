@@ -1,4 +1,5 @@
-﻿const defaultOrder = [[9, "desc"]];
+﻿const defaultOrder = [[10, "desc"]];
+var table;
 
 $(document).ready(function () {
 
@@ -13,9 +14,9 @@ $(document).ready(function () {
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
-    var order = [[9, "desc"]];
+    var order = [[10, "desc"]];
 
-    var table = $('#ItemTable').DataTable({
+    table = $('#ItemTable').DataTable({
         paging: true,
         searching: true,
         search: {
@@ -122,6 +123,13 @@ $(document).ready(function () {
                 $(this).toggleClass('active');
             }
         });
+        filterTable(table);
+        updateLocationHash(table);
+        e.preventDefault();
+    });
+
+    $('.filterCraftableItems').click(function (e) {
+        $('.filterCraftableItems').toggleClass('active');
         filterTable(table);
         updateLocationHash(table);
         e.preventDefault();
@@ -244,6 +252,12 @@ function filterTable(table) {
         table.column(3).search('');
     }
 
+    if ($('.filterCraftableItems').first().hasClass('active')) {
+        table.column(6).search('yes');
+    } else {
+        table.column(6).search('');
+    }
+
     if ($('.filterRemovedItems').first().hasClass('active')) {
         table.column(5).search('no');
     } else {
@@ -251,9 +265,9 @@ function filterTable(table) {
     }
 
     if ($('.filterMetaItems').first().hasClass('active')) {
-        table.column(6).search('yes');
+        table.column(7).search('yes');
     } else {
-        table.column(6).search('no');
+        table.column(7).search('no');
     }
 
     table.draw();
@@ -326,7 +340,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var sellmin = parseInt($('#sellmin').val(), 10);
         var sellmax = parseInt($('#sellmax').val(), 10);
-        var sellprice = parseFloat(data[8]) || 0;
+        var sellprice = parseFloat(data[9]) || 0;
 
         if ((isNaN(sellmin) && isNaN(sellmax)) ||
             (isNaN(sellmin) && sellprice <= sellmax) ||
@@ -342,7 +356,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var buymin = parseInt($('#buymin').val(), 10);
         var buymax = parseInt($('#buymax').val(), 10);
-        var buyprice = parseFloat(data[10]) || 0;
+        var buyprice = parseFloat(data[12]) || 0;
 
         if ((isNaN(buymin) && isNaN(buymax)) ||
             (isNaN(buymin) && buyprice <= buymax) ||
@@ -358,7 +372,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var marginmin = parseInt($('#marginmin').val(), 10);
         var marginmax = parseInt($('#marginmax').val(), 10);
-        var margin = parseFloat(data[12]) || 0;
+        var margin = parseFloat(data[15]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -369,3 +383,47 @@ $.fn.dataTable.ext.search.push(
         return false;
     }
 );
+
+var colPresets = {
+    default: {
+        buttonId: 'defaultPreset',
+        cols: ['itemCol', 'sellCol', 'offersCol', 'buyCol', 'ordersCol', 'marginCol'],
+        filters: []
+    },
+    crafting: {
+        buttonId: 'craftingPreset',
+        cols: ['itemCol', 'sellCol', 'craftCostSellCol', 'buyCol', 'craftCostBuyCol', 'craftMarginCol'],
+        filters: ['filterCraftableItems']
+    }
+};
+
+function switchPreset(preset) {
+    $('.dt-col').addClass('none');
+    colPresets[preset].cols.forEach(function (e, i) {
+        showCol(e);
+    });
+    colPresets[preset].filters.forEach(function (e, i) {
+        activateFilter(e);
+    });
+    $('.filter-preset').removeClass('active');
+    $('#' + colPresets[preset].buttonId).addClass('active');
+    filterTable(table);
+    table.responsive.rebuild();
+    table.responsive.recalc();
+}
+
+function showCol(colId) {
+    $('#' + colId).removeClass('none');
+}
+
+function hideCol(colId) {
+    $('#' + colId).addClass('none');
+}
+
+function activateFilter(filterClass) {
+    $('.' + filterClass).addClass('active');
+}
+
+function deactivateFilter(filterClass) {
+    $('.' + filterClass).removeClass('active');
+}
