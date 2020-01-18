@@ -45,12 +45,14 @@
                         </div>
                     </div>
 
-                    <div class="mb-1">
-                        <img class="img-overlay img-fluid" src="~/img/premiumpackages/@(package.Key).jpg" />
-                        @if (package.AppPrices.Discount > 0)
-                        {
-                            <div class="img-overlay-bottom-right"><h4 class="discount p-1">-@(package.AppPrices.Discount)%</h4></div>
-                        }
+                    <div class="mb-1 d-flex justify-content-center">
+                        <div class="overlay-container">
+                            <img class="img-fluid" src="~/img/premiumpackages/@(package.Key).jpg" />
+                            @if (package.AppPrices.Discount > 0)
+                            {
+                                <div class="img-overlay-packs-discount "><h4 class="discount p-1">-@(package.AppPrices.Discount)%</h4></div>
+                            }
+                        </div>
                     </div>
 
                     <div id="content-wrapper-@(package.Key)" style="display: none;">
