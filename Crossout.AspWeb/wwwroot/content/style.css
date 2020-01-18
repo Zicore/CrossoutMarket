@@ -441,14 +441,13 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::
     box-shadow: none !important;
 }
 
-.img-overlay {
+.overlay-container {
     position: relative;
-    text-align: center;
 }
 
-.img-overlay-bottom-right {
+.img-overlay-packs-discount {
     position: absolute;
-    top: 38px;
+    top: 0px;
     right: 0px;
 }
 
