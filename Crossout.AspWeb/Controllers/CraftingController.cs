@@ -25,7 +25,9 @@ namespace Crossout.AspWeb.Controllers
         [Route("crafting")]
         public IActionResult Crafting()
         {
-            return RouteCraftingOverview();
+            // Redirect for legacy links
+            return Redirect("/#preset=crafting");
+            //return RouteCraftingOverview();
         }
 
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
