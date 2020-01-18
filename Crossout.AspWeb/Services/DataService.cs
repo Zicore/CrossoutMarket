@@ -719,5 +719,13 @@ namespace Crossout.Web.Services
             
             return query;
         }
+
+        public static string BuildTrendsQuery(DateTime time)
+        {
+            string collumns = "market.itemnumber, market.sellprice, market.buyprice, market.selloffers, market.buyorders, market.datetime";
+            string tables = "market";
+            string query = $"SELECT {collumns} FROM {tables} WHERE market.datetime = '{time.ToString("yyyy-MM-dd HH:mmm:ss")}'";
+            return query;
+        }
     }
 }
