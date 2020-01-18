@@ -80,6 +80,12 @@ namespace Crossout.Model.Items
         [JsonProperty("removed")]
         public int Removed { get; set; }
 
+        [JsonProperty("craftable")]
+        public int Craftable
+        {
+            get { return CraftingSellSum > 0 ? 1 : 0; }
+        }
+
         [JsonProperty("popularity")]
         public int Popularity { get; set; }
 
