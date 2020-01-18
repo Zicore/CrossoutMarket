@@ -22,6 +22,18 @@ namespace Crossout.AspWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // Enable gzip compression
+            // ONLY KEEP ENABLED IF _NO_ SENSITIVE DATA IS TRANSFERED
+            services.Configure<GzipCompressionProviderOptions>(options =>
+                options.Level = System.IO.Compression.CompressionLevel.Fastest);
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<GzipCompressionProvider>();
+                options.Providers.Add<BrotliCompressionProvider>();
+            });
+
             services.AddRazorPages();
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddMvc();
@@ -30,15 +42,6 @@ namespace Crossout.AspWeb
             services.AddSingleton<RootPathHelper, RootPathHelper>();
 
 
-
-            // Enable gzip compression
-            //services.Configure<GzipCompressionProviderOptions>(options =>
-            //    options.Level = System.IO.Compression.CompressionLevel.Optimal);
-            //services.AddResponseCompression(options =>
-            //{
-            //    options.EnableForHttps = true;
-            //    options.Providers.Add<GzipCompressionProvider>();
-            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +61,11 @@ namespace Crossout.AspWeb
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            // Enable gzip compression
+            // ONLY KEEP ENABLED IF _NO_ SENSITIVE DATA IS TRANSFERED
+            app.UseResponseCompression();
+
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -69,9 +77,6 @@ namespace Crossout.AspWeb
                     pattern: "{controller=Home}/{action=Index}/");
                 endpoints.MapRazorPages();
             });
-
-            // Enable gzip compression
-            //app.UseResponseCompression();
 
             CrossoutDataService.Initialize(env);
         }
