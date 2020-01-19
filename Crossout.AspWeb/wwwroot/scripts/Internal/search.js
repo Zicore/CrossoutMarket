@@ -424,12 +424,14 @@ var colPresets = {
     default: {
         buttonId: 'defaultPreset',
         cols: ['itemCol', 'sellCol', 'offersCol', 'buyCol', 'ordersCol', 'marginCol'],
-        filters: []
+        activateFilters: [],
+        deactivateFilters: ['filterCraftableItems']
     },
     crafting: {
         buttonId: 'craftingPreset',
         cols: ['itemCol', 'sellCol', 'craftCostSellCol', 'buyCol', 'craftCostBuyCol', 'craftMarginCol'],
-        filters: ['filterCraftableItems']
+        activateFilters: ['filterCraftableItems'],
+        deactivateFilters: []
     }
 };
 
@@ -438,8 +440,11 @@ function switchPreset(preset) {
     colPresets[preset].cols.forEach(function (e, i) {
         showCol(e);
     });
-    colPresets[preset].filters.forEach(function (e, i) {
+    colPresets[preset].activateFilters.forEach(function (e, i) {
         activateFilter(e);
+    });
+    colPresets[preset].deactivateFilters.forEach(function (e, i) {
+        deactivateFilter(e);
     });
     $('.filter-preset').removeClass('active');
     $('#' + colPresets[preset].buttonId).addClass('active');
