@@ -1,6 +1,6 @@
 ﻿function applyLocationHash(table) {
     var hash = location.hash;
-    var pattern = '(preset|search|faction|rarity|category|length|order|craftable|removed|meta)=(.*,?)';
+    var pattern = '(preset|search|faction|rarity|category|order|craftable|removed|meta)=(.*,?)';
     hash = hash.replace('#', '');
     var types = hash.split('.');
     types.forEach(function (type, i) {
