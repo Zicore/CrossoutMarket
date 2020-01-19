@@ -125,3 +125,10 @@
 
 .dark-mode .highcharts-navigator-outline {
   stroke: #343a40; }
+
+.dark-mode .highcharts-title tspan {
+  fill: #f8f9fa; }
+
+.dark-mode .list-group-item {
+  background-color: #1e1e1e;
+  border-color: #343a40; }
