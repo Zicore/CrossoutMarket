@@ -75,28 +75,57 @@
         </div>
     </div>
 
-    <div class="input-group input-group-sm my-1">
-        <div class="input-group-prepend">
-            <span class="input-group-text filter-range-text">Sell Price</span>
-        </div>
-        <input type="text" class="form-control" id="sellmin" name="sellmin" aria-label="From Amount" placeholder="From">
-        <input type="text" class="form-control" id="sellmax" name="sellmax" aria-label="To Amount" placeholder="To">
-    </div>
+    <div class="d-md-flex d-sm-block">
+        <div class="flex-column flex-fill mr-md-1">
+            <div class="input-group input-group-sm my-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text filter-range-text">Sell Price</span>
+                </div>
+                <input type="text" class="form-control" id="sellmin" name="sellmin" onkeyup="drawTable()" aria-label="From Amount" placeholder="From">
+                <input type="text" class="form-control" id="sellmax" name="sellmax" onkeyup="drawTable()" aria-label="To Amount" placeholder="To">
+            </div>
 
-    <div class="input-group input-group-sm my-1">
-        <div class="input-group-prepend">
-            <span class="input-group-text filter-range-text">Buy Price</span>
-        </div>
-        <input type="text" class="form-control" id="buymin" name="buymin" aria-label="From Amount" placeholder="From">
-        <input type="text" class="form-control" id="buymax" name="buymax" aria-label="To Amount" placeholder="To">
-    </div>
+            <div class="input-group input-group-sm my-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text filter-range-text">Buy Price</span>
+                </div>
+                <input type="text" class="form-control" id="buymin" name="buymin" onkeyup="drawTable()" aria-label="From Amount" placeholder="From">
+                <input type="text" class="form-control" id="buymax" name="buymax" onkeyup="drawTable()" aria-label="To Amount" placeholder="To">
+            </div>
 
-    <div class="input-group input-group-sm my-1">
-        <div class="input-group-prepend">
-            <span class="input-group-text filter-range-text">Margin</span>
+            <div class="input-group input-group-sm my-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text filter-range-text">Margin</span>
+                </div>
+                <input type="text" class="form-control" id="marginmin" name="marginmin" onkeyup="drawTable()" aria-label="From Amount" placeholder="From">
+                <input type="text" class="form-control" id="marginmax" name="marginmax" onkeyup="drawTable()" aria-label="To Amount" placeholder="To">
+            </div>
         </div>
-        <input type="text" class="form-control" id="marginmin" name="marginmin" aria-label="From Amount" placeholder="From">
-        <input type="text" class="form-control" id="marginmax" name="marginmax" aria-label="To Amount" placeholder="To">
+        <div class="flex-column flex-fill ml-md-1">
+            <div class="input-group input-group-sm my-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text filter-range-text">Craft Cost (Sell)</span>
+                </div>
+                <input type="text" class="form-control" id="craftcostsellmin" name="craftcostsellmin" onkeyup="drawTable()" aria-label="From Amount" placeholder="From">
+                <input type="text" class="form-control" id="craftcostsellmax" name="craftcostsellmax" onkeyup="drawTable()" aria-label="To Amount" placeholder="To">
+            </div>
+
+            <div class="input-group input-group-sm my-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text filter-range-text">Craft Cost (Buy)</span>
+                </div>
+                <input type="text" class="form-control" id="craftcostbuymin" name="craftcostbuymin" onkeyup="drawTable()" aria-label="From Amount" placeholder="From">
+                <input type="text" class="form-control" id="craftcostbuymax" name="craftcostbuymax" onkeyup="drawTable()" aria-label="To Amount" placeholder="To">
+            </div>
+
+            <div class="input-group input-group-sm my-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text filter-range-text">Crafting Margin</span>
+                </div>
+                <input type="text" class="form-control" id="carftingmarginmin" name="carftingmarginmin" onkeyup="drawTable()" aria-label="From Amount" placeholder="From">
+                <input type="text" class="form-control" id="carftingmarginmax" name="carftingmarginmax" onkeyup="drawTable()" aria-label="To Amount" placeholder="To">
+            </div>
+        </div>
     </div>
 
     <div class="dropdown my-1">
