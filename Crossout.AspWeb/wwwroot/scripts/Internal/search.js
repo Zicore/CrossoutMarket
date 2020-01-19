@@ -102,71 +102,6 @@ $(document).ready(function () {
         }
     });
 
-    $('.filter-faction').click(function (e) {
-        var text = $(this).text();
-        $('.filter-faction').each(function () {
-            if (text === $(this).text()) {
-                $(this).toggleClass('active');
-            }
-        });
-        filterTable(table);
-        updateLocationHash(table);
-        e.preventDefault();
-    });
-
-    $('.filter-rarity').click(function (e) {
-        var text = $(this).text();
-        $('.filter-rarity').each(function () {
-            if (text === $(this).text()) {
-                $(this).toggleClass('active');
-            }
-        });
-        filterTable(table);
-        updateLocationHash(table);
-        e.preventDefault();
-    });
-
-    $('.filter-category').click(function (e) {
-        var text = $(this).text();
-        $('.filter-category').each(function () {
-            if (text === $(this).text()) {
-                $(this).toggleClass('active');
-            }
-        });
-        filterTable(table);
-        updateLocationHash(table);
-        e.preventDefault();
-    });
-
-    $('.filterCraftableItems').click(function (e) {
-        $('.filterCraftableItems').toggleClass('active');
-        filterTable(table);
-        updateLocationHash(table);
-        e.preventDefault();
-    });
-
-    $('.filterRemovedItems').click(function (e) {
-        $('.filterRemovedItems').toggleClass('active');
-        filterTable(table);
-        updateLocationHash(table);
-        e.preventDefault();
-    });
-
-    $('.filterMetaItems').click(function(e) {
-        $('.filterMetaItems').toggleClass('active');
-        filterTable(table);
-        updateLocationHash(table);
-        e.preventDefault();
-    });
-
-    $('#searchBar, #searchBarMobile').keyup(function () {
-        updateLocationHash(table);
-        applyLocationHash(table);
-    });
-
-    getFilterStateFromCookie();
-    applyColumnVis(table);
-
     applyLocationHash(table);
 
     table.page.len(readSetting('length'));
@@ -184,18 +119,70 @@ $(document).ready(function () {
     $('#ItemTable_length').children().children().removeClass('custom-select custom-select-sm');
 });
 
-const columnList = ['name', 'rarity', 'faction', 'category', 'type', 'popularity', 'sellprice', 'selloffers', 'buyprice', 'buyorders', 'margin', 'lastupdate'];
 
-function getFilterStateFromCookie() {
-    columnList.forEach(function (e, i) {
-        var cookieval = Cookies.get('showColumn-' + e);
-        if (cookieval === 'true') {
-            $('.colvis-' + e).parent().addClass('active');
-        } else if (cookieval === 'false') {
-            $('.colvis-' + e).parent().removeClass('active');
+$('#searchBar, #searchBarMobile').keyup(function () {
+    updateLocationHash(table);
+    applyLocationHash(table);
+});
+
+$('.filter-faction').click(function (e) {
+    var text = $(this).text();
+    $('.filter-faction').each(function () {
+        if (text === $(this).text()) {
+            $(this).toggleClass('active');
         }
     });
-}
+    filterTable(table);
+    updateLocationHash(table);
+    e.preventDefault();
+});
+
+$('.filter-rarity').click(function (e) {
+    var text = $(this).text();
+    $('.filter-rarity').each(function () {
+        if (text === $(this).text()) {
+            $(this).toggleClass('active');
+        }
+    });
+    filterTable(table);
+    updateLocationHash(table);
+    e.preventDefault();
+});
+
+$('.filter-category').click(function (e) {
+    var text = $(this).text();
+    $('.filter-category').each(function () {
+        if (text === $(this).text()) {
+            $(this).toggleClass('active');
+        }
+    });
+    filterTable(table);
+    updateLocationHash(table);
+    e.preventDefault();
+});
+
+$('.filterCraftableItems').click(function (e) {
+    $('.filterCraftableItems').toggleClass('active');
+    filterTable(table);
+    updateLocationHash(table);
+    e.preventDefault();
+});
+
+$('.filterRemovedItems').click(function (e) {
+    $('.filterRemovedItems').toggleClass('active');
+    filterTable(table);
+    updateLocationHash(table);
+    e.preventDefault();
+});
+
+$('.filterMetaItems').click(function (e) {
+    $('.filterMetaItems').toggleClass('active');
+    filterTable(table);
+    updateLocationHash(table);
+    e.preventDefault();
+});
+
+const columnList = ['name', 'rarity', 'faction', 'category', 'type', 'popularity', 'sellprice', 'selloffers', 'buyprice', 'buyorders', 'margin', 'lastupdate'];
 
 function filterTable(table) {
     var filterFactionString;
@@ -281,24 +268,6 @@ function filterTable(table) {
     }
 
     table.draw();
-}
-
-function applyColumnVis(table) {
-    $('.colvis').each(function() {
-        currentCol = $(this);
-        columnList.forEach(function(e, i) {
-            if (currentCol.hasClass('colvis-' + e)) {
-                var col = table.column(i)
-                if (currentCol.parent().hasClass('active')) {
-                    col.visible(true);
-                    Cookies.set('showColumn-' + e, true);
-                } else {
-                    col.visible(false);
-                    Cookies.set('showColumn-' + e, false);
-                }
-            }
-        });
-    });
 }
 
 var selectedList = [];
