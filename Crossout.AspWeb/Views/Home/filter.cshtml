@@ -128,13 +128,10 @@
         </div>
     </div>
 
-    <div class="dropdown my-1">
-        <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="presetButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Filter Preset
-        </button>
-        <div class="dropdown-menu" aria-labelledby="presetButton">
-            <a class="dropdown-item filter-preset active" id="defaultPreset" onclick="switchPreset('default')">Default</a>
-            <a class="dropdown-item filter-preset" id="craftingPreset" onclick="switchPreset('crafting')">Crafting</a>
+    <div class="d-flex justify-content-center">
+        <div class="btn-group my-1 w-50">
+            <button class="btn btn-sm btn-outline-secondary filter-preset active" id="defaultPreset" onclick="switchPreset('default')">Default</button>
+            <button class="btn btn-sm btn-outline-secondary filter-preset" id="craftingPreset" onclick="switchPreset('crafting')">Crafting</button>
         </div>
     </div>
 </div>
@@ -157,6 +154,7 @@
         }
     }
 
+    // Keep dropdown open after selection
     $('.dropdown-menu').click(function (e) {
         e.stopPropagation();
     });
