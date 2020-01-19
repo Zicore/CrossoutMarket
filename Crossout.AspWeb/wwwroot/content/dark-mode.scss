@@ -197,3 +197,12 @@ $table-info-hover: rgba(23, 162, 184, 0.15);
 .dark-mode .highcharts-navigator-outline {
     stroke: $gray-800;
 }
+
+.dark-mode .highcharts-title tspan {
+    fill: $dark-font-color-main;
+}
+
+.dark-mode .list-group-item {
+    background-color: $dark-bg-color;
+    border-color: $dark-border-color;
+}
