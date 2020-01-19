@@ -88,10 +88,6 @@ $(document).ready(function () {
         }
     });
 
-    $('#sellmin, #sellmax, #buymin, #buymax, #marginmin, #marginmax').keyup(function () {
-        table.draw();
-    });
-
     $('.filter-faction').click(function (e) {
         var text = $(this).text();
         $('.filter-faction').each(function () {
@@ -384,6 +380,63 @@ $.fn.dataTable.ext.search.push(
     }
 );
 
+$.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+        var marginmin = parseInt($('#craftcostsellmin').val(), 10);
+        var marginmax = parseInt($('#craftcostsellmax').val(), 10);
+        var margin = parseFloat(data[11]) || 0;
+
+        if ((isNaN(marginmin) && isNaN(marginmax)) ||
+            (isNaN(marginmin) && margin <= marginmax) ||
+            (marginmin <= margin && isNaN(marginmax)) ||
+            (marginmin <= margin && margin <= marginmax)) {
+            return true;
+        }
+        return false;
+    }
+);
+
+
+$.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+        var marginmin = parseInt($('#craftcostbuymin').val(), 10);
+        var marginmax = parseInt($('#craftcostbuymax').val(), 10);
+        var margin = parseFloat(data[14]) || 0;
+
+        if ((isNaN(marginmin) && isNaN(marginmax)) ||
+            (isNaN(marginmin) && margin <= marginmax) ||
+            (marginmin <= margin && isNaN(marginmax)) ||
+            (marginmin <= margin && margin <= marginmax)) {
+            return true;
+        }
+        return false;
+    }
+);
+
+
+$.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+        var marginmin = parseInt($('#carftingmarginmin').val(), 10);
+        var marginmax = parseInt($('#carftingmarginmax').val(), 10);
+        var margin = parseFloat(data[16]) || 0;
+
+        if ((isNaN(marginmin) && isNaN(marginmax)) ||
+            (isNaN(marginmin) && margin <= marginmax) ||
+            (marginmin <= margin && isNaN(marginmax)) ||
+            (marginmin <= margin && margin <= marginmax)) {
+            return true;
+        }
+        return false;
+    }
+);
+
+function getColumnIndexById(id) {
+    $('.dt-col').each(function (i, e) {
+        if ($(this).attr('id') === id)
+            return i;
+    });
+}
+
 var colPresets = {
     default: {
         buttonId: 'defaultPreset',
@@ -426,4 +479,8 @@ function activateFilter(filterClass) {
 
 function deactivateFilter(filterClass) {
     $('.' + filterClass).removeClass('active');
+}
+
+function drawTable() {
+    table.draw();
 }
