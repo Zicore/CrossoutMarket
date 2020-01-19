@@ -110,7 +110,7 @@ namespace Crossout.Model.Items
         [JsonProperty("roi")]
         public decimal ROI
         {
-            get { return (decimal)((BuyPrice != 0 ? (Margin / BuyPrice) * 100: 0)); }
+            get { return (decimal)((BuyPrice != 0 ? (Margin / (BuyPrice / 100m)) * 100 : 0)); }
         }
 
         [JsonProperty("craftingMargin")]
