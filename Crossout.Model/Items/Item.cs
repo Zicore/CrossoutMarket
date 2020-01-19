@@ -107,6 +107,12 @@ namespace Crossout.Model.Items
             get { return (decimal)(SellPrice - BuyPrice - (SellPrice * 0.1m)); }
         }
 
+        [JsonProperty("roi")]
+        public decimal ROI
+        {
+            get { return (decimal)((BuyPrice != 0 ? (Margin / BuyPrice) * 100: 0)); }
+        }
+
         [JsonProperty("craftingMargin")]
         public decimal CraftingMargin
         {
@@ -117,6 +123,12 @@ namespace Crossout.Model.Items
         public string FormatMargin
         {
             get { return PriceFormatter.FormatPrice(Margin); }
+        }
+
+        [JsonProperty("formatRoi")]
+        public string FormatROI
+        {
+            get { return PriceFormatter.FormatPrice(ROI); }
         }
 
         [JsonProperty("formatCraftingMargin")]

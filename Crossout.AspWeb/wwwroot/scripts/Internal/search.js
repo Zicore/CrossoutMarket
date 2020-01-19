@@ -401,7 +401,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var marginmin = parseInt($('#carftingmarginmin').val(), 10);
         var marginmax = parseInt($('#carftingmarginmax').val(), 10);
-        var margin = parseFloat(data[16]) || 0;
+        var margin = parseFloat(data[17]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -423,7 +423,7 @@ function getColumnIndexById(id) {
 var colPresets = {
     default: {
         buttonId: 'defaultPreset',
-        cols: ['itemCol', 'sellCol', 'offersCol', 'buyCol', 'ordersCol', 'marginCol'],
+        cols: ['itemCol', 'sellCol', 'offersCol', 'buyCol', 'ordersCol'],
         activateFilters: [],
         deactivateFilters: ['filterCraftableItems']
     },
@@ -432,6 +432,12 @@ var colPresets = {
         cols: ['itemCol', 'sellCol', 'craftCostSellCol', 'buyCol', 'craftCostBuyCol', 'craftMarginCol'],
         activateFilters: ['filterCraftableItems'],
         deactivateFilters: []
+    },
+    flipping: {
+        buttonId: 'flippingPreset',
+        cols: ['itemCol', 'sellCol', 'offersCol', 'buyCol', 'ordersCol', 'marginCol', 'roiCol'],
+        activateFilters: [],
+        deactivateFilters: ['filterCraftableItems']
     }
 };
 
