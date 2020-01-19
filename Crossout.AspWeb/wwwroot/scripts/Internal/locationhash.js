@@ -180,8 +180,7 @@ function updateLocationHash(table) {
         newHash += '.';
     }
 
-    if (newHash !== '#')
-        location.hash = newHash;
+    location.hash = newHash;
 }
 
 function cleanUpString(targetString) {
