@@ -110,7 +110,7 @@
 
     <button class="btn btn-secondary d-none" onclick="topFunction()" id="topButton" title="Go to top">Top</button>
 
-    <script>
+    @*<script>
 
         window.twttr = (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0],
@@ -128,7 +128,7 @@
 
             return t;
         }(document, "script", "twitter-wjs"));
-    </script>
+    </script>*@
 
 
     <script>
@@ -149,14 +149,14 @@
         lazyLoadInstance.update();
     </script>
 
-    <script>
+    @*<script>
         var topButton = $('#topButton');
 
         // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function () { scrollFunction() };
+        window.scroll = function() { scrollFunction() });
 
         function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 || true) {
                 topButton.removeClass('d-none');
             } else {
                 topButton.addClass('d-none');
@@ -167,6 +167,6 @@
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
         }
-    </script>
+    </script>*@
 </body>
 </html>
