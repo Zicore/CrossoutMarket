@@ -26,7 +26,21 @@ $(document).ready(function () {
         autoWidth: false,
         responsive: {
             details: {
-                type: 'inline'
+                type: 'inline',
+                renderer: function (api, rowIdx, columns) {
+                    var data = $.map(columns, function (col, i) {
+                        return col.hidden ?
+                            '<div class="d-inline-flex flex-column card p-1 px-2 m-2" data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+                            '<div class="font-weight-bold">' + col.title + '' + '</div> ' +
+                            '<div>' + col.data + '</div>' +
+                            '</div>' :
+                            '';
+                    }).join('');
+
+                    return data ?
+                        $('<div/>').append(data) :
+                        false;
+                }
             }
         },
         columnDefs: [
