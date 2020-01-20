@@ -16,9 +16,23 @@
 <div class="container-space">
     @if (!Model.ShowTable)
     {
-        <div class="col-md-6">
-            <div class="panel panel-default" style="padding: 8px; margin-right: 4px;">
+        <div class="half-hd-container px-3">
+            <div class="card p-2 my-1">
+                <p>
+                    Use this tool generate a HTML table of all items. This table can be used to automatically import data into Google Spreadsheets.
+                </p>
+                <div>
+                    <h5>How to Use:</h5>
+                    <ol>
+                        <li>Check all collumns you want to be contained in your table</li>
+                        <li>Choose to use comma or semicolon as separator. (This setting depends on the set language of your spreadsheet. If one doesn't work try the other)</li>
+                        <li>Press the "Generate Function"- button</li>
+                        <li>Copy the function into your spreadsheet</li>
+                    </ol>
+                </div>
 
+            </div>
+            <div class="card card p-1 my-1">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" id="checkbox-image"> Image
@@ -116,7 +130,7 @@
                     </label>
                 </div>
 
-                <button class="btn btn-default" id="generate-code-btn">
+                <button class="btn btn-sm btn-outline-secondary" id="generate-code-btn">
                     Generate Function
                 </button>
 
@@ -126,25 +140,6 @@
                     <p>or preview the table:</p>
                     <p><a href="" id="export-link"></a></p>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="panel panel-default" style="padding: 8px; margin-left: 4px;">
-
-                <p>
-                    Use this tool generate a HTML table of all items. This table can be used to automatically import data into Google Spreadsheets.
-                </p>
-                <div>
-                    <h4>How to Use:</h4>
-                    <ol>
-                        <li>Check all collumns you want to be contained in your table</li>
-                        <li>Choose to use comma or semicolon as separator. (This setting depends on the set language of your spreadsheet. If one doesn't work try the other)</li>
-                        <li>Press the "Generate Function"- button</li>
-                        <li>Copy the function into your spreadsheet</li>
-                    </ol>
-                </div>
-
             </div>
         </div>
     }

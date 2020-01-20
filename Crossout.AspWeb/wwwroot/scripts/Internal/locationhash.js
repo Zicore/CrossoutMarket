@@ -1,6 +1,7 @@
 ﻿function applyLocationHash(table) {
     var hash = location.hash;
-    var pattern = '(preset|search|faction|rarity|category|order|craftable|removed|meta)=(.*,?)';
+    watchlist = [];
+    var pattern = '(preset|search|faction|rarity|category|order|craftable|removed|meta|watch|watchlist)=(.*,?)';
     hash = hash.replace('#', '');
     var types = hash.split('.');
     types.forEach(function (type, i) {
@@ -67,6 +68,12 @@
                 }
                 else if (typeName === "meta") {
                     $('.filterMetaItems').addClass('active');
+                }
+                else if (typeName === "watch") {
+                    watchlist.push(parseInt(item));
+                }
+                else if (typeName === "watchlist") {
+                    $('#watchlistFilter').addClass('active');
                 }
             });
         }
@@ -178,6 +185,21 @@ function updateLocationHash(table) {
     }
     if (newHash.includes('order=')) {
         newHash += '.';
+    }
+
+    if (watchlist.length > 0) {
+        newHash += 'watch=';
+        watchlist.forEach(function (e, i) {
+            newHash += e + ',';
+        });
+        if (newHash.endsWith(',')) {
+            newHash = newHash.substr(0, newHash.length - 1);
+            newHash += '.';
+        }
+    }
+
+    if ($('#watchlistFilter').hasClass('active')) {
+        newHash += 'watchlist=true.';
     }
 
     location.hash = newHash;
