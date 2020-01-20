@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crossout.Web.Models.Filter
+namespace Crossout.AspWeb.Models.Filter
 {
     public class FilterModel
     {

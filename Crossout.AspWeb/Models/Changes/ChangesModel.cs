@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Crossout.Model.Items;
-using Crossout.Web.Helper;
-using Crossout.Web.Models.View;
-using Crossout.Web.Models.General;
-using Crossout.Web.Models.Items;
+using Crossout.AspWeb.Helper;
+using Crossout.AspWeb.Models.View;
+using Crossout.AspWeb.Models.General;
+using Crossout.AspWeb.Models.Items;
 
-namespace Crossout.Web.Models.Changes
+namespace Crossout.AspWeb.Models.Changes
 {
     public class ChangesModel : IViewTitle
     {

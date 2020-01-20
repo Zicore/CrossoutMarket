@@ -1,5 +1,5 @@
-using Crossout.Web;
-using Crossout.Web.Services;
+using Crossout.AspWeb;
+using Crossout.AspWeb.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;

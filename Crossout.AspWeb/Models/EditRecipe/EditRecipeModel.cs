@@ -1,7 +1,7 @@
 ﻿using Crossout.Model.Recipes;
-using Crossout.Web.Models.Items;
+using Crossout.AspWeb.Models.Items;
 
-namespace Crossout.Web.Models.EditRecipe
+namespace Crossout.AspWeb.Models.EditRecipe
 {
     public class EditRecipeModel
     {

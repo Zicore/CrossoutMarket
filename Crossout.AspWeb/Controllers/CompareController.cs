@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Crossout.AspWeb.Helper;
 using Crossout.Model.Items;
-using Crossout.Web;
-using Crossout.Web.Models.Items;
-using Crossout.Web.Services;
+using Crossout.AspWeb;
+using Crossout.AspWeb.Models.Items;
+using Crossout.AspWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
 

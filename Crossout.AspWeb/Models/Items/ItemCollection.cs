@@ -2,9 +2,9 @@
 using System.Linq;
 using Crossout.Data;
 using Crossout.Model.Items;
-using Crossout.Web.Models.View;
+using Crossout.AspWeb.Models.View;
 
-namespace Crossout.Web.Models.Items
+namespace Crossout.AspWeb.Models.Items
 {
     public class ItemCollection : IViewTitle
     {

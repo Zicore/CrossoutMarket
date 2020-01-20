@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Crossout.Web;
+using Crossout.AspWeb;
 using Crossout.Web.Cache;
-using Crossout.Web.Models;
-using Crossout.Web.Models.Charts;
+using Crossout.AspWeb.Models;
+using Crossout.AspWeb.Models.Charts;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
 
