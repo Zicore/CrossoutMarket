@@ -37,7 +37,8 @@ namespace Crossout.AspWeb.Controllers
         [Route("search")]
         public IActionResult Search(string query, string rarity, string category, string faction, string rmditems, string mitems)
         {
-            return RouteSearch(query, 0, rarity, category, faction, rmditems, mitems);
+            return Redirect("/");
+            //return RouteSearch(query, 0, rarity, category, faction, rmditems, mitems);
         }
 
         private IActionResult RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems, string mItems)
