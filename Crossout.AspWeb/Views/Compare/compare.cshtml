@@ -13,7 +13,11 @@
 
 <partial name="header" model="@Model" />
 
-<div class="container-space">
+<div class="half-hd-container px-3">
+    <h4>The compare function has been removed. Please use the watchlist instead. Use <a href="/#watch=@(Model.ItemList).watchlist=true.">this link</a> to convert your comparison list to a watchlist.</h4>
+</div>
+
+@*<div class="container-space">
     <div class="panel panel-default">
         <table id="CompareTable" class="table table-hover table-condensed">
             <thead>
@@ -232,4 +236,4 @@
             window.location = window.location + ',' + $('#CompareAdder').val();
         }
     });
-</script>
+</script>*@
