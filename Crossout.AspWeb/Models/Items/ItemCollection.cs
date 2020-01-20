@@ -11,6 +11,7 @@ namespace Crossout.Web.Models.Items
         public List<Item> Items { get; set; } = new List<Item>();
         public List<Item> AllItems { get; set; } = new List<Item>();
         public List<StatAttribute> StatTypes = new List<StatAttribute>();
+        public string ItemList;
 
         public void CreateStatList()
         {
