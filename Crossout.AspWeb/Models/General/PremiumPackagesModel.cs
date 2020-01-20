@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Crossout.Model.Items;
-using Crossout.Web.Helper;
+using Crossout.AspWeb.Helper;
 using Crossout.Data;
 using Crossout.Data.PremiumPackages;
-using Crossout.Web.Models.View;
+using Crossout.AspWeb.Models.View;
 
-namespace Crossout.Web.Models.General
+namespace Crossout.AspWeb.Models.General
 {
     public class PremiumPackagesModel : IViewTitle
     {

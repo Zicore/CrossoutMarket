@@ -6,8 +6,8 @@ using Crossout.AspWeb.Helper;
 using Crossout.Data.PremiumPackages;
 using Crossout.Model.Formatter;
 using Crossout.Web;
-using Crossout.Web.Models.General;
-using Crossout.Web.Services;
+using Crossout.AspWeb.Models.General;
+using Crossout.AspWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
 

@@ -13,7 +13,7 @@ using Crossout.Model.Items;
 using Microsoft.AspNetCore.Hosting;
 using NLog;
 
-namespace Crossout.Web.Services
+namespace Crossout.AspWeb.Services
 {
     public class CrossoutDataService
     {

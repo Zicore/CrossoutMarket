@@ -1,11 +1,12 @@
 ﻿@using System.Net
+@using Crossout.AspWeb
 @using Crossout.AspWeb.Helper
 @using Crossout.Model.Items
 @{
     Layout = "_Layout";
 }
 
-@model Crossout.Web.Models.General.SearchModel
+@model Crossout.AspWeb.Models.General.SearchModel
 
 <partial name="header" model="@Model" />
 <partial name="status" model="@Model.Status" />
@@ -14,17 +15,20 @@
 
     <partial name="filter" model="@Model" />
 
-    <div class="d-flex my-1 justify-content-center">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Leaderboard -->
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-1215488197322962"
-             data-ad-slot="3124709022"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
+    @if (WebSettings.Settings.EnableAds)
+    {
+        <div class="d-flex my-1 justify-content-center">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- Leaderboard -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:728px;height:90px"
+                 data-ad-client="ca-pub-1215488197322962"
+                 data-ad-slot="3124709022"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    }
 
     <div class="card my-1 p-1 d-none" id="dtButtonWrapper">
         <div class="d-flex justify-content-center my-1" id="dt-buttons"></div>

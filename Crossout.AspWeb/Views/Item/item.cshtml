@@ -3,7 +3,7 @@
 @using Crossout.Model.Recipes
 @using Crossout.Web
 @using Crossout.AspWeb.Helper
-@model Crossout.Web.Models.Items.ItemModel
+@model Crossout.AspWeb.Models.Items.ItemModel
 
 @{
     Layout = "_Layout";
@@ -38,8 +38,8 @@
                     <p>@Html.Raw(@Model.Item.Description.Text)</p>
                 }
                 @*<div>
-                    <a href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout" class="btn btn-xs btn-info" role="button">Tweet Prices</a>
-                </div>*@
+                        <a href="https://twitter.com/intent/tweet?text=Prices for @(Model.Item.Name)%20Sell:%20@(Model.Item.FormatSellPrice)%20Buy:%20@(Model.Item.FormatBuyPrice)%20Margin:%20@(Model.Item.FormatMargin)&via=CrossoutDB&hashtags=crossout" class="btn btn-xs btn-info" role="button">Tweet Prices</a>
+                    </div>*@
             </div>
         </div>
 
@@ -144,17 +144,20 @@
         </div>
     </div>
 
-    <div class="content-space">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1215488197322962"
-             data-ad-slot="4105484332"
-             data-ad-format="auto"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
+    @if (WebSettings.Settings.EnableAds)
+    {
+        <div class="content-space">
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1215488197322962"
+                 data-ad-slot="4105484332"
+                 data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    }
 
     <div class="card my-1">
         <div class="card-header">

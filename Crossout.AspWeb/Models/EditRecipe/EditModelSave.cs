@@ -1,4 +1,4 @@
-﻿namespace Crossout.Web.Models.EditRecipe
+﻿namespace Crossout.AspWeb.Models.EditRecipe
 {
     public class EditModelSave
     {

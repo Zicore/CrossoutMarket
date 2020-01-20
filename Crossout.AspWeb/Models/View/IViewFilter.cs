@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crossout.Web.Models.View
+namespace Crossout.AspWeb.Models.View
 {
     public interface IViewFilter
     {

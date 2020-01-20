@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 using Crossout.Model;
 using Crossout.Model.Items;
 using Crossout.Model.Recipes;
-using Crossout.Web.Models;
-using Crossout.Web.Models.EditRecipe;
-using Crossout.Web.Models.General;
-using Crossout.Web.Models.Items;
-using Crossout.Web.Models.Recipes;
+using Crossout.AspWeb.Models;
+using Crossout.AspWeb.Models.EditRecipe;
+using Crossout.AspWeb.Models.General;
+using Crossout.AspWeb.Models.Items;
+using Crossout.AspWeb.Models.Recipes;
 using ZicoreConnector.Zicore.Connector.Base;
 using Crossout.Data.PremiumPackages;
-using Crossout.Web.Models.Changes;
+using Crossout.AspWeb.Models.Changes;
 
-namespace Crossout.Web.Services
+namespace Crossout.AspWeb.Services
 {
     public class DataService
     {

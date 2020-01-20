@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Crossout.Model;
-using Crossout.Web.Models.API.v1;
-using Crossout.Web.Models.Filter;
+using Crossout.AspWeb.Models.API.v1;
+using Crossout.AspWeb.Models.Filter;
 using ZicoreConnector.Zicore.Connector.Base;
 
-namespace Crossout.Web.Services.API.v1
+namespace Crossout.AspWeb.Services.API.v1
 {
     public class ApiDataService
     {

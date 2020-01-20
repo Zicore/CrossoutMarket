@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Crossout.Web.Models.Recipes
+namespace Crossout.AspWeb.Models.Recipes
 {
     public class IngredientUsageModel
     {
