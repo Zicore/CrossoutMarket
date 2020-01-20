@@ -1,4 +1,4 @@
-﻿const defaultOrder = [[10, "desc"]];
+﻿const defaultOrder = [[11, "desc"]];
 var table;
 
 $(document).ready(function () {
@@ -14,7 +14,7 @@ $(document).ready(function () {
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
-    var order = [[10, "desc"]];
+    var order = [[11, "desc"]];
 
     table = $('#ItemTable').DataTable({
         paging: true,
@@ -82,14 +82,9 @@ $(document).ready(function () {
                 }
             }, {
                 action: function () {
-                    compareSelected();
+                    exportToSpreadsheet();
                 },
-                text: 'Compare selected'
-            }, {
-                action: function () {
-                    watchlistSelected();
-                },
-                text: 'Watchlist selected'
+                text: 'Export to Spreadsheet'
             }
             ]
         },
@@ -182,6 +177,13 @@ $('.filterMetaItems').click(function (e) {
     e.preventDefault();
 });
 
+var watchlist = [1, 2, 3];
+function toggleWatchlist() {
+    //var button = $('#watchlistFilter');
+    $('#watchlistFilter').toggleClass('active');
+    filterTable(table);
+}
+
 const columnList = ['name', 'rarity', 'faction', 'category', 'type', 'popularity', 'sellprice', 'selloffers', 'buyprice', 'buyorders', 'margin', 'lastupdate'];
 
 function filterTable(table) {
@@ -205,9 +207,9 @@ function filterTable(table) {
         }
     });
     if (filterFactionString !== undefined) {
-        table.column(2).search(filterFactionString, true);
+        table.column(3).search(filterFactionString, true);
     } else {
-        table.column(2).search('');
+        table.column(3).search('');
     }
 
     var filterRarityString;
@@ -223,9 +225,9 @@ function filterTable(table) {
         }
     });
     if (filterRarityString !== undefined) {
-        table.column(1).search(filterRarityString, true);
+        table.column(2).search(filterRarityString, true);
     } else {
-        table.column(1).search('');
+        table.column(2).search('');
     }
 
     var filterCategoryString;
@@ -244,27 +246,27 @@ function filterTable(table) {
         }
     });
     if (filterCategoryString !== undefined) {
-        table.column(3).search(filterCategoryString, true);
+        table.column(4).search(filterCategoryString, true);
     } else {
-        table.column(3).search('');
+        table.column(4).search('');
     }
 
     if ($('.filterCraftableItems').first().hasClass('active')) {
-        table.column(6).search('yes');
+        table.column(7).search('yes');
     } else {
-        table.column(6).search('');
+        table.column(7).search('');
     }
 
     if ($('.filterRemovedItems').first().hasClass('active')) {
-        table.column(5).search('no');
+        table.column(6).search('no');
     } else {
-        table.column(5).search('yes');
+        table.column(6).search('yes');
     }
 
     if ($('.filterMetaItems').first().hasClass('active')) {
-        table.column(7).search('yes');
+        table.column(8).search('yes');
     } else {
-        table.column(7).search('no');
+        table.column(8).search('no');
     }
 
     table.draw();
@@ -283,35 +285,32 @@ $('.selected-row').click(function () {
     }
 });
 
-function compareSelected() {
-    if (selectedList.length !== 0) {
-        var url = "/compare/";
-        var i = 0;
-        selectedList.forEach(function (e) {
-            if (i !== 0) {
-                url += ",";
-            }
-            var id = e;
-            url += id;
-            i++;
-        });
-        window.location = url;
-    }
-}
+//function compareSelected() {
+//    if (selectedList.length !== 0) {
+//        var url = "/compare/";
+//        var i = 0;
+//        selectedList.forEach(function (e) {
+//            if (i !== 0) {
+//                url += ",";
+//            }
+//            var id = e;
+//            url += id;
+//            i++;
+//        });
+//        window.location = url;
+//    }
+//}
 
 function watchlistSelected() {
     if (selectedList.length !== 0) {
-        var url = "/watchlist/";
-        var i = 0;
+        watchlist = [];
         selectedList.forEach(function (e) {
-            if (i !== 0) {
-                url += ",";
-            }
-            var id = e;
-            url += id;
-            i++;
+            watchlist.push(parseInt(e));
         });
-        window.location = url;
+        updateLocationHash(table);
+        toggleWatchlist();
+        $('.' + highlightSelectClass).removeClass(highlightSelectClass);
+        selectedList = [];
     }
 }
 
@@ -319,7 +318,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var sellmin = parseInt($('#sellmin').val(), 10);
         var sellmax = parseInt($('#sellmax').val(), 10);
-        var sellprice = parseFloat(data[9]) || 0;
+        var sellprice = parseFloat(data[10]) || 0;
 
         if ((isNaN(sellmin) && isNaN(sellmax)) ||
             (isNaN(sellmin) && sellprice <= sellmax) ||
@@ -335,7 +334,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var buymin = parseInt($('#buymin').val(), 10);
         var buymax = parseInt($('#buymax').val(), 10);
-        var buyprice = parseFloat(data[12]) || 0;
+        var buyprice = parseFloat(data[13]) || 0;
 
         if ((isNaN(buymin) && isNaN(buymax)) ||
             (isNaN(buymin) && buyprice <= buymax) ||
@@ -351,7 +350,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var marginmin = parseInt($('#marginmin').val(), 10);
         var marginmax = parseInt($('#marginmax').val(), 10);
-        var margin = parseFloat(data[15]) || 0;
+        var margin = parseFloat(data[16]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -367,7 +366,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var marginmin = parseInt($('#craftcostsellmin').val(), 10);
         var marginmax = parseInt($('#craftcostsellmax').val(), 10);
-        var margin = parseFloat(data[11]) || 0;
+        var margin = parseFloat(data[12]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -384,7 +383,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var marginmin = parseInt($('#craftcostbuymin').val(), 10);
         var marginmax = parseInt($('#craftcostbuymax').val(), 10);
-        var margin = parseFloat(data[14]) || 0;
+        var margin = parseFloat(data[15]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -401,7 +400,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var marginmin = parseInt($('#carftingmarginmin').val(), 10);
         var marginmax = parseInt($('#carftingmarginmax').val(), 10);
-        var margin = parseFloat(data[17]) || 0;
+        var margin = parseFloat(data[18]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -412,6 +411,16 @@ $.fn.dataTable.ext.search.push(
         return false;
     }
 );
+
+$.fn.dataTable.ext.search.push(function (settings, searchData, index, rowData, counter) {
+    if ($('#watchlistFilter').hasClass('active')) {
+        if (watchlist.includes(parseInt(searchData[1])))
+            return true;
+        else
+            return false;
+    }
+    return true;
+});
 
 function getColumnIndexById(id) {
     $('.dt-col').each(function (i, e) {
@@ -477,4 +486,8 @@ function deactivateFilter(filterClass) {
 
 function drawTable() {
     table.draw();
+}
+
+function exportToSpreadsheet() {
+    window.location = '/export';
 }

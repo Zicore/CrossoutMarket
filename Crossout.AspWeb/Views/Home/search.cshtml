@@ -9,7 +9,6 @@
 <partial name="header" model="@Model" />
 <partial name="status" model="@Model.Status" />
 
-
 <div class="half-hd-container px-3">
 
     <partial name="filter" model="@Model" />
@@ -36,6 +35,9 @@
                 <tr>
                     <th class="dt-col" id="itemCol" data-priority="1">
                         Item
+                    </th>
+                    <th class="dt-col never" id="idCol">
+                        ID
                     </th>
                     <th class="dt-col none" id="rarityCol">
                         Rarity

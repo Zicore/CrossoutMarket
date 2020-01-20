@@ -24,7 +24,11 @@ namespace Crossout.AspWeb.Controllers
         [Route("watchlist/{items}")]
         public IActionResult Watchlist(string items)
         {
-            return RouteWatchlist(items);
+            // Redirect for legacy links
+            return Redirect($"/#watch={items}.watchlist=true.");
+
+            // Deprecated
+            //return RouteWatchlist(items);
         }
 
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
