@@ -1,4 +1,5 @@
 ﻿@using System.Net
+@using Crossout.AspWeb.Helper
 @using Crossout.Model.Items
 @{
     Layout = "_Layout";
@@ -109,5 +110,5 @@
     </div>
 </div>
 
-<script src="~/scripts/internal/locationhash.js"></script>
-<script src="~/scripts/internal/search.js"></script>
+<script src="~/scripts/internal/locationhash.js?@(CacheBuster.Seconds)"></script>
+<script src="~/scripts/internal/search.js?@(CacheBuster.Seconds)"></script>

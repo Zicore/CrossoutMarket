@@ -2,7 +2,7 @@
 @using System.Linq
 @using Crossout.Model.Recipes
 @using Crossout.Web
-@using Crossout.Web.Helper
+@using Crossout.AspWeb.Helper
 @model Crossout.Web.Models.Items.ItemModel
 
 @{
@@ -345,7 +345,7 @@
 
 </div>
 
-<script src="~/scripts/internal/item.js"></script>
+<script src="~/scripts/internal/item.js?@(CacheBuster.Seconds)"></script>
 <script>
     $(document).ready(function () {
         adjustTimeStamp();
