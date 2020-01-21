@@ -18,12 +18,21 @@
             @*Spacer to have the same height across devices*@
             <div style="height: 60px"></div>
 
-            <div class="d-flex flex-fill">
-                <input class="form-control w-100 mr-3 d-lg-none flex-fill" type="search" placeholder="Search" aria-label="Search" id="searchBarMobile">
+            <div class="d-flex flex-fill justify-content-end align-items-center">
+                <div class="overlay-container d-flex flex-fill d-lg-none ">
+                    <div class="mr-2 input-group">
+                        <input class="form-control" size="1" type="search" placeholder="Search" aria-label="Search" id="searchBarMobile">
+                    </div>
+                    <span id="inputClearMobile"  class="input-clear">
+                        <svg class="feather-input-clear"><use xlink:href="/icons/feather-sprite.svg#x-circle" /></svg>
+                    </span>
+                </div>
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
             </div>
 
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -40,9 +49,13 @@
                     </li>
                 </ul>
             </div>
-
-            <div class="d-none d-lg-block">
-                <input class="form-control mr-1 ml-auto" type="search" placeholder="Search" aria-label="Search" size="30" id="searchBar">
+            <div class="overlay-container d-none d-lg-block">
+                <div>
+                    <input class="form-control mr-1 ml-auto" type="search" placeholder="Search" aria-label="Search" size="30" id="searchBar">
+                </div>
+                <span id="inputClear" class="input-clear">
+                    <svg class="feather-input-clear"><use xlink:href="/icons/feather-sprite.svg#x-circle" /></svg>
+                </span>
             </div>
 
         </nav>
@@ -66,5 +79,43 @@
         {
             location.href = '/#search=' + this.value + '.';
         }
+    });
+
+    // Disable logo on small devices while search
+    $('#searchBarMobile').on('focus focusout', function () {
+        if ($('#searchBarMobile').is(':focus') && $('#searchBarMobile').width() < 200) {
+            $('.navbar-brand').addClass('d-none');
+        }
+        else {
+            $('.navbar-brand').removeClass('d-none');
+        }
+    });
+
+    //$('#searchBar').on('focus focusout', function () {
+    //    if ($('#searchBar').is(':focus')) {
+    //        $('#inputClear').removeClass('d-none');
+    //    }
+    //    else {
+    //        $('#inputClear').addClass('d-none');
+    //    }
+    //});
+
+    //$('#searchBarMobile').on('focus focusout', function () {
+    //    if ($('#searchBarMobile').is(':focus')) {
+    //        $('#inputClearMobile').removeClass('d-none');
+    //    }
+    //    else {
+    //        $('#inputClearMobile').addClass('d-none');
+    //    }
+    //});
+
+    $('#inputClear').click(function () {
+        $('#searchBar').val('').trigger('keyup');
+        $('#searchBarMobile').val('').trigger('keyup');
+    });
+
+    $('#inputClearMobile').click(function () {
+        $('#searchBar').val('').trigger('keyup');
+        $('#searchBarMobile').val('').trigger('keyup');
     });
 </script>

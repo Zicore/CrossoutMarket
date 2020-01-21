@@ -132,3 +132,9 @@
 .dark-mode .list-group-item {
   background-color: #1e1e1e;
   border-color: #343a40; }
+
+.dark-mode .feather-input-clear {
+  stroke: rgba(255, 255, 255, 0.5); }
+
+.dark-mode .feather-input-clear:hover {
+  stroke: rgba(255, 255, 255, 0.75); }

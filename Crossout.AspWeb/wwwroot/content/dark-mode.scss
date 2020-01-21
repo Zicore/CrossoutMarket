@@ -206,3 +206,11 @@ $table-info-hover: rgba(23, 162, 184, 0.15);
     background-color: $dark-bg-color;
     border-color: $dark-border-color;
 }
+
+.dark-mode .feather-input-clear {
+    stroke: rgba(255, 255, 255, 0.5);
+}
+
+.dark-mode .feather-input-clear:hover {
+    stroke: rgba(255, 255, 255, 0.75);
+}

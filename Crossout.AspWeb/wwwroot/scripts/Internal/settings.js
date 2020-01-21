@@ -1,6 +1,7 @@
 ﻿const defaultSettings = {
     'dark-mode': false,
     'dropdown': true,
+    'extended': false,
     'length': 10,
     'data-grouping': true,
     'recipe-other-costs-amount': 1,

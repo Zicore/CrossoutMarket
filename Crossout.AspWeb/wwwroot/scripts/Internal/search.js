@@ -5,6 +5,7 @@ $(document).ready(function () {
 
     $('#table-wrapper').removeClass('d-none');
     $('#dtButtonWrapper').removeClass('d-none');
+    checkExtendedSetting();
     adjustTimeStamp();
 
     var domOption =
