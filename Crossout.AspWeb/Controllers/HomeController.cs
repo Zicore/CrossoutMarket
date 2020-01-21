@@ -27,9 +27,9 @@ namespace Crossout.AspWeb.Controllers
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
 
         [Route("")]
-        public IActionResult Index()
+        public IActionResult Index(bool rmdItems)
         {
-            return RouteSearch(null, 0, null, null, null, null, null);
+            return RouteSearch(null, 0, null, null, null, null, null, rmdItems);
             //return RouteSearch(null, 0,null,null,null,null,null);
         }
 
@@ -41,7 +41,7 @@ namespace Crossout.AspWeb.Controllers
             //return RouteSearch(query, 0, rarity, category, faction, rmditems, mitems);
         }
 
-        private IActionResult RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems, string mItems)
+        private IActionResult RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems, string mItems, bool rmdItemsOnly)
         {
             if (searchQuery == null)
             {
@@ -71,8 +71,9 @@ namespace Crossout.AspWeb.Controllers
 
             filterModel.CurrentShowRemovedItems = showRemovedItems;
             filterModel.CurrentShowMetaItems = showMetaItems;
+            filterModel.CurrentShowRemovedItemsOnly = rmdItemsOnly;
 
-            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true, false, false, rarityItem != null, categoryItem != null, factionItem != null, true, true);
+            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true, false, false, rarityItem != null, categoryItem != null, factionItem != null, false, true, rmdItemsOnly);
 
             if (hasFilter)
             {
@@ -142,7 +143,7 @@ namespace Crossout.AspWeb.Controllers
 
         public static int GetCount(SqlConnector sql, bool hasFilter, List<Parameter> parameter, FilterItem rarityItem, FilterItem categoryItem, FilterItem factionItem, bool showRemovedItems, bool showMetaItems)
         {
-            string countQuery = DataService.BuildSearchQuery(hasFilter, false, true, false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems);
+            string countQuery = DataService.BuildSearchQuery(hasFilter, false, true, false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems, false);
             var countDS = sql.SelectDataSet(countQuery, parameter);
             int count = 0;
             if (countDS != null && countDS.Count > 0)

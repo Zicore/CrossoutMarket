@@ -43,7 +43,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="otherDropdown">
                 <a class="dropdown-item item-filter filterCraftableItems">Craftable</a>
-                <a class="dropdown-item item-filter filterRemovedItems">Removed</a>
+                <a class="dropdown-item item-filter filterRemovedItems @(Model.FilterModel.CurrentShowRemovedItemsOnly ? "active" : "")">Removed</a>
                 <a class="dropdown-item item-filter filterMetaItems">Meta</a>
             </div>
         </div>
