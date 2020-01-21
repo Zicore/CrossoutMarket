@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    <div class="d-md-flex d-sm-block">
+    <div id="rangeFilter" class="d-md-flex d-sm-block">
         <div class="flex-column flex-fill mr-md-1">
             <div class="input-group input-group-sm my-1">
                 <div class="input-group-prepend">
@@ -145,7 +145,6 @@
 <script>
     $(document).ready(function () {
         checkFilterSetting();
-
         $('#filterWrapper').removeClass('d-none');
     });
 
@@ -158,6 +157,16 @@
 
             $('#expandedFilter').removeClass('d-none');
             $('#expandedFilter').addClass('d-flex');
+        }
+    }
+
+    function checkExtendedSetting() {
+        var extended = readSetting('extended');
+        if (!extended) {
+            $('#rangeFilter').removeClass('d-md-flex d-sm-block');
+            $('#rangeFilter').addClass('d-none');
+
+            $('#dtButtonWrapper').addClass('d-none');
         }
     }
 

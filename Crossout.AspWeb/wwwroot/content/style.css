@@ -455,3 +455,24 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::
     color: #a4d007;
     background: #4c6b22;
 }
+
+.input-clear {
+    position: absolute;
+    top: 4px;
+    right: 12px;
+    z-index: 10;
+}
+
+.feather-input-clear {
+    width: 18px;
+    height: 18px;
+    stroke: rgba(0, 0, 0, 0.5);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.feather-input-clear:hover {
+    stroke: rgba(0, 0, 0, 0.75);
+}
