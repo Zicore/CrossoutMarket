@@ -17,6 +17,7 @@ namespace Crossout.AspWeb.Models.Filter
         public FilterItem CurrentFaction { get; set; } = new FilterItem();
         public bool CurrentShowRemovedItems { get; set; }
         public bool CurrentShowMetaItems { get; set; }
+        public bool CurrentShowRemovedItemsOnly { get; set; }
 
         public FilterItem VerifyRarity(string rarity)
         {

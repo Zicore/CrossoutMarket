@@ -32,7 +32,7 @@ namespace Crossout.AspWeb.Services
             var parmeter = new List<Parameter>();
             parmeter.Add(new Parameter { Identifier = "id", Value = id });
 
-            string query = BuildSearchQuery(false, false, false, true, false, false, false, true, true);
+            string query = BuildSearchQuery(false, false, false, true, false, false, false, true, true, false);
 
             var ds = DB.SelectDataSet(query, parmeter);
             
@@ -558,7 +558,7 @@ namespace Crossout.AspWeb.Services
             return query;
         }
 
-        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems, bool showMetaItems)
+        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems, bool showMetaItems, bool rmdItemsOnly)
         {
             string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount";
             if (count)
@@ -600,7 +600,14 @@ namespace Crossout.AspWeb.Services
 
             if (!showRemovedItems)
             {
-                query += " AND item.removed = 0 ";
+                if (rmdItemsOnly)
+                {
+                    query += " AND item.removed = 1 ";
+                }
+                else
+                {
+                    query += " AND item.removed = 0 ";
+                }
             }
 
             if (!showMetaItems)

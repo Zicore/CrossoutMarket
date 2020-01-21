@@ -1,7 +1,7 @@
 ﻿function applyLocationHash(table) {
     var hash = location.hash;
     watchlist = [];
-    var pattern = '(preset|search|faction|rarity|category|order|craftable|removed|meta|watch|watchlist)=(.*,?)';
+    var pattern = '(preset|search|faction|rarity|category|order|craftable|meta|watch|watchlist)=(.*,?)';
     hash = hash.replace('#', '');
     var types = hash.split('.');
     types.forEach(function (type, i) {
@@ -62,9 +62,6 @@
                 }
                 else if (typeName === 'craftable') {
                     $('.filterCraftableItems').addClass('active');
-                }
-                else if (typeName === "removed") {
-                    $('.filterRemovedItems').addClass('active');
                 }
                 else if (typeName === "meta") {
                     $('.filterMetaItems').addClass('active');
@@ -166,10 +163,6 @@ function updateLocationHash(table) {
 
     if ($('.filterCraftableItems').first().hasClass('active')) {
         newHash += 'craftable=true.';
-    }
-
-    if ($('.filterRemovedItems').first().hasClass('active')) {
-        newHash += 'removed=true.';
     }
 
     if ($('.filterMetaItems').first().hasClass('active')) {

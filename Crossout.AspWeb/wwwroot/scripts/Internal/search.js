@@ -165,10 +165,10 @@ $('.filterCraftableItems').click(function (e) {
 });
 
 $('.filterRemovedItems').click(function (e) {
-    $('.filterRemovedItems').toggleClass('active');
-    filterTable(table);
-    updateLocationHash(table);
-    e.preventDefault();
+    if ($(this).hasClass('active'))
+        window.location = '/' + location.hash;
+    else
+        window.location = '/?rmdItems=true' + location.hash;
 });
 
 $('.filterMetaItems').click(function (e) {
@@ -256,12 +256,6 @@ function filterTable(table) {
         table.column(7).search('yes');
     } else {
         table.column(7).search('');
-    }
-
-    if ($('.filterRemovedItems').first().hasClass('active')) {
-        table.column(6).search('no');
-    } else {
-        table.column(6).search('yes');
     }
 
     if ($('.filterMetaItems').first().hasClass('active')) {
