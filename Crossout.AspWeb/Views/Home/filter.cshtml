@@ -3,8 +3,8 @@
 @model Crossout.AspWeb.Models.General.SearchModel
 
 <div class="card my-1 px-1 d-none" id="filterWrapper">
-    <div class="d-flex justify-content-center my-1 row" id="dropdownFilter">
-        <div class="btn-group btn-group-sm align-self-start col" role="group">
+    <div class="d-flex justify-content-center row" id="dropdownFilter">
+        <div class="btn-group btn-group-sm align-self-start col my-1" role="group">
             <button id="factionsDropdown" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Faction
             </button>
@@ -15,7 +15,7 @@
                 }
             </div>
         </div>
-        <div class="btn-group btn-group-sm align-self-start col" role="group">
+        <div class="btn-group btn-group-sm align-self-start col my-1" role="group">
             <button id="categoryDropdown" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Category
             </button>
@@ -26,7 +26,7 @@
                 }
             </div>
         </div>
-        <div class="btn-group btn-group-sm align-self-start col" role="group">
+        <div class="btn-group btn-group-sm align-self-start col my-1" role="group">
             <button id="rarityDropdown" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Rarity
             </button>
@@ -37,7 +37,7 @@
                 }
             </div>
         </div>
-        <div class="btn-group btn-group-sm align-self-start col" role="group">
+        <div class="btn-group btn-group-sm align-self-start col my-1" role="group">
             <button id="otherDropdown" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Other
             </button>
@@ -49,26 +49,26 @@
         </div>
     </div>
 
-    <div class="d-none justify-content-center my-1 row" id="expandedFilter">
-        <div class="btn-group-vertical btn-group-sm align-self-start col" role="group" aria-label="Faction Filter">
+    <div class="d-none justify-content-center row" id="expandedFilter">
+        <div class="btn-group-vertical btn-group-sm align-self-start col my-1" role="group" aria-label="Faction Filter">
             @foreach (FilterItem item in Model.FilterModel.Factions)
             {
                 <button class="btn btn-outline-secondary item-filter filter-faction" type="button">@item.Name</button>
             }
         </div>
-        <div class="btn-group-vertical btn-group-sm align-self-start col" role="group" aria-label="Category Filter">
+        <div class="btn-group-vertical btn-group-sm align-self-start col my-1" role="group" aria-label="Category Filter">
             @foreach (FilterItem item in Model.FilterModel.Categories)
             {
                 <button class="btn btn-outline-secondary item-filter filter-category" type="button">@item.Name</button>
             }
         </div>
-        <div class="btn-group-vertical btn-group-sm align-self-start col" role="group" aria-label="Rarity Filter">
+        <div class="btn-group-vertical btn-group-sm align-self-start col my-1" role="group" aria-label="Rarity Filter">
             @foreach (FilterItem item in Model.FilterModel.Rarities)
             {
                 <button class="btn btn-outline-secondary item-filter filter-rarity" type="button">@item.Name</button>
             }
         </div>
-        <div class="btn-group-vertical btn-group-sm align-self-start col" role="group" aria-label="Special filter">
+        <div class="btn-group-vertical btn-group-sm align-self-start col my-1" role="group" aria-label="Special filter">
             <button class="btn btn-outline-secondary item-filter filterCraftableItems">Craftable</button>
             <button class="btn btn-outline-secondary item-filter filterRemovedItems">Removed</button>
             <button class="btn btn-outline-secondary item-filter filterMetaItems">Meta</button>
