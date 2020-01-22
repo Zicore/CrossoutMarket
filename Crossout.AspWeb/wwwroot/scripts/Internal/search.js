@@ -3,6 +3,7 @@ var table;
 
 $(document).ready(function () {
 
+    $('#loadingIcon').removeClass('d-flex').addClass('d-none');
     $('#table-wrapper').removeClass('d-none');
     $('#dtButtonWrapper').removeClass('d-none');
     checkExtendedSetting();
