@@ -7,6 +7,7 @@ using Crossout.Model;
 using Crossout.AspWeb.Models.API.v2;
 using Crossout.AspWeb.Models.Filter;
 using ZicoreConnector.Zicore.Connector.Base;
+using Crossout.Data.PremiumPackages;
 
 namespace Crossout.AspWeb.Services.API.v2
 {
@@ -82,6 +83,28 @@ namespace Crossout.AspWeb.Services.API.v2
             return list;
         }
 
+        public List<ApiPackEntry> GetPacks()
+        {
+            List<ApiPackEntry> list = new List<ApiPackEntry>();
+            List<PremiumPackage> packages = CrossoutDataService.Instance.PremiumPackagesCollection.Packages;
+            List<int> containedItemIDs = new List<int>();
+            foreach (var pack in packages)
+            {
+                containedItemIDs.AddRange(pack.MarketPartIDs);
+            }
+            Dictionary<int, ContainedItem> containedItems = SelectItemsByID(DB, containedItemIDs);
+            string query = "SELECT steamprices.id, steamprices.appid, steamprices.priceusd, steamprices.priceeur, steamprices.pricegbp, steamprices.pricerub, steamprices.discount, steamprices.successtimestamp FROM steamprices ORDER BY steamprices.id ASC";
+            var ds = DB.SelectDataSet(query);
+            foreach(var row in ds)
+            {
+                var apiPackEntry = new ApiPackEntry();
+                apiPackEntry.Create(packages, row, containedItems);
+
+                list.Add(apiPackEntry);
+            }
+            return list;
+        }
+
         public static ApiItemEntry CreateApiItem(object[] row)
         {
             int i = 0;
@@ -111,11 +134,13 @@ namespace Crossout.AspWeb.Services.API.v2
             return item;
         }
 
+        // Search
+
         public static List<RarityItem> SelectRarities(SqlConnector sql)
         {
             List<RarityItem> items = new List<RarityItem>();
 
-            var ds = sql.SelectDataSet("SELECT rarity.id, rarity.name, rarity.order, rarity.primarycolor, rarity.secondarycolor FROM rarity ORDER BY rarity.order ASC");
+            var ds = sql.SelectDataSet("SELECT rarity.id, rarity.name, rarity.order, rarity.primarycolor, rarity.secondarycolor FROM rarity ORDER BY rarity.id ASC");
 
             foreach (var row in ds)
             {
@@ -148,6 +173,26 @@ namespace Crossout.AspWeb.Services.API.v2
             foreach (var row in ds)
             {
                 items.Add(FilterItem.Create(row));
+            }
+
+            return items;
+        }
+
+        public static Dictionary<int, ContainedItem> SelectItemsByID(SqlConnector sql, List<int> ids)
+        {
+            Dictionary<int, ContainedItem> items = new Dictionary<int, ContainedItem>();
+            string query = BuildItemsQueryFromIDList(ids);
+            var ds = sql.SelectDataSet(query);
+
+            foreach (var row in ds)
+            {
+                ContainedItem item = new ContainedItem();
+                int i = 0;
+                item.Id = row[i++].ConvertTo<int>();
+                item.Name = row[i++].ConvertTo<string>();
+                item.SellPrice = row[i++].ConvertTo<int>();
+                item.BuyPrice = row[i++].ConvertTo<int>();
+                items.Add(item.Id, item);
             }
 
             return items;
@@ -208,6 +253,30 @@ namespace Crossout.AspWeb.Services.API.v2
                 query += "ORDER BY item.id asc, item.name asc ";
             }
             
+            return query;
+        }
+
+        public static string BuildItemsQueryFromIDList(List<int> ids)
+        {
+            StringBuilder sb = new StringBuilder();
+            string query = "SELECT item.id, item.name, item.sellprice, item.buyprice FROM item WHERE ";
+            sb.Append(query);
+            int i = 0;
+            foreach (var id in ids)
+            {
+                if (i == 0)
+                {
+                    sb.Append("id=");
+                    sb.Append(id);
+                }
+                else
+                {
+                    sb.Append(" OR id=");
+                    sb.Append(id);
+                }
+                i++;
+            }
+            query = sb.ToString();
             return query;
         }
     }

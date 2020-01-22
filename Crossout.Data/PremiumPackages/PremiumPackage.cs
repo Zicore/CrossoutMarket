@@ -33,6 +33,7 @@ namespace Crossout.Data.PremiumPackages
 
     public class PremiumPackage
     {
+        public int Id;
         public string Key;
         public int SteamAppID;
         public string Name;

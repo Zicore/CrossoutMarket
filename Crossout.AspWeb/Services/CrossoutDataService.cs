@@ -241,16 +241,6 @@ namespace Crossout.AspWeb.Services
             return "desc-default";
         }
 
-        private List<int> GetAppIDList()
-        {
-            List<int> list = new List<int>();
-            foreach(var package in PremiumPackagesCollection.Packages)
-            {
-                list.Add(package.SteamAppID);
-            }
-            return list;
-        }
-
         private static CrossoutDataService _instance;
 
         public static CrossoutDataService Instance

@@ -78,6 +78,17 @@ namespace Crossout.AspWeb.Controllers
         //    return RouteSearch(null, 0, null, null, null, null, null, 0);
         //}
 
+        [Route("/api/v2/packs")]
+        public IActionResult PacksAction()
+        {
+            sql.Open(WebSettings.Settings.CreateDescription());
+            ApiDataService dataService = new ApiDataService(sql);
+
+            var model = dataService.GetPacks();
+
+            return Json(model);
+        }
+
         [Route("/api/v2/items")]
         public IActionResult ItemsAllSearchAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int id)
         {

@@ -41,7 +41,9 @@ namespace Crossout.Worker.Tasks
                 appIDsToGet.Clear();
                 foreach (var row in dataset)
                 {
-                    appIDsToGet.Add((int)row[0]);
+                    var idToGet = (int)row[0];
+                    if (idToGet != 0)
+                        appIDsToGet.Add(idToGet);
                 }
 
                 await CollectAppPrices();
