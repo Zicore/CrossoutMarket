@@ -18,5 +18,10 @@ namespace Crossout.Model.Formatter
         {
             return string.Format(CultureInfo.InvariantCulture, "{0:0.00}", price / 100m);
         }
+
+        public static string FormatRatio(decimal ratio)
+        {
+            return string.Format(CultureInfo.InvariantCulture, "{0:0.00}", ratio * 100m);
+        }
     }
 }

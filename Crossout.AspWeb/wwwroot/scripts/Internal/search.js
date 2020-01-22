@@ -10,9 +10,9 @@ $(document).ready(function () {
     adjustTimeStamp();
 
     var domOption =
-        "<'row m-1'<'d-inline-flex justify-content-start'p><'d-inline-flex ml-auto'l>>" +
+        "<'row m-1'<'d-inline-flex justify-content-start'p><'d-inline-flex ml-auto text-secondary'l>>" +
         "<tr>" +
-        "<'row m-1'<'d-inline-flex justify-content-start'p><'d-none d-sm-inline-flex ml-auto'i>>";
+        "<'row m-1'<'d-inline-flex justify-content-start'p><'d-none d-sm-inline-flex ml-auto text-secondary'i>>";
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
@@ -322,7 +322,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var sellmin = parseInt($('#sellmin').val(), 10);
         var sellmax = parseInt($('#sellmax').val(), 10);
-        var sellprice = parseFloat(data[10]) || 0;
+        var sellprice = parseFloat(data[getColumnIndexById('sellCol')]) || 0;
 
         if ((isNaN(sellmin) && isNaN(sellmax)) ||
             (isNaN(sellmin) && sellprice <= sellmax) ||
@@ -338,7 +338,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var buymin = parseInt($('#buymin').val(), 10);
         var buymax = parseInt($('#buymax').val(), 10);
-        var buyprice = parseFloat(data[13]) || 0;
+        var buyprice = parseFloat(data[getColumnIndexById('buyCol')]) || 0;
 
         if ((isNaN(buymin) && isNaN(buymax)) ||
             (isNaN(buymin) && buyprice <= buymax) ||
@@ -352,25 +352,9 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt($('#marginmin').val(), 10);
-        var marginmax = parseInt($('#marginmax').val(), 10);
-        var margin = parseFloat(data[16]) || 0;
-
-        if ((isNaN(marginmin) && isNaN(marginmax)) ||
-            (isNaN(marginmin) && margin <= marginmax) ||
-            (marginmin <= margin && isNaN(marginmax)) ||
-            (marginmin <= margin && margin <= marginmax)) {
-            return true;
-        }
-        return false;
-    }
-);
-
-$.fn.dataTable.ext.search.push(
-    function (settings, data, dataIndex) {
         var marginmin = parseInt($('#craftcostsellmin').val(), 10);
         var marginmax = parseInt($('#craftcostsellmax').val(), 10);
-        var margin = parseFloat(data[12]) || 0;
+        var margin = parseFloat(data[getColumnIndexById('craftCostSellCol')]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -387,7 +371,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var marginmin = parseInt($('#craftcostbuymin').val(), 10);
         var marginmax = parseInt($('#craftcostbuymax').val(), 10);
-        var margin = parseFloat(data[15]) || 0;
+        var margin = parseFloat(data[getColumnIndexById('craftCostBuyCol')]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -404,7 +388,7 @@ $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
         var marginmin = parseInt($('#carftingmarginmin').val(), 10);
         var marginmax = parseInt($('#carftingmarginmax').val(), 10);
-        var margin = parseFloat(data[18]) || 0;
+        var margin = parseFloat(data[getColumnIndexById('craftMarginCol')]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -416,6 +400,53 @@ $.fn.dataTable.ext.search.push(
     }
 );
 
+$.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+        var marginmin = parseInt($('#marginmin').val(), 10);
+        var marginmax = parseInt($('#marginmax').val(), 10);
+        var margin = parseFloat(data[getColumnIndexById('marginCol')]) || 0;
+
+        if ((isNaN(marginmin) && isNaN(marginmax)) ||
+            (isNaN(marginmin) && margin <= marginmax) ||
+            (marginmin <= margin && isNaN(marginmax)) ||
+            (marginmin <= margin && margin <= marginmax)) {
+            return true;
+        }
+        return false;
+    }
+);
+
+$.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+        var marginmin = parseInt($('#roimin').val(), 10);
+        var marginmax = parseInt($('#roimax').val(), 10);
+        var margin = parseFloat(data[getColumnIndexById('roiCol')]) || 0;
+
+        if ((isNaN(marginmin) && isNaN(marginmax)) ||
+            (isNaN(marginmin) && margin <= marginmax) ||
+            (marginmin <= margin && isNaN(marginmax)) ||
+            (marginmin <= margin && margin <= marginmax)) {
+            return true;
+        }
+        return false;
+    }
+);
+
+$.fn.dataTable.ext.search.push(
+    function (settings, data, dataIndex) {
+        var marginmin = parseInt($('#demandsupplymin').val(), 10);
+        var marginmax = parseInt($('#demandsupplymax').val(), 10);
+        var margin = parseFloat(data[getColumnIndexById('demandSupplyRatioCol')]) || 0;
+
+        if ((isNaN(marginmin) && isNaN(marginmax)) ||
+            (isNaN(marginmin) && margin <= marginmax) ||
+            (marginmin <= margin && isNaN(marginmax)) ||
+            (marginmin <= margin && margin <= marginmax)) {
+            return true;
+        }
+        return false;
+    }
+);
 $.fn.dataTable.ext.search.push(function (settings, searchData, index, rowData, counter) {
     if ($('#watchlistFilter').hasClass('active')) {
         if (watchlist.includes(parseInt(searchData[1])))
@@ -427,10 +458,12 @@ $.fn.dataTable.ext.search.push(function (settings, searchData, index, rowData, c
 });
 
 function getColumnIndexById(id) {
+    var index;
     $('.dt-col').each(function (i, e) {
         if ($(this).attr('id') === id)
-            return i;
+            index = i;
     });
+    return index;
 }
 
 var colPresets = {
@@ -438,19 +471,25 @@ var colPresets = {
         buttonId: 'defaultPreset',
         cols: [{ id: 'itemCol', priority: '1' }, { id: 'sellCol', priority: '2' }, { id: 'offersCol', priority: '3' }, { id: 'buyCol', priority: '2' }, { id: 'ordersCol', priority: '3' }],
         activateFilters: [],
-        deactivateFilters: ['filterCraftableItems']
+        deactivateFilters: ['filterCraftableItems'],
+        activateControls: [],
+        deactivateControls: []
     },
     crafting: {
         buttonId: 'craftingPreset',
         cols: [{ id: 'itemCol', priority: '1' }, { id: 'sellCol', priority: '4' }, { id: 'craftCostSellCol', priority: '4' }, { id: 'buyCol', priority: '4' }, { id: 'craftCostBuyCol', priority: '3' }, { id: 'craftMarginCol', priority: '2' }],
         activateFilters: ['filterCraftableItems'],
-        deactivateFilters: []
+        deactivateFilters: [],
+        activateControls: ['craftingRange'],
+        deactivateControls: ['flippingRange', 'placeHolderRange']
     },
     flipping: {
         buttonId: 'flippingPreset',
         cols: [{ id: 'itemCol', priority: '1' }, { id: 'sellCol', priority: '4' }, { id: 'offersCol', priority: '4' }, { id: 'buyCol', priority: '4' }, { id: 'ordersCol', priority: '4' }, { id: 'marginCol', priority: '2' }, { id: 'roiCol', priority: '3' }],
         activateFilters: [],
-        deactivateFilters: ['filterCraftableItems']
+        deactivateFilters: ['filterCraftableItems'],
+        activateControls: ['flippingRange'],
+        deactivateControls: ['craftingRange', 'placeHolderRange']
     }
 };
 
@@ -460,11 +499,17 @@ function switchPreset(preset) {
         showCol(e.id);
         setColPriority(e.id, e.priority);
     });
+    colPresets[preset].deactivateFilters.forEach(function (e, i) {
+        deactivateFilter(e);
+    });
     colPresets[preset].activateFilters.forEach(function (e, i) {
         activateFilter(e);
     });
-    colPresets[preset].deactivateFilters.forEach(function (e, i) {
-        deactivateFilter(e);
+    colPresets[preset].deactivateControls.forEach(function (e, i) {
+        deactivateControl(e);
+    });
+    colPresets[preset].activateControls.forEach(function (e, i) {
+        activateControl(e);
     });
     $('.filter-preset').removeClass('active');
     $('#' + colPresets[preset].buttonId).addClass('active');
@@ -491,6 +536,14 @@ function activateFilter(filterClass) {
 
 function deactivateFilter(filterClass) {
     $('.' + filterClass).removeClass('active');
+}
+
+function deactivateControl(controlId) {
+    $('#' + controlId).addClass('d-none').removeClass('d-flex');
+}
+
+function activateControl(controlId) {
+    $('#' + controlId).removeClass('d-none').addClass('d-flex');
 }
 
 function drawTable() {

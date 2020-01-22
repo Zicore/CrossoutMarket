@@ -123,6 +123,12 @@
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
+                    <span class="font-weight-bold">Demand/Supply</span>
+                    <span>
+                        @(Model.Item.FormatDemandSupplyRatio)%
+                    </span>
+                </div>
+                <div class="card d-inline-flex flex-column p-1 px-2 m-2">
                     <span class="font-weight-bold">Margin</span>
                     <span>
                         @Model.Item.FormatMargin <img height="14" src="~/img/Coin.png" />

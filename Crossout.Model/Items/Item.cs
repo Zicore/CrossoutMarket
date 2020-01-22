@@ -101,6 +101,12 @@ namespace Crossout.Model.Items
         [JsonProperty("amount")]
         public int Amount { get; set; }
 
+        [JsonProperty("demandsupplyratio")]
+        public decimal DemandSupplyRatio
+        {
+            get { return (decimal)BuyOrders / Math.Max(SellOffers, 1); }
+        }
+
         [JsonProperty("margin")]
         public decimal Margin
         {
@@ -110,13 +116,19 @@ namespace Crossout.Model.Items
         [JsonProperty("roi")]
         public decimal ROI
         {
-            get { return (decimal)((BuyPrice != 0 ? (Margin / (BuyPrice / 100m)) * 100 : 0)); }
+            get { return (decimal)(BuyPrice != 0 ? Margin / BuyPrice : 0); }
         }
 
         [JsonProperty("craftingMargin")]
         public decimal CraftingMargin
         {
             get { return (decimal)(SellPrice - CraftingBuySum - (SellPrice * 0.1m)); }
+        }
+
+        [JsonProperty("formatdemandsupplyratio")]
+        public string FormatDemandSupplyRatio
+        {
+            get { return PriceFormatter.FormatRatio(DemandSupplyRatio); }
         }
 
         [JsonProperty("formatMargin")]
@@ -128,7 +140,7 @@ namespace Crossout.Model.Items
         [JsonProperty("formatRoi")]
         public string FormatROI
         {
-            get { return PriceFormatter.FormatPrice(ROI); }
+            get { return PriceFormatter.FormatRatio(ROI); }
         }
 
         [JsonProperty("formatCraftingMargin")]
@@ -140,7 +152,7 @@ namespace Crossout.Model.Items
         [JsonProperty("craftVsBuy")]
         public string CraftVsBuy
         {
-            get { return BuyPrice <= CraftingBuySum ? "Buy" : "Craft"; }
+            get { return (Craftable == 1 ? (BuyPrice <= CraftingBuySum ? "Buy" : "Craft") : "Uncraftable"); }
         }
 
         [JsonProperty("timestamp")]
