@@ -279,6 +279,14 @@ $('.selected-row').click(function () {
         $(this).addClass(highlightSelectClass);
         selectedList.push($(this).data('id'));
     }
+
+    if (selectedList.length > 0) {
+        $('#watchlistSelector').removeClass('disabled');
+        $('#watchlistFilter').removeClass('disabled');
+    } else {
+        $('#watchlistSelector').addClass('disabled');
+        $('#watchlistFilter').addClass('disabled');
+    }
 });
 
 //function compareSelected() {
