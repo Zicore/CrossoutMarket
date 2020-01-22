@@ -428,28 +428,29 @@ function getColumnIndexById(id) {
 var colPresets = {
     default: {
         buttonId: 'defaultPreset',
-        cols: ['itemCol', 'sellCol', 'offersCol', 'buyCol', 'ordersCol'],
+        cols: [{ id: 'itemCol', priority: '1' }, { id: 'sellCol', priority: '2' }, { id: 'offersCol', priority: '3' }, { id: 'buyCol', priority: '2' }, { id: 'ordersCol', priority: '3' }],
         activateFilters: [],
         deactivateFilters: ['filterCraftableItems']
     },
     crafting: {
         buttonId: 'craftingPreset',
-        cols: ['itemCol', 'sellCol', 'craftCostSellCol', 'buyCol', 'craftCostBuyCol', 'craftMarginCol'],
+        cols: [{ id: 'itemCol', priority: '1' }, { id: 'sellCol', priority: '4' }, { id: 'craftCostSellCol', priority: '4' }, { id: 'buyCol', priority: '4' }, { id: 'craftCostBuyCol', priority: '3' }, { id: 'craftMarginCol', priority: '2' }],
         activateFilters: ['filterCraftableItems'],
         deactivateFilters: []
     },
     flipping: {
         buttonId: 'flippingPreset',
-        cols: ['itemCol', 'sellCol', 'offersCol', 'buyCol', 'ordersCol', 'marginCol', 'roiCol'],
+        cols: [{ id: 'itemCol', priority: '1' }, { id: 'sellCol', priority: '4' }, { id: 'offersCol', priority: '4' }, { id: 'buyCol', priority: '4' }, { id: 'ordersCol', priority: '4' }, { id: 'marginCol', priority: '2' }, { id: 'roiCol', priority: '3' }],
         activateFilters: [],
         deactivateFilters: ['filterCraftableItems']
     }
 };
 
 function switchPreset(preset) {
-    $('.dt-col').addClass('none');
+    $('.dt-col').addClass('none').data('priority', 10);
     colPresets[preset].cols.forEach(function (e, i) {
-        showCol(e);
+        showCol(e.id);
+        setColPriority(e.id, e.priority);
     });
     colPresets[preset].activateFilters.forEach(function (e, i) {
         activateFilter(e);
@@ -470,6 +471,10 @@ function showCol(colId) {
 
 function hideCol(colId) {
     $('#' + colId).addClass('none');
+}
+
+function setColPriority(colId, priority) {
+    $('#' + colId).data('priority', priority);
 }
 
 function activateFilter(filterClass) {
