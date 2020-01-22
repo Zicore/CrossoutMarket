@@ -8,18 +8,18 @@ namespace Crossout.AspWeb.Models.Filter
 {
     public class FilterModel
     {
-        public List<FilterItem> Rarities { get; set; } = new List<FilterItem>();
+        public List<RarityItem> Rarities { get; set; } = new List<RarityItem>();
         public List<FilterItem> Categories { get; set; } = new List<FilterItem>();
         public List<FilterItem> Factions { get; set; } = new List<FilterItem>();
        
-        public FilterItem CurrentRarity { get; set; } = new FilterItem();
+        public RarityItem CurrentRarity { get; set; } = new RarityItem();
         public FilterItem CurrentCategory { get; set; } = new FilterItem();
         public FilterItem CurrentFaction { get; set; } = new FilterItem();
         public bool CurrentShowRemovedItems { get; set; }
         public bool CurrentShowMetaItems { get; set; }
         public bool CurrentShowRemovedItemsOnly { get; set; }
 
-        public FilterItem VerifyRarity(string rarity)
+        public RarityItem VerifyRarity(string rarity)
         {
             if (rarity != null)
             {

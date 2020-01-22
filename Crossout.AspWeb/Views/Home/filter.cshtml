@@ -31,7 +31,7 @@
                 Rarity
             </button>
             <div class="dropdown-menu" aria-labelledby="rarityDropdown">
-                @foreach (FilterItem item in Model.FilterModel.Rarities)
+                @foreach (RarityItem item in Model.FilterModel.Rarities)
                 {
                     <a class="dropdown-item item-filter filter-rarity">@item.Name</a>
                 }
@@ -63,7 +63,7 @@
             }
         </div>
         <div class="btn-group-vertical btn-group-sm align-self-start col my-1" role="group" aria-label="Rarity Filter">
-            @foreach (FilterItem item in Model.FilterModel.Rarities)
+            @foreach (RarityItem item in Model.FilterModel.Rarities)
             {
                 <button class="btn btn-outline-secondary item-filter filter-rarity" type="button">@item.Name</button>
             }

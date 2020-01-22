@@ -141,7 +141,7 @@ namespace Crossout.AspWeb.Controllers
 
         // Helper Methods: TODO: Move to seperate class
 
-        public static int GetCount(SqlConnector sql, bool hasFilter, List<Parameter> parameter, FilterItem rarityItem, FilterItem categoryItem, FilterItem factionItem, bool showRemovedItems, bool showMetaItems)
+        public static int GetCount(SqlConnector sql, bool hasFilter, List<Parameter> parameter, RarityItem rarityItem, FilterItem categoryItem, FilterItem factionItem, bool showRemovedItems, bool showMetaItems)
         {
             string countQuery = DataService.BuildSearchQuery(hasFilter, false, true, false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems, false);
             var countDS = sql.SelectDataSet(countQuery, parameter);
@@ -154,15 +154,15 @@ namespace Crossout.AspWeb.Controllers
         }
 
 
-        public static List<FilterItem> SelectRarities(SqlConnector sql)
+        public static List<RarityItem> SelectRarities(SqlConnector sql)
         {
-            List<FilterItem> items = new List<FilterItem>();
+            List<RarityItem> items = new List<RarityItem>();
 
-            var ds = sql.SelectDataSet("SELECT id,name FROM rarity");
+            var ds = sql.SelectDataSet("SELECT rarity.id, rarity.name, rarity.order, rarity.primarycolor, rarity.secondarycolor FROM rarity ORDER BY rarity.order ASC");
 
             foreach (var row in ds)
             {
-                items.Add(FilterItem.Create(row));
+                items.Add(RarityItem.Create(row));
             }
 
             return items;
