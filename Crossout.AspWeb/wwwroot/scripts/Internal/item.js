@@ -64,7 +64,7 @@ function updateSums(recipe, uniqueid) {
         var root = recipeData.data.recipe.recipe;
         var mainItem = findSumItem(root, sumuniqueid);
         var sumItem = mainItem.ingredientSum;
-        var result = { items: new Array(), map: {}, shoppinglist: {} }
+        var result = { items: new Array(), map: {}, shoppinglist: {} };
 
         if (sumItem !== null) {
             updateSum(root, mainItem, result, recipe);
@@ -253,6 +253,8 @@ function calculateShoppingList(root, list) {
     $('#sum-diff-buy-' + root.item.id).removeClass('sum-neg').removeClass('sum-pos').addClass(buyClass).text(toFixed(buyProfit));
 
     $('#sum-sell-buy-diff-' + root.item.id).removeClass('sum-neg').removeClass('sum-pos').addClass(sellBuyClass).text(toFixed(sellBuyProfit));
+
+    verifyImagePaths();
 }
 
 var ResourceNumbers =
@@ -288,8 +290,7 @@ function htmlName(item) {
         '<a href="/item/' +
         item.id +
         '">' +
-        '<img class="item-image-med mr-1" src="/img/items/' +
-        item.image +
+        '<img class="item-image-med verify-image mr-1" src="' + '/img/items/' + item.image +
         '" /></a>' +
         '</div>' +
         '</div>' +
@@ -420,4 +421,19 @@ function findSumItem(item, uniqueid) {
         if (rs) return rs;
     }
     return null;
+}
+
+function verifyImagePaths() {
+    $('.verify-image').each(function (i, e) {
+        var imagePath = $(e).attr('src');
+        var newPath;
+        $.get(imagePath)
+            .done(function () {
+                newPath = imagePath;
+                $(e).attr('src', newPath);
+            }).fail(function () {
+                newPath = '/img/NoImage.png';
+                $(e).attr('src', newPath);
+            });
+    });
 }
