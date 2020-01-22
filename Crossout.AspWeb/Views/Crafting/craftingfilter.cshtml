@@ -11,7 +11,7 @@
     </ul>
 
     <ul class="pagination pagination-sm" style="margin: 6px;">
-        @foreach (FilterItem item in Model.FilterModel.Rarities)
+        @foreach (RarityItem item in Model.FilterModel.Rarities)
         {
             <li><a class="filter-rarity" href="#">@item.Name</a></li>
         }

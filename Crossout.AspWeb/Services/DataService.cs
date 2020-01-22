@@ -647,7 +647,7 @@ namespace Crossout.AspWeb.Services
 
         public static string BuildRarityQuery()
         {
-            string query = "SELECT rarity.id, rarity.name FROM rarity ORDER BY id ASC;";
+            string query = "SELECT rarity.id, rarity.name FROM rarity ORDER BY rarity.order ASC;";
             return query;
         }
 
