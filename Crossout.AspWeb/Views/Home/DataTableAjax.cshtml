@@ -85,9 +85,9 @@
 
 <script>
     var domOption =
-        "<'#dtButtons'B><'row m-1'<'d-inline-flex justify-content-start'p><'d-inline-flex ml-auto'l>>" +
+        "<'#dtButtons'B><'row m-1'<'d-inline-flex justify-content-start'p><'d-inline-flex ml-auto text-secondary'l>>" +
         "<tr>" +
-        "<'row m-1'<'d-inline-flex justify-content-start'p><'d-none d-sm-inline-flex ml-auto'i>>";
+        "<'row m-1'<'d-inline-flex justify-content-start'p><'d-none d-sm-inline-flex ml-auto text-secondary'i>>";
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
 
@@ -146,7 +146,7 @@
                 {
                     'targets': getColumnIndexesById(['itemCol']),
                     'render': function (data, type, row, meta) {
-                        return '<a href="/item/' + row.id + '">' + '<img class="item-image-search lazy" src="/img/loading.png" data-src="' + row.imagePath + '"> ' + data + '</a>';
+                        return '<div class="d-flex align-items-center"><div class="mr-1"><a href="/item/' + row.id + '">' + '<img class="item-image-search lazy" src="/img/loading.png" data-src="' + row.imagePath + '"></div><div><a href="/item/' + row.id + '">' + data + '</div></a></div>';
                     },
                     'width': '25%'
                 },
@@ -155,6 +155,12 @@
                     'render': function (data, type, row, meta) {
                         var adjustedTimestamp = getAdjustedTimestamp(data);
                         return '<div class="item-timestamp ' + olderThan(adjustedTimestamp, 5) + ' ' + olderThan(adjustedTimestamp, 60) + '">' + adjustedTimestamp + '</div>';
+                    }
+                },
+                {
+                    'targets': getColumnIndexesById(['demandSupplyRatioCol', 'roiCol']),
+                    'render': function (data, type, row, meta) {
+                        return '<div>' + data + '%' + '</div>';
                     }
                 },
                 {
@@ -259,24 +265,7 @@
         resetRangeFilterCheckedStatus();
 
         $('table tbody tr').addClass('selectable-row');
-
-        //$('.selectable-row').off('click', function () { });
-
-        //$('.selectable-row').on('click', function () {
-        //    $(this).toggleClass(highlightSelectClass);
-        //    var itemId;
-        //    $(this).children().each(function (i, e) {
-        //        if (i === getColumnIndexById('idCol')) {
-        //            itemId = parseInt($(e).text());
-        //            return;
-        //        }
-        //    });
-        //    if (!$(this).hasClass(highlightSelectClass)) {
-        //        selectedList.splice(selectedList.findIndex(x => x === itemId), 1);
-        //    } else {
-        //        selectedList.push(itemId);
-        //    }
-        //});
+        $('table tbody td').addClass('align-middle');
 
         // Make table a bit prettier
         $('.dataTables_paginate > .pagination').addClass('pagination-sm');
