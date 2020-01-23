@@ -96,6 +96,8 @@ $(document).ready(function () {
         dom: domOption,
         drawCallback: function () {
             $('.dataTables_paginate > .pagination').addClass('pagination-sm');
+            resetRangeFilterCheckedStatus();
+            watchlistFilterClass.checked = false;
         }
     });
 
@@ -318,11 +320,58 @@ function watchlistSelected() {
     }
 }
 
+colIds = {
+    sellCol: getColumnIndexById('sellCol'),
+    buyCol: getColumnIndexById('buyCol'),
+    craftCostSellCol: getColumnIndexById('craftCostSellCol'),
+    craftCostBuyCol: getColumnIndexById('craftCostBuyCol'),
+    craftMarginCol: getColumnIndexById('craftMarginCol'),
+    marginCol: getColumnIndexById('marginCol'),
+    roiCol: getColumnIndexById('roiCol'),
+    demandSupplyRatioCol: getColumnIndexById('demandSupplyRatioCol')
+};
+
+var rangeFilterValues = {
+    sellmin: { value: 0, checked: false },
+    sellmax: { value: NaN, checked: false },
+    buymin: { value: NaN, checked: false },
+    buymax: { value: NaN, checked: false },
+    craftcostsellmin: { value: NaN, checked: false },
+    craftcostsellmax: { value: NaN, checked: false },
+    craftcostbuymin: { value: NaN, checked: false },
+    craftcostbuymax: { value: NaN, checked: false },
+    carftingmarginmin: { value: NaN, checked: false },
+    carftingmarginmax: { value: NaN, checked: false },
+    marginmin: { value: NaN, checked: false },
+    marginmax: { value: NaN, checked: false },
+    roimin: { value: NaN, checked: false },
+    roimax: { value: NaN, checked: false },
+    demandsupplymin: { value: NaN, checked: false },
+    demandsupplymax: { value: NaN, checked: false }
+};
+
+function checkRangeFilterValue(filterId) {
+    if (!rangeFilterValues[filterId].checked) {
+        var readValue = $('#' + filterId).val();
+        rangeFilterValues[filterId].value = readValue;
+        rangeFilterValues[filterId].checked = true;
+        return readValue;
+    }
+    else
+        return rangeFilterValues[filterId].value;
+}
+
+function resetRangeFilterCheckedStatus() {
+    Object.keys(rangeFilterValues).forEach(function (e, i) {
+        rangeFilterValues[e].checked = false;
+    });
+}
+
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var sellmin = parseInt($('#sellmin').val(), 10);
-        var sellmax = parseInt($('#sellmax').val(), 10);
-        var sellprice = parseFloat(data[getColumnIndexById('sellCol')]) || 0;
+        var sellmin = parseInt(checkRangeFilterValue('sellmin'), 10);
+        var sellmax = parseInt(checkRangeFilterValue('sellmax'), 10);
+        var sellprice = parseFloat(data[colIds.sellCol]) || 0;
 
         if ((isNaN(sellmin) && isNaN(sellmax)) ||
             (isNaN(sellmin) && sellprice <= sellmax) ||
@@ -336,9 +385,9 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var buymin = parseInt($('#buymin').val(), 10);
-        var buymax = parseInt($('#buymax').val(), 10);
-        var buyprice = parseFloat(data[getColumnIndexById('buyCol')]) || 0;
+        var buymin = parseInt(checkRangeFilterValue('buymin'), 10);
+        var buymax = parseInt(checkRangeFilterValue('buymax'), 10);
+        var buyprice = parseFloat(data[colIds.buyCol]) || 0;
 
         if ((isNaN(buymin) && isNaN(buymax)) ||
             (isNaN(buymin) && buyprice <= buymax) ||
@@ -352,9 +401,9 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt($('#craftcostsellmin').val(), 10);
-        var marginmax = parseInt($('#craftcostsellmax').val(), 10);
-        var margin = parseFloat(data[getColumnIndexById('craftCostSellCol')]) || 0;
+        var marginmin = parseInt(checkRangeFilterValue('craftcostsellmin'), 10);
+        var marginmax = parseInt(checkRangeFilterValue('craftcostsellmax'), 10);
+        var margin = parseFloat(data[colIds.craftCostSellCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -369,9 +418,9 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt($('#craftcostbuymin').val(), 10);
-        var marginmax = parseInt($('#craftcostbuymax').val(), 10);
-        var margin = parseFloat(data[getColumnIndexById('craftCostBuyCol')]) || 0;
+        var marginmin = parseInt(checkRangeFilterValue('craftcostbuymin'), 10);
+        var marginmax = parseInt(checkRangeFilterValue('craftcostbuymax'), 10);
+        var margin = parseFloat(data[colIds.craftCostBuyCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -386,9 +435,9 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt($('#carftingmarginmin').val(), 10);
-        var marginmax = parseInt($('#carftingmarginmax').val(), 10);
-        var margin = parseFloat(data[getColumnIndexById('craftMarginCol')]) || 0;
+        var marginmin = parseInt(checkRangeFilterValue('carftingmarginmin'), 10);
+        var marginmax = parseInt(checkRangeFilterValue('carftingmarginmax'), 10);
+        var margin = parseFloat(data[colIds.craftMarginCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -402,9 +451,9 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt($('#marginmin').val(), 10);
-        var marginmax = parseInt($('#marginmax').val(), 10);
-        var margin = parseFloat(data[getColumnIndexById('marginCol')]) || 0;
+        var marginmin = parseInt(checkRangeFilterValue('marginmin'), 10);
+        var marginmax = parseInt(checkRangeFilterValue('marginmax'), 10);
+        var margin = parseFloat(data[colIds.marginCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -418,9 +467,9 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt($('#roimin').val(), 10);
-        var marginmax = parseInt($('#roimax').val(), 10);
-        var margin = parseFloat(data[getColumnIndexById('roiCol')]) || 0;
+        var marginmin = parseInt(checkRangeFilterValue('roimin'), 10);
+        var marginmax = parseInt(checkRangeFilterValue('roimax'), 10);
+        var margin = parseFloat(data[colIds.roiCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -434,9 +483,9 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt($('#demandsupplymin').val(), 10);
-        var marginmax = parseInt($('#demandsupplymax').val(), 10);
-        var margin = parseFloat(data[getColumnIndexById('demandSupplyRatioCol')]) || 0;
+        var marginmin = parseInt(checkRangeFilterValue('demandsupplymin'), 10);
+        var marginmax = parseInt(checkRangeFilterValue('demandsupplymax'), 10);
+        var margin = parseFloat(data[colIds.demandSupplyRatioCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
             (isNaN(marginmin) && margin <= marginmax) ||
@@ -447,6 +496,19 @@ $.fn.dataTable.ext.search.push(
         return false;
     }
 );
+var watchlistFilterClass = { value: '', checked: false };
+
+function checkClass(id) {
+    if (!watchlistFilterClass.checked) {
+        var readValue = $('#' + id).hasClass();
+        watchlistFilterClass.value = readValue;
+        watchlistFilterClass.checked = true;
+        return readValue;
+    }
+    else
+        return watchlistFilterClass.value;
+}
+
 $.fn.dataTable.ext.search.push(function (settings, searchData, index, rowData, counter) {
     if ($('#watchlistFilter').hasClass('active')) {
         if (watchlist.includes(parseInt(searchData[1])))
