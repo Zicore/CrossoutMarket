@@ -29,7 +29,8 @@ namespace Crossout.AspWeb.Controllers
         [Route("")]
         public IActionResult Index(bool rmdItems)
         {
-            return RouteSearch(null, 0, null, null, null, null, null, rmdItems);
+            return RouteSearchAjax();
+            //return RouteSearch(null, 0, null, null, null, null, null, rmdItems);
             //return RouteSearch(null, 0,null,null,null,null,null);
         }
 
@@ -39,6 +40,29 @@ namespace Crossout.AspWeb.Controllers
         {
             return Redirect("/");
             //return RouteSearch(query, 0, rarity, category, faction, rmditems, mitems);
+        }
+
+        private IActionResult RouteSearchAjax()
+        {
+            DataService db = new DataService(sql);
+
+            sql.Open(WebSettings.Settings.CreateDescription());
+
+            var parmeter = new List<Parameter>();
+
+            FilterModel filterModel = new FilterModel
+            {
+                Categories = SelectCategories(sql),
+                Rarities = SelectRarities(sql),
+                Factions = SelectFactions(sql),
+            };
+
+            SearchModel searchModel = new SearchModel { FilterModel = filterModel };
+
+            var statusModel = db.SelectStatus();
+            searchModel.Status = statusModel;
+
+            return View("search", searchModel);
         }
 
         private IActionResult RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems, string mItems, bool rmdItemsOnly)

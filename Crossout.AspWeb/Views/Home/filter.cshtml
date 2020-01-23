@@ -165,7 +165,7 @@
 
         <div class="btn-group my-1">
             <button class="btn btn-sm btn-outline-secondary disabled" id="watchlistSelector" onclick="watchlistSelected()">Watchlist Selected</button>
-            <button class="btn btn-sm btn-outline-secondary disabled" id="watchlistFilter" onclick="toggleWatchlist()">Show Watchlist</button>
+            <button class="btn btn-sm btn-outline-secondary" id="watchlistFilter" onclick="toggleWatchlist()">Show Watchlist</button>
         </div>
     </div>
 </div>
@@ -173,7 +173,7 @@
 <script>
     $(document).ready(function () {
         checkFilterSetting();
-        $('#filterWrapper').removeClass('d-none');
+        checkExtendedSetting();
     });
 
     function checkFilterSetting() {
@@ -194,7 +194,7 @@
             $('#rangeFilter').removeClass('d-md-flex d-sm-block');
             $('#rangeFilter').addClass('d-none');
 
-            $('#dtButtonWrapper').addClass('d-none');
+            $('.extended-setting').addClass('d-none');
         }
     }
 
