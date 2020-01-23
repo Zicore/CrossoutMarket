@@ -101,7 +101,7 @@ namespace Crossout.Model.Items
         [JsonProperty("amount")]
         public int Amount { get; set; }
 
-        [JsonProperty("demandsupplyratio")]
+        [JsonProperty("demandSupplyRatio")]
         public decimal DemandSupplyRatio
         {
             get { return (decimal)BuyOrders / Math.Max(SellOffers, 1); }
@@ -125,7 +125,7 @@ namespace Crossout.Model.Items
             get { return (decimal)(SellPrice - CraftingBuySum - (SellPrice * 0.1m)); }
         }
 
-        [JsonProperty("formatdemandsupplyratio")]
+        [JsonProperty("formatDemandSupplyRatio")]
         public string FormatDemandSupplyRatio
         {
             get { return PriceFormatter.FormatRatio(DemandSupplyRatio); }
@@ -233,6 +233,18 @@ namespace Crossout.Model.Items
         public string Image
         {
             get { return $"{Id}.png"; }
+        }
+
+        [JsonProperty("imagePath")]
+        public string ImagePath
+        {
+            get
+            {
+                if (ImageExists)
+                    return $"/img/items/{Id}.png";
+                else
+                    return $"/img/NoImage.png";
+            }
         }
 
         [JsonIgnore]

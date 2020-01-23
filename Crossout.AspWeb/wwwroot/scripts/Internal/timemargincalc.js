@@ -24,8 +24,6 @@ function calculateTimeMargin() {
     var fromTime = chart.rangeSelector.minInput.HCTime;
     var toTime = chart.rangeSelector.maxInput.HCTime;
 
-    console.log(fromTime + ' - ' + toTime);
-
     chartData[0].forEach(function (e, i) {
         var current = e[1];
         if (e[0] >= fromTime && e[0] <= toTime) {

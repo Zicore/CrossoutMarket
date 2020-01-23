@@ -21,15 +21,10 @@
 .dark-mode .table .odd {
   background-color: #212529; }
 
-.dark-mode .table-info,
-.dark-mode .table-info th,
-.dark-mode .table-info td {
+.dark-mode .selected,
+.dark-mode .selected th,
+.dark-mode .selected td {
   background-color: rgba(23, 162, 184, 0.1) !important; }
-
-.dark-mode .table-info:hover,
-.dark-mode .table-info:hover th,
-.dark-mode .table-info:hover td {
-  background-color: rgba(23, 162, 184, 0.15) !important; }
 
 .dark-mode table.dataTable > tbody > tr.child ul.dtr-details > li {
   border-bottom: 1px solid #343a40; }

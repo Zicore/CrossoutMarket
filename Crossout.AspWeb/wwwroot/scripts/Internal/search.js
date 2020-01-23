@@ -1,123 +1,4 @@
-﻿const defaultOrder = [[11, "desc"]];
-var table;
-
-$(document).ready(function () {
-
-    $('#loadingIcon').removeClass('d-flex').addClass('d-none');
-    $('#table-wrapper').removeClass('d-none');
-    $('#dtButtonWrapper').removeClass('d-none');
-    checkExtendedSetting();
-    adjustTimeStamp();
-
-    var domOption =
-        "<'row m-1'<'d-inline-flex justify-content-start'p><'d-inline-flex ml-auto text-secondary'l>>" +
-        "<tr>" +
-        "<'row m-1'<'d-inline-flex justify-content-start'p><'d-none d-sm-inline-flex ml-auto text-secondary'i>>";
-
-    $.fn.DataTable.ext.pager.numbers_length = 5;
-
-    var order = [[11, "desc"]];
-
-    table = $('#ItemTable').DataTable({
-        paging: true,
-        searching: true,
-        search: {
-            smart: false,
-            regex: false
-        },
-        autoWidth: false,
-        responsive: {
-            details: {
-                type: 'inline',
-                renderer: function (api, rowIdx, columns) {
-                    var data = $.map(columns, function (col, i) {
-                        return col.hidden ?
-                            '<div class="d-inline-flex flex-column card p-1 px-2 m-2" data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
-                            '<div class="font-weight-bold">' + col.title + '' + '</div> ' +
-                            '<div>' + col.data + '</div>' +
-                            '</div>' :
-                            '';
-                    }).join('');
-
-                    return data ?
-                        $('<div/>').append(data) :
-                        false;
-                }
-            }
-        },
-        columnDefs: [
-            { targets: 0, width: '25%' },
-            { targets: '_all', width: '15%' }
-        ],
-        buttons: {
-            dom: {
-                //container: {
-                //    tag: 'ul',
-                //    className: 'pagination dataTables_button'
-                //},
-                //buttonContainer: {
-                //    tag: 'li',
-                //    className: 'paginate_button'
-                //},
-                button: {
-                    tag: 'button',
-                    className: 'btn btn-sm btn-outline-secondary'
-                }
-            },
-            buttons: [{
-                extend: 'excel',
-                text: 'Export as Excel',
-                filename: 'CrossoutDBExcelExport',
-                exportOptions: {
-                    modifier: {
-                        page: 'current'
-                    }
-                }
-            }, {
-                extend: 'csv',
-                text: 'Export as CSV',
-                filename: 'CrossoutDBCSVExport',
-                exportOptions: {
-                    modifier: {
-                        page: 'current'
-                    }
-                }
-            }, {
-                action: function () {
-                    exportToSpreadsheet();
-                },
-                text: 'Export to Spreadsheet'
-            }
-            ]
-        },
-        order: order,
-        lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
-        pagingType: "simple_numbers",
-        dom: domOption,
-        drawCallback: function () {
-            $('.dataTables_paginate > .pagination').addClass('pagination-sm');
-            resetRangeFilterCheckedStatus();
-            watchlistFilterClass.checked = false;
-        }
-    });
-
-    applyLocationHash(table);
-
-    table.page.len(readSetting('length'));
-
-    filterTable(table);
-
-    $('#ItemTable').on('length.dt', function (e, options, len) {
-        writeSetting('length', table.page.info().length);
-    });
-
-    // Place buttons in container
-    table.buttons().container().appendTo('#dt-buttons');
-
-    // Remove ugly classes in length selector
-    $('#ItemTable_length').children().children().removeClass('custom-select custom-select-sm');
-});
-
+﻿const defaultOrder = [[getColumnIndexById('offersCol'), "desc"]];
 
 $('#searchBar, #searchBarMobile').keyup(function () {
     updateLocationHash(table);
@@ -168,10 +49,10 @@ $('.filterCraftableItems').click(function (e) {
 });
 
 $('.filterRemovedItems').click(function (e) {
-    if ($(this).hasClass('active'))
-        window.location = '/' + location.hash;
-    else
-        window.location = '/?rmdItems=true' + location.hash;
+    $('.filterRemovedItems').toggleClass('active');
+    filterTable(table);
+    updateLocationHash(table);
+    e.preventDefault();
 });
 
 $('.filterMetaItems').click(function (e) {
@@ -211,9 +92,9 @@ function filterTable(table) {
         }
     });
     if (filterFactionString !== undefined) {
-        table.column(3).search(filterFactionString, true);
+        table.column(getColumnIndexById('factionCol')).search(filterFactionString, true);
     } else {
-        table.column(3).search('');
+        table.column(getColumnIndexById('factionCol')).search('');
     }
 
     var filterRarityString;
@@ -229,9 +110,9 @@ function filterTable(table) {
         }
     });
     if (filterRarityString !== undefined) {
-        table.column(2).search(filterRarityString, true);
+        table.column(getColumnIndexById('rarityCol')).search(filterRarityString, true);
     } else {
-        table.column(2).search('');
+        table.column(getColumnIndexById('rarityCol')).search('');
     }
 
     var filterCategoryString;
@@ -250,46 +131,32 @@ function filterTable(table) {
         }
     });
     if (filterCategoryString !== undefined) {
-        table.column(4).search(filterCategoryString, true);
+        table.column(getColumnIndexById('categoryCol')).search(filterCategoryString, true);
     } else {
-        table.column(4).search('');
+        table.column(getColumnIndexById('categoryCol')).search('');
     }
 
     if ($('.filterCraftableItems').first().hasClass('active')) {
-        table.column(7).search('yes');
+        table.column(getColumnIndexById('craftableCol')).search('yes');
     } else {
-        table.column(7).search('');
+        table.column(getColumnIndexById('craftableCol')).search('');
+    }
+
+    if ($('.filterRemovedItems').first().hasClass('active')) {
+        table.column(getColumnIndexById('removedCol')).search('no');
+    } else {
+        table.column(getColumnIndexById('removedCol')).search('yes');
     }
 
     if ($('.filterMetaItems').first().hasClass('active')) {
-        table.column(8).search('yes');
+        table.column(getColumnIndexById('metaCol')).search('yes');
     } else {
-        table.column(8).search('no');
+        table.column(getColumnIndexById('metaCol')).search('no');
     }
 
     table.draw();
 }
 
-var selectedList = [];
-var highlightSelectClass = 'table-info';
-
-$('.selected-row').click(function () {
-    if ($(this).hasClass(highlightSelectClass)) {
-        $(this).removeClass(highlightSelectClass);
-        selectedList.splice(selectedList.findIndex(x => x === $(this).data('id')), 1);
-    } else {
-        $(this).addClass(highlightSelectClass);
-        selectedList.push($(this).data('id'));
-    }
-
-    if (selectedList.length > 0) {
-        $('#watchlistSelector').removeClass('disabled');
-        $('#watchlistFilter').removeClass('disabled');
-    } else {
-        $('#watchlistSelector').addClass('disabled');
-        $('#watchlistFilter').addClass('disabled');
-    }
-});
 
 //function compareSelected() {
 //    if (selectedList.length !== 0) {
@@ -308,15 +175,14 @@ $('.selected-row').click(function () {
 //}
 
 function watchlistSelected() {
-    if (selectedList.length !== 0) {
+    var selectedDataArray = Array.from(selectedList);
+    if (selectedDataArray.length !== 0) {
         watchlist = [];
-        selectedList.forEach(function (e) {
-            watchlist.push(parseInt(e));
+        selectedDataArray.forEach(function (e) {
+            watchlist.push(parseInt(e.id));
         });
         updateLocationHash(table);
         toggleWatchlist();
-        $('.' + highlightSelectClass).removeClass(highlightSelectClass);
-        selectedList = [];
     }
 }
 
@@ -534,8 +400,8 @@ var colPresets = {
         cols: [{ id: 'itemCol', priority: '1' }, { id: 'sellCol', priority: '2' }, { id: 'offersCol', priority: '3' }, { id: 'buyCol', priority: '2' }, { id: 'ordersCol', priority: '3' }],
         activateFilters: [],
         deactivateFilters: ['filterCraftableItems'],
-        activateControls: [],
-        deactivateControls: []
+        activateControls: ['placeHolderRange'],
+        deactivateControls: ['flippingRange', 'craftingRange']
     },
     crafting: {
         buttonId: 'craftingPreset',
@@ -576,6 +442,7 @@ function switchPreset(preset) {
     $('.filter-preset').removeClass('active');
     $('#' + colPresets[preset].buttonId).addClass('active');
     filterTable(table);
+    updateLocationHash(table);
     table.responsive.rebuild();
     table.responsive.recalc();
 }
