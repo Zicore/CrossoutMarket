@@ -75,8 +75,8 @@
         </div>
     </div>
 
-    <div id="rangeFilter" class="d-md-flex d-sm-block">
-        <div id="defaultRange">
+    <div id="rangeFilter" class="row">
+        <div id="defaultRange" class="col-md-6 col-sm-12 pr-md-0">
             <div class="flex-column flex-fill mr-md-1">
                 <div class="input-group input-group-sm my-1">
                     <div class="input-group-prepend">
@@ -93,14 +93,22 @@
                     <input type="text" class="form-control" id="buymin" name="buymin" onkeyup="drawTable()" aria-label="From Amount" placeholder="From">
                     <input type="text" class="form-control" id="buymax" name="buymax" onkeyup="drawTable()" aria-label="To Amount" placeholder="To">
                 </div>
+
+                <div class="input-group input-group-sm my-1 d-none d-md-flex invisible">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text filter-range-text">Placeholder</span>
+                    </div>
+                    <input type="text" class="form-control" id="placeholdermin" name="placeholdermin" onkeyup="drawTable()" aria-label="From Amount" placeholder="From">
+                    <input type="text" class="form-control" id="placeholdermax" name="placeholdermax" onkeyup="drawTable()" aria-label="To Amount" placeholder="To">
+                </div>
             </div>
         </div>
-        <div id="placeHolderRange" class="d-flex flex-fill align-items-stretch">
-            <div class="card m-1 p-1 flex-fill justify-content-center">
+        <div id="placeHolderRange" class="col-md-6 col-sm-12 pl-md-0">
+            <div class="card mx-sm-0 ml-md-1 my-1 p-1 flex-fill justify-content-center">
                 <div class="text-secondary text-center">Choose a different view to enable other range filters</div>
             </div>
         </div>
-        <div class="d-none" id="craftingRange">
+        <div class="d-none col-md-6 col-sm-12 pl-md-0" id="craftingRange">
             <div class="flex-column flex-fill ml-md-1">
                 <div class="input-group input-group-sm my-1">
                     <div class="input-group-prepend">
@@ -127,7 +135,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-none" id="flippingRange">
+        <div class="d-none col-md-6 col-sm-12 pl-md-0" id="flippingRange">
             <div class="flex-column flex-fill ml-md-1">
                 <div class="input-group input-group-sm my-1">
                     <div class="input-group-prepend">
@@ -156,16 +164,15 @@
         </div>
     </div>
 
-    <div class="d-flex flex-column mx-auto w-75">
-        <div class="btn-group my-1">
-            <button class="btn btn-sm btn-outline-secondary filter-preset active" id="defaultPreset" onclick="switchPreset('default')">Default</button>
-            <button class="btn btn-sm btn-outline-secondary filter-preset" id="craftingPreset" onclick="switchPreset('crafting')">Crafting</button>
-            <button class="btn btn-sm btn-outline-secondary filter-preset" id="flippingPreset" onclick="switchPreset('flipping')">Flipping</button>
-        </div>
-
-        <div class="btn-group my-1">
+    <div class="d-flex flex-fill row">
+        <div class="btn-group my-1 col-md-6 col-sm-12 pr-md-1">
             <button class="btn btn-sm btn-outline-secondary disabled" id="watchlistSelector" onclick="watchlistSelected()">Watchlist Selected</button>
             <button class="btn btn-sm btn-outline-secondary" id="watchlistFilter" onclick="toggleWatchlist()">Show Watchlist</button>
+        </div>
+        <div class="btn-group my-1 col-md-6 col-sm-12 pl-md-1">
+            <button class="btn btn-sm btn-outline-secondary filter-preset active" id="defaultPreset" onclick="switchPreset('default', true)">Default</button>
+            <button class="btn btn-sm btn-outline-secondary filter-preset" id="craftingPreset" onclick="switchPreset('crafting', true)">Crafting</button>
+            <button class="btn btn-sm btn-outline-secondary filter-preset" id="flippingPreset" onclick="switchPreset('flipping', true)">Flipping</button>
         </div>
     </div>
 </div>
@@ -189,12 +196,15 @@
     }
 
     function checkExtendedSetting() {
-        var extended = readSetting('extended');
-        if (!extended) {
+        var rangeFilterSetting = readSetting('range-filters');
+        if (!rangeFilterSetting) {
             $('#rangeFilter').removeClass('d-md-flex d-sm-block');
             $('#rangeFilter').addClass('d-none');
+        }
 
-            $('.extended-setting').addClass('d-none');
+        var exportButtonSettings = readSetting('export-buttons');
+        if (!exportButtonSettings) {
+            $('#exportButtons').addClass('d-none');
         }
     }
 

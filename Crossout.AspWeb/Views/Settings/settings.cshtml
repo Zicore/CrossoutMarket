@@ -20,13 +20,23 @@
         <p class="text-secondary">Search Page Settings</p>
 
         <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="fullSizeTable">
+            <label class="custom-control-label" for="fullSizeTable">Full Size Table</label>
+        </div>
+
+        <div class="custom-control custom-switch my-1">
             <input type="checkbox" class="custom-control-input" id="dropdownSwitch">
             <label class="custom-control-label" for="dropdownSwitch">Dropdown Filter</label>
         </div>
 
         <div class="custom-control custom-switch my-1">
-            <input type="checkbox" class="custom-control-input" id="extendedSwitch">
-            <label class="custom-control-label" for="extendedSwitch">Extended Controls</label>
+            <input type="checkbox" class="custom-control-input" id="rangeFiltersSwitch">
+            <label class="custom-control-label" for="rangeFiltersSwitch">Range Filters</label>
+        </div>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="exportButtonsSwitch">
+            <label class="custom-control-label" for="exportButtonsSwitch">Export Buttons</label>
         </div>
 
         <div class="form-inline my-1">
@@ -89,8 +99,10 @@
         // General settings darkModeSwitch
         $('#darkModeSwitch').prop('checked', readSetting('dark-mode'));
         // Search settings
+        $('#fullSizeTable').prop('checked', readSetting('full-size-table'));
         $('#dropdownSwitch').prop('checked', readSetting('dropdown'));
-        $('#extendedSwitch').prop('checked', readSetting('extended'));
+        $('#rangeFiltersSwitch').prop('checked', readSetting('range-filters'));
+        $('#exportButtonsSwitch').prop('checked', readSetting('export-buttons'));
         $('#lengthSelect').val(readSetting('length'));
         // Item settings
         $('#dataGroupingSwitch').prop('checked', readSetting('data-grouping'));
@@ -114,11 +126,17 @@
     });
 
     // Search settings
+    $('#fullSizeTable').change(function () {
+        writeSetting('full-size-table', this.checked);
+    });
     $('#dropdownSwitch').change(function () {
         writeSetting('dropdown', this.checked);
     });
-    $('#extendedSwitch').change(function () {
-        writeSetting('extended', this.checked);
+    $('#rangeFiltersSwitch').change(function () {
+        writeSetting('range-filters', this.checked);
+    });
+    $('#exportButtonsSwitch').change(function () {
+        writeSetting('export-buttons', this.checked);
     });
     $('#lengthSelect').change(function () {
         writeSetting('length', this.value);

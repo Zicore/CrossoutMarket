@@ -5,26 +5,26 @@
 @model Crossout.AspWeb.Models.Items.ItemModel
 
 <div id="timeMarginWrapper" class="d-none">
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center flex-row flex-wrap">
         <div class="d-flex flex-column justify-content-center mx-3">
-            <span class="font-weight-bold">Sell Range</span>
-            <div class="text-center">
+            <span class="font-weight-bold text-nowrap">Sell Range</span>
+            <div class="justify-content-center d-flex flex-nowrap">
                 <span style="color: red" id="minSell"></span>
-                <span class="font-weight-bold"> - </span>
+                <span class="font-weight-bold mx-1"> - </span>
                 <span style="color: red" id="maxSell"></span>
             </div>
         </div>
         <div class="d-flex flex-column justify-content-center mx-3">
-            <span class="font-weight-bold">Buy Range</span>
-            <div class="text-center">
+            <span class="font-weight-bold text-nowrap">Buy Range</span>
+            <div class="justify-content-center d-flex flex-nowrap">
                 <span style="color: green" id="minBuy"></span>
-                <span class="font-weight-bold"> - </span>
+                <span class="font-weight-bold mx-1"> - </span>
                 <span style="color: green" id="maxBuy"></span>
             </div>
         </div>
         <div class="d-flex flex-column justify-content-center mx-3">
-            <span class="font-weight-bold">Max. Margin</span>
-            <div class="text-center">
+            <span class="font-weight-bold text-nowrap">Max. Margin</span>
+            <div class="justify-content-center d-flex flex-nowrap">
                 <span id="maxMargin"></span>
             </div>
         </div>
@@ -32,7 +32,7 @@
 </div>
 
 <div class="d-flex justify-content-center" id="loading-icon">
-    <img src="~/icons/Spinner-1s-360px.png" />
+    <img width="200" height="200" src="~/icons/Spinner-1s-400px.svg" />
 </div>
 <div class="d-none" id="container" style="height: 600px; min-width: 310px"></div>
 <div class="btn-group btn-group-sm d-flex btn-group-justified m-1">
