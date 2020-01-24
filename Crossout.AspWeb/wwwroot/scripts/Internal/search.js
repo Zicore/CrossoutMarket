@@ -62,11 +62,12 @@ $('.filterMetaItems').click(function (e) {
     e.preventDefault();
 });
 
-var watchlist = [1, 2, 3];
+var watchlist = [];
 function toggleWatchlist() {
     //var button = $('#watchlistFilter');
     $('#watchlistFilter').toggleClass('active');
     filterTable(table);
+    updateLocationHash(table);
 }
 
 const columnList = ['name', 'rarity', 'faction', 'category', 'type', 'popularity', 'sellprice', 'selloffers', 'buyprice', 'buyorders', 'margin', 'lastupdate'];
