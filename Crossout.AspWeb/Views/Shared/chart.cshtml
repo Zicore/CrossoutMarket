@@ -28,13 +28,31 @@
                 <span id="maxMargin"></span>
             </div>
         </div>
+        <div class="d-flex flex-column justify-content-center mx-3">
+            <span class="font-weight-bold text-nowrap">Sell Average</span>
+            <div class="justify-content-center d-flex flex-nowrap">
+                <span style="color: red" id="averageSell"></span>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center mx-3">
+            <span class="font-weight-bold text-nowrap">Buy Average</span>
+            <div class="justify-content-center d-flex flex-nowrap">
+                <span style="color: green" id="averageBuy"></span>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center mx-3">
+            <span class="font-weight-bold text-nowrap">Average Margin</span>
+            <div class="justify-content-center d-flex flex-nowrap">
+                <span id="averageMargin"></span>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="d-flex justify-content-center" id="loading-icon">
     <img width="200" height="200" src="~/icons/Spinner-1s-400px.svg" />
 </div>
-<div class="d-none" id="container" style="height: 600px; min-width: 310px"></div>
+<div class="d-none" id="container" style="height: 600px; min-width: 310px" onclick="calculateTimeMargin()"></div>
 <div class="btn-group btn-group-sm d-flex btn-group-justified m-1">
     <button class="btn btn-outline-secondary hidden" id="grouping-button">Disable Data Grouping</button>
     <button class="btn btn-outline-secondary hidden" id="load-more-button">Load More</button>
@@ -189,10 +207,7 @@
             chart = new Highcharts.StockChart({
 
                 chart: {
-                    renderTo: 'container',
-                    events: {
-                        render: function () { calculateTimeMargin(); }
-                    }
+                    renderTo: 'container'
                 },
                 rangeSelector: {
                     allButtonsEnabled: true,
