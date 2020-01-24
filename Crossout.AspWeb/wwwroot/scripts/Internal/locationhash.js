@@ -14,7 +14,7 @@
 
             items.forEach(function (item, j) {
                 if (typeName === 'preset') {
-                    switchPreset(item);
+                    switchPreset(item, false);
                 }
                 else if (typeName === "search") {
                     $('#searchBar, #searchBarMobile').val(decodeURI(item));

@@ -421,8 +421,13 @@ var colPresets = {
     }
 };
 
-function switchPreset(preset) {
-    $('.dt-col').addClass('none').data('priority', 10);
+function switchPreset(preset, updateLocHash) {
+    var fullSizeTable = readSetting('full-size-table');
+    if (fullSizeTable) {
+        $('.dt-col').data('priority', 10);
+    } else {
+        $('.dt-col').addClass('none').data('priority', 10);
+    }
     colPresets[preset].cols.forEach(function (e, i) {
         showCol(e.id);
         setColPriority(e.id, e.priority);
@@ -442,7 +447,8 @@ function switchPreset(preset) {
     $('.filter-preset').removeClass('active');
     $('#' + colPresets[preset].buttonId).addClass('active');
     filterTable(table);
-    updateLocationHash(table);
+    if (updateLocHash)
+        updateLocationHash(table);
     table.responsive.rebuild();
     table.responsive.recalc();
 }

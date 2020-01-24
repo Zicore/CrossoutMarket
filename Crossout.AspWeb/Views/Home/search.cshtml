@@ -30,14 +30,15 @@
     </div>
     }
 
-    <div id="loadingIcon" class="d-flex justify-content-center"><img src="~/icons/Spinner-1s-360px.png" /></div>
+    <div id="loadingIcon" class="d-flex justify-content-center"><img height="200" width="200" src="~/icons/Spinner-1s-400px.svg" /></div>
 
-    <div class="extended-setting">
+    <div id="exportButtons">
         <div class="card my-1 p-1 d-none" id="dtButtonWrapper">
             <div class="d-flex justify-content-center my-1" id="dt-buttons"></div>
         </div>
     </div>
-
+</div>
+<div class="half-hd-container px-3" id="tableContainer">
     <div class="card d-none my-1" id="table-wrapper">
         <partial name="DataTableAjax" model="@Model" />
     </div>
@@ -46,3 +47,7 @@
 <script src="~/scripts/internal/locationhash.js?@(CacheBuster.Once)"></script>
 <script src="~/scripts/internal/search.js?@(CacheBuster.Once)"></script>
 
+<script>
+    if (readSetting('full-size-table'))
+        $('#tableContainer').removeClass('half-hd-container');
+</script>

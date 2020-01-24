@@ -1,9 +1,5 @@
 ﻿@model Crossout.AspWeb.Models.General.SearchModel
 
-<div class="my-1 p-1" id="dtButtonWrapper">
-    <div class="d-flex justify-content-center my-1" id="dt-buttons"></div>
-</div>
-
 <table class="table table-striped table-borderless table-hover dt-responsive" id="ItemTable2">
     <thead>
         <tr>
@@ -46,7 +42,7 @@
             <th class="dt-col" id="offersCol" data-priority="2">
                 Offers
             </th>
-            <th class="dt-col none" id="craftCostSellCol">
+            <th class="dt-col" id="craftCostSellCol">
                 Craft Cost (Sell)
             </th>
             <th class="dt-col" id="buyCol" data-priority="1">
@@ -55,25 +51,25 @@
             <th class="dt-col" id="ordersCol" data-priority="2">
                 Orders
             </th>
-            <th class="dt-col none" id="craftCostBuyCol">
+            <th class="dt-col" id="craftCostBuyCol">
                 Craft Cost (Buy)
             </th>
-            <th class="dt-col none" id="demandSupplyRatioCol" data-priority="2">
+            <th class="dt-col" id="demandSupplyRatioCol" data-priority="2">
                 Demand/Supply
             </th>
-            <th class="dt-col none" id="marginCol" data-priority="2">
+            <th class="dt-col" id="marginCol" data-priority="2">
                 Margin
             </th>
-            <th class="dt-col none" id="roiCol" data-priority="2">
+            <th class="dt-col" id="roiCol" data-priority="2">
                 ROI
             </th>
-            <th class="dt-col none" id="craftMarginCol">
+            <th class="dt-col" id="craftMarginCol">
                 Crafting Margin
             </th>
-            <th class="dt-col none" id="craftAdviceCol">
+            <th class="dt-col" id="craftAdviceCol">
                 Crafting Advice
             </th>
-            <th class="dt-col none" id="lastUpdateCol">
+            <th class="dt-col" id="lastUpdateCol">
                 Last Update
             </th>
         </tr>
@@ -128,7 +124,7 @@
                 {
                     'targets': getColumnIndexesById(['sellCol', 'buyCol', 'craftCostSellCol', 'craftCostBuyCol', 'marginCol', 'craftMarginCol']),
                     'render': function (data, type, row, meta) {
-                        return '<div>' + data + ' <img height="14" src="/img/Coin.png" /></div>';
+                        return '<div class=" d-flex flex-nowrap align-items-center"><div class="mr-1">' + data + '</div><img height="14" src="/img/Coin.png" /></div>';
                     }
                 },
                 {
@@ -146,7 +142,7 @@
                 {
                     'targets': getColumnIndexesById(['itemCol']),
                     'render': function (data, type, row, meta) {
-                        return '<div class="d-flex align-items-center"><div class="mr-1"><a href="/item/' + row.id + '">' + '<img class="item-image-search lazy" src="/img/loading.png" data-src="' + row.imagePath + '"></div><div><a href="/item/' + row.id + '">' + data + '</div></a></div>';
+                        return '<div class="d-flex align-items-center"><div class="mr-1"><a href="/item/' + row.id + '">' + '<img class="item-image-search lazy" src="/icons/Spinner-1s-64px.svg" data-src="' + row.imagePath + '"></div><div><a href="/item/' + row.id + '">' + data + '</div></a></div>';
                     },
                     'width': '25%'
                 },
@@ -253,7 +249,11 @@
 
         onDraw();
         table.page.len(readSetting('length'));
+
+        // These need to be called in this order
+        switchPreset('default', false);
         applyLocationHash(table);
+
         filterTable(table);
     });
 
