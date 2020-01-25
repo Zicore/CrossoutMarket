@@ -221,6 +221,7 @@
     <Content Remove="Resources\PremiumPackages\thirdhalf.json" />
     <Content Remove="Resources\PremiumPackages\wastelandwarrior.json" />
     <Content Remove="Resources\PremiumPackages\wildhunt.json" />
+    <Content Remove="wwwroot\ads.txt" />
     <Content Remove="wwwroot\favicon.ico" />
     <Content Remove="wwwroot\img\premiumpackages\dayofthedead.jpg" />
     <Content Remove="wwwroot\img\premiumpackages\frostburndeluxe.jpg" />
@@ -482,6 +483,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\PremiumPackages\wildhunt.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\ads.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\favicon.ico">
