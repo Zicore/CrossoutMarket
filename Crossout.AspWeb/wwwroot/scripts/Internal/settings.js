@@ -39,7 +39,7 @@ function readCookie() {
         var settingsJSON = atob(settingsBase64);
         settings = JSON.parse(settingsJSON);
     }
-    catch {
+    catch (err) {
         resetSettings();
     }
 }
@@ -58,7 +58,7 @@ function parseCookie() {
         $('#settingsStringBase64').addClass('is-valid');
         return true;
     }
-    catch {
+    catch (err) {
         $('#settingsStringBase64').removeClass('is-valid');
         $('#settingsStringBase64').addClass('is-invalid');
         return false;
