@@ -164,6 +164,8 @@
         </div>
     }
 
+</div>
+<div id="itemTabsWrapper" class="half-hd-container px-3">
     <div class="card my-1">
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs" id="itemTab" role="tablist">
@@ -350,7 +352,6 @@
             }
         </div>
     </div>
-
 </div>
 
 <script src="~/scripts/internal/item.js?@(CacheBuster.Once)"></script>
@@ -358,6 +359,9 @@
     $(document).ready(function () {
         adjustTimeStamp();
     });
+
+    if (readSetting('full-size-item-tabs'))
+        $('#itemTabsWrapper').removeClass('half-hd-container');
 
     $.getJSON(location.origin + '/data/recipe/@(Model.Item.Id)',
         function (data) {

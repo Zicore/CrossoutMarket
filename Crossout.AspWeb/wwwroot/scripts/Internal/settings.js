@@ -5,10 +5,12 @@
     'range-filters': false,
     'export-buttons': false,
     'length': 10,
+    'full-size-item-tabs': false,
     'data-grouping': true,
     'recipe-other-costs-amount': 1,
     'recipe-other-costs-sellprice': 0,
-    'recipe-other-costs-buyprice': 0
+    'recipe-other-costs-buyprice': 0,
+    'full-size-packs': false
 };
 
 var settings = {};

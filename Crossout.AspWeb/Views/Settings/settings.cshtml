@@ -54,6 +54,11 @@
         <p class="text-secondary">Item Page Settings</p>
 
         <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="fullSizeTabs">
+            <label class="custom-control-label" for="fullSizeTabs">Full Size Tabs</label>
+        </div>
+
+        <div class="custom-control custom-switch my-1">
             <input type="checkbox" class="custom-control-input" id="dataGroupingSwitch">
             <label class="custom-control-label" for="dataGroupingSwitch">Chart Data Grouping</label>
         </div>
@@ -73,7 +78,14 @@
             <label for="recipeOtherCostsBuyPriceText">Recipe Other Costs Buy Price</label>
         </div>
 
+        <hr />
 
+        <p class="text-secondary">Packs Page Settings</p>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="fullSizePacks">
+            <label class="custom-control-label" for="fullSizePacks">Full Size Packs</label>
+        </div>
 
         <hr />
 
@@ -105,10 +117,13 @@
         $('#exportButtonsSwitch').prop('checked', readSetting('export-buttons'));
         $('#lengthSelect').val(readSetting('length'));
         // Item settings
+        $('#fullSizeTabs').prop('checked', readSetting('full-size-item-tabs'));
         $('#dataGroupingSwitch').prop('checked', readSetting('data-grouping'));
         $('#recipeOtherCostsAmountText').val(readSetting('recipe-other-costs-amount'));
         $('#recipeOtherCostsSellPriceText').val(readSetting('recipe-other-costs-sellprice'));
         $('#recipeOtherCostsBuyPriceText').val(readSetting('recipe-other-costs-buyprice'));
+        // Packs Settings
+        $('#fullSizePacks').prop('checked', readSetting('full-size-packs'));
     }
 
     // Apply current settings
@@ -143,6 +158,9 @@
     });
 
     // Item settings
+    $('#fullSizeTabs').change(function () {
+        writeSetting('full-size-item-tabs', this.checked);
+    });
     $('#dataGroupingSwitch').change(function () {
         writeSetting('data-grouping', this.checked);
     });
@@ -154,5 +172,10 @@
     });
     $('#recipeOtherCostsBuyPriceText').change(function () {
         writeSetting('recipe-other-costs-buyprice', this.value);
+    });
+
+    // Packs Settings
+    $('#fullSizePacks').change(function () {
+        writeSetting('full-size-packs', this.checked);
     });
 </script>
