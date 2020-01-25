@@ -89,6 +89,7 @@
 
     var order;
     var table;
+    var cellWidth = (readSetting('full-size-table') ? '7.09%' : '10%')
     $(document).ready(function () {
         order = [[getColumnIndexById('offersCol'), "desc"]];
         table = $('#ItemTable2').DataTable({
@@ -144,7 +145,7 @@
                     'render': function (data, type, row, meta) {
                         return '<div class="d-flex align-items-center"><div class="mr-1"><a href="/item/' + row.id + '">' + '<img class="item-image-search lazy" src="/icons/Spinner-1s-64px.svg" data-src="' + row.imagePath + '"></div><div><a href="/item/' + row.id + '">' + data + '</div></a></div>';
                     },
-                    'width': '25%'
+                    'width': '15%'
                 },
                 {
                     'targets': getColumnIndexesById(['lastUpdateCol']),
@@ -167,7 +168,7 @@
                 },
                 {
                     'targets': '_all',
-                    'width': '15%'
+                    'width': cellWidth
                 }
             ],
             buttons: {
