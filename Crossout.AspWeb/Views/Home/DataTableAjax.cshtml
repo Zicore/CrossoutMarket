@@ -1,0 +1,316 @@
+﻿@model Crossout.AspWeb.Models.General.SearchModel
+
+<table class="table table-striped table-borderless table-hover dt-responsive" id="ItemTable2">
+    <thead>
+        <tr onclick="updateLocationHash(table)">
+            <th class="dt-col" id="itemCol" data-priority="1">
+                Item
+            </th>
+            <th class="dt-col never" id="idCol">
+                ID
+            </th>
+            <th class="dt-col never" id="imagePathCol">
+                Image Path
+            </th>
+            <th class="dt-col none" id="rarityCol">
+                Rarity
+            </th>
+            <th class="dt-col none" id="factionCol">
+                Faction
+            </th>
+            <th class="dt-col none" id="categoryCol">
+                Category
+            </th>
+            <th class="dt-col none" id="typeCol">
+                Type
+            </th>
+            <th class="dt-col none" id="removedCol">
+                Available
+            </th>
+            <th class="dt-col none" id="craftableCol">
+                Craftable
+            </th>
+            <th class="dt-col none" id="metaCol">
+                Meta
+            </th>
+            <th class="dt-col none" id="popularityCol">
+                Popularity
+            </th>
+            <th class="dt-col" id="sellCol" data-priority="1">
+                Sell
+            </th>
+            <th class="dt-col" id="offersCol" data-priority="2">
+                Offers
+            </th>
+            <th class="dt-col" id="craftCostSellCol">
+                Craft Cost (Sell)
+            </th>
+            <th class="dt-col" id="buyCol" data-priority="1">
+                Buy
+            </th>
+            <th class="dt-col" id="ordersCol" data-priority="2">
+                Orders
+            </th>
+            <th class="dt-col" id="craftCostBuyCol">
+                Craft Cost (Buy)
+            </th>
+            <th class="dt-col" id="demandSupplyRatioCol" data-priority="2">
+                Demand/Supply
+            </th>
+            <th class="dt-col" id="marginCol" data-priority="2">
+                Margin
+            </th>
+            <th class="dt-col" id="roiCol" data-priority="2">
+                ROI
+            </th>
+            <th class="dt-col" id="craftMarginCol">
+                Crafting Margin
+            </th>
+            <th class="dt-col" id="craftAdviceCol">
+                Crafting Advice
+            </th>
+            <th class="dt-col" id="lastUpdateCol">
+                Last Update
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+    var domOption =
+        "<'#dtButtons'B><'row m-1'<'d-inline-flex justify-content-start'p><'d-inline-flex ml-auto text-secondary'l>>" +
+        "<tr>" +
+        "<'row m-1'<'d-inline-flex justify-content-start'p><'d-none d-sm-inline-flex ml-auto text-secondary'i>>";
+
+    $.fn.DataTable.ext.pager.numbers_length = 5;
+
+    var order;
+    var table;
+    var cellWidth = (readSetting('full-size-table') ? '7.09%' : '10%')
+    $(document).ready(function () {
+        order = [[getColumnIndexById('offersCol'), "desc"]];
+        table = $('#ItemTable2').DataTable({
+            ajax: '/data/search',
+            deferRender: true,
+            dataSrc: 'data',
+            columns: [
+                { data: 'name' },
+                { data: 'id' },
+                { data: 'imagePath' },
+                { data: 'rarityName' },
+                { data: 'faction' },
+                { data: 'categoryName' },
+                { data: 'typeName' },
+                { data: 'removed' },
+                { data: 'craftable' },
+                { data: 'meta' },
+                { data: 'popularity' },
+                { data: 'formatSellPrice' },
+                { data: 'sellOffers' },
+                { data: 'formatCraftingSellSum' },
+                { data: 'formatBuyPrice' },
+                { data: 'buyOrders' },
+                { data: 'formatCraftingBuySum' },
+                { data: 'formatDemandSupplyRatio' },
+                { data: 'formatMargin' },
+                { data: 'formatRoi' },
+                { data: 'formatCraftingMargin' },
+                { data: 'craftVsBuy' },
+                { data: 'lastUpdateTime' }
+            ],
+            columnDefs: [
+                {
+                    'targets': getColumnIndexesById(['sellCol', 'buyCol', 'craftCostSellCol', 'craftCostBuyCol', 'marginCol', 'craftMarginCol']),
+                    'render': function (data, type, row, meta) {
+                        return '<div class=" d-flex flex-nowrap align-items-center"><div class="mr-1">' + data + '</div><img height="14" src="/img/Coin.png" /></div>';
+                    }
+                },
+                {
+                    'targets': getColumnIndexesById(['craftableCol', 'metaCol']),
+                    'render': function (data, type, row, meta) {
+                        return data === 1 ? 'Yes' : 'No';
+                    }
+                },
+                {
+                    'targets': getColumnIndexesById(['removedCol']),
+                    'render': function (data, type, row, meta) {
+                        return data === 0 ? 'Yes' : 'No';
+                    }
+                },
+                {
+                    'targets': getColumnIndexesById(['itemCol']),
+                    'render': function (data, type, row, meta) {
+                        return '<div class="d-flex align-items-center"><div class="mr-1"><a href="/item/' + row.id + '">' + '<img class="item-image-search lazy" src="/icons/Spinner-1s-64px.svg" data-src="' + row.imagePath + '"></div><div><a href="/item/' + row.id + '">' + data + '</div></a></div>';
+                    },
+                    'width': '15%'
+                },
+                {
+                    'targets': getColumnIndexesById(['lastUpdateCol']),
+                    'render': function (data, type, row, meta) {
+                        var adjustedTimestamp = getAdjustedTimestamp(data);
+                        return '<div class="item-timestamp ' + olderThan(adjustedTimestamp, 5) + ' ' + olderThan(adjustedTimestamp, 60) + '">' + adjustedTimestamp + '</div>';
+                    }
+                },
+                {
+                    'targets': getColumnIndexesById(['demandSupplyRatioCol', 'roiCol']),
+                    'render': function (data, type, row, meta) {
+                        return '<div>' + data + '%' + '</div>';
+                    }
+                },
+                {
+                    'targets': getColumnIndexesById(['rarityCol']),
+                    'render': function (data, type, row, meta) {
+                        return '<div class="badge label-' + data + '">' + data + '</div>';
+                    }
+                },
+                {
+                    'targets': '_all',
+                    'width': cellWidth
+                }
+            ],
+            buttons: {
+                dom: {
+                    button: {
+                        tag: 'button',
+                        className: 'btn btn-sm btn-outline-secondary'
+                    }
+                },
+                buttons: [{
+                    extend: 'excel',
+                    text: 'Export as Excel',
+                    filename: 'CrossoutDBExcelExport',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                }, {
+                    extend: 'csv',
+                    text: 'Export as CSV',
+                    filename: 'CrossoutDBCSVExport',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                }, {
+                    action: function () {
+                        exportToSpreadsheet();
+                    },
+                    text: 'Export to Spreadsheet'
+                }
+                ]
+            },
+            order: order,
+            lengthMenu: [[10, 20, 50, -1], [10, 20, 50, "All"]],
+            pagingType: "simple_numbers",
+            dom: domOption,
+            paging: true,
+            searching: true,
+            search: {
+                smart: false,
+                regex: false
+            },
+            autoWidth: false,
+            select: 'multi',
+
+            responsive: {
+                details: {
+                    type: 'inline',
+                    renderer: function (api, rowIdx, columns) {
+                        var data = $.map(columns, function (col, i) {
+                            return col.hidden ?
+                                '<div class="d-inline-flex flex-column card p-1 px-2 m-2" data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+                                '<div class="font-weight-bold">' + col.title + '' + '</div> ' +
+                                '<div>' + col.data + '</div>' +
+                                '</div>' :
+                                '';
+                        }).join('');
+
+                        return data ?
+                            $('<div/>').append(data) :
+                            false;
+                    }
+                }
+            },
+            drawCallback: function () { }
+        });
+        table.on('xhr.dt', function () {
+            onXhr();
+        });
+        table.on('draw.dt', function () {
+            onDraw();
+        });
+        table.on('select deselect', function (e, dt, type, indexes) {
+            onSelect();
+        });
+
+        onDraw();
+        table.page.len(readSetting('length'));
+
+        // These need to be called in this order
+        switchPreset('default', false);
+        applyLocationHash(table);
+
+        filterTable(table);
+    });
+
+    var firedOnce = false;
+    var selectedList = [];
+    function onDraw() {
+        lazyLoadInstance.update();
+
+        resetRangeFilterCheckedStatus();
+
+        $('table tbody tr').addClass('selectable-row');
+        $('table tbody td').addClass('align-middle');
+
+        // Make table a bit prettier
+        $('.dataTables_paginate > .pagination').addClass('pagination-sm');
+    }
+
+    function onXhr() {
+        $('table tbody td').addClass('align-middle');
+
+
+        // Place buttons in container
+        $('#dtButtons').appendTo('#dt-buttons');
+
+        $('#loadingIcon').removeClass('d-flex').addClass('d-none');
+        $('#table-wrapper').removeClass('d-none');
+        $('#filterWrapper').removeClass('d-none');
+        $('#dtButtonWrapper').removeClass('d-none');
+    }
+
+    function onSelect() {
+        selectedList = table.rows({ selected: true }).data();
+
+        if (selectedList.length > 0) {
+            $('#watchlistSelector').removeClass('disabled');
+        } else {
+            $('#watchlistSelector').addClass('disabled');
+        }
+    }
+
+    var selectedList = [];
+
+    function getColumnIndexesById(colIdArray) {
+        var index = [];
+        colIdArray.forEach(function (f, j) {
+            $('.dt-col').each(function (i, e) {
+                if ($(e).attr('id') === f) {
+                    index.push(i);
+                    return;
+                }
+            });
+        });
+        return index;
+    }
+
+    function olderThan(timestamp, minutes) {
+        return moment().subtract(minutes, 'minutes') > moment(timestamp, 'YYYY-MM-DD HH:mm:ss') ? 'item-older-than-' + minutes : '';
+    }
+</script>

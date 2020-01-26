@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Crossout.Web.Models.General;
+using Crossout.AspWeb.Models.General;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Crossout.AspWeb.Controllers

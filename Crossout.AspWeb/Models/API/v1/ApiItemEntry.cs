@@ -8,7 +8,7 @@ using Crossout.Data.Stats.Main;
 using Crossout.Model.Formatter;
 using Newtonsoft.Json;
 
-namespace Crossout.Web.Models.API.v1
+namespace Crossout.AspWeb.Models.API.v1
 {
     public class ApiItemEntry : ApiEntryBase
     {

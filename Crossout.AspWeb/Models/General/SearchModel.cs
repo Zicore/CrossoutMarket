@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Crossout.Model.Items;
-using Crossout.Web.Helper;
-using Crossout.Web.Models.Filter;
-using Crossout.Web.Models.Pagination;
-using Crossout.Web.Models.View;
+using Crossout.AspWeb.Helper;
+using Crossout.AspWeb.Models.Filter;
+using Crossout.AspWeb.Models.Pagination;
+using Crossout.AspWeb.Models.View;
 
-namespace Crossout.Web.Models.General
+namespace Crossout.AspWeb.Models.General
 {
     public class SearchModel : IViewTitle
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crossout.Web.Models.Changes
+namespace Crossout.AspWeb.Models.Changes
 {
     public class ChangeItem
     {

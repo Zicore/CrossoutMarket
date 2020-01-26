@@ -1,7 +1,7 @@
 ﻿using System;
 using LineChart;
 
-namespace Crossout.Web.Models.Charts
+namespace Crossout.AspWeb.Models.Charts
 {
     public class ChartItem
     {

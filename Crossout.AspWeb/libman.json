@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "bootstrap@4.4.1",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "dist/js/bootstrap.min.js"
+      ]
+    },
+    {
+      "library": "popper.js@1.16.0",
+      "destination": "wwwroot/lib/popper.js/dist/popper.js/",
+      "files": [
+        "dist/umd/popper.min.js"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "js-cookie@2.2.1",
+      "destination": "wwwroot/lib/js-cookie/",
+      "files": [
+        "src/js.cookie.js",
+        "src/js.cookie.min.js"
+      ]
+    }
+  ]
+}

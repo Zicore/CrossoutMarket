@@ -10,6 +10,13 @@ namespace Crossout.Data.PremiumPackages
     {
         public int Id;
         public List<Currency> Prices;
+        public int Discount;
+        public DateTime SuccessTimestamp;
+        public string FormatSuccessTimestamp => SuccessTimestamp.ToString("yyyy-MM-dd HH:mm:ss");
+        public bool OlderThan(int minutes)
+        {
+            return DateTime.UtcNow - SuccessTimestamp > new TimeSpan(0, minutes, 0);
+        }
     }
 
     public class Currency
@@ -26,6 +33,7 @@ namespace Crossout.Data.PremiumPackages
 
     public class PremiumPackage
     {
+        public int Id;
         public string Key;
         public int SteamAppID;
         public string Name;
@@ -39,6 +47,6 @@ namespace Crossout.Data.PremiumPackages
         public string FormatTotalSellSum;
         public string FormatTotalBuySum;
         public int RawCoins;
-        public List<Currency> Prices;
+        public AppPrices AppPrices;
     }
 }

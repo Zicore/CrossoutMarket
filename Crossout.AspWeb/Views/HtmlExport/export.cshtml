@@ -1,0 +1,459 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@using Crossout.Model.Items
+@using Crossout.Web
+@using Crossout.AspWeb.Models
+@model Crossout.AspWeb.Models.General.HtmlExportModel
+
+
+<partial name="header" model="@Model" />
+<partial name="status" model="@Model.Status" />
+
+
+
+<div class="container-space">
+    @if (!Model.ShowTable)
+    {
+        <div class="half-hd-container px-3">
+            <div class="card p-2 my-1">
+                <p>
+                    Use this tool generate a HTML table of all items. This table can be used to automatically import data into Google Spreadsheets.
+                </p>
+                <div>
+                    <h5>How to Use:</h5>
+                    <ol>
+                        <li>Check all collumns you want to be contained in your table</li>
+                        <li>Choose to use comma or semicolon as separator. (This setting depends on the set language of your spreadsheet. If one doesn't work try the other)</li>
+                        <li>Press the "Generate Function"- button</li>
+                        <li>Copy the function into your spreadsheet</li>
+                    </ol>
+                </div>
+
+            </div>
+            <div class="card card p-1 my-1">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-image"> Image
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-name"> Name
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-rarity"> Rarity
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-faction"> Faction
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-category"> Category
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-type"> Type
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-popularity"> Popularity
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-sellprice"> Sell Price
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-selloffers"> Sell Offers
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-buyprice"> Buy Price
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-buyorders"> Buy Orders
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-margin"> Margin
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-lastupdate"> Last Update
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-craftingcostsell"> Crafting Cost (Sell)
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-craftingcostbuy"> Crafting Cost (Buy)
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-craftingmargin"> Crafting Margin
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-craftorbuy"> Craft or Buy?
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-link"> Link
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-comma"> <b>Use comma instead of semicolon for separation</b>
+                    </label>
+                </div>
+
+                <button class="btn btn-sm btn-outline-secondary" id="generate-code-btn">
+                    Generate Function
+                </button>
+
+                <div style="display: none" id="code-wrapper">
+                    <p>Copy the following function:</p>
+                    <p><code id="export-code"></code></p>
+                    <p>or preview the table:</p>
+                    <p><a href="" id="export-link"></a></p>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (Model.ShowTable)
+    {
+        <table id="ItemTable" class="table">
+            <thead>
+                <tr>
+                    @if (Model.ShowImage)
+                    {
+                        <th>
+                            Image
+                        </th>
+                    }
+                    @if (Model.ShowName)
+                    {
+                        <th>
+                            Name
+                        </th>
+                    }
+                    @if (Model.ShowRarity)
+                    {
+                        <th>
+                            Rarity
+                        </th>
+                    }
+                    @if (Model.ShowFaction)
+                    {
+                        <th>
+                            Faction
+                        </th>
+                    }
+                    @if (Model.ShowCategory)
+                    {
+                        <th>
+                            Category
+                        </th>
+                    }
+                    @if (Model.ShowType)
+                    {
+                        <th>
+                            Type
+                        </th>
+                    }
+                    @if (Model.ShowPopulartiy)
+                    {
+                        <th>
+                            Popularity
+                        </th>
+                    }
+                    @if (Model.ShowSellPrice)
+                    {
+                        <th>
+                            Sell Price
+                        </th>
+                    }
+                    @if (Model.ShowSellOffers)
+                    {
+                        <th>
+                            Sell Offers
+                        </th>
+                    }
+                    @if (Model.ShowBuyPrice)
+                    {
+                        <th>
+                            Buy Price
+                        </th>
+                    }
+                    @if (Model.ShowBuyOrders)
+                    {
+                        <th>
+                            Buy Orders
+                        </th>
+                    }
+                    @if (Model.ShowMargin)
+                    {
+                        <th>
+                            Margin
+                        </th>
+                    }
+                    @if (Model.ShowLastUpdate)
+                    {
+                        <th>
+                            Last Update
+                        </th>
+                    }
+                    @if (Model.ShowCraftingCostSell)
+                    {
+                        <th>
+                            Crafting Cost (Sell)
+                        </th>
+                    }
+                    @if (Model.ShowCraftingCostBuy)
+                    {
+                        <th>
+                            Crafting Cost (Buy)
+                        </th>
+                    }
+                    @if (Model.ShowCraftingMargin)
+                    {
+                        <th>
+                            Crafting Margin
+                        </th>
+                    }
+                    @if (Model.ShowCraftVsBuy)
+                    {
+                        <th>
+                            Craft or Buy?
+                        </th>
+                    }
+                    @if (Model.ShowLink)
+                    {
+                        <th>
+                            Link
+                        </th>
+                    }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (Item item in Model.Items)
+                {
+                    <tr>
+                        @if (Model.ShowImage)
+                        {
+                            <td>
+                                @if (item.ImageExists)
+                                {
+                                    <img class="pull-left item-image-search" src="/img/items/@item.Image" />
+                                }
+                                else
+                                {
+                                    <img class="pull-left item-image-search" src="~/img/NoImage.png" />
+                                }
+                            </td>
+                        }
+                        @if (Model.ShowName)
+                        {
+                            <td>
+                                @item.Name
+                            </td>
+                        }
+                        @if (Model.ShowRarity)
+                        {
+                            <td>
+                                @item.RarityName
+                            </td>
+                        }
+                        @if (Model.ShowFaction)
+                        {
+                            <td>
+                                @item.Faction
+                            </td>
+                        }
+                        @if (Model.ShowCategory)
+                        {
+                            <td>
+                                @item.CategoryName
+                            </td>
+                        }
+                        @if (Model.ShowType)
+                        {
+                            <td>
+                                @item.TypeName
+                            </td>
+                        }
+                        @if (Model.ShowPopulartiy)
+                        {
+                            <td>
+                                @item.Popularity
+                            </td>
+                        }
+                        @if (Model.ShowSellPrice)
+                        {
+                            <td>
+                                @item.FormatSellPrice
+                            </td>
+                        }
+                        @if (Model.ShowSellOffers)
+                        {
+                            <td>
+                                @item.SellOffers
+                            </td>
+                        }
+                        @if (Model.ShowBuyPrice)
+                        {
+                            <td>
+                                @item.FormatBuyPrice
+                            </td>
+                        }
+                        @if (Model.ShowBuyOrders)
+                        {
+                            <td>
+                                @item.BuyOrders
+                            </td>
+                        }
+                        @if (Model.ShowMargin)
+                        {
+                            <td>
+                                @item.FormatMargin
+                            </td>
+                        }
+                        @if (Model.ShowLastUpdate)
+                        {
+                            <td>
+                                @item.LastUpdateTime
+                            </td>
+                        }
+                        @if (Model.ShowCraftingCostSell)
+                        {
+                            <td>
+                                @item.FormatCraftingSellSum
+                            </td>
+                        }
+                        @if (Model.ShowCraftingCostBuy)
+                        {
+                            <td>
+                                @item.FormatCraftingBuySum
+                            </td>
+                        }
+                        @if (Model.ShowCraftingMargin)
+                        {
+                            <td>
+                                @item.FormatCraftingMargin
+                            </td>
+                        }
+                        @if (Model.ShowCraftVsBuy)
+                        {
+                            <td>
+                                @item.CraftVsBuy
+                            </td>
+                        }
+                        @if (Model.ShowLink)
+                        {
+                            <td>
+                                <a href="https://crossoutdb.com/item/@item.Id">https://crossoutdb.com/item/@item.Id</a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<script>
+    $('#generate-code-btn').click(function () {
+        var prefix = "=IMPORTHTML(\"";
+        var suffix = "\"; \"table\"; 1)"
+        var baseUrl = location.origin + "/export?showtable=true";
+
+        if ($('#checkbox-image').is(':checked')) {
+            baseUrl += "&image=true";
+        }
+        if ($('#checkbox-name').is(':checked')) {
+            baseUrl += "&name=true";
+        }
+        if ($('#checkbox-rarity').is(':checked')) {
+            baseUrl += "&rarity=true";
+        }
+        if ($('#checkbox-faction').is(':checked')) {
+            baseUrl += "&faction=true";
+        }
+        if ($('#checkbox-category').is(':checked')) {
+            baseUrl += "&category=true";
+        }
+        if ($('#checkbox-type').is(':checked')) {
+            baseUrl += "&type=true";
+        }
+        if ($('#checkbox-popularity').is(':checked')) {
+            baseUrl += "&popularity=true";
+        }
+        if ($('#checkbox-sellprice').is(':checked')) {
+            baseUrl += "&sellprice=true";
+        }
+        if ($('#checkbox-selloffers').is(':checked')) {
+            baseUrl += "&selloffers=true";
+        }
+        if ($('#checkbox-buyprice').is(':checked')) {
+            baseUrl += "&buyprice=true";
+        }
+        if ($('#checkbox-buyorders').is(':checked')) {
+            baseUrl += "&buyorders=true";
+        }
+        if ($('#checkbox-margin').is(':checked')) {
+            baseUrl += "&margin=true";
+        }
+        if ($('#checkbox-lastupdate').is(':checked')) {
+            baseUrl += "&lastupdate=true";
+        }
+        if ($('#checkbox-craftingcostsell').is(':checked')) {
+            baseUrl += "&craftingcostsell=true";
+        }
+        if ($('#checkbox-craftingcostbuy').is(':checked')) {
+            baseUrl += "&craftingcostbuy=true";
+        }
+        if ($('#checkbox-craftingmargin').is(':checked')) {
+            baseUrl += "&craftingmargin=true";
+        }
+        if ($('#checkbox-craftorbuy').is(':checked')) {
+            baseUrl += "&craftvsbuy=true";
+        }
+        if ($('#checkbox-link').is(':checked')) {
+            baseUrl += "&link=true";
+        }
+
+        if ($('#checkbox-comma').is(':checked')) {
+            suffix = suffix.replace(new RegExp(";", "g"), ",");
+        }
+
+        $('#export-code').text(prefix + baseUrl + suffix);
+        $('#export-link').text(baseUrl);
+        $('#export-link').attr('href', baseUrl);
+        $('#code-wrapper').show();
+    });
+</script>

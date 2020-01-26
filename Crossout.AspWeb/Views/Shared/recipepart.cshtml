@@ -7,23 +7,23 @@
     Item item = Model.Item;
 }
 
-<tr class="recipe-part recipe-@(Model.ParentRecipe) @(Model.Depth > 0 || Model.IsSumRow ? "collapse" : "") @(Model.IsSumRow ? "sum-row" : "") depth-@Model.Depth" data-recipe="@Model.Item.RecipeId" data-parentuniqueid="@Model.ParentUniqueId" data-uniqueid="@Model.UniqueId" id="uniqueid-@Model.UniqueId">
+<tr class="recipe-part recipe-@(Model.ParentRecipe) @(Model.Depth > 0 || Model.IsSumRow ? "d-none" : "") @(Model.IsSumRow ? "sum-row" : "") depth-@Model.Depth" data-recipe="@Model.Item.RecipeId" data-parentuniqueid="@Model.ParentUniqueId" data-uniqueid="@Model.UniqueId" id="uniqueid-@Model.UniqueId">
     <td>
-        <div class="clearfix content-heading">
-            <div class="clearfix vertical-center pull-left">
+        <div class="d-flex">
+            <div class="d-flex align-items-center mr-1">
                 @for (int i = 0; i < Model.Depth; i++)
                 {
-                    <div style="margin-left: 26px;">&nbsp;</div>
+                    <div style="margin-left: 16px;">&nbsp;</div>
                 }
                 @if (Model.IsSumRow)
                 {
                     if (item.ImageExists)
                     {
-                        <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image" /></a>
+                        <a href="~/item/@item.Id"><img class="item-image-med" src="~/img/items/@item.Image" /></a>
                     }
                     else
                     {
-                        <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/NoImage.png" /></a>
+                        <a href="~/item/@item.Id"><img class="item-image-med" src="~/img/NoImage.png" /></a>
                     }
                 }
                 else  // Default Row
@@ -32,188 +32,227 @@
                     {
                         if (Model.Depth == 0)
                         {
-                            <button class="btn btn-xs btn-main tree-icon glyphicon glyphicon-plus disabled item-@Model.Id" data-recipe="@Model.Item.RecipeId" data-parentuniqueid="@Model.ParentUniqueId" data-uniqueid="@Model.UniqueId"></button>
+                            <button class="btn btn btn-outline-secondary tree-icon d-flex justify-content-center text-monospace align-items-center mr-1 folded-in disabled item-@Model.Id" data-recipe="@Model.Item.RecipeId" data-parentuniqueid="@Model.ParentUniqueId" data-uniqueid="@Model.UniqueId"></button>
                         }
                         else
                         {
-                            <button class="btn btn-xs btn-sub tree-icon glyphicon glyphicon-plus item-@Model.Id" data-recipe="@Model.Item.RecipeId" data-parentuniqueid="@Model.ParentUniqueId" data-uniqueid="@Model.UniqueId"></button>
+                            <button class="btn btn btn-outline-secondary tree-icon d-flex justify-content-center text-monospace align-items-center mr-1 folded-in item-@Model.Id" data-recipe="@Model.Item.RecipeId" data-parentuniqueid="@Model.ParentUniqueId" data-uniqueid="@Model.UniqueId"></button>
                         }
                     }
-                    <div>
-                        @if (Model.Depth == 0)
+                    else
+                    {
+                        <button class="btn btn btn-outline-secondary tree-icon d-flex justify-content-center text-monospace align-items-center mr-1 invisible">+</button>
+                    }
+                    @if (Model.Depth == 0)
+                    {
+                        if (item.ImageExists)
                         {
-                            if (item.ImageExists)
-                            {
-                                <a href="~/item/@item.Id"><img class="item-image-big" style="margin-right: 8px;" src="~/img/items/@item.Image" /></a>
-                            }
-                            else
-                            {
-                                <a href="~/item/@item.Id"><img class="item-image-big" style="margin-right: 8px;" src="~/img/NoImage.png" /></a>
-                            }
+                            <a href="~/item/@item.Id"><img class="item-image-big" src="~/img/items/@item.Image" /></a>
                         }
                         else
                         {
-                            if (item.ImageExists)
-                            {
-                                <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/items/@item.Image" /></a>
-                            }
-                            else
-                            {
-                                <a href="~/item/@item.Id"><img style="margin-right: 8px; height: 32px;" src="~/img/NoImage.png" /></a>
-                            }
+                            <a href="~/item/@item.Id"><img class="item-image-big" src="~/img/NoImage.png" /></a>
                         }
-                    </div>
+                    }
+                    else
+                    {
+                        if (item.ImageExists)
+                        {
+                            <a href="~/item/@item.Id"><img class="item-image-med" src="~/img/items/@item.Image" /></a>
+                        }
+                        else
+                        {
+                            <a href="~/item/@item.Id"><img class="item-image-med" src="~/img/NoImage.png" /></a>
+                        }
+                    }
                 }
             </div>
-            @if (Model.IsSumRow)
-            {
-                <a href="~/item/@item.Id" style="font-weight: bold;">@item.Name (Sum)</a>
-                <div style="font-size: 11px; font-weight: bold;">@item.TypeName</div>
-            }
-            else
-            {
-                if (Model.Depth == 0)
+            <div>
+                @if (Model.IsSumRow)
                 {
-                    <a href="~/item/@Model.Item.Id"><h4 class="item-title @(Model.Item.Removed > 0 ? "item-removed" : "")">@Model.Item.Name @(Model.Item.Removed > 0 ? "(Removed)" : "")</h4></a>
-                    <div class="item-type">@Model.Item.TypeName</div>
-                    <div class="item-timestamp @(Model.Item.OlderThan(5) ? "item-older-than-5" : "") @(Model.Item.OlderThan(60) ? "item-older-than-60" : "")">@Model.Item.LastUpdateTime</div>
+                    <a href="~/item/@item.Id">@item.Name (Sum)</a>
+                    <div class="item-type">@item.TypeName</div>
                 }
                 else
                 {
-                    <a href="~/item/@item.Id" style="font-weight: bold;">@item.Name</a>
-                    <div style="font-size: 11px; font-weight: bold;">@item.TypeName</div>
+                    if (Model.Depth == 0)
+                    {
+                        <a href="~/item/@Model.Item.Id"><span class="@(Model.Item.Removed > 0 ? "item-removed" : "")">@Model.Item.Name @(Model.Item.Removed > 0 ? "(Removed)" : "")</span></a>
+                        <div class="item-type">@Model.Item.TypeName</div>
+                    }
+                    else
+                    {
+                        <a href="~/item/@item.Id">@item.Name</a>
+                        <div class="item-type">@item.TypeName</div>
+                    }
                 }
-            }
+            </div>
         </div>
     </td>
     <td>
-        <span class="label label-@item.RarityName">@item.RarityName</span>
+        <span class="badge label-@item.RarityName">@item.RarityName</span>
     </td>
-    <td class="col-md-2">
+    <td>
         @if (Model.IsSumRow || Model.Depth == 0)
         {
             if (Model.IsSumRow)
             {
-                <div class="label-md pull-left">
-                    Price -10 %
-                </div>
-                <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-sell-fee">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div>
+                            Price -10 %
+                        </div>
+                        <div>
+                            Cost
+                        </div>
+                        <div>
+                            Profit
+                        </div>
+                        <div>
+                            Crafting Margin
+                        </div>
+                    </div>
+                    <div>
+                        <div class="recipe-price text-right">
+                            <div class="text-right sum-value sum-sell-fee">
 
+                            </div>
+                            <img height="14" src="~/img/Coin.png" />
+                        </div>
+                        <div class="recipe-price text-right">
+                            <div class="text-right sum-value sum-sell">
+                                @Model.Item.FormatSellPrice
+                            </div>
+                            <img height="14" src="~/img/Coin.png" />
+                        </div>
+                        <div class="recipe-price text-right">
+                            <div class="text-right sum-value sum-sell-diff">
+                            </div>
+                            <img height="14" src="~/img/Coin.png" />
+                        </div>
+                        <div class="recipe-price text-right">
+                            <div class="text-right sum-value sum-sell-buy-diff">
+                            </div>
+                            <img height="14" src="~/img/Coin.png" />
+                        </div>
                     </div>
-                    <img height="14" src="~/img/Coin.png" />
                 </div>
-                <div class="label-md pull-left">
-                    Cost
-                </div>
-                <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-sell">
-                        @Model.Item.FormatSellPrice
-                    </div>
-                    <img height="14" src="~/img/Coin.png" />
-                </div>
-                <div class="label-md pull-left">
-                    Profit
-                </div>
-                <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-sell-diff">
-                    </div>
-                    <img height="14" src="~/img/Coin.png" />
-                </div>
-                <div class="label-md pull-left">
-                    Sell-Buy Profit
-                </div>
-                <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-sell-buy-diff">
-                    </div>
-                    <img height="14" src="~/img/Coin.png" />
-                </div>
+
             }
             else
             {
-                <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-sell">
-                        @Model.Item.FormatSellPrice
+                <div class="d-flex justify-content-end">
+                    <div class="recipe-price text-right">
+                        <div class="text-right sum-value sum-sell">
+                            @Model.Item.FormatSellPrice
+                        </div>
+                        <img height="14" src="~/img/Coin.png" />
                     </div>
-                    <img height="14" src="~/img/Coin.png" />
                 </div>
             }
         }
         else
         {
-            <div class="label-md pull-left">
-                @Model.Number x
-            </div>
-            <div class="recipe-price label-md rec-right">
-                @Model.Item.FormatSellPrice <img height="14" src="~/img/Coin.png" />
-            </div>
-            <div class="recipe-price label-md rec-right">
-                = @Model.FormatSellPriceTimesNumber <img height="14" src="~/img/Coin.png" />
+            <div class="d-flex justify-content-between">
+                <div>
+                    @Model.Number x
+                </div>
+                <div>
+                    <div class="recipe-price text-right">
+                        @Model.Item.FormatSellPrice <img height="14" src="~/img/Coin.png" />
+                    </div>
+                    <div class="recipe-price text-right">
+                        = @Model.FormatSellPriceTimesNumber <img height="14" src="~/img/Coin.png" />
+                    </div>
+                </div>
             </div>
         }
     </td>
     <td>
     </td>
-    <td class="col-md-2">
+    <td>
         @if (Model.IsSumRow || Model.Depth == 0)
         {
             if (Model.IsSumRow)
             {
-                <div class="label-md pull-left">
-                    Price -10 %
-                </div>
-                <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-buy-fee">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div>
+                            Price -10 %
+                        </div>
+                        <div>
+                            Cost
+                        </div>
+                        <div>
+                            Profit
+                        </div>
+                        <div>
+                            Advice
+                        </div>
+                    </div>
+                    <div>
+                        <div class="recipe-price text-right">
+                            <div class="text-right sum-value sum-buy-fee">
 
+                            </div>
+                            <img height="14" src="~/img/Coin.png" />
+                        </div>
+
+                        <div class="recipe-price text-right">
+                            <div class="text-right sum-value sum-buy">
+                                @Model.Item.FormatBuyPrice
+                            </div>
+                            <img height="14" src="~/img/Coin.png" />
+                        </div>
+
+                        <div class="recipe-price text-right">
+                            <div class="text-right sum-value sum-buy-diff">
+                            </div>
+                            <img height="14" src="~/img/Coin.png" />
+                        </div>
+
+                        <div class="text-right">
+                            <div class="text-right sum-value sum-advice">
+                            </div>
+                        </div>
                     </div>
-                    <img height="14" src="~/img/Coin.png" />
                 </div>
-                <div class="label-md pull-left">
-                    Cost
-                </div>
-                <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-buy">
-                        @Model.Item.FormatBuyPrice
-                    </div>
-                    <img height="14" src="~/img/Coin.png" />
-                </div>
-                <div class="label-md pull-left">
-                    Profit
-                </div>
-                <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-buy-diff">
-                    </div>
-                    <img height="14" src="~/img/Coin.png" />
-                </div>
+
             }
             else
             {
-                <div class="recipe-price label-md rec-right">
-                    <div class="text-right sum-value sum-buy">
-                        @Model.Item.FormatBuyPrice
+                <div class="d-flex justify-content-end">
+                    <div class="recipe-price text-right">
+                        <div class="text-right sum-value sum-buy">
+                            @Model.Item.FormatBuyPrice
+                        </div>
+                        <img height="14" src="~/img/Coin.png" />
                     </div>
-                    <img height="14" src="~/img/Coin.png" />
                 </div>
             }
         }
         else
         {
-            <div class="label-md pull-left">
-                @Model.Number x
-            </div>
-            <div class="recipe-price label-md rec-right">
-                @Model.Item.FormatBuyPrice <img height="14" src="~/img/Coin.png" />
-            </div>
-            <div class="recipe-price label-md rec-right">
-                = @Model.FormatBuyPriceTimesNumber <img height="14" src="~/img/Coin.png" />
+            <div class="d-flex justify-content-between">
+                <div>
+                    @Model.Number x
+                </div>
+                <div>
+                    <div class="recipe-price text-right">
+                        @Model.Item.FormatBuyPrice <img height="14" src="~/img/Coin.png" />
+                    </div>
+                    <div class="recipe-price text-right">
+                        = @Model.FormatBuyPriceTimesNumber <img height="14" src="~/img/Coin.png" />
+                    </div>
+                </div>
             </div>
         }
     </td>
-    <td class="col-md-1">
-        <div class="label-md">
-            @Model.Item.FormatMargin <img height="14" src="~/img/Coin.png" />
-        </div>
-    </td>
+    @*<td>
+            <div>
+                @Model.Item.FormatMargin <img height="14" src="~/img/Coin.png" />
+            </div>
+        </td>*@
 </tr>
 
 @if (Model.Ingredients.Count > 0) //We only need this script on + Button Nodes
@@ -226,15 +265,15 @@
                     var recipe = $(this).data('recipe');
                     var uniqueid = $(this).data('uniqueid');
 
-                    if ($(this).hasClass('glyphicon-plus')) {
-                        $(this).removeClass('glyphicon-plus').addClass('glyphicon-minus');
+                    if ($(this).hasClass('folded-in')) {
+                        $(this).removeClass('folded-in').addClass('folded-out');
                         window.updateTree(classname, recipe, uniqueid, true);
                         window.updateSums(recipe, uniqueid);
                         if($(this).data('uniqueid') === 0) {
                             $('#shopping-list-wrapper').show();
                         }
                     } else {
-                        $(this).removeClass('glyphicon-minus').addClass('glyphicon-plus');
+                        $(this).removeClass('folded-out').addClass('folded-in');
                         window.updateTree(classname, recipe, uniqueid, false);
                         window.updateSums(recipe, uniqueid);
                         if ($(this).data('uniqueid') === 0) {

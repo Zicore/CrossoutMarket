@@ -1,4 +1,4 @@
-﻿namespace Crossout.Web.Models.View
+﻿namespace Crossout.AspWeb.Models.View
 {
     public interface IViewTitle
     {

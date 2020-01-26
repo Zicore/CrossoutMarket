@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 using Crossout.Model;
 using Crossout.Model.Items;
 using Crossout.Model.Recipes;
-using Crossout.Web.Models;
-using Crossout.Web.Models.EditRecipe;
-using Crossout.Web.Models.General;
-using Crossout.Web.Models.Items;
-using Crossout.Web.Models.Recipes;
+using Crossout.AspWeb.Models;
+using Crossout.AspWeb.Models.EditRecipe;
+using Crossout.AspWeb.Models.General;
+using Crossout.AspWeb.Models.Items;
+using Crossout.AspWeb.Models.Recipes;
 using ZicoreConnector.Zicore.Connector.Base;
 using Crossout.Data.PremiumPackages;
-using Crossout.Web.Models.Changes;
+using Crossout.AspWeb.Models.Changes;
 
-namespace Crossout.Web.Services
+namespace Crossout.AspWeb.Services
 {
     public class DataService
     {
@@ -32,7 +32,7 @@ namespace Crossout.Web.Services
             var parmeter = new List<Parameter>();
             parmeter.Add(new Parameter { Identifier = "id", Value = id });
 
-            string query = BuildSearchQuery(false, false, false, true, false, false, false, true, true);
+            string query = BuildSearchQuery(false, false, false, true, false, false, false, true, true, false);
 
             var ds = DB.SelectDataSet(query, parmeter);
             
@@ -314,7 +314,7 @@ namespace Crossout.Web.Services
                 currencys.Add(new Currency() { Final = row[2].ConvertTo<int>(), CurrencyAbbriviation = "EUR" });
                 currencys.Add(new Currency() { Final = row[3].ConvertTo<int>(), CurrencyAbbriviation = "GBP" });
                 currencys.Add(new Currency() { Final = row[4].ConvertTo<int>(), CurrencyAbbriviation = "RUB" });
-                AppPrices appPrice = new AppPrices() { Id = (int)row[0], Prices = currencys };
+                AppPrices appPrice = new AppPrices() { Id = (int)row[0], Prices = currencys, Discount = row[5].ConvertTo<int>(), SuccessTimestamp = row[6].ConvertTo<DateTime>() };
                 appPrices.Add(appPrice);
             }
             return appPrices;
@@ -558,9 +558,9 @@ namespace Crossout.Web.Services
             return query;
         }
 
-        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems, bool showMetaItems)
+        public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems, bool showMetaItems, bool rmdItemsOnly)
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount";
             if (count)
             {
                 selectColumns = "count(*)";
@@ -600,7 +600,14 @@ namespace Crossout.Web.Services
 
             if (!showRemovedItems)
             {
-                query += " AND item.removed = 0 ";
+                if (rmdItemsOnly)
+                {
+                    query += " AND item.removed = 1 ";
+                }
+                else
+                {
+                    query += " AND item.removed = 0 ";
+                }
             }
 
             if (!showMetaItems)
@@ -640,7 +647,7 @@ namespace Crossout.Web.Services
 
         public static string BuildRarityQuery()
         {
-            string query = "SELECT rarity.id, rarity.name FROM rarity ORDER BY id ASC;";
+            string query = "SELECT rarity.id, rarity.name FROM rarity ORDER BY rarity.order ASC;";
             return query;
         }
 
@@ -682,7 +689,7 @@ namespace Crossout.Web.Services
 
         public static string BuildSteamPricesQuery()
         {
-            string collumns = "steamprices.appid,steamprices.priceusd,steamprices.priceeur,steamprices.pricegbp,steamprices.pricerub";
+            string collumns = "steamprices.appid,steamprices.priceusd,steamprices.priceeur,steamprices.pricegbp,steamprices.pricerub,steamprices.discount,steamprices.successtimestamp";
             string query = $"SELECT {collumns} FROM steamprices";
             return query;
         }
@@ -692,6 +699,14 @@ namespace Crossout.Web.Services
             string collumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount";
             string tables = "item LEFT JOIN rarity on rarity.id = item.raritynumber LEFT JOIN category on category.id = item.categorynumber LEFT JOIN type on type.id = item.typenumber LEFT JOIN recipe ON recipe.itemnumber = item.id LEFT JOIN faction ON faction.id = recipe.factionnumber";
             string query = $"SELECT {collumns} FROM {tables} WHERE removed=0 AND meta=0 AND craftingsellsum!=0 AND craftingbuysum!=0 ORDER BY item.id";
+            return query;
+        }
+
+        public static string BuildHtmlExport()
+        {
+            string collumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount";
+            string tables = "item LEFT JOIN rarity on rarity.id = item.raritynumber LEFT JOIN category on category.id = item.categorynumber LEFT JOIN type on type.id = item.typenumber LEFT JOIN recipe ON recipe.itemnumber = item.id LEFT JOIN faction ON faction.id = recipe.factionnumber";
+            string query = $"SELECT {collumns} FROM {tables} WHERE removed=0 AND meta=0 ORDER BY item.id";
             return query;
         }
 
@@ -709,6 +724,14 @@ namespace Crossout.Web.Services
                 query = $"SELECT {collumns} FROM {tables} ORDER BY changes.id DESC LIMIT 500";
             }
             
+            return query;
+        }
+
+        public static string BuildTrendsQuery(DateTime time)
+        {
+            string collumns = "market.itemnumber, market.sellprice, market.buyprice, market.selloffers, market.buyorders, market.datetime";
+            string tables = "market";
+            string query = $"SELECT {collumns} FROM {tables} WHERE market.datetime = '{time.ToString("yyyy-MM-dd HH:mmm:ss")}'";
             return query;
         }
     }

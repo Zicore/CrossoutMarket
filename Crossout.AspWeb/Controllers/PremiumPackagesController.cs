@@ -6,8 +6,8 @@ using Crossout.AspWeb.Helper;
 using Crossout.Data.PremiumPackages;
 using Crossout.Model.Formatter;
 using Crossout.Web;
-using Crossout.Web.Models.General;
-using Crossout.Web.Services;
+using Crossout.AspWeb.Models.General;
+using Crossout.AspWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
 
@@ -70,7 +70,7 @@ namespace Crossout.AspWeb.Controllers
                 //Calc prizes
                 foreach (var package in packagesCollection.Packages)
                 {
-                    package.Prices = appPrices.Find(x => x.Id == package.SteamAppID).Prices;
+                    package.AppPrices = appPrices.Find(x => x.Id == package.SteamAppID);
                     decimal sellSum = 0;
                     decimal buySum = 0;
                     foreach (var id in package.MarketPartIDs)
@@ -86,7 +86,7 @@ namespace Crossout.AspWeb.Controllers
                     package.FormatTotalSellSum = PriceFormatter.FormatPrice(sellSum + (package.RawCoins * 100));
                     package.FormatTotalBuySum = PriceFormatter.FormatPrice(buySum + (package.RawCoins * 100));
 
-                    foreach (var price in package.Prices)
+                    foreach (var price in package.AppPrices.Prices)
                     {
                         if (price != null && price.Final != 0)
                         {
@@ -95,44 +95,10 @@ namespace Crossout.AspWeb.Controllers
                             price.FormatBuyPriceDividedByCurrency = PriceFormatter.FormatPrice(package.TotalBuySum / ((decimal)price.Final / 100));
                         }
                     }
+
+                    packagesModel.Packages.Add(package);
                 }
 
-                //Add all possible categories to dict
-                var listOfCategories = new List<int>();
-                listOfCategories.Clear();
-                listOfCategories.Add(1);
-                listOfCategories.Add(99);
-                foreach (var package in packagesCollection.Packages)
-                {
-                    if (!listOfCategories.Contains(package.Category) && package.Category != 0)
-                    {
-                        listOfCategories.Add(package.Category);
-                    }
-                }
-                listOfCategories.Sort();
-                foreach (var category in listOfCategories)
-                {
-                    packagesModel.Packages.Add(category, new List<PremiumPackage>());
-                }
-
-                //Categorize
-                foreach (var package in packagesCollection.Packages)
-                {
-
-                    if (package.Prices.Any(x => x.Final != 0))
-                    {
-                        if (package.Category == 0)
-                        {
-                            package.Category = 1;
-                        }
-                    }
-                    else
-                    {
-                        package.Category = 99;
-                    }
-
-                    packagesModel.Packages[package.Category].Add(package);
-                }
 
                 packagesModel.Status = statusModel;
 

@@ -1,20 +1,66 @@
-﻿@using Crossout.Web
-@using Crossout.Web.Helper
+﻿@using Crossout.AspWeb
+@using Crossout.AspWeb.Helper
 @using Zicore.Settings.Json
 @using Zicore.Settings
-@model Crossout.Web.Models.Items.ItemModel
+@model Crossout.AspWeb.Models.Items.ItemModel
 
-<div class="glyphicon glyphicon-refresh glyphicon-refresh-animate" id="loading-icon"></div>
-<div id="container" style="height: 600px; min-width: 310px"></div>
-<div class="text-center">
-    <button class="btn btn-xs btn-default hidden" id="grouping-button">Disable Data Grouping</button>
-    <button class="btn btn-xs btn-default hidden" id="load-more-button">Load More</button>
-    <button class="btn btn-xs btn-default hidden" id="csv-button"><a id="csv-link" href="#" style="color: black; text-decoration: none;">Download CSV</a></button>
+<div id="timeMarginWrapper" class="d-none">
+    <div class="d-flex justify-content-center flex-row flex-wrap">
+        <div class="d-flex flex-column justify-content-center mx-3">
+            <span class="font-weight-bold text-nowrap">Sell Range</span>
+            <div class="justify-content-center d-flex flex-nowrap">
+                <span style="color: red" id="minSell"></span>
+                <span class="font-weight-bold mx-1"> - </span>
+                <span style="color: red" id="maxSell"></span>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center mx-3">
+            <span class="font-weight-bold text-nowrap">Buy Range</span>
+            <div class="justify-content-center d-flex flex-nowrap">
+                <span style="color: green" id="minBuy"></span>
+                <span class="font-weight-bold mx-1"> - </span>
+                <span style="color: green" id="maxBuy"></span>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center mx-3">
+            <span class="font-weight-bold text-nowrap">Max. Margin</span>
+            <div class="justify-content-center d-flex flex-nowrap">
+                <span id="maxMargin"></span>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center mx-3">
+            <span class="font-weight-bold text-nowrap">Sell Average</span>
+            <div class="justify-content-center d-flex flex-nowrap">
+                <span style="color: red" id="averageSell"></span>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center mx-3">
+            <span class="font-weight-bold text-nowrap">Buy Average</span>
+            <div class="justify-content-center d-flex flex-nowrap">
+                <span style="color: green" id="averageBuy"></span>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center mx-3">
+            <span class="font-weight-bold text-nowrap">Average Margin</span>
+            <div class="justify-content-center d-flex flex-nowrap">
+                <span id="averageMargin"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center" id="loading-icon">
+    <img width="200" height="200" src="~/icons/Spinner-1s-400px.svg" />
+</div>
+<div class="d-none" id="container" style="height: 600px; min-width: 310px" onclick="calculateTimeMargin()"></div>
+<div class="btn-group btn-group-sm d-flex btn-group-justified m-1">
+    <button class="btn btn-outline-secondary hidden" id="grouping-button">Disable Data Grouping</button>
+    <button class="btn btn-outline-secondary hidden" id="load-more-button">Load More</button>
+    <button class="btn btn-outline-secondary hidden" id="csv-button"><a class="text-secondary" id="csv-link" style="text-decoration: none;">Download CSV</a></button>
 </div>
 
 <script>
     var chart;
-
     $(function () {
         var seriesOptions = [],
             seriesCounter = 0,
@@ -138,18 +184,14 @@
                 createChart(buttons);
                 $(this).text("Disable Data Grouping");
                 toggle = false;
-                Cookies.set("datagroupingdisabled", false, {
-                    expires: inThirtyDays
-                });
+                writeSetting('data-grouping', true);
             }
             else
             {
                 createChart(buttonsDisabledGrouping);
                 $(this).text("Enable Data Grouping");
                 toggle = true;
-                Cookies.set("datagroupingdisabled", true, {
-                    expires: inThirtyDays
-                });
+                writeSetting('data-grouping', false);
             }
         });
 
@@ -176,7 +218,7 @@
                     selected: 2
                 },
                 title: {
-                    text: 'Item Chart Data',
+                    text: '@Model.Item.Name',
                     x: -20 //center
                 },
                 xAxis: {
@@ -234,7 +276,9 @@
 
             if (moreData) {
                 $('#load-more-button').addClass('disabled');
-                $('#loading-icon').removeClass('hidden');
+                $('#container').addClass('d-none');
+                $('#timeMarginWrapper').addClass('d-none');
+                $('#loading-icon').removeClass('d-none').addClass('d-flex');
                 $('#load-more-button').unbind("click");
             }
 
@@ -245,6 +289,8 @@
                     $.each(data, function (j, row) {
                         row[0] = row[0] + totalUnixOffset;
                     });
+
+                    chartData[i] = data;
 
                     if (names[i].type === 1) {
                         var color = '#44A5FF';
@@ -281,9 +327,11 @@
                     seriesCounter += 1;
                 });
 
-                $('#loading-icon').addClass('hidden');
+                $('#loading-icon').addClass('d-none').removeClass('d-flex');
+                $('#container').removeClass('d-none');
+                $('#timeMarginWrapper').removeClass('d-none');
 
-                if (Cookies.get("datagroupingdisabled") === "true")
+                if (!readSetting('data-grouping'))
                 {
                     createChart(buttonsDisabledGrouping);
                 }
@@ -291,6 +339,8 @@
                 {
                     createChart(buttons);
                 }
+
+                initTimeMarginCalc()
 
                 $('#grouping-button').removeClass('hidden');
                 $('#load-more-button').removeClass('hidden');
@@ -375,7 +425,7 @@
             // Apply the theme
             Highcharts.setOptions(Highcharts.theme);
 
-            if (Cookies.get("datagroupingdisabled") === "true") {
+            if (!readSetting('data-grouping')) {
                 $('#grouping-button').text("Enable Data Grouping");
                 toggle = true;
             } else {
@@ -390,3 +440,5 @@
         });
     });
 </script>
+
+<script src="~/scripts/internal/timemargincalc.js?@(CacheBuster.Once)"></script>

@@ -1,51 +1,122 @@
-﻿@using Crossout.Web
-@using Crossout.Web.Helper
-@using Crossout.Web.Models
-@using Crossout.Web.Models.General
-@model Crossout.Web.Models.View.IViewTitle
+﻿@using Crossout.AspWeb
+@using Crossout.AspWeb.Helper
+@using Crossout.AspWeb.Models
+@using Crossout.AspWeb.Models.General
+@model Crossout.AspWeb.Models.View.IViewTitle
 @{
     SearchModel m = Model as SearchModel;
 }
-<div class="navbar-inverse navbar-default navbar-static-top" role="navigation">
-    <div class="container-fluid" style="padding: 0px">
-        <div class="navbar-header" style="margin-right: 12px">
-            <a class="navbar-left" rel="home" href="/"><img alt="CrossoutDB Logo" title="@ViewHelper.GenerateTitle(Model)" class="crossoutdb-logo" src="~/img/crossoutdb_logo.png" /></a>
-        </div>
 
-        <ul class="nav navbar-nav nav-pills">
-            <li role="presentation" @(Model != null && Model.Title == "Crafting" ? "class=active" : "")><a class="navbar-left h4" style="margin: 0px;" href="~/crafting">Crafting</a></li>
-            <li role="presentation" @(Model != null && Model.Title == "Packs" ? "class=active" : "")><a class="navbar-left h4" style="margin: 0px;" href="~/packs">Packs</a></li>
-            <li role="presentation" @(Model != null && Model.Title == "Community Tools" ? "class=active" : "")><a class="navbar-left h4" style="margin: 0px;" href="~/tools">Community Tools</a></li>
-            <li role="presentation" @(Model != null && Model.Title == "Changes" ? "class=active" : "")><a class="navbar-left h4" style="margin: 0px;" href="~/changes">Changes</a></li>
-            @*<li role="presentation" @(Model != null && Model.Title == "Event" ? "class=active" : "")><a class="navbar-left h4" style="margin: 0px;" href="~/event">KR Event</a></li>*@
-        </ul>
+<div class="bg-dark sticky-top">
+    <div class="half-hd-container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0" role="navigation">
 
-        <div class="navbar-right">
-            <form class="navbar-form" action="/search/" role="search" method="get" id="form">
-                <div class="input-group">
-                    @if (m != null)
-                    {
-                        <input type="text" class="form-control" placeholder="Search" size="30" name="query" id="query" value="@m.CurrentQuery">
-                    }
-                    else
-                    {
-                        <input type="text" class="form-control" placeholder="Search" size="30" name="query" id="query" value="">
-                    }
+            <a class="navbar-brand" href="/">
+                <div class="d-none d-md-block"><img alt="CrossoutDB Logo" title="@ViewHelper.GenerateTitle(Model)" class="crossoutdb-logo" src="~/img/crossoutdb_logo.png" /></div>
+                <div class="d-md-none"><img alt="CrossoutDB Logo" title="@ViewHelper.GenerateTitle(Model)" class="crossoutdb-logo" src="~/img/crossoutdb_logo_compact.png" /></div>
+            </a>
 
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                        <button class="btn btn-default" type="button" id="reset"><i class="glyphicon glyphicon-remove"></i></button>
-                        @*<div class="btn btn-default"><a href="~/admin">Login</a></div>*@
+            @*Spacer to have the same height across devices*@
+            <div style="height: 60px"></div>
+
+            <div class="d-flex flex-fill justify-content-end align-items-center">
+                <div class="overlay-container d-flex flex-fill d-lg-none">
+                    <div class="mr-2 input-group">
+                        <input class="form-control" size="1" type="search" placeholder="Search" aria-label="Search" id="searchBarMobile">
                     </div>
-                    @if (m != null)
-                    {
-                        <input type="hidden" name="rarity" value="@m.FilterModel.CurrentRarity.NameUri" />
-                        <input type="hidden" name="category" value="@m.FilterModel.CurrentCategory.NameUri" />
-                        <input type="hidden" name="faction" value="@m.FilterModel.CurrentFaction.NameUri" />
-                    }
+                    <span id="inputClearMobile" class="input-clear">
+                        <svg class="feather-input-clear"><use xlink:href="/icons/feather-sprite.svg#x-circle" /></svg>
+                    </span>
                 </div>
-            </form>
-        </div>
 
+                <div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav">
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Packages" ? "active" : "")"><a class="nav-link" href="~/packs">Packs</a></li>
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Tools" ? "active" : "")"><a class="nav-link" href="~/tools">Community Tools</a></li>
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Changes" ? "active" : "")"><a class="nav-link" href="~/changes">Changes</a></li>
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Settings" ? "active" : "")">
+                        <a class="nav-link" href="~/settings">
+                            <svg class="feather">
+                                <use xlink:href="/icons/feather-sprite.svg#settings" />
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="overlay-container d-none d-lg-block">
+                <div>
+                    <input class="form-control mr-1 ml-auto" type="search" placeholder="Search" aria-label="Search" size="30" id="searchBar">
+                </div>
+                <span id="inputClear" class="input-clear">
+                    <svg class="feather-input-clear"><use xlink:href="/icons/feather-sprite.svg#x-circle" /></svg>
+                </span>
+            </div>
+
+        </nav>
     </div>
 </div>
+
+<script>
+    // Keep search bars in sync
+    $('#searchBar, #searchBarMobile').keyup(function () {
+        var value = this.value;
+        if (this.id === 'searchBar') {
+            $('#searchBarMobile').val(value);
+        } else {
+            $('#searchBar').val(value);
+        }
+    });
+
+    // Redirect to main page if on other site
+    $('#searchBar, #searchBarMobile').keyup(function (e) {
+        if (@(ViewContext.RouteData.Values["Action"].ToString() != "Index" ? "true" : "false") && e.which === 13)
+        {
+            location.href = '/#search=' + this.value + '.';
+        }
+    });
+
+    // Disable logo on small devices while search
+    //$('#searchBarMobile').on('focus focusout', function () {
+    //    if ($('#searchBarMobile').is(':focus') && $('#searchBarMobile').width() < 200) {
+    //        $('.navbar-brand').addClass('d-none');
+    //    }
+    //    else {
+    //        $('.navbar-brand').removeClass('d-none');
+    //    }
+    //});
+
+    //$('#searchBar').on('focus focusout', function () {
+    //    if ($('#searchBar').is(':focus')) {
+    //        $('#inputClear').removeClass('d-none');
+    //    }
+    //    else {
+    //        $('#inputClear').addClass('d-none');
+    //    }
+    //});
+
+    //$('#searchBarMobile').on('focus focusout', function () {
+    //    if ($('#searchBarMobile').is(':focus')) {
+    //        $('#inputClearMobile').removeClass('d-none');
+    //    }
+    //    else {
+    //        $('#inputClearMobile').addClass('d-none');
+    //    }
+    //});
+
+    $('#inputClear').click(function () {
+        $('#searchBar').val('').trigger('keyup');
+        $('#searchBarMobile').val('').trigger('keyup');
+    });
+
+    $('#inputClearMobile').click(function () {
+        $('#searchBar').val('').trigger('keyup');
+        $('#searchBarMobile').val('').trigger('keyup');
+    });
+</script>

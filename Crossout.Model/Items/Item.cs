@@ -74,8 +74,17 @@ namespace Crossout.Model.Items
         [JsonProperty("buyPrice")]
         public decimal BuyPrice { get; set; }
 
+        [JsonProperty("meta")]
+        public int Meta { get; set; }
+
         [JsonProperty("removed")]
         public int Removed { get; set; }
+
+        [JsonProperty("craftable")]
+        public int Craftable
+        {
+            get { return CraftingSellSum > 0 ? 1 : 0; }
+        }
 
         [JsonProperty("popularity")]
         public int Popularity { get; set; }
@@ -92,10 +101,22 @@ namespace Crossout.Model.Items
         [JsonProperty("amount")]
         public int Amount { get; set; }
 
+        [JsonProperty("demandSupplyRatio")]
+        public decimal DemandSupplyRatio
+        {
+            get { return (decimal)BuyOrders / Math.Max(SellOffers, 1); }
+        }
+
         [JsonProperty("margin")]
         public decimal Margin
         {
             get { return (decimal)(SellPrice - BuyPrice - (SellPrice * 0.1m)); }
+        }
+
+        [JsonProperty("roi")]
+        public decimal ROI
+        {
+            get { return (decimal)(BuyPrice != 0 ? Margin / BuyPrice : 0); }
         }
 
         [JsonProperty("craftingMargin")]
@@ -104,10 +125,22 @@ namespace Crossout.Model.Items
             get { return (decimal)(SellPrice - CraftingBuySum - (SellPrice * 0.1m)); }
         }
 
+        [JsonProperty("formatDemandSupplyRatio")]
+        public string FormatDemandSupplyRatio
+        {
+            get { return PriceFormatter.FormatRatio(DemandSupplyRatio); }
+        }
+
         [JsonProperty("formatMargin")]
         public string FormatMargin
         {
             get { return PriceFormatter.FormatPrice(Margin); }
+        }
+
+        [JsonProperty("formatRoi")]
+        public string FormatROI
+        {
+            get { return PriceFormatter.FormatRatio(ROI); }
         }
 
         [JsonProperty("formatCraftingMargin")]
@@ -119,7 +152,7 @@ namespace Crossout.Model.Items
         [JsonProperty("craftVsBuy")]
         public string CraftVsBuy
         {
-            get { return BuyPrice <= CraftingBuySum ? "Buy" : "Craft"; }
+            get { return (Craftable == 1 ? (BuyPrice <= CraftingBuySum ? "Buy" : "Craft") : "Uncraftable"); }
         }
 
         [JsonProperty("timestamp")]
@@ -202,6 +235,18 @@ namespace Crossout.Model.Items
             get { return $"{Id}.png"; }
         }
 
+        [JsonProperty("imagePath")]
+        public string ImagePath
+        {
+            get
+            {
+                if (ImageExists)
+                    return $"/img/items/{Id}.png";
+                else
+                    return $"/img/NoImage.png";
+            }
+        }
+
         [JsonIgnore]
         public bool ImageExists { get; set; }
 
@@ -242,6 +287,7 @@ namespace Crossout.Model.Items
                 TypeName = row[i++].ConvertTo<string>(),
                 RecipeId = row[i++].ConvertTo<int>(),
                 Removed = row[i++].ConvertTo<int>(),
+                Meta = row[i++].ConvertTo<int>(),
                 FactionNumber = row[i++].ConvertTo<int>(),
                 Faction = row[i++].ConvertTo<string>(),
                 Popularity = row[i++].ConvertTo<int>(),
