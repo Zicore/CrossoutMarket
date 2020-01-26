@@ -5,13 +5,13 @@ using System.Net;
 using System.Threading.Tasks;
 using Crossout.AspWeb.Filters;
 using Crossout.Model.Items;
-using Crossout.Web;
-using Crossout.Web.Models.Filter;
-using Crossout.Web.Modules.API.v1;
-using Crossout.Web.Services;
-using Crossout.Web.Services.API.v1;
+using Crossout.AspWeb;
+using Crossout.AspWeb.Models.Filter;
+using Crossout.AspWeb.Services;
+using Crossout.AspWeb.Services.API.v1;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
+using Crossout.Web.Modules.API.v1;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -226,7 +226,7 @@ namespace Crossout.AspWeb.Controllers
             filterModel.CurrentShowRemovedItems = showRemovedItems;
             filterModel.CurrentShowMetaItems = showMetaItems;
 
-            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true, false, id > 0, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems);
+            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true, false, id > 0, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems, false);
 
             if (hasFilter)
             {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Crossout.Web.Models.Pagination
+namespace Crossout.AspWeb.Models.Pagination
 {
     public class PagerModel
     {

@@ -2,15 +2,16 @@
 using System.Linq;
 using Crossout.Data;
 using Crossout.Model.Items;
-using Crossout.Web.Models.View;
+using Crossout.AspWeb.Models.View;
 
-namespace Crossout.Web.Models.Items
+namespace Crossout.AspWeb.Models.Items
 {
     public class ItemCollection : IViewTitle
     {
         public List<Item> Items { get; set; } = new List<Item>();
         public List<Item> AllItems { get; set; } = new List<Item>();
         public List<StatAttribute> StatTypes = new List<StatAttribute>();
+        public string ItemList;
 
         public void CreateStatList()
         {

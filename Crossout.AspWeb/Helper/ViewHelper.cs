@@ -6,11 +6,11 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Crossout.Model.Items;
-using Crossout.Web.Models.General;
-using Crossout.Web.Models.Items;
-using Crossout.Web.Models.View;
+using Crossout.AspWeb.Models.General;
+using Crossout.AspWeb.Models.Items;
+using Crossout.AspWeb.Models.View;
 
-namespace Crossout.Web.Helper
+namespace Crossout.AspWeb.Helper
 {
     public class ViewHelper
     {

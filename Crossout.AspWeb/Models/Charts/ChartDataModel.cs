@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Crossout.Web.Models.Charts
+namespace Crossout.AspWeb.Models.Charts
 {
     public class ChartDataModel
     {

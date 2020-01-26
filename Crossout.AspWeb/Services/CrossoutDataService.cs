@@ -13,7 +13,7 @@ using Crossout.Model.Items;
 using Microsoft.AspNetCore.Hosting;
 using NLog;
 
-namespace Crossout.Web.Services
+namespace Crossout.AspWeb.Services
 {
     public class CrossoutDataService
     {
@@ -239,16 +239,6 @@ namespace Crossout.Web.Services
                 return "desc-green";
             }
             return "desc-default";
-        }
-
-        private List<int> GetAppIDList()
-        {
-            List<int> list = new List<int>();
-            foreach(var package in PremiumPackagesCollection.Packages)
-            {
-                list.Add(package.SteamAppID);
-            }
-            return list;
         }
 
         private static CrossoutDataService _instance;

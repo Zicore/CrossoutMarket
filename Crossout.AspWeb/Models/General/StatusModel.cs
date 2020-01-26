@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Crossout.Web.Models.General
+namespace Crossout.AspWeb.Models.General
 {
     public class StatusModel
     {

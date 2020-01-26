@@ -1,8 +1,9 @@
 {
+  "Id": 29,
   "Key": "immortalwarrior",
   "SteamAppID": 0,
   "Name": "Immortal Warrior",
   "Description": "",
-  "MarketPartIDs": [115, 150, 8, 42, 42, 376, 69, 77, 134, 134, 93, 139, 139, 188, 188, 188, 174 ],
+  "MarketPartIDs": [ 115, 150, 8, 42, 42, 376, 69, 77, 134, 134, 93, 139, 139, 188, 188, 188, 174 ],
   "RawCoins": 3400
 }

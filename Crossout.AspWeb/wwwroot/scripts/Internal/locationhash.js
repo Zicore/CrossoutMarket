@@ -1,75 +1,119 @@
 ﻿function applyLocationHash(table) {
     var hash = location.hash;
-    var pattern = '(faction|rarity|category|length|order)=(.*,?)';
+    watchlist = [];
+    var pattern = '(preset|search|faction|rarity|category|order|craftable|removed|meta|watch|watchlist)=(.*,?)';
     hash = hash.replace('#', '');
     var types = hash.split('.');
     types.forEach(function (type, i) {
         var regEx = new RegExp(pattern, 'ig');
         var matches = regEx.exec(type);
-        if (matches != null) {
+        if (matches !== null) {
             var typeName = matches[1];
 
             var items = matches[2].split(',');
 
             items.forEach(function (item, j) {
-                if (typeName === "faction") {
+                if (typeName === 'preset') {
+                    switchPreset(item, false);
+                }
+                else if (typeName === "search") {
+                    $('#searchBar, #searchBarMobile').val(decodeURI(item));
+                }
+                else if (typeName === "faction") {
                     $('.filter-faction').each(function (k, e) {
                         if (k < $('.filter-faction').toArray().length) {
-                            var targetString = $(this).parent().text().toLowerCase();
+                            var targetString = $(this).text().toLowerCase();
                             targetString = cleanUpString(targetString);
                             if (targetString === item) {
-                                $(this).parent().addClass('active');
+                                $(this).addClass('active');
                             }
                         }
                     });
                 } else if (typeName === "rarity") {
                     $('.filter-rarity').each(function (k, e) {
                         if (k < $('.filter-rarity').toArray().length) {
-                            var targetString = $(this).parent().text().toLowerCase();
+                            var targetString = $(this).text().toLowerCase();
                             targetString = cleanUpString(targetString);
                             if (targetString === item) {
-                                $(this).parent().addClass('active');
+                                $(this).addClass('active');
                             }
                         }
                     });
                 } else if (typeName === "category") {
                     $('.filter-category').each(function (k, e) {
                         if (k < $('.filter-category').toArray().length) {
-                            var targetString = $(this).parent().text().toLowerCase();
+                            var targetString = $(this).text().toLowerCase();
                             targetString = cleanUpString(targetString);
                             if (targetString === item) {
-                                $(this).parent().addClass('active');
+                                $(this).addClass('active');
                             }
                         }
                     });
-                } else if (typeName === "length") {
-                    table.page.len(item).draw();
-                } 
+                }
                 else if (typeName === "order") {
+                    var columnNumber;
                     if (item.includes('asc')) {
-                        var columnNumber = item.replace('asc', '');
+                        columnNumber = item.replace('asc', '');
                         table.order([columnNumber, 'asc']);
                     } else if (item.includes('desc')) {
-                        var columnNumber = item.replace('desc', '');
+                        columnNumber = item.replace('desc', '');
                         table.order([columnNumber, 'desc']);
                     }
                 }
+                else if (typeName === 'craftable') {
+                    $('.filterCraftableItems').addClass('active');
+                }
+                else if (typeName === 'removed') {
+                    $('.filterRemovedItems').addClass('active');
+                }
+                else if (typeName === "meta") {
+                    $('.filterMetaItems').addClass('active');
+                }
+                else if (typeName === "watch") {
+                    watchlist.push(parseInt(item));
+                }
+                else if (typeName === "watchlist") {
+                    $('#watchlistFilter').addClass('active');
+                }
             });
-            filterTable(table);
         }
-    }); 
+    });
+
+    filterTable(table);
 }
 
 function updateLocationHash(table) {
     var newHash = '#';
+    var defaultPreset = 'defaultPreset';
+
+    $('.filter-preset').each(function (k, e) {
+        if ($(this).hasClass('active') && $(this).attr('id') !== defaultPreset) {
+            if (!newHash.includes('preset=')) {
+                newHash += 'preset=';
+            }
+            var targetString = $(this).text().toLowerCase();
+            targetString = cleanUpString(targetString);
+            newHash += targetString + ',';
+        }
+    });
+    if (newHash.endsWith(',')) {
+        newHash = newHash.substr(0, newHash.length - 1);
+    }
+    if (newHash.includes('preset=')) {
+        newHash += '.';
+    }
+
+    var searchVal = $('#searchBar').val();
+    if (searchVal !== '')
+        newHash += 'search=' + searchVal + '.';
 
     $('.filter-faction').each(function (k, e) {
         if (k < $('.filter-faction').toArray().length / 2) {
-            if ($(this).parent().hasClass('active')) {
+            if ($(this).hasClass('active')) {
                 if (!newHash.includes('faction=')) {
                     newHash += 'faction=';
                 }
-                var targetString = $(this).parent().text().toLowerCase();
+                var targetString = $(this).text().toLowerCase();
                 targetString = cleanUpString(targetString);
                 newHash += targetString + ',';
             }
@@ -84,11 +128,11 @@ function updateLocationHash(table) {
 
     $('.filter-rarity').each(function (k, e) {
         if (k < $('.filter-rarity').toArray().length / 2) {
-            if ($(this).parent().hasClass('active')) {
+            if ($(this).hasClass('active')) {
                 if (!newHash.includes('rarity=')) {
                     newHash += 'rarity=';
                 }
-                var targetString = $(this).parent().text().toLowerCase();
+                var targetString = $(this).text().toLowerCase();
                 targetString = cleanUpString(targetString);
                 newHash += targetString + ',';
             }
@@ -103,11 +147,11 @@ function updateLocationHash(table) {
 
     $('.filter-category').each(function (k, e) {
         if (k < $('.filter-category').toArray().length / 2) {
-            if ($(this).parent().hasClass('active')) {
+            if ($(this).hasClass('active')) {
                 if (!newHash.includes('category=')) {
                     newHash += 'category=';
                 }
-                var targetString = $(this).parent().text().toLowerCase();
+                var targetString = $(this).text().toLowerCase();
                 targetString = cleanUpString(targetString);
                 newHash += targetString + ',';
             }
@@ -120,14 +164,16 @@ function updateLocationHash(table) {
         newHash += '.';
     }
 
-    if (table.page.info().length !== $.fn.DataTable.ext.pager.numbers_length) {
-        if (!newHash.includes('length=')) {
-            newHash += 'length=';
-        }
-        newHash += table.page.info().length;
+    if ($('.filterCraftableItems').first().hasClass('active')) {
+        newHash += 'craftable=true.';
     }
-    if (newHash.includes('length=')) {
-        newHash += '.';
+
+    if ($('.filterRemovedItems').first().hasClass('active')) {
+        newHash += 'removed=true.';
+    }
+
+    if ($('.filterMetaItems').first().hasClass('active')) {
+        newHash += 'meta=true.';
     }
 
     var newOrder = table.order();
@@ -141,6 +187,21 @@ function updateLocationHash(table) {
         newHash += '.';
     }
 
+    if (watchlist.length > 0) {
+        newHash += 'watch=';
+        watchlist.forEach(function (e, i) {
+            newHash += e + ',';
+        });
+        if (newHash.endsWith(',')) {
+            newHash = newHash.substr(0, newHash.length - 1);
+            newHash += '.';
+        }
+    }
+
+    if ($('#watchlistFilter').hasClass('active')) {
+        newHash += 'watchlist=true.';
+    }
+
     location.hash = newHash;
 }
 
@@ -150,9 +211,9 @@ function cleanUpString(targetString) {
     return targetString;
 }
 
-$('#ItemTable').on('length.dt', function (e, settings, len) {
-    updateLocationHash($('#ItemTable').DataTable());
-});
+//$('#ItemTable').on('length.dt', function (e, settings, len) {
+//    updateLocationHash($('#ItemTable').DataTable());
+//});
 
 var isInitialSortingOver = false;
 $('#ItemTable').on('order.dt', function () {

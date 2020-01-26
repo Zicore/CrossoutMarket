@@ -23,13 +23,6 @@
   border-radius: 50%;
 }
 
-
-td {
-    padding-left: 4px;
-    padding-right: 4px;
-    text-align: left;
-}
-
 .modal-title {
     font-size: 18px;
 }
@@ -39,7 +32,6 @@ html {
 }
 
 body {
-  padding-bottom: 46px;
   background: white;
 }
 
@@ -84,22 +76,27 @@ body {
 
 .label-Common{
   background: #696969;
+  color: white;
 }
 
 .label-Rare {
-  background: #0040fd;
+    background: #0040fd;
+    color: white;
 }
 
 .label-Epic {
-  background: #6a0082;
+    background: #6a0082;
+    color: white;
 }
 
 .label-Legendary {
-  background: #daa520;
+    background: #daa520;
+    color: white;
 }
 
 .label-Relic {
-  background: #d2691e;
+    background: #d2691e;
+    color: white;
 }
 
 .label-md {
@@ -130,7 +127,8 @@ body {
 }
 
 .tree-icon {
-    margin: 3px;
+    width: 32px;
+    height: 32px;
 }
 
 .collapsing {
@@ -180,8 +178,7 @@ body {
 }
 
 .item-type {
-    font-weight: bold;
-    font-size: 14px;
+    font-size: 11px;
 }
 
 .item-faction {
@@ -199,6 +196,11 @@ body {
     height:64px;
 }
 
+.item-image-med {
+    width: 32px;
+    height: 32px;
+}
+
 .item-image-auto-size {
     width: auto;
     height: auto;
@@ -209,7 +211,6 @@ body {
 }
 
 .item-timestamp {
-    font-weight: bold;
     color: green;
 }
 
@@ -296,7 +297,7 @@ body {
 }
 
 .crossoutdb-logo {
-    height: 60px;
+    height: 40px;
     image-rendering: -webkit-optimize-contrast;
 }
 
@@ -349,4 +350,129 @@ body {
 .img-crop {
     max-height: 120px;
     overflow: hidden;
+}
+
+.half-hd-container {
+    max-width: 960px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.filter-range-text {
+    width: 120px;
+}
+
+#topButton {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    padding: 15px;
+    font-size: 18px;
+}
+
+
+.feather {
+    width: 24px;
+    height: 24px;
+    stroke: rgba(255, 255, 255, 0.5);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.feather:hover {
+    stroke: rgba(255, 255, 255, 0.75);
+}
+
+li.active a svg {
+    stroke: white;
+}
+
+li.active a svg:hover {
+    stroke: white;
+}
+
+.dropdown-menu a {
+    cursor: pointer;
+}
+
+.feather-footer {
+    width: 14px;
+    height: 14px;
+    stroke: rgba(255, 255, 255, 0.5);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.changes-image {
+    width: 16px;
+    height: 16px;
+}
+
+.folded-in:after {
+    content: '+';
+}
+
+.folded-out:after {
+    content: '-';
+}
+
+.nav-tabs li a {
+    color: #6c757d;
+}
+
+.pack-table tr td {
+    padding: 0;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child::before,
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::before {
+    background-color: transparent !important;
+    color: #6c757d !important;
+    border: 1px solid #6c757d !important;
+    box-shadow: none !important;
+}
+
+.overlay-container {
+    position: relative;
+}
+
+.img-overlay-packs-discount {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.discount {
+    color: #a4d007;
+    background: #4c6b22;
+}
+
+.input-clear {
+    position: absolute;
+    top: 4px;
+    right: 12px;
+    z-index: 10;
+}
+
+.feather-input-clear {
+    width: 18px;
+    height: 18px;
+    stroke: rgba(0, 0, 0, 0.5);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.feather-input-clear:hover {
+    stroke: rgba(0, 0, 0, 0.75);
 }

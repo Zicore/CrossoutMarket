@@ -6,12 +6,14 @@
 
 
   <ItemGroup>
+    <Content Remove="compilerconfig.json" />
     <Content Remove="Resources\PremiumPackages\bornfree.json" />
     <Content Remove="Resources\PremiumPackages\borntofly.json" />
     <Content Remove="Resources\PremiumPackages\dayofthedead.json" />
     <Content Remove="Resources\PremiumPackages\frostburndeluxe.json" />
     <Content Remove="Resources\PremiumPackages\horsemenofapocalypsepestilence.json" />
     <Content Remove="Resources\PremiumPackages\immortalwarrior.json" />
+    <Content Remove="Resources\PremiumPackages\polymorph.json" />
     <Content Remove="Views\edit.cshtml" />
     <Content Remove="Views\editpart.cshtml" />
     <Content Remove="Views\NotMigrated\admin.cshtml" />
@@ -219,6 +221,7 @@
     <Content Remove="Resources\PremiumPackages\thirdhalf.json" />
     <Content Remove="Resources\PremiumPackages\wastelandwarrior.json" />
     <Content Remove="Resources\PremiumPackages\wildhunt.json" />
+    <Content Remove="wwwroot\ads.txt" />
     <Content Remove="wwwroot\favicon.ico" />
     <Content Remove="wwwroot\img\premiumpackages\dayofthedead.jpg" />
     <Content Remove="wwwroot\img\premiumpackages\frostburndeluxe.jpg" />
@@ -250,6 +253,7 @@
 
 
   <ItemGroup>
+    <None Include="compilerconfig.json" />
     <None Include="Resources\KnightRiders201809\armoredskull.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -394,6 +398,9 @@
     <None Include="Resources\KnightRiders\teutonicstripes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\PremiumPackages\polymorph.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PremiumPackages\arachnophobia.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -476,6 +483,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\PremiumPackages\wildhunt.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\ads.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="wwwroot\favicon.ico">
@@ -582,6 +592,7 @@
 
 
   <ItemGroup>
+    <PackageReference Include="bootstrap.sass" Version="4.4.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.ResponseCompression" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
@@ -623,6 +634,9 @@
 
 
   <ItemGroup>
+    <Content Update="Views\Shared\_Layout.cshtml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\fonts\glyphicons-halflings-regular.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

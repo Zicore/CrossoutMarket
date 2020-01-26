@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using Crossout.Model;
 using Crossout.Model.Items;
-using Crossout.Web.Helper;
-using Crossout.Web.Models.Changes;
-using Crossout.Web.Models.General;
-using Crossout.Web.Models.Recipes;
-using Crossout.Web.Models.View;
+using Crossout.AspWeb.Helper;
+using Crossout.AspWeb.Models.Changes;
+using Crossout.AspWeb.Models.General;
+using Crossout.AspWeb.Models.Recipes;
+using Crossout.AspWeb.Models.View;
 using Newtonsoft.Json;
 
-namespace Crossout.Web.Models.Items
+namespace Crossout.AspWeb.Models.Items
 {
     public class ItemModel : IViewTitle
     {

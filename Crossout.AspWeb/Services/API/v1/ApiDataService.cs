@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Crossout.Model;
-using Crossout.Web.Models.API.v1;
-using Crossout.Web.Models.Filter;
+using Crossout.AspWeb.Models.API.v1;
+using Crossout.AspWeb.Models.Filter;
 using ZicoreConnector.Zicore.Connector.Base;
 
-namespace Crossout.Web.Services.API.v1
+namespace Crossout.AspWeb.Services.API.v1
 {
     public class ApiDataService
     {
@@ -98,15 +98,15 @@ namespace Crossout.Web.Services.API.v1
             return item;
         }
 
-        public static List<FilterItem> SelectRarities(SqlConnector sql)
+        public static List<RarityItem> SelectRarities(SqlConnector sql)
         {
-            List<FilterItem> items = new List<FilterItem>();
+            List<RarityItem> items = new List<RarityItem>();
 
-            var ds = sql.SelectDataSet("SELECT id,name FROM rarity");
+            var ds = sql.SelectDataSet("SELECT rarity.id, rarity.name, rarity.order, rarity.primarycolor, rarity.secondarycolor FROM rarity ORDER BY rarity.id ASC;");
 
             foreach (var row in ds)
             {
-                items.Add(FilterItem.Create(row));
+                items.Add(RarityItem.Create(row));
             }
 
             return items;

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Crossout.AspWeb.Helper;
 using Crossout.Model.Items;
-using Crossout.Web;
-using Crossout.Web.Models.General;
-using Crossout.Web.Services;
+using Crossout.AspWeb;
+using Crossout.AspWeb.Models.General;
+using Crossout.AspWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
 
@@ -24,7 +24,11 @@ namespace Crossout.AspWeb.Controllers
         [Route("watchlist/{items}")]
         public IActionResult Watchlist(string items)
         {
-            return RouteWatchlist(items);
+            // Redirect for legacy links
+            return Redirect($"/#watch={items}.watchlist=true.");
+
+            // Deprecated
+            //return RouteWatchlist(items);
         }
 
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);

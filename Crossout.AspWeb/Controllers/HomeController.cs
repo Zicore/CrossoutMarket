@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Crossout.AspWeb.Helper;
 using Crossout.Model.Items;
 using Crossout.Web;
-using Crossout.Web.Models.Filter;
-using Crossout.Web.Models.General;
-using Crossout.Web.Models.Pagination;
-using Crossout.Web.Services;
+using Crossout.AspWeb.Models.Filter;
+using Crossout.AspWeb.Models.General;
+using Crossout.AspWeb.Models.Pagination;
+using Crossout.AspWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
 
@@ -27,9 +27,10 @@ namespace Crossout.AspWeb.Controllers
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
 
         [Route("")]
-        public IActionResult Index()
+        public IActionResult Index(bool rmdItems)
         {
-            return RouteSearch(null, 0, null, null, null, null, null);
+            return RouteSearchAjax();
+            //return RouteSearch(null, 0, null, null, null, null, null, rmdItems);
             //return RouteSearch(null, 0,null,null,null,null,null);
         }
 
@@ -37,10 +38,34 @@ namespace Crossout.AspWeb.Controllers
         [Route("search")]
         public IActionResult Search(string query, string rarity, string category, string faction, string rmditems, string mitems)
         {
-            return RouteSearch(query, 0, rarity, category, faction, rmditems, mitems);
+            return Redirect("/");
+            //return RouteSearch(query, 0, rarity, category, faction, rmditems, mitems);
         }
 
-        private IActionResult RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems, string mItems)
+        private IActionResult RouteSearchAjax()
+        {
+            DataService db = new DataService(sql);
+
+            sql.Open(WebSettings.Settings.CreateDescription());
+
+            var parmeter = new List<Parameter>();
+
+            FilterModel filterModel = new FilterModel
+            {
+                Categories = SelectCategories(sql),
+                Rarities = SelectRarities(sql),
+                Factions = SelectFactions(sql),
+            };
+
+            SearchModel searchModel = new SearchModel { FilterModel = filterModel };
+
+            var statusModel = db.SelectStatus();
+            searchModel.Status = statusModel;
+
+            return View("search", searchModel);
+        }
+
+        private IActionResult RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string rItems, string mItems, bool rmdItemsOnly)
         {
             if (searchQuery == null)
             {
@@ -70,8 +95,9 @@ namespace Crossout.AspWeb.Controllers
 
             filterModel.CurrentShowRemovedItems = showRemovedItems;
             filterModel.CurrentShowMetaItems = showMetaItems;
+            filterModel.CurrentShowRemovedItemsOnly = rmdItemsOnly;
 
-            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true, false, false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems);
+            string sqlQuery = DataService.BuildSearchQuery(hasFilter, true, false, false, rarityItem != null, categoryItem != null, factionItem != null, false, true, rmdItemsOnly);
 
             if (hasFilter)
             {
@@ -139,9 +165,9 @@ namespace Crossout.AspWeb.Controllers
 
         // Helper Methods: TODO: Move to seperate class
 
-        public static int GetCount(SqlConnector sql, bool hasFilter, List<Parameter> parameter, FilterItem rarityItem, FilterItem categoryItem, FilterItem factionItem, bool showRemovedItems, bool showMetaItems)
+        public static int GetCount(SqlConnector sql, bool hasFilter, List<Parameter> parameter, RarityItem rarityItem, FilterItem categoryItem, FilterItem factionItem, bool showRemovedItems, bool showMetaItems)
         {
-            string countQuery = DataService.BuildSearchQuery(hasFilter, false, true, false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems);
+            string countQuery = DataService.BuildSearchQuery(hasFilter, false, true, false, rarityItem != null, categoryItem != null, factionItem != null, showRemovedItems, showMetaItems, false);
             var countDS = sql.SelectDataSet(countQuery, parameter);
             int count = 0;
             if (countDS != null && countDS.Count > 0)
@@ -152,15 +178,15 @@ namespace Crossout.AspWeb.Controllers
         }
 
 
-        public static List<FilterItem> SelectRarities(SqlConnector sql)
+        public static List<RarityItem> SelectRarities(SqlConnector sql)
         {
-            List<FilterItem> items = new List<FilterItem>();
+            List<RarityItem> items = new List<RarityItem>();
 
-            var ds = sql.SelectDataSet("SELECT id,name FROM rarity");
+            var ds = sql.SelectDataSet("SELECT rarity.id, rarity.name, rarity.order, rarity.primarycolor, rarity.secondarycolor FROM rarity ORDER BY rarity.order ASC");
 
             foreach (var row in ds)
             {
-                items.Add(FilterItem.Create(row));
+                items.Add(RarityItem.Create(row));
             }
 
             return items;

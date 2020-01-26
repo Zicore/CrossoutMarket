@@ -41,7 +41,9 @@ namespace Crossout.Worker.Tasks
                 appIDsToGet.Clear();
                 foreach (var row in dataset)
                 {
-                    appIDsToGet.Add((int)row[0]);
+                    var idToGet = (int)row[0];
+                    if (idToGet != 0)
+                        appIDsToGet.Add(idToGet);
                 }
 
                 await CollectAppPrices();
@@ -56,31 +58,22 @@ namespace Crossout.Worker.Tasks
                         parameters.Add(new Parameter { Identifier = "@priceeur", Value = app.Value.Prices[1].Final });
                         parameters.Add(new Parameter { Identifier = "@pricegbp", Value = app.Value.Prices[2].Final });
                         parameters.Add(new Parameter { Identifier = "@pricerub", Value = app.Value.Prices[3].Final });
+                        parameters.Add(new Parameter { Identifier = "@discount", Value = app.Value.Prices[0].DiscountPercent });
+                        parameters.Add(new Parameter { Identifier = "@successtimestamp", Value = DateTime.UtcNow });
                         try
                         {
-                            var result = sql.ExecuteSQL("UPDATE steamprices SET steamprices.priceusd = @priceusd, steamprices.priceeur = @priceeur, steamprices.pricegbp = @pricegbp, steamprices.pricerub = @pricerub WHERE steamprices.appid = @appid", parameters);
+                            var result = sql.ExecuteSQL("UPDATE steamprices SET steamprices.priceusd = @priceusd, steamprices.priceeur = @priceeur, steamprices.pricegbp = @pricegbp, steamprices.pricerub = @pricerub, steamprices.discount = @discount, steamprices.successtimestamp = @successtimestamp WHERE steamprices.appid = @appid", parameters);
                         }
                         catch
                         {
-                            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
+                            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed to update DB.");
                             isRunning = false;
                             return;
                         }
                     }
                     else
                     {
-                        List<Parameter> parameters = new List<Parameter>();
-                        parameters.Add(new Parameter { Identifier = "@appid", Value = app.Key });
-                        try
-                        {
-                            var result = sql.ExecuteSQL("UPDATE steamprices SET steamprices.priceusd = null, steamprices.priceeur = null, steamprices.pricegbp = null, steamprices.pricerub = null WHERE steamprices.appid = @appid", parameters);
-                        }
-                        catch
-                        {
-                            Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} failed.");
-                            isRunning = false;
-                            return;
-                        }
+                        Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} couldn't collect all prices from API.");
                     }
                 }
                 Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key} finished!");
@@ -95,14 +88,24 @@ namespace Crossout.Worker.Tasks
         {
             AppDetails appDetails = null;
 
-            HttpResponseMessage response = await client.GetAsync("http://store.steampowered.com/api/appdetails?appids=" + id + "&cc=" + currency);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                string rawjson = await response.Content.ReadAsStringAsync();
-                rawjson = rawjson.Replace("\"" + id + "\"", "\"game\"");
-                appDetails = JsonConvert.DeserializeObject<AppDetails>(rawjson);
-                appDetails.id = id;
+                HttpResponseMessage response = await client.GetAsync("https://store.steampowered.com/api/appdetails?appids=" + id + "&cc=" + currency);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string rawjson = await response.Content.ReadAsStringAsync();
+                    rawjson = rawjson.Replace("\"" + id + "\"", "\"game\"");
+                    appDetails = JsonConvert.DeserializeObject<AppDetails>(rawjson);
+                    appDetails.id = id;
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine($"[{DateTime.Now.ToLongTimeString()}] {Key}: Couldn't connect to Steam API.");
+                Console.WriteLine(e);
+            }
+
             return appDetails;
         }
 

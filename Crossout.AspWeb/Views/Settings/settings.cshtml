@@ -1,0 +1,181 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model Crossout.AspWeb.Models.General.SettingsModel
+
+<partial name="header" model="@Model" />
+
+<div class="half-hd-container px-3">
+    <div class="card my-1 p-1">
+        <p class="text-secondary">General Settings</p>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="darkModeSwitch">
+            <label class="custom-control-label" for="darkModeSwitch">Dark Mode</label>
+        </div>
+
+        <hr />
+
+        <p class="text-secondary">Search Page Settings</p>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="fullSizeTable">
+            <label class="custom-control-label" for="fullSizeTable">Full Size Table</label>
+        </div>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="dropdownSwitch">
+            <label class="custom-control-label" for="dropdownSwitch">Dropdown Filter</label>
+        </div>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="rangeFiltersSwitch">
+            <label class="custom-control-label" for="rangeFiltersSwitch">Range Filters</label>
+        </div>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="exportButtonsSwitch">
+            <label class="custom-control-label" for="exportButtonsSwitch">Export Buttons</label>
+        </div>
+
+        <div class="form-inline my-1">
+            <select class="form-control form-control-sm mr-1" id="lengthSelect">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="-1">All</option>
+            </select>
+            <label class="control-label" for="lengthSelect">Entries shown</label>
+        </div>
+
+        <hr />
+
+        <p class="text-secondary">Item Page Settings</p>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="fullSizeTabs">
+            <label class="custom-control-label" for="fullSizeTabs">Full Size Tabs</label>
+        </div>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="dataGroupingSwitch">
+            <label class="custom-control-label" for="dataGroupingSwitch">Chart Data Grouping</label>
+        </div>
+
+        <div class="form-inline my-1">
+            <input type="text" class="form-control form-control-sm mr-1" id="recipeOtherCostsAmountText">
+            <label for="recipeOtherCostsAmountText">Recipe Other Costs Amount</label>
+        </div>
+
+        <div class="form-inline my-1">
+            <input type="text" class="form-control form-control-sm mr-1" id="recipeOtherCostsSellPriceText">
+            <label for="recipeOtherCostsSellPriceText">Recipe Other Costs Sell Price</label>
+        </div>
+
+        <div class="form-inline my-1">
+            <input type="text" class="form-control form-control-sm mr-1" id="recipeOtherCostsBuyPriceText">
+            <label for="recipeOtherCostsBuyPriceText">Recipe Other Costs Buy Price</label>
+        </div>
+
+        <hr />
+
+        <p class="text-secondary">Packs Page Settings</p>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="fullSizePacks">
+            <label class="custom-control-label" for="fullSizePacks">Full Size Packs</label>
+        </div>
+
+        <hr />
+
+        <p class="text-secondary">Export / Import</p>
+
+        <div class="input-group">
+            <textarea class="form-control" rows="3" id="settingsStringBase64"></textarea>
+            <div class="invalid-feedback">
+                Couldn't parse settings
+            </div>
+        </div>
+
+        <div class="btn-group mt-1">
+            <button class="btn btn-outline-secondary" onclick="exportCookie()">Export Settings</button>
+            <button class="btn btn-outline-secondary" onclick="parseCookie()">Parse String</button>
+            <button class="btn btn-outline-secondary" onclick="importCookie(); applySettings();">Import String</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function applySettings() {
+        // General settings darkModeSwitch
+        $('#darkModeSwitch').prop('checked', readSetting('dark-mode'));
+        // Search settings
+        $('#fullSizeTable').prop('checked', readSetting('full-size-table'));
+        $('#dropdownSwitch').prop('checked', readSetting('dropdown'));
+        $('#rangeFiltersSwitch').prop('checked', readSetting('range-filters'));
+        $('#exportButtonsSwitch').prop('checked', readSetting('export-buttons'));
+        $('#lengthSelect').val(readSetting('length'));
+        // Item settings
+        $('#fullSizeTabs').prop('checked', readSetting('full-size-item-tabs'));
+        $('#dataGroupingSwitch').prop('checked', readSetting('data-grouping'));
+        $('#recipeOtherCostsAmountText').val(readSetting('recipe-other-costs-amount'));
+        $('#recipeOtherCostsSellPriceText').val(readSetting('recipe-other-costs-sellprice'));
+        $('#recipeOtherCostsBuyPriceText').val(readSetting('recipe-other-costs-buyprice'));
+        // Packs Settings
+        $('#fullSizePacks').prop('checked', readSetting('full-size-packs'));
+    }
+
+    // Apply current settings
+    $(document).ready(function () {
+        applySettings();
+    });
+
+    // General settings darkModeSwitch
+    $('#darkModeSwitch').change(function () {
+        writeSetting('dark-mode', this.checked);
+        if (this.checked)
+            $('html').addClass('dark-mode');
+        else
+            $('html').removeClass('dark-mode');
+    });
+
+    // Search settings
+    $('#fullSizeTable').change(function () {
+        writeSetting('full-size-table', this.checked);
+    });
+    $('#dropdownSwitch').change(function () {
+        writeSetting('dropdown', this.checked);
+    });
+    $('#rangeFiltersSwitch').change(function () {
+        writeSetting('range-filters', this.checked);
+    });
+    $('#exportButtonsSwitch').change(function () {
+        writeSetting('export-buttons', this.checked);
+    });
+    $('#lengthSelect').change(function () {
+        writeSetting('length', this.value);
+    });
+
+    // Item settings
+    $('#fullSizeTabs').change(function () {
+        writeSetting('full-size-item-tabs', this.checked);
+    });
+    $('#dataGroupingSwitch').change(function () {
+        writeSetting('data-grouping', this.checked);
+    });
+    $('#recipeOtherCostsAmountText').change(function () {
+        writeSetting('recipe-other-costs-amount', this.value);
+    });
+    $('#recipeOtherCostsSellPriceText').change(function () {
+        writeSetting('recipe-other-costs-sellprice', this.value);
+    });
+    $('#recipeOtherCostsBuyPriceText').change(function () {
+        writeSetting('recipe-other-costs-buyprice', this.value);
+    });
+
+    // Packs Settings
+    $('#fullSizePacks').change(function () {
+        writeSetting('full-size-packs', this.checked);
+    });
+</script>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting.Internal;
 
-namespace Crossout.Web
+namespace Crossout.AspWeb
 {
     public class RootPathHelper
     {

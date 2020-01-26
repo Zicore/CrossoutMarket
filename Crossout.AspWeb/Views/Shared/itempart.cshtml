@@ -3,65 +3,89 @@
 @using Crossout.Model.Items;
 @using Microsoft.Extensions.Hosting;
 @model Crossout.Model.Items.Item
-<tr class="selected-row" data-id="@Model.Id">
-    <td>
-        <div class="clearfix content-heading">
-            <div>
-                @if (Model.ImageExists) //(RootPathHelper.ImageExists(Url,Model.Image))
-                {
-                    <a href="~/item/@Model.Id">
-                        <img class="pull-left item-image-search lazy" style="margin-right: 8px;" src="~/img/loading.png" data-src="/img/items/@Model.Image" />
-                    </a>
-                }
-                else
-                {
-                    <a href="~/item/@Model.Id">
-                        <img class="pull-left item-image-search" style="margin-right: 8px;" src="~/img/NoImage.png" />
-                    </a>
-                }
+    <tr class="selected-row" data-id="@Model.Id">
+        <td>
+            <div class="d-flex align-items-center">
+                <div>
+                    @if (Model.ImageExists) //(RootPathHelper.ImageExists(Url,Model.Image))
+                    {
+                        <a href="~/item/@Model.Id">
+                            <img class="pull-left item-image-search lazy" style="margin-right: 8px;" src="~/icons/Spinner-1s-64px.svg" data-src="/img/items/@Model.Image" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="~/item/@Model.Id">
+                            <img class="pull-left item-image-search" style="margin-right: 8px;" src="~/img/NoImage.png" />
+                        </a>
+                    }
+                </div>
+                <div>
+                    <a href="~/item/@Model.Id"><span class="@(Model.Removed > 0 ? "item-removed" : "")">@Model.Name @(Model.Removed > 0 ? "(Removed)" : "")</span></a>
+                </div>
             </div>
-            @*<div>
-                <a href="~/item/@Model.Id"><h4 class="item-title @(Model.Removed > 0 ? "item-removed" : "")">@Model.Name @(Model.Removed > 0 ? "(Removed)" : "")</h4></a>
-                @if(Context.CurrentUser != null && Context.CurrentUser.Claims.Contains("Admin")){
-                    <a href="~/edit/@Model.Id">Edit</a>
-                }
-            </div>*@
-            <div>
-                <a href="~/item/@Model.Id"><h4 class="item-title @(Model.Removed > 0 ? "item-removed" : "")">@Model.Name @(Model.Removed > 0 ? "(Removed)" : "")</h4></a>
-            </div>
-        </div>
-    </td>
-    <td>
-        <span class="label label-@Model.RarityName">@Model.RarityName</span>
-    </td>
-    <td>
-        <div class="label-md-left">@Model.Faction</div>
-    </td>
-    <td>
-        <div class="label-md-left">@Model.CategoryName</div>
-    </td>
-    <td>
-        <div class="label-md-left">@Model.TypeName</div>
-    </td>
-    <td>
-        <div class="label-md">@Model.Popularity</div>
-    </td>
-    <td>
-        <div class="label-md">@Model.FormatSellPrice <img height="14" src="~/img/Coin.png" /></div>
-    </td>
-    <td>
-        <div class="label-md">@Model.SellOffers</div>
-    </td>
-    <td>
-        <div class="label-md">@Model.FormatBuyPrice <img height="14" src="~/img/Coin.png" /></div>
-    </td>
-    <td>
-        <div class="label-md">@Model.BuyOrders</div>
-    </td>
-    <td>
-        <div class="label-md">@Model.FormatMargin <img height="14" src="~/img/Coin.png" /></div>
-    </td>
-    <td>
-        <div class="label-md item-timestamp @(Model.OlderThan(5) ? "item-older-than-5" : "") @(Model.OlderThan(60) ? "item-older-than-60" : "")">@Model.LastUpdateTime</div>
-    </td>
-</tr>
+        </td>
+        <td>
+            @Model.Id
+        </td>
+        <td class="align-middle">
+            <span class="badge label-@Model.RarityName">@Model.RarityName</span>
+        </td>
+        <td class="align-middle">
+            <span>@Model.Faction</span>
+        </td>
+        <td class="align-middle">
+            <span>@Model.CategoryName</span>
+        </td>
+        <td class="align-middle">
+            <span>@Model.TypeName</span>
+        </td>
+        <td class="align-middle">
+            <span>@(Model.Removed == 0 ? "Yes" : "No")</span>
+        </td>
+        <td class="align-middle">
+            <span>@(Model.Craftable == 1 ? "Yes" : "No")</span>
+        </td>
+        <td class="align-middle">
+            <span>@(Model.Meta == 1 ? "Yes" : "No")</span>
+        </td>
+        <td class="align-middle">
+            <span>@Model.Popularity</span>
+        </td>
+        <td class="align-middle">
+            @Model.FormatSellPrice <img height="14" src="~/img/Coin.png" />
+        </td>
+        <td class="align-middle">
+            <div>@Model.SellOffers</div>
+        </td>
+        <td class="align-middle">
+            <div>@Model.FormatCraftingSellSum <img height="14" src="~/img/Coin.png" /></div>
+        </td>
+        <td class="align-middle">
+            <div>@Model.FormatBuyPrice <img height="14" src="~/img/Coin.png" /></div>
+        </td>
+        <td class="align-middle">
+            <div>@Model.BuyOrders</div>
+        </td>
+        <td class="align-middle">
+            <div>@Model.FormatCraftingBuySum <img height="14" src="~/img/Coin.png" /></div>
+        </td>
+        <td class="align-middle">
+            <div>@(Model.FormatDemandSupplyRatio)%</div>
+        </td>
+        <td class="align-middle">
+            <div>@Model.FormatMargin <img height="14" src="~/img/Coin.png" /></div>
+        </td>
+        <td class="align-middle">
+            <div>@(Model.FormatROI)%</div>
+        </td>
+        <td class="align-middle">
+            <div>@Model.FormatCraftingMargin <img height="14" src="~/img/Coin.png" /></div>
+        </td>
+        <td class="align-middle">
+            <div @(Model.CraftVsBuy == "Buy" ? "style='color: blueviolet'" : "style='color:darkorange'")>@(Model.CraftVsBuy)</div>
+        </td>
+        <td class="align-middle">
+            <div class="item-timestamp @(Model.OlderThan(5) ? "item-older-than-5" : "") @(Model.OlderThan(60) ? "item-older-than-60" : "")">@Model.LastUpdateTime</div>
+        </td>
+    </tr>

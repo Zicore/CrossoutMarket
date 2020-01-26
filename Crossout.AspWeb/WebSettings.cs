@@ -8,7 +8,7 @@ using NLog;
 using Zicore.Settings.Json;
 using ZicoreConnector.Zicore.Connector.Base;
 
-namespace Crossout.Web
+namespace Crossout.AspWeb
 {
     public class WebSettings : JsonSerializable
     {
@@ -29,7 +29,7 @@ namespace Crossout.Web
 
         public string GoogleConsumerKey { get; set; } = "";
         public string GoogleConsumerSecret { get; set; } = "";
-        
+        public bool EnableAds { get; set; } = false;
 
         public string FileCarEditorWeaponsExLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_weapons_ex.lua";
         public string FileCarEditorCabinsLua { get; set; } = @"Resources\Data\0.7.0\gamedata\def\ex\car_editor_cabins.lua";

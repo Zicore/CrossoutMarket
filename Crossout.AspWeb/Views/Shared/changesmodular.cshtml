@@ -1,161 +1,168 @@
 ﻿@using Crossout.Model.Items
-@using Crossout.Web
-@using Crossout.Web.Models
-@using Crossout.Web.Models.Changes
-@model Crossout.Web.Models.Changes.ChangesModel
+@using Crossout.AspWeb
+@using Crossout.AspWeb.Models
+@using Crossout.AspWeb.Models.Changes
+@model Crossout.AspWeb.Models.Changes.ChangesModel
 
 
-        <table id="ChangesTable" class="table table-striped table-hover table-condensed">
-            <thead>
-                <tr>
-                    <th>
-                        Change Number
-                    </th>
-                    <th>
-                        Affected Item
-                    </th>
-                    <th>
-                        Change Type
-                    </th>
-                    <th>
-                        Changed Variable
-                    </th>
-                    <th>
-                        Old Value
-                    </th>
-                    <th>
-                        New Value
-                    </th>
-                    <th>
-                        Timestamp
-                    </th>
-                </tr>
-            </thead>
+<table id="ChangesTable" class="table table-striped table-hover table-borderless table-responsive">
+    <thead>
+        <tr>
+            <th>
+                Change Number
+            </th>
+            <th>
+                Affected Item
+            </th>
+            <th>
+                Change Type
+            </th>
+            <th>
+                Changed Variable
+            </th>
+            <th>
+                Old Value
+            </th>
+            <th>
+                New Value
+            </th>
+            <th>
+                Timestamp
+            </th>
+        </tr>
+    </thead>
 
-            <tbody>
-                @foreach (ChangeItem item in Model.Changes)
-                {
-                    <tr class="selected-row" data-id="@item.Id">
-                        <td>
-                            <div class="label-md-left">#@item.Id</div>
-                        </td>
-                        <td>
-                            <div class="clearfix content-heading">
-                                <div>
-                                    @if (Model.ContainedItems[item.ItemId].ImageExists)
-                                    {
-                                        <a href="~/item/@item.ItemId">
-                                            <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/items/@(item.ItemId).png" />
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <a href="~/item/@item.ItemId">
-                                            <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/NoImage.png" />
-                                        </a>
-                                    }
-                                </div>
-                                <div>
-                                    <a href="~/item/@item.ItemId"><h4 class="item-title">@Model.ContainedItems[item.ItemId].Name</h4></a>
-                                </div>
+    <tbody>
+        @foreach (ChangeItem item in Model.Changes)
+        {
+            <tr data-id="@item.Id">
+                <td class="align-middle">
+                    <div>#@item.Id</div>
+                </td>
+                <td class="align-middle">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-1">
+                            @if (Model.ContainedItems[item.ItemId].ImageExists)
+                            {
+                                <a href="~/item/@item.ItemId">
+                                    <img class="changes-image" src="~/img/items/@(item.ItemId).png" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="~/item/@item.ItemId">
+                                    <img class="changes-image" src="~/img/NoImage.png" />
+                                </a>
+                            }
+                        </div>
+                        <div>
+                            <a href="~/item/@item.ItemId">@Model.ContainedItems[item.ItemId].Name</a>
+                        </div>
+                    </div>
+                </td>
+                <td class="align-middle">
+                    <div>@item.ChangeType</div>
+                </td>
+                <td class="align-middle">
+                    <div>@item.TranslatedField</div>
+                </td>
+                <td class="align-middle">
+                    @if (item.Field == "ingredient" && item.OldValue != "")
+                    {
+                        int id = Convert.ToInt32(item.OldValue);
+                        <div class="d-flex align-items-center">
+                            <div class="mr-1">
+                                @if (Model.ContainedItems[id].ImageExists)
+                                {
+                                    <a href="~/item/@id">
+                                        <img class="changes-image" src="~/img/items/@(id).png" />
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="~/item/@id">
+                                        <img class="changes-image" src="~/img/NoImage.png" />
+                                    </a>
+                                }
                             </div>
-                        </td>
-                        <td>
-                            <div class="label-md-left">@item.ChangeType</div>
-                        </td>
-                        <td>
-                            <div class="label-md-left">@item.TranslatedField</div>
-                        </td>
-                        <td>
-                            @if (item.Field == "ingredient" && item.OldValue != "")
-                            {
-                                int id = Convert.ToInt32(item.OldValue);
 
+                            <div>
+                                <a href="~/item/@id">@Model.ContainedItems[id].Name</a>
+                            </div>
+                        </div>
+                    }
+                    else if (item.Field == "rarity" && item.OldValue != "")
+                    {
+                        string rarity = Model.AllRarites[Convert.ToInt32(item.OldValue)];
+                        <div class="badge label-@rarity">@rarity</div>
+                    }
+                    else if (item.Field == "category" && item.OldValue != "")
+                    {
+                        <div>@Model.AllCategories[Convert.ToInt32(item.OldValue)]</div>
+                    }
+                    else if (item.Field == "type" && item.OldValue != "")
+                    {
+                        <div>@Model.AllTypes[Convert.ToInt32(item.OldValue)]</div>
+                    }
+                    else if (item.Field == "removed" && item.OldValue != "")
+                    {
+                        <div>@item.OldValue</div>
+                    }
+                    else
+                    {
+                        <div class="text-break">@item.OldValue</div>
+                    }
+                </td>
+                <td class="align-middle">
+                    @if (item.Field == "ingredient" && item.NewValue != "")
+                    {
+                        int id = Convert.ToInt32(item.NewValue);
+                        <div class="d-flex align-items-center">
+                            <div class="mr-1">
                                 @if (Model.ContainedItems[id].ImageExists)
                                 {
                                     <a href="~/item/@id">
-                                        <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/items/@(id).png" />
+                                        <img class="changes-image" src="~/img/items/@(id).png" />
                                     </a>
                                 }
                                 else
                                 {
                                     <a href="~/item/@id">
-                                        <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/NoImage.png" />
+                                        <img class="changes-image" src="~/img/NoImage.png" />
                                     </a>
                                 }
-                                <div>
-                                    <a href="~/item/@id"><h4 class="item-title">@Model.ContainedItems[id].Name</h4></a>
-                                </div>
-                            }
-                            else if (item.Field == "rarity" && item.OldValue != "")
-                            {
-                                string rarity = Model.AllRarites[Convert.ToInt32(item.OldValue)];
-                                <div class="label label-@rarity">@rarity</div>
-                            }
-                            else if (item.Field == "category" && item.OldValue != "")
-                            {
-                                <div class="label-md-left">@Model.AllCategories[Convert.ToInt32(item.OldValue)]</div>
-                            }
-                            else if (item.Field == "type" && item.OldValue != "")
-                            {
-                                <div class="label-md-left">@Model.AllTypes[Convert.ToInt32(item.OldValue)]</div>
-                            }
-                            else if (item.Field == "removed" && item.OldValue != "")
-                            {
-                                <span class="label-md-left">@item.OldValue <span class="glyphicon glyphicon-flag"></span></span>
-                            }
-                            else
-                            {
-                                <div class="label-md-left">@item.OldValue</div>
-                            }
-                        </td>
-                        <td>
-                            @if (item.Field == "ingredient" && item.NewValue != "")
-                            {
-                                int id = Convert.ToInt32(item.NewValue);
-
-                                @if (Model.ContainedItems[id].ImageExists)
-                                {
-                                    <a href="~/item/@id">
-                                        <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/items/@(id).png" />
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a href="~/item/@id">
-                                        <img class="pull-left item-image-search" style="width: 16px; height: 16px; margin-right: 8px;" src="~/img/NoImage.png" />
-                                    </a>
-                                }
-                                <div>
-                                    <a href="~/item/@id"><h4 class="item-title">@Model.ContainedItems[id].Name</h4></a>
-                                </div>
-                            }
-                            else if (item.Field == "rarity" && item.NewValue != "")
-                            {
-                                string rarity = Model.AllRarites[Convert.ToInt32(item.NewValue)];
-                                <div class="label label-@rarity">@rarity</div>
-                            }
-                            else if (item.Field == "category" && item.NewValue != "")
-                            {
-                                <div class="label-md-left">@Model.AllCategories[Convert.ToInt32(item.NewValue)]</div>
-                            }
-                            else if (item.Field == "type" && item.NewValue != "")
-                            {
-                                <div class="label-md-left">@Model.AllTypes[Convert.ToInt32(item.NewValue)]</div>
-                            }
-                            else if (item.Field == "removed" && item.NewValue != "")
-                            {
-                                <span class="label-md-left">@item.NewValue <span class="glyphicon glyphicon-flag"></span></span>
-                            }
-                            else
-                            {
-                                <div class="label-md-left">@item.NewValue</div>
-                            }
-                        </td>
-                        <td>
-                            <div class="label-md-left item-timestamp">@item.TimestampString</div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                            </div>
+                            <div>
+                                <a href="~/item/@id">@Model.ContainedItems[id].Name</a>
+                            </div>
+                        </div>
+                    }
+                    else if (item.Field == "rarity" && item.NewValue != "")
+                    {
+                        string rarity = Model.AllRarites[Convert.ToInt32(item.NewValue)];
+                        <div class="badge label-@rarity">@rarity</div>
+                    }
+                    else if (item.Field == "category" && item.NewValue != "")
+                    {
+                        <div>@Model.AllCategories[Convert.ToInt32(item.NewValue)]</div>
+                    }
+                    else if (item.Field == "type" && item.NewValue != "")
+                    {
+                        <div>@Model.AllTypes[Convert.ToInt32(item.NewValue)]</div>
+                    }
+                    else if (item.Field == "removed" && item.NewValue != "")
+                    {
+                        <div>@item.NewValue</div>
+                    }
+                    else
+                    {
+                        <div class="text-break">@item.NewValue</div>
+                    }
+                </td>
+                <td class="align-middle">
+                    <div class="item-timestamp">@item.TimestampString</div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

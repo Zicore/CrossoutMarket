@@ -1,17 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Crossout.Web;
+using Crossout.AspWeb;
 using Crossout.Web.Cache;
-using Crossout.Web.Models;
-using Crossout.Web.Models.Charts;
+using Crossout.AspWeb.Models;
+using Crossout.AspWeb.Models.Charts;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
+using Newtonsoft.Json;
+using Crossout.Model.Items;
+using Crossout.AspWeb.Helper;
+using Crossout.AspWeb.Services;
 
 namespace Crossout.AspWeb.Controllers
 {
     public class DataController : Controller
     {
+        private readonly RootPathHelper pathProvider;
+        public DataController(RootPathHelper pathProvider)
+        {
+            this.pathProvider = pathProvider;
+        }
+
+        [Route("/data/search")]
+        public IActionResult SearchData()
+        {
+            return RouteSearchData();
+        }
+
         [Route("/data/item/all/{id}")]
         public IActionResult Chart(int id)
         {
@@ -25,6 +41,26 @@ namespace Crossout.AspWeb.Controllers
         }
 
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
+
+        private IActionResult RouteSearchData()
+        {
+            sql.Open(WebSettings.Settings.CreateDescription());
+
+            string sqlQuery = DataService.BuildSearchQuery(false, true, false, false, false, false, false, true, true, false);
+
+            var ds = sql.SelectDataSet(sqlQuery);
+            var model = new SearchDataContainer();
+            foreach (var row in ds)
+            {
+                Item item = Item.Create(row);
+                item.SetImageExists(pathProvider);
+                // CrossoutDataService.Instance.AddData(item);
+                model.Data.Add(item);
+            }
+
+            return Json(model);
+        }
+
         private static readonly BasicCache<int, ChartDataModel> Cache = new BasicCache<int, ChartDataModel>();
 
         private IActionResult RouteChartDataWithCache(int id)
@@ -104,5 +140,11 @@ namespace Crossout.AspWeb.Controllers
         {
             return $"{dt.Year}-{dt.Month}-{dt.Day} {dt.Hour}:{dt.Minute}:{dt.Second}";
         }
+    }
+
+    public class SearchDataContainer
+    {
+        [JsonProperty("data")]
+        public List<Item> Data = new List<Item>();
     }
 }

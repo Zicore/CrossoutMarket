@@ -1,0 +1,18 @@
+﻿/*$body-bg: #ffffff;
+$body-color: #fff;*/
+
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 954px,
+    xl: 1200px
+);
+
+$component-active-color: white;
+$component-active-bg: #6c757d;
+
+$pagination-color: #6c757d;
+$pagination-hover-color: black;
+
+@import "../lib/bootstrap/scss/bootstrap";
