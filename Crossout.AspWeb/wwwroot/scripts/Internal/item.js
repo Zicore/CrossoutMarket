@@ -437,3 +437,13 @@ function verifyImagePaths() {
             });
     });
 }
+
+var isInitialExpandDone = false;
+$('#recipe-tab').click(function (e) {
+    if (!isInitialExpandDone) {
+        $('#recipe-tab').tab('show');
+        $(".item-0").click();
+        isInitialExpandDone = true;
+        e.preventDefault;
+    }
+});
