@@ -91,12 +91,6 @@
                         @(Model.Item.Meta == 1 ? "Yes" : "No")
                     </span>
                 </div>
-                <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Last Update</span>
-                    <span class="item-timestamp">
-                        @(Model.Item.LastUpdateTime)
-                    </span>
-                </div>
             </div>
         </div>
 
@@ -147,9 +141,9 @@
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Crafting Margin</span>
-                    <span>
-                        @Model.Item.FormatCraftingMargin <img height="14" src="~/img/Coin.png" />
+                    <span class="font-weight-bold">Last Update</span>
+                    <span class="item-timestamp">
+                        @(Model.Item.LastUpdateTime)
                     </span>
                 </div>
             </div>
