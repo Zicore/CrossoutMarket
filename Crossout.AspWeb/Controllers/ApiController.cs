@@ -12,6 +12,7 @@ using Crossout.AspWeb.Services.API.v1;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
 using Crossout.Web.Modules.API.v1;
+using Crossout.AspWeb.Helper;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -46,7 +47,6 @@ namespace Crossout.AspWeb.Controllers
             ApiDataService dataService = new ApiDataService(sql);
 
             var model = dataService.GetFactions();
-
             return Json(model);
         }
 

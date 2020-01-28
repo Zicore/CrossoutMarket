@@ -29,6 +29,7 @@ namespace Crossout.AspWeb.Controllers
         [Route("")]
         public IActionResult Index(bool rmdItems)
         {
+            this.RegisterHit();
             return RouteSearchAjax();
             //return RouteSearch(null, 0, null, null, null, null, null, rmdItems);
             //return RouteSearch(null, 0,null,null,null,null,null);
