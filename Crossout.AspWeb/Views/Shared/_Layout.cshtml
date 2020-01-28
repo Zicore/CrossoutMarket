@@ -51,31 +51,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
     <script>
         // Get server time to local time offset
-        utcToLocalTimeOffset = moment().utcOffset();
-        totalUnixOffset = utcToLocalTimeOffset * 60 * 1000;
+        var utcToLocalTimeOffset = moment().utcOffset();
+        var totalUnixOffset = utcToLocalTimeOffset * 60 * 1000;
 
-        function adjustTimeStamp() {
-            $('.item-timestamp').each(function (i, element) {
-                $(element).text(function (i, text) {
-                    var unixtimestamp = moment(text, 'YYYY-MM-DD HH:mm:ss').format('x');
-                    var adjustedtimestamp = parseInt(unixtimestamp) + totalUnixOffset;
-                    var newText = moment(adjustedtimestamp, 'x').format('YYYY-MM-DD HH:mm:ss');
-                    return newText;
-                });
-            });
-        };
+        function isTimestampToday(unixmillisecondstimestamp) {
+            return moment(unixmillisecondstimestamp, 'x').format('YYYYMMDD') === moment().format('YYYYMMDD');
+        }
 
         function getAdjustedTimestamp(timestamp) {
             var unixtimestamp = moment(timestamp, 'YYYY-MM-DD HH:mm:ss').format('x');
             var adjustedtimestamp = parseInt(unixtimestamp) + totalUnixOffset;
-            var newText = moment(adjustedtimestamp, 'x').format('YYYY-MM-DD HH:mm:ss');
+            var newText;
+            if (isTimestampToday(adjustedtimestamp))
+                newText = moment(adjustedtimestamp, 'x').format(readSetting('timestamp-format-time'));
+            else
+                newText = moment(adjustedtimestamp, 'x').format(readSetting('timestamp-format-date') + ' ' + readSetting('timestamp-format-time'));
             return newText;
         }
+
+        function adjustTimeStamp() {
+            $('.item-timestamp').each(function (i, element) {
+                $(element).text(function (i, text) {
+                    return getAdjustedTimestamp(text);
+                });
+            });
+        };
+
     </script>
 
     @* DataTables *@
     @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.css" />
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.js"></script>*@
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/r-2.2.3/datatables.min.js"></script>*@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/sl-1.3.1/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/b-1.6.1/b-html5-1.6.1/r-2.2.3/sc-2.0.1/sl-1.3.1/datatables.min.js"></script>
     @*<script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-2.2.4/jszip-3.1.3/dt-1.10.15/b-1.3.1/b-html5-1.3.1/datatables.min.js"></script>*@

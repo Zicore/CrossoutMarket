@@ -15,6 +15,18 @@
             <label class="custom-control-label" for="darkModeSwitch">Dark Mode</label>
         </div>
 
+        <div class="form-inline my-1">
+            <input type="text" class="form-control form-control-sm mr-1" id="dateFormatText">
+            <label for="dateFormatText">Date Format (<a href="https://momentjs.com/docs/#/parsing/string-format/">Docs</a>)</label>
+        </div>
+
+        <div class="form-inline my-1">
+            <input type="text" class="form-control form-control-sm mr-1" id="timeFormatText">
+            <label for="timeFormatText">Time Format (<a href="https://momentjs.com/docs/#/parsing/string-format/">Docs</a>)</label>
+        </div>
+
+        <div class="test-timestamp">@DateTime.UtcNow.ToString("yyyy-mm-dd HH:mm:ss")</div>
+
         <hr />
 
         <p class="text-secondary">Search Page Settings</p>
@@ -110,6 +122,9 @@
     function applySettings() {
         // General settings darkModeSwitch
         $('#darkModeSwitch').prop('checked', readSetting('dark-mode'));
+        $('#dateFormatText').val(readSetting('timestamp-format-date'));
+        $('#timeFormatText').val(readSetting('timestamp-format-time'));
+        updateTestTimestamp();
         // Search settings
         $('#fullSizeTable').prop('checked', readSetting('full-size-table'));
         $('#dropdownSwitch').prop('checked', readSetting('dropdown'));
@@ -139,6 +154,18 @@
         else
             $('html').removeClass('dark-mode');
     });
+    $('#dateFormatText').change(function () {
+        writeSetting('timestamp-format-date', this.value);
+        updateTestTimestamp();
+    });
+    $('#timeFormatText').change(function () {
+        writeSetting('timestamp-format-time', this.value);
+        updateTestTimestamp();
+    });
+
+    function updateTestTimestamp() {
+        $('.test-timestamp').text(moment().format(readSetting('timestamp-format-date') + ' ' + readSetting('timestamp-format-time')));
+    }
 
     // Search settings
     $('#fullSizeTable').change(function () {

@@ -1,5 +1,7 @@
 ﻿const defaultSettings = {
     'dark-mode': false,
+    'timestamp-format-date': 'YYYY-MM-DD',
+    'timestamp-format-time': 'HH:mm:ss',
     'full-size-table': false,
     'dropdown': true,
     'range-filters': false,
