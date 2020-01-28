@@ -5,7 +5,7 @@
     'full-size-table': false,
     'dropdown': true,
     'vertical-buttons': false,
-    'legacy-filers': false,
+    'legacy-filters': false,
     'range-filters': false,
     'export-buttons': false,
     'length': 10,
