@@ -36,9 +36,13 @@
             <label class="custom-control-label" for="fullSizeTable">Full Size Table</label>
         </div>
 
-        <div class="custom-control custom-switch my-1">
-            <input type="checkbox" class="custom-control-input" id="dropdownSwitch">
-            <label class="custom-control-label" for="dropdownSwitch">Dropdown Filter</label>
+        <div class="form-inline my-1">
+            <select class="form-control form-control-sm mr-1" id="filterStyleSelect">
+                <option value="dropdown">Dropdowns</option>
+                <option value="vertical-buttons">Buttons</option>
+                <option value="legacy-filters">Legacy</option>
+            </select>
+            <label class="control-label" for="filterStyleSelect">Filter Style</label>
         </div>
 
         <div class="custom-control custom-switch my-1">
@@ -127,7 +131,7 @@
         updateTestTimestamp();
         // Search settings
         $('#fullSizeTable').prop('checked', readSetting('full-size-table'));
-        $('#dropdownSwitch').prop('checked', readSetting('dropdown'));
+        $('#filterStyleSelect').val(readFilterSettings());
         $('#rangeFiltersSwitch').prop('checked', readSetting('range-filters'));
         $('#exportButtonsSwitch').prop('checked', readSetting('export-buttons'));
         $('#lengthSelect').val(readSetting('length'));
@@ -171,8 +175,21 @@
     $('#fullSizeTable').change(function () {
         writeSetting('full-size-table', this.checked);
     });
-    $('#dropdownSwitch').change(function () {
-        writeSetting('dropdown', this.checked);
+    //$('#dropdownSwitch').change(function () {
+    //    if (this.checked)
+    //        $('#legacyFiltersSwitch').prop('checked', false).change();
+    //    writeSetting('dropdown', this.checked);
+    //});
+    //$('#legacyFiltersSwitch').change(function () {
+    //    if (this.checked)
+    //        $('#dropdownSwitch').prop('checked', false).change();
+    //    writeSetting('legacy-filters', this.checked);
+    //});
+    $('#filterStyleSelect').change(function () {
+        writeSetting('dropdown', false);
+        writeSetting('vertical-buttons', false);
+        writeSetting('legacy-filters', false);
+        writeSetting(this.value, true);
     });
     $('#rangeFiltersSwitch').change(function () {
         writeSetting('range-filters', this.checked);
