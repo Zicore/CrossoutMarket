@@ -25,6 +25,7 @@ namespace Crossout.AspWeb.Controllers
         [Route("export")]
         public IActionResult Export(bool showTable, bool image, bool name, bool rarity, bool faction, bool category, bool type, bool popularity, bool sellPrice, bool sellOffers, bool buyPrice, bool buyOrders, bool margin, bool lastUpdate, bool craftingCostSell, bool craftingCostBuy, bool craftingMargin, bool craftVsBuy, bool link)
         {
+            this.RegisterHit("Export");
             return RouteHtmlExport(showTable, image, name, rarity, faction, category, type, popularity, sellPrice, sellOffers, buyPrice, buyOrders, margin, lastUpdate, craftingCostSell, craftingCostBuy, craftingMargin, craftVsBuy, link);
         }
 

@@ -26,6 +26,7 @@ namespace Crossout.AspWeb.Controllers
         [Route("item/{id}")]
         public IActionResult Item(int id)
         {
+            this.RegisterHit("Item", id);
             return RouteItem(id);
         }
 

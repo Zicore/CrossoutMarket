@@ -14,7 +14,7 @@ namespace Crossout.AspWeb.Models.Stats
         public string ActionId;
         public string ActionDisplayName;
         public int? IdParameter;
-        public string RemoteIP;
+        public int IPHash;
         public DateTime HitTimestamp;
     }
 }

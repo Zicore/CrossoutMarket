@@ -37,6 +37,7 @@ namespace Crossout.AspWeb.Controllers
 
             var model = dataService.GetRarities();
 
+            this.RegisterHit("/api/v1/rarities");
             return Json(model);
         }
         
@@ -47,6 +48,8 @@ namespace Crossout.AspWeb.Controllers
             ApiDataService dataService = new ApiDataService(sql);
 
             var model = dataService.GetFactions();
+
+            this.RegisterHit("/api/v1/factions");
             return Json(model);
         }
 
@@ -58,6 +61,7 @@ namespace Crossout.AspWeb.Controllers
 
             var model = dataService.GetItemTypes();
 
+            this.RegisterHit("/api/v1/types");
             return Json(model);
         }
 
@@ -69,6 +73,7 @@ namespace Crossout.AspWeb.Controllers
 
             var model = dataService.GetCategories();
 
+            this.RegisterHit("/api/v1/categories");
             return Json(model);
         }
 
@@ -81,12 +86,14 @@ namespace Crossout.AspWeb.Controllers
         [Route("/api/v1/items")]
         public IActionResult ItemsAllSearchAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int id)
         {
+            this.RegisterHit("/api/v1/items");
             return RouteSearch(query, 0, rarity, category, faction, removedItems, metaItems, id);
         }
 
         [Route("/api/v1/item/{item}")]
         public IActionResult ItemAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int item)
         {
+            this.RegisterHit("/api/v1/item");
             return RouteSearch(query, 0, rarity, category, faction, removedItems, metaItems, item);
         }
 
@@ -100,6 +107,7 @@ namespace Crossout.AspWeb.Controllers
             var itemModel = db.SelectItem(item, true);
             var recipeModel = db.SelectRecipeModel(itemModel.Item, false);
 
+            this.RegisterHit("/api/v1/recipe");
             return Json(recipeModel);
         }
 
@@ -115,6 +123,7 @@ namespace Crossout.AspWeb.Controllers
 
             itemModel.Recipe = recipeModel;
 
+            this.RegisterHit("/api/v1/recipe-deep");
             return Json(itemModel);
         }
 
@@ -141,6 +150,8 @@ namespace Crossout.AspWeb.Controllers
                     new Parameter {Identifier = "@id", Value = id},
                 };
                 var ds = sql.SelectDataSet(query, parmeter);
+
+                this.RegisterHit("/api/v1/market");
                 return Json(ds);
             }
             else
@@ -194,6 +205,7 @@ namespace Crossout.AspWeb.Controllers
 
             var ds = sql.SelectDataSet(query, parmeter);
 
+            this.RegisterHit("/api/v1/market-all");
             return Json(ds);
         }
 
