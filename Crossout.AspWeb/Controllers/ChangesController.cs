@@ -24,6 +24,7 @@ namespace Crossout.AspWeb.Controllers
         [Route("changes")]
         public IActionResult Changes()
         {
+            this.RegisterHit("Changes");
             return RouteItem();
         }
 

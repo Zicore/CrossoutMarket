@@ -25,6 +25,7 @@ namespace Crossout.AspWeb.Controllers
         [Route("packs")]
         public IActionResult Packages()
         {
+            this.RegisterHit("Packs");
             return RoutePackages();
         }
 

@@ -1,0 +1,91 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@model Crossout.AspWeb.Models.Stats.StatsModel
+
+<partial name="header" model="@Model" />
+
+<div class="half-hd-container px-3">
+    <div class="card m-1 p-2">
+        <h3>Website Stats</h3>
+        <div>Service Start:</div>
+        <div class="item-timestamp">@Model.ServiceStart.ToString("yyyy-MM-dd HH:mm:ss")</div>
+        <div>(@Model.FormatTimeSpanSinceStart)</div>
+    </div>
+
+    @foreach (var combined in Model.CombinedHitLocations)
+    {
+        <div class="card m-1 p-2">
+            <h4>@combined.DisplayName</h4>
+            <div>
+                <table id="@(combined.DisplayName)-Table" class="table table-borderless dt">
+                    <thead>
+                        <tr>
+                            <th>Page</th>
+                            <th>Hits</th>
+                            <th>Unique Hits</th>
+                            <th>Hits/Minute</th>
+                            <th>Hits/Hour</th>
+                            <th>Hits/Day</th>
+                            <th>Hits/Week</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var timedHits in combined.TimedHits)
+                        {
+                            <tr>
+                                <td class="font-weight-bold align-middle">Total</td>
+                                <td data-order="@(timedHits.Hits)">@(timedHits.Hits)</td>
+                                <td data-order="@(timedHits.UniqueHits)">@(timedHits.UniqueHits)</td>
+                                <td data-order="@(timedHits.FormatHitsPerMinute)">@timedHits.FormatHitsPerMinute</td>
+                                <td data-order="@(timedHits.FormatHitsPerHour)">@(timedHits.FormatHitsPerHour)</td>
+                                <td data-order="@(timedHits.FormatHitsPerDay)">@(timedHits.FormatHitsPerDay)</td>
+                                <td data-order="@(timedHits.FormatHitsPerWeek)">@(timedHits.FormatHitsPerWeek)</td>
+                            </tr>
+
+                        }
+                        @foreach (var location in combined.Locations)
+                        {
+                            if (location.IdParameter == null || Model.AllItemsById.ContainsKey((int)location.IdParameter))
+                            {
+                                <tr>
+                                    <td class="align-middle" style="width: 20%;">
+                                        <div>@location.ActionDisplayName</div>
+                                        @if (location.IdParameter != null && Model.AllItemsById.ContainsKey((int)location.IdParameter))
+                                        {
+                                            <div><a href="/item/@((int)location.IdParameter)">@Model.AllItemsById[(int)location.IdParameter].Name</a></div>
+                                        }
+                                    </td>
+                                    @foreach (var timedHits in location.TimedHits)
+                                    {
+                                        <td style="width: 13.33%;" data-order="@(timedHits.Hits)">@(timedHits.Hits)</td>
+                                        <td style="width: 13.33%;" data-order="@(timedHits.UniqueHits)">@(timedHits.UniqueHits)</td>
+                                        <td style="width: 13.33%;" data-order="@(timedHits.FormatHitsPerMinute)">@timedHits.FormatHitsPerMinute</td>
+                                        <td style="width: 13.33%;" data-order="@(timedHits.FormatHitsPerHour)">@(timedHits.FormatHitsPerHour)</td>
+                                        <td style="width: 13.33%;" data-order="@(timedHits.FormatHitsPerDay)">@(timedHits.FormatHitsPerDay)</td>
+                                        <td style="width: 13.33%;" data-order="@(timedHits.FormatHitsPerWeek)">@(timedHits.FormatHitsPerWeek)</td>
+                                    }
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        adjustTimeStamp();
+    });
+
+    $('.dt').DataTable({
+        searching: false,
+        lengthChange: false,
+        order: [[1, 'desc']]
+    });
+</script>
