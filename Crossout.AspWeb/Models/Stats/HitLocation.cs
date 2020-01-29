@@ -15,11 +15,11 @@ namespace Crossout.AspWeb.Models.Stats
 
         public List<TimedHits> TimedHits { get; set; } = new List<TimedHits>();
 
-        public HitLocation(List<TimeSpan> intervals)
+        public HitLocation(List<TimeSpan> intervals, DateTime startTimestamp)
         {
             foreach (var interval in intervals)
             {
-                var newTimedHits = new TimedHits(interval);
+                var newTimedHits = new TimedHits(interval, startTimestamp);
                 newTimedHits.Reset();
                 TimedHits.Add(newTimedHits);
             }
