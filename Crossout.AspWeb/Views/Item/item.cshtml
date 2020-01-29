@@ -142,7 +142,7 @@
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
                     <span class="font-weight-bold">Last Update</span>
-                    <span class="item-timestamp">
+                    <span class="item-timestamp @(Model.Item.OlderThan(5) ? "item-older-than-5" : Model.Item.OlderThan(60) ? "item-older-than-60" : "")">
                         @(Model.Item.LastUpdateTime)
                     </span>
                 </div>
