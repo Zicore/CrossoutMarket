@@ -24,7 +24,6 @@
                         <tr>
                             <th>Page</th>
                             <th>Hits</th>
-                            <th>Unique Hits</th>
                             <th>Hits/Minute</th>
                             <th>Hits/Hour</th>
                             <th>Hits/Day</th>
@@ -37,7 +36,6 @@
                             <tr>
                                 <td class="font-weight-bold align-middle">Total</td>
                                 <td data-order="@(timedHits.Hits)">@(timedHits.Hits)</td>
-                                <td data-order="@(timedHits.UniqueHits)">@(timedHits.UniqueHits)</td>
                                 <td data-order="@(timedHits.FormatHitsPerMinute)">@timedHits.FormatHitsPerMinute</td>
                                 <td data-order="@(timedHits.FormatHitsPerHour)">@(timedHits.FormatHitsPerHour)</td>
                                 <td data-order="@(timedHits.FormatHitsPerDay)">@(timedHits.FormatHitsPerDay)</td>
@@ -60,7 +58,6 @@
                                     @foreach (var timedHits in location.TimedHits)
                                     {
                                         <td style="width: 13.33%;" data-order="@(timedHits.Hits)">@(timedHits.Hits)</td>
-                                        <td style="width: 13.33%;" data-order="@(timedHits.UniqueHits)">@(timedHits.UniqueHits)</td>
                                         <td style="width: 13.33%;" data-order="@(timedHits.FormatHitsPerMinute)">@timedHits.FormatHitsPerMinute</td>
                                         <td style="width: 13.33%;" data-order="@(timedHits.FormatHitsPerHour)">@(timedHits.FormatHitsPerHour)</td>
                                         <td style="width: 13.33%;" data-order="@(timedHits.FormatHitsPerDay)">@(timedHits.FormatHitsPerDay)</td>
