@@ -151,7 +151,7 @@
                     'targets': getColumnIndexesById(['lastUpdateCol']),
                     'render': function (data, type, row, meta) {
                         var adjustedTimestamp = getAdjustedTimestamp(data);
-                        return '<div class="item-timestamp ' + olderThan(adjustedTimestamp, 5) + ' ' + olderThan(adjustedTimestamp, 60) + '">' + adjustedTimestamp + '</div>';
+                        return '<div class="item-timestamp ' + olderThan(data, 5) + ' ' + olderThan(data, 60) + '">' + adjustedTimestamp + '</div>';
                     }
                 },
                 {
@@ -311,6 +311,6 @@
     }
 
     function olderThan(timestamp, minutes) {
-        return moment().subtract(minutes, 'minutes') > moment(timestamp, 'YYYY-MM-DD HH:mm:ss') ? 'item-older-than-' + minutes : '';
+        return moment.utc().subtract(minutes, 'minutes') > moment.utc(timestamp, 'YYYY-MM-DD HH:mm:ss') ? 'item-older-than-' + minutes : '';
     }
 </script>
