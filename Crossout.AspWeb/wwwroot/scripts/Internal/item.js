@@ -297,7 +297,7 @@ function htmlName(item) {
         '<a href="/item/' +
         item.id +
         '">' +
-        item.name +
+        item.availableName +
         '</a>' +
         '</div>';
 }
@@ -406,7 +406,7 @@ function updateSum(root, item, result, recipe) {
         }
     }
 
-    if (valueSet && foundItem != null) {
+    if (valueSet && foundItem !== null) {
         result.map[foundItem.parentUniqueId] = true;
     }
 }

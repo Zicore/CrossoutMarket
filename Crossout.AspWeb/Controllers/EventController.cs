@@ -62,7 +62,7 @@ namespace Crossout.AspWeb.Controllers
                         containedItemIDs.Add((int)item.Id);
                     }
                 }
-                knightRidersModel.ContainedItems = db.SelectListOfItems(containedItemIDs);
+                knightRidersModel.ContainedItems = db.SelectListOfItems(containedItemIDs, 1);
                 foreach (var item in knightRidersModel.ContainedItems)
                 {
                     item.Value.SetImageExists(pathProvider);

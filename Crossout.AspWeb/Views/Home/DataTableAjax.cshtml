@@ -90,14 +90,15 @@
     var order;
     var table;
     var cellWidth = (readSetting('full-size-table') ? '7.09%' : '10%')
+    var language = Cookies.get('language');
     $(document).ready(function () {
         order = [[getColumnIndexById('offersCol'), "desc"]];
         table = $('#ItemTable2').DataTable({
-            ajax: '/data/search',
+            ajax: '/data/search?l=' + language,
             deferRender: true,
             dataSrc: 'data',
             columns: [
-                { data: 'name' },
+                { data: 'availableName' },
                 { data: 'id' },
                 { data: 'imagePath' },
                 { data: 'rarityName' },

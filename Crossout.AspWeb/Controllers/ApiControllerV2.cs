@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
 using Crossout.Web.Modules.API.v2;
 using Crossout.AspWeb.Helper;
+using Crossout.AspWeb.Models.Language;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -83,6 +84,19 @@ namespace Crossout.AspWeb.Controllers
         //    return RouteSearch(null, 0, null, null, null, null, null, 0);
         //}
 
+        [Route("/api/v2/languages")]
+        public IActionResult LanguagesAction()
+        {
+            sql.Open(WebSettings.Settings.CreateDescription());
+
+            DataService db = new DataService(sql);
+
+            LanguageModel model = db.SelectLanguageModel();
+
+            this.RegisterHit("/api/v2/languages");
+            return Json(model);
+        }
+
         [Route("/api/v2/packs")]
         public IActionResult PacksAction()
         {
@@ -96,42 +110,62 @@ namespace Crossout.AspWeb.Controllers
         }
 
         [Route("/api/v2/items")]
-        public IActionResult ItemsAllSearchAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int id)
-        {
-            this.RegisterHit("/api/v2/items");
-            return RouteSearch(query, 0, rarity, category, faction, removedItems, metaItems, id);
-        }
-
-        [Route("/api/v2/item/{item}")]
-        public IActionResult ItemAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int item)
-        {
-            this.RegisterHit("/api/v2/item");
-            return RouteSearch(query, 0, rarity, category, faction, removedItems, metaItems, item);
-        }
-
-        [Route("/api/v2/recipe/{item}")]
-        public IActionResult RecipeAction(int item)
+        public IActionResult ItemsAllSearchAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int id, string language)
         {
             sql.Open(WebSettings.Settings.CreateDescription());
 
             DataService db = new DataService(sql);
 
-            var itemModel = db.SelectItem(item, true);
-            var recipeModel = db.SelectRecipeModel(itemModel.Item, false);
+            LanguageModel languageModel = db.SelectLanguageModel();
+            Language selectedLanguage = languageModel.VerifyLanguage(language);
+
+            this.RegisterHit("/api/v2/items");
+            return RouteSearch(query, 0, rarity, category, faction, removedItems, metaItems, id, selectedLanguage.Id);
+        }
+
+        [Route("/api/v2/item/{item}")]
+        public IActionResult ItemAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int item, string language)
+        {
+            sql.Open(WebSettings.Settings.CreateDescription());
+
+            DataService db = new DataService(sql);
+
+            LanguageModel languageModel = db.SelectLanguageModel();
+            Language selectedLanguage = languageModel.VerifyLanguage(language);
+
+            this.RegisterHit("/api/v2/item");
+            return RouteSearch(query, 0, rarity, category, faction, removedItems, metaItems, item, selectedLanguage.Id);
+        }
+
+        [Route("/api/v2/recipe/{item}")]
+        public IActionResult RecipeAction(int item, string language)
+        {
+            sql.Open(WebSettings.Settings.CreateDescription());
+
+            DataService db = new DataService(sql);
+
+            LanguageModel languageModel = db.SelectLanguageModel();
+            Language selectedLanguage = languageModel.VerifyLanguage(language);
+
+            var itemModel = db.SelectItem(item, true, selectedLanguage.Id);
+            var recipeModel = db.SelectRecipeModel(itemModel.Item, false, selectedLanguage.Id);
 
             this.RegisterHit("/api/v2/recipe");
             return Json(recipeModel);
         }
 
         [Route("/api/v2/recipe-deep/{item}")]
-        public IActionResult RecipeDeepAction(int item)
+        public IActionResult RecipeDeepAction(int item, string language)
         {
             sql.Open(WebSettings.Settings.CreateDescription());
 
             DataService db = new DataService(sql);
 
-            var itemModel = db.SelectItem(item, true);
-            var recipeModel = db.SelectRecipeModel(itemModel.Item, true);
+            LanguageModel languageModel = db.SelectLanguageModel();
+            Language selectedLanguage = languageModel.VerifyLanguage(language);
+
+            var itemModel = db.SelectItem(item, true, selectedLanguage.Id);
+            var recipeModel = db.SelectRecipeModel(itemModel.Item, true, selectedLanguage.Id);
 
             itemModel.Recipe = recipeModel;
 
@@ -221,7 +255,7 @@ namespace Crossout.AspWeb.Controllers
             return Json(ds);
         }
 
-        private IActionResult RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string removedItems, string metaItems, int id)
+        private IActionResult RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string removedItems, string metaItems, int id, int language)
         {
             if (searchQuery == null)
             {
@@ -281,6 +315,8 @@ namespace Crossout.AspWeb.Controllers
                 var p = new Parameter { Identifier = "@id", Value = $"{id}" };
                 parmeter.Add(p);
             }
+
+            parmeter.Add(new Parameter { Identifier = "@language", Value = language });
 
             var ds = sql.SelectDataSet(sqlQuery, parmeter);
             var searchResult = new List<Item>();

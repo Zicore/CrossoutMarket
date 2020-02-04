@@ -10,6 +10,14 @@
     <div class="card my-1 p-1">
         <p class="text-secondary">General Settings</p>
 
+        <div class="form-inline my-1">
+            <select class="form-control form-control-sm mr-1" id="langSelect">
+                <option value="en">EN</option>
+                <option value="ru">RU</option>
+            </select>
+            <label class="control-label" for="langSelect">Language</label>
+        </div>
+
         <div class="custom-control custom-switch my-1">
             <input type="checkbox" class="custom-control-input" id="darkModeSwitch">
             <label class="custom-control-label" for="darkModeSwitch">Dark Mode</label>
@@ -124,7 +132,9 @@
 
 <script>
     function applySettings() {
-        // General settings darkModeSwitch
+        // General settings
+        var lang = Cookies.get('language');
+        $('#langSelect').val(lang != undefined ? parseInt(lang) : 1);
         $('#darkModeSwitch').prop('checked', readSetting('dark-mode'));
         $('#dateFormatText').val(readSetting('timestamp-format-date'));
         $('#timeFormatText').val(readSetting('timestamp-format-time'));
@@ -150,7 +160,10 @@
         applySettings();
     });
 
-    // General settings darkModeSwitch
+    // General settings
+    $('#langSelect').change(function () {
+        Cookies.set('language', this.value, { expires: 365 });
+    });
     $('#darkModeSwitch').change(function () {
         writeSetting('dark-mode', this.checked);
         if (this.checked)

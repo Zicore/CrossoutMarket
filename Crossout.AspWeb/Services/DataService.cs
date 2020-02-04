@@ -14,6 +14,7 @@ using Crossout.AspWeb.Models.Recipes;
 using ZicoreConnector.Zicore.Connector.Base;
 using Crossout.Data.PremiumPackages;
 using Crossout.AspWeb.Models.Changes;
+using Crossout.AspWeb.Models.Language;
 
 namespace Crossout.AspWeb.Services
 {
@@ -26,32 +27,35 @@ namespace Crossout.AspWeb.Services
             DB = sql;
         }
 
-        public ItemModel SelectItem(int id, bool addData)
+        public ItemModel SelectItem(int id, bool addData, int language)
         {
             ItemModel itemModel = new ItemModel();
             var parmeter = new List<Parameter>();
             parmeter.Add(new Parameter { Identifier = "id", Value = id });
+            parmeter.Add(new Parameter { Identifier = "language", Value = language });
 
             string query = BuildSearchQuery(false, false, false, true, false, false, false, true, true, false);
 
             var ds = DB.SelectDataSet(query, parmeter);
-            
+
             var item = Item.Create(ds[0]);
             if (addData)
             {
                 CrossoutDataService.Instance.AddData(item);
             }
             itemModel.Item = item;
-            return itemModel;   
+            return itemModel;
         }
 
-        public Dictionary<int, Item> SelectListOfItems(List<int> ids)
+        public Dictionary<int, Item> SelectListOfItems(List<int> ids, int language)
         {
             Dictionary<int, Item> items = new Dictionary<int, Item>();
             string query = BuildItemsQueryFromIDList(ids);
-            var ds = DB.SelectDataSet(query);
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter { Identifier = "language", Value = language });
+            var ds = DB.SelectDataSet(query, parameters);
 
-            foreach(var row in ds)
+            foreach (var row in ds)
             {
                 Item item = new Item();
                 int i = 0;
@@ -60,27 +64,28 @@ namespace Crossout.AspWeb.Services
                 item.SellPrice = row[i++].ConvertTo<int>();
                 item.BuyPrice = row[i++].ConvertTo<int>();
                 item.Amount = row[i++].ConvertTo<int>();
+                item.LocalizedName = row[i].ConvertTo<string>();
                 items.Add(item.Id, item);
             }
 
             return items;
         }
 
-        public RecipeModel SelectRecipeModel(Item item, bool resolveDeep, bool addWorkbenchItem = true)
+        public RecipeModel SelectRecipeModel(Item item, bool resolveDeep, int language, bool addWorkbenchItem = true)
         {
             RecipeModel recipeModel = new RecipeModel();
             RecipeCounter counter = new RecipeCounter();
-            recipeModel.Recipe = new RecipeItem(counter) {Item = item,Ingredients = SelectRecipe(counter,item) };
-            
-            ResolveRecipe(counter, recipeModel.Recipe, 1, resolveDeep, addWorkbenchItem);
+            recipeModel.Recipe = new RecipeItem(counter) { Item = item, Ingredients = SelectRecipe(counter, item, language) };
+
+            ResolveRecipe(counter, recipeModel.Recipe, 1, resolveDeep, addWorkbenchItem, language);
 
             CalculateRecipe(recipeModel.Recipe);
-            recipeModel.Recipe.IngredientSum = CreateIngredientItem(counter,recipeModel.Recipe);
-            
+            recipeModel.Recipe.IngredientSum = CreateIngredientItem(counter, recipeModel.Recipe);
+
             return recipeModel;
         }
 
-        public void ResolveRecipe(RecipeCounter counter,RecipeItem parent, int depth, bool resolveDeep, bool addWorkbenchItem)
+        public void ResolveRecipe(RecipeCounter counter, RecipeItem parent, int depth, bool resolveDeep, bool addWorkbenchItem, int language)
         {
             foreach (var ingredient in parent.Ingredients)
             {
@@ -88,9 +93,9 @@ namespace Crossout.AspWeb.Services
                 ingredient.Depth = depth;
                 if (ingredient.Item.RecipeId > 0 && resolveDeep)
                 {
-                    ingredient.Ingredients = SelectRecipe(counter, ingredient.Item);
+                    ingredient.Ingredients = SelectRecipe(counter, ingredient.Item, language);
                     ++depth;
-                    ResolveRecipe(counter, ingredient, depth, true, addWorkbenchItem);
+                    ResolveRecipe(counter, ingredient, depth, true, addWorkbenchItem, language);
                     CalculateRecipe(ingredient);
                     if (ingredient.Depth > 0)
                     {
@@ -131,24 +136,24 @@ namespace Crossout.AspWeb.Services
         {
             if (parent.Ingredients.Count > 0)
             {
-                var rarity = (Rarity) parent.Item.RarityId;
+                var rarity = (Rarity)parent.Item.RarityId;
                 // We don't want common (no workbench costs) to be displayed. 
                 // Also incase the workbench costs are not based on the rarity we use the override value from the DB
                 if (parent.Item.WorkbenchRarity > 0)
                 {
-                    rarity = (Rarity) parent.Item.WorkbenchRarity;
+                    rarity = (Rarity)parent.Item.WorkbenchRarity;
                 }
 
                 if (rarity != Rarity.Common_1)
                 {
                     var id = GetWorkbenchItemIdByRarity(rarity);
-                    var workbenchItem = SelectItem((int) id, false);
+                    var workbenchItem = SelectItem((int)id, false, 1);
                     parent.Ingredients.Add(CreateIngredientWorkbenchItem(counter, parent, workbenchItem, depth));
                 }
             }
         }
-        
-        private static RecipeItem CreateIngredientItem(RecipeCounter counter,RecipeItem item)
+
+        private static RecipeItem CreateIngredientItem(RecipeCounter counter, RecipeItem item)
         {
             var ingredientSum = new RecipeItem(counter)
             {
@@ -169,12 +174,13 @@ namespace Crossout.AspWeb.Services
                     CategoryId = item.Item.CategoryId,
                     CategoryName = item.Item.CategoryName,
                     TypeId = item.Item.TypeId,
-                    TypeName = item.Item.TypeName
+                    TypeName = item.Item.TypeName,
+                    LocalizedName = item.Item.LocalizedName
                 }
             };
             ingredientSum.Parent = item;
             ingredientSum.IsSumRow = true;
-            return ingredientSum;       
+            return ingredientSum;
         }
 
         private static RecipeItem CreateIngredientWorkbenchItem(RecipeCounter counter, RecipeItem parent, ItemModel item, int depth)
@@ -212,13 +218,14 @@ namespace Crossout.AspWeb.Services
             item.SumSell = item.Ingredients.Sum(x => x.SellPriceTimesNumber);
         }
 
-        public List<RecipeItem> SelectRecipe(RecipeCounter counter,Item item)
+        public List<RecipeItem> SelectRecipe(RecipeCounter counter, Item item, int language)
         {
             var parmeter = new List<Parameter>();
             parmeter.Add(new Parameter { Identifier = "id", Value = item.RecipeId });
+            parmeter.Add(new Parameter { Identifier = "language", Value = language });
             string query = BuildRecipeQuery();
             var ds = DB.SelectDataSet(query, parmeter);
-            return RecipeItem.Create(counter, new RecipeItem(counter) {Item = item}, ds);
+            return RecipeItem.Create(counter, new RecipeItem(counter) { Item = item }, ds);
         }
 
         public IngredientUsageModel SelectIngredientUsage(int itemId)
@@ -256,13 +263,17 @@ namespace Crossout.AspWeb.Services
                 Id = Convert.ToInt32(ds[0][0]),
                 LastUpdate = Convert.ToDateTime(ds[0][1])
             };
-            
+
             return model;
         }
 
-        public List<Item> SelectAllActiveItems(bool excludeRemovedItems = true)
+        public List<Item> SelectAllActiveItems(int language, bool excludeRemovedItems = true)
         {
-            return Item.CreateAllItemsForEdit(DB.SelectDataSet(BuildAllActiveItemsQuery(excludeRemovedItems)));
+            string query = BuildAllActiveItemsQuery(excludeRemovedItems);
+            List<Parameter> parameters = new List<Parameter>();
+            parameters.Add(new Parameter { Identifier = "language", Value = language });
+            var ds = DB.SelectDataSet(query, parameters);
+            return Item.CreateAllItemsForEdit(ds);
         }
 
         public List<FactionModel> SelectAllFactions()
@@ -318,6 +329,15 @@ namespace Crossout.AspWeb.Services
                 appPrices.Add(appPrice);
             }
             return appPrices;
+        }
+
+        public LanguageModel SelectLanguageModel()
+        {
+            string query = "SELECT language.id, language.name, language.shortname FROM language ";
+            var ds = DB.SelectDataSet(query);
+            LanguageModel languageModel = new LanguageModel();
+            languageModel.Create(ds);
+            return languageModel;
         }
 
         public ChangesModel SelectChanges(int itemId = 0)
@@ -388,7 +408,7 @@ namespace Crossout.AspWeb.Services
         {
             if (editModelSave.RecipeNumber == 0 && items.Any(x => x.Id > 0))
             {
-                var result = DB.Insert("recipe", new string[] {"itemnumber", "factionnumber"}, new object[] { editModelSave.ItemNumber, editModelSave.FactionNumber });
+                var result = DB.Insert("recipe", new string[] { "itemnumber", "factionnumber" }, new object[] { editModelSave.ItemNumber, editModelSave.FactionNumber });
                 editModelSave.RecipeNumber = (int)result.LastInsertedId;
                 RecordChange(editModelSave.ItemNumber, "ADD", "recipe");
             }
@@ -406,11 +426,11 @@ namespace Crossout.AspWeb.Services
                             Identifier = "@recipenumberWhere",
                             Value = editModelSave.RecipeNumber
                         });
-                        parameters.Add(new Parameter {Identifier = "@recipeitemnumber", Value = item.RecipeItemNumber});
+                        parameters.Add(new Parameter { Identifier = "@recipeitemnumber", Value = item.RecipeItemNumber });
 
                         var rs = DB.Update("recipeitem",
-                            new string[] {"itemnumber", "number"},
-                            new object[] {item.Id, item.Number},
+                            new string[] { "itemnumber", "number" },
+                            new object[] { item.Id, item.Number },
                             "recipenumber = @recipenumberWhere AND recipeitem.id = @recipeitemnumber",
                             parameters);
 
@@ -429,7 +449,7 @@ namespace Crossout.AspWeb.Services
                             Identifier = "@recipenumber",
                             Value = editModelSave.RecipeNumber
                         });
-                        parameters.Add(new Parameter {Identifier = "@recipeitemnumber", Value = item.RecipeItemNumber});
+                        parameters.Add(new Parameter { Identifier = "@recipeitemnumber", Value = item.RecipeItemNumber });
                         var result =
                             DB.ExecuteSQL(
                                 "DELETE FROM recipeitem WHERE recipeitem.recipenumber = @recipenumber AND recipeitem.id = @recipeitemnumber;",
@@ -456,8 +476,8 @@ namespace Crossout.AspWeb.Services
                 {
                     if (item.Id > 0 && item.Number > 0)
                     {
-                        DB.Insert("recipeitem", new string[] {"recipenumber", "itemnumber", "number"},
-                            new object[] {editModelSave.RecipeNumber, item.Id, item.Number});
+                        DB.Insert("recipeitem", new string[] { "recipenumber", "itemnumber", "number" },
+                            new object[] { editModelSave.RecipeNumber, item.Id, item.Number });
                         RecordChange(editModelSave.ItemNumber, "ADD", "ingredient", "", item.Id.ToString());
                     }
                 }
@@ -474,7 +494,7 @@ namespace Crossout.AspWeb.Services
 
         public void SaveGeneralItemInfo(EditGeneralInfo info, EditModelSave editModelSave)
         {
-            var item = SelectItem(editModelSave.ItemNumber, false);
+            var item = SelectItem(editModelSave.ItemNumber, false, 1);
 
             if (item.Item.Name != info.NewItemName)
             {
@@ -534,7 +554,7 @@ namespace Crossout.AspWeb.Services
 
         public static string BuildRecipeQuery()
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber,faction.name";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber,faction.name,itemlocalization.localizedname";
             string query =
                 $"SELECT {selectColumns} " +
                 "FROM recipe " +
@@ -545,6 +565,7 @@ namespace Crossout.AspWeb.Services
                 "LEFT JOIN type ON type.id = item.typenumber " +
                 "LEFT JOIN recipe recipe2 ON recipe2.itemnumber = recipeitem.itemnumber " +
                 "LEFT JOIN faction faction ON faction.id = recipe.factionnumber " +
+                "LEFT JOIN itemlocalization ON itemlocalization.itemnumber = item.id AND itemlocalization.languagenumber = @language " +
                 "WHERE recipe.id = @id";
 
             return query;
@@ -560,12 +581,12 @@ namespace Crossout.AspWeb.Services
 
         public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems, bool showMetaItems, bool rmdItemsOnly)
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount,itemlocalization.localizedname";
             if (count)
             {
                 selectColumns = "count(*)";
             }
-            string query = $"SELECT {selectColumns} FROM item LEFT JOIN rarity on rarity.id = item.raritynumber LEFT JOIN category on category.id = item.categorynumber LEFT JOIN type on type.id = item.typenumber LEFT JOIN recipe ON recipe.itemnumber = item.id LEFT JOIN faction ON faction.id = recipe.factionnumber ";
+            string query = $"SELECT {selectColumns} FROM item LEFT JOIN rarity on rarity.id = item.raritynumber LEFT JOIN category on category.id = item.categorynumber LEFT JOIN type on type.id = item.typenumber LEFT JOIN recipe ON recipe.itemnumber = item.id LEFT JOIN faction ON faction.id = recipe.factionnumber LEFT JOIN itemlocalization ON itemlocalization.itemnumber = item.id AND itemlocalization.languagenumber = @language ";
 
             if (!hasId)
             {
@@ -582,6 +603,8 @@ namespace Crossout.AspWeb.Services
             {
                 query += "WHERE item.id = @id ";
             }
+
+            //query += " AND itemlocalization.languagenumber = @language ";
 
             if (hasRarity)
             {
@@ -630,12 +653,12 @@ namespace Crossout.AspWeb.Services
 
         public static string BuildAllActiveItemsQuery(bool excludeRemovedItems = true)
         {
-            string removedItems = "";
+            string conditions = "";
             if (excludeRemovedItems)
             {
-                removedItems = "WHERE removed = 0";
+                conditions = "WHERE removed = 0";
             }
-            string query = $"SELECT item.id,item.name FROM item {removedItems} ORDER BY item.name ASC,item.id ASC;";
+            string query = $"SELECT item.id,item.name,itemlocalization.localizedname FROM item LEFT JOIN itemlocalization ON itemlocalization.itemnumber = item.id AND itemlocalization.languagenumber = @language {conditions} ORDER BY item.name ASC,item.id ASC;";
             return query;
         }
 
@@ -666,19 +689,19 @@ namespace Crossout.AspWeb.Services
         public static string BuildItemsQueryFromIDList(List<int> ids)
         {
             StringBuilder sb = new StringBuilder();
-            string query = "SELECT item.id, item.name, item.sellprice, item.buyprice, item.amount FROM item WHERE ";
+            string query = "SELECT item.id, item.name, item.sellprice, item.buyprice, item.amount, itemlocalization.localizedname FROM item LEFT JOIN itemlocalization ON itemlocalization.itemnumber = item.id AND itemlocalization.languagenumber = @language WHERE ";
             sb.Append(query);
             int i = 0;
-            foreach(var id in ids)
+            foreach (var id in ids)
             {
                 if (i == 0)
                 {
-                    sb.Append("id=");
+                    sb.Append("item.id=");
                     sb.Append(id);
                 }
                 else
                 {
-                    sb.Append(" OR id=");
+                    sb.Append(" OR item.id=");
                     sb.Append(id);
                 }
                 i++;
@@ -723,7 +746,7 @@ namespace Crossout.AspWeb.Services
             {
                 query = $"SELECT {collumns} FROM {tables} ORDER BY changes.id DESC LIMIT 500";
             }
-            
+
             return query;
         }
 

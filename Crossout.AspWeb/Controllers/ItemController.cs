@@ -9,6 +9,7 @@ using Crossout.AspWeb;
 using Crossout.AspWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
+using Crossout.AspWeb.Models.Language;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -26,17 +27,19 @@ namespace Crossout.AspWeb.Controllers
         [Route("item/{id}")]
         public IActionResult Item(int id)
         {
+            Language lang = this.ReadLanguageCookie(sql);
             this.RegisterHit("Item", id);
-            return RouteItem(id);
+            return RouteItem(id, lang.Id);
         }
 
         [Route("data/recipe/{id:int}")]
-        public IActionResult Recipe(int id)
+        public IActionResult Recipe(int id, string l)
         {
-            return RouteRecipeData(id);
+            Language lang = this.VerifyLanguage(sql, l);
+            return RouteRecipeData(id, lang.Id);
         }
 
-        private IActionResult RouteItem(int id)
+        private IActionResult RouteItem(int id, int language)
         {
             try
             {
@@ -45,17 +48,19 @@ namespace Crossout.AspWeb.Controllers
 
                 DataService db = new DataService(sql);
 
-                var itemModel = db.SelectItem(id, true);
+                language = Math.Max(language, 1);
+
+                var itemModel = db.SelectItem(id, true, language);
                 itemModel.Item.SetImageExists(pathProvider);
 
-                var recipeModel = db.SelectRecipeModel(itemModel.Item, true);
+                var recipeModel = db.SelectRecipeModel(itemModel.Item, true, language);
                 SetImageExistsRecursive(recipeModel.Recipe);
 
                 var statusModel = db.SelectStatus();
                 var changesModel = db.SelectChanges(id);
                 var ingredientUsageModel = db.SelectIngredientUsage(id);
 
-                var allItems = db.SelectAllActiveItems(false);
+                var allItems = db.SelectAllActiveItems(language, false);
                 var itemDict = new Dictionary<int, Item>();
 
                 foreach (var item in allItems)
@@ -92,7 +97,7 @@ namespace Crossout.AspWeb.Controllers
             }
         }
 
-        private IActionResult RouteRecipeData(int id)
+        private IActionResult RouteRecipeData(int id, int language)
         {
             try
             {
@@ -100,9 +105,9 @@ namespace Crossout.AspWeb.Controllers
                 sql.Open(WebSettings.Settings.CreateDescription());
 
                 DataService db = new DataService(sql);
-
-                var itemModel = db.SelectItem(id, false);
-                var recipeModel = db.SelectRecipeModel(itemModel.Item, true);
+                language = Math.Max(language, 1);
+                var itemModel = db.SelectItem(id, false, language);
+                var recipeModel = db.SelectRecipeModel(itemModel.Item, true, language);
 
                 itemModel.Recipe = recipeModel;
 
