@@ -8,6 +8,7 @@ using Crossout.AspWeb.Helper;
 using Crossout.AspWeb.Models.Stats;
 using ZicoreConnector.Zicore.Connector.Base;
 using Crossout.Model.Items;
+using Crossout.AspWeb.Models.Language;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -25,11 +26,13 @@ namespace Crossout.AspWeb.Controllers
         [Route("stats")]
         public IActionResult Stats()
         {
+            Language lang = this.ReadLanguageCookie(sql);
+
             sql.Open(WebSettings.Settings.CreateDescription());
 
             DataService db = new DataService(sql);
 
-            List<Item> allItems = db.SelectAllActiveItems(false);
+            List<Item> allItems = db.SelectAllActiveItems(lang.Id, false);
             foreach (var item in allItems)
             {
                 item.SetImageExists(pathProvider);

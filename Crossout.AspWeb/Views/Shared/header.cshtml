@@ -48,6 +48,7 @@
                             </svg>
                         </a>
                     </li>
+
                 </ul>
             </div>
             <div class="overlay-container d-none d-lg-block">
@@ -58,12 +59,12 @@
                     <svg class="feather-input-clear"><use xlink:href="/icons/feather-sprite.svg#x-circle" /></svg>
                 </span>
             </div>
-
         </nav>
     </div>
 </div>
 
 <script>
+
     // Keep search bars in sync
     $('#searchBar, #searchBarMobile').keyup(function () {
         var value = this.value;
@@ -119,4 +120,5 @@
         $('#searchBar').val('').trigger('keyup');
         $('#searchBarMobile').val('').trigger('keyup');
     });
+
 </script>

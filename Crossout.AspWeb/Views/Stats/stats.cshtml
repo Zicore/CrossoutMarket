@@ -52,7 +52,7 @@
                                         <div>@location.ActionDisplayName</div>
                                         @if (location.IdParameter != null && Model.AllItemsById.ContainsKey((int)location.IdParameter))
                                         {
-                                            <div><a href="/item/@((int)location.IdParameter)">@Model.AllItemsById[(int)location.IdParameter].Name</a></div>
+                                            <div><a href="/item/@((int)location.IdParameter)">@Model.AllItemsById[(int)location.IdParameter].AvailableName</a></div>
                                         }
                                     </td>
                                     @foreach (var timedHits in location.TimedHits)

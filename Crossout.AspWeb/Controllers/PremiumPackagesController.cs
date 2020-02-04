@@ -10,6 +10,7 @@ using Crossout.AspWeb.Models.General;
 using Crossout.AspWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
+using Crossout.AspWeb.Models.Language;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -25,13 +26,14 @@ namespace Crossout.AspWeb.Controllers
         [Route("packs")]
         public IActionResult Packages()
         {
+            Language lang = this.ReadLanguageCookie(sql);
             this.RegisterHit("Packs");
-            return RoutePackages();
+            return RoutePackages(lang.Id);
         }
 
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
 
-        private IActionResult RoutePackages()
+        private IActionResult RoutePackages(int language)
         {
             try
             {
@@ -62,7 +64,7 @@ namespace Crossout.AspWeb.Controllers
 
                 }
 
-                packagesModel.ContainedItems = db.SelectListOfItems(itemIDs);
+                packagesModel.ContainedItems = db.SelectListOfItems(itemIDs, language);
                 foreach (var item in packagesModel.ContainedItems)
                 {
                     item.Value.SetImageExists(pathProvider);

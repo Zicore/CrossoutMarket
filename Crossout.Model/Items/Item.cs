@@ -53,6 +53,12 @@ namespace Crossout.Model.Items
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        [JsonProperty("localizedName")]
+        public string LocalizedName { get; set; }
+
+        [JsonProperty("availableName")]
+        public string AvailableName { get { return LocalizedName != null ? LocalizedName : Name; } }
+
         [JsonProperty("description")]
         public string DescriptionText
         {
@@ -294,7 +300,8 @@ namespace Crossout.Model.Items
                 WorkbenchRarity = row[i++].ConvertTo<int>(),
                 CraftingSellSum = row[i++].ConvertTo<decimal>(),
                 CraftingBuySum = row[i++].ConvertTo<decimal>(),
-                Amount = row[i].ConvertTo<int>()
+                Amount = row[i++].ConvertTo<int>(),
+                LocalizedName = row[i].ConvertTo<string>()
             };
 
             return item;
@@ -323,7 +330,8 @@ namespace Crossout.Model.Items
                 Item item = new Item
                 {
                     Id = row[0].ConvertTo<int>(),
-                    Name = row[1].ConvertTo<string>()
+                    Name = row[1].ConvertTo<string>(),
+                    LocalizedName = row[2].ConvertTo<string>()
                 };
                 items.Add(item);
             }

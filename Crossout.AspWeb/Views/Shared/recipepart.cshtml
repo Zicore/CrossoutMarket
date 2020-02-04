@@ -70,19 +70,19 @@
             <div>
                 @if (Model.IsSumRow)
                 {
-                    <a href="~/item/@item.Id">@item.Name (Sum)</a>
+                    <a href="~/item/@item.Id">@item.AvailableName (Sum)</a>
                     <div class="item-type">@item.TypeName</div>
                 }
                 else
                 {
                     if (Model.Depth == 0)
                     {
-                        <a href="~/item/@Model.Item.Id"><span class="@(Model.Item.Removed > 0 ? "item-removed" : "")">@Model.Item.Name @(Model.Item.Removed > 0 ? "(Removed)" : "")</span></a>
+                        <a href="~/item/@Model.Item.Id"><span class="@(Model.Item.Removed > 0 ? "item-removed" : "")">@Model.Item.AvailableName @(Model.Item.Removed > 0 ? "(Removed)" : "")</span></a>
                         <div class="item-type">@Model.Item.TypeName</div>
                     }
                     else
                     {
-                        <a href="~/item/@item.Id">@item.Name</a>
+                        <a href="~/item/@item.Id">@item.AvailableName</a>
                         <div class="item-type">@item.TypeName</div>
                     }
                 }

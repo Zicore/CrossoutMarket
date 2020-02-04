@@ -80,7 +80,7 @@
                                             {
                                                 <a href="~/item/@(id)"><img class="item-image-med" src="~/img/NoImage.png" /></a>
                                             }
-                                            <a href="~/item/@(id)">@Model.ContainedItems[id].Name</a>
+                                            <a href="~/item/@(id)">@Model.ContainedItems[id].AvailableName</a>
                                         </td>
                                         <td>
                                             <div class="mx-auto" style="color: red">@(Model.ContainedItems[id].FormatSellPrice) <img src="~/img/Coin.png" height="14" /></div>

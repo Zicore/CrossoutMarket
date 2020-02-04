@@ -9,6 +9,7 @@ using Crossout.AspWeb.Models.Items;
 using Crossout.AspWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
+using Crossout.AspWeb.Models.Language;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -24,19 +25,22 @@ namespace Crossout.AspWeb.Controllers
         [Route("changes")]
         public IActionResult Changes()
         {
+            Language lang = this.ReadLanguageCookie(sql);
             this.RegisterHit("Changes");
-            return RouteItem();
+            return RouteItem(lang.Id);
         }
 
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
 
-        private IActionResult RouteItem()
+        private IActionResult RouteItem(int language)
         {
             try
             {
                 sql.Open(WebSettings.Settings.CreateDescription());
 
                 DataService db = new DataService(sql);
+
+                language = Math.Max(language, 1);
 
                 var itemModel = new ItemModel();
                 var changesModel = db.SelectChanges();
@@ -45,7 +49,7 @@ namespace Crossout.AspWeb.Controllers
                 changesModel.Status = statusModel;
 
                 // Note: Only Ids and Names get filled in
-                var allItems = db.SelectAllActiveItems(false);
+                var allItems = db.SelectAllActiveItems(language, false);
                 var allRarites = db.SelectAllRarities();
                 allRarites.Add(0, "None");
                 var allCategories = db.SelectAllCategories();

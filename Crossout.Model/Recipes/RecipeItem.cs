@@ -217,8 +217,9 @@ namespace Crossout.Model.Recipes
             recipeItem.FactionNumber = row[i++].ConvertTo<int>();
 
             item.FactionNumber = recipeItem.FactionNumber;
-            item.Faction = row[i].ConvertTo<string>();
+            item.Faction = row[i++].ConvertTo<string>();
 
+            item.LocalizedName = row[i].ConvertTo<string>();
             recipeItem.Item = item;
 
 

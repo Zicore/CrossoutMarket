@@ -32,7 +32,7 @@
                 </a>
             </div>
             <div class="media-body align-self-center">
-                <h4>@Model.Item.Name</h4>
+                <h4>@Model.Item.AvailableName</h4>
                 @if (Model.Item.Description != null)
                 {
                     <p>@Html.Raw(@Model.Item.Description.Text)</p>
@@ -295,7 +295,7 @@
                                                 <img class="item-image-big" src="~/img/NoImage.png" />
                                             }
                                         </a>
-                                        <a href="~/item/@item.ItemId">@(Model.Changes.ContainedItems.ContainsKey(item.ItemId) == true ? Model.Changes.ContainedItems[item.ItemId].Name : item.ItemId.ToString())</a>
+                                        <a href="~/item/@item.ItemId">@(Model.Changes.ContainedItems.ContainsKey(item.ItemId) == true ? Model.Changes.ContainedItems[item.ItemId].AvailableName : item.ItemId.ToString())</a>
                                     </td>
                                     <td class="align-middle">
                                         @item.Amount
@@ -363,7 +363,7 @@
     if (readSetting('full-size-item-tabs'))
         $('#itemTabsWrapper').removeClass('half-hd-container');
 
-    $.getJSON(location.origin + '/data/recipe/@(Model.Item.Id)',
+    $.getJSON(location.origin + '/data/recipe/@(Model.Item.Id)?l=' + Cookies.get('language'),
         function (data) {
 
            recipeData.data = data;
