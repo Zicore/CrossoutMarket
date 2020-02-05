@@ -12,8 +12,10 @@
 
         <div class="form-inline my-1">
             <select class="form-control form-control-sm mr-1" id="langSelect">
-                <option value="en">EN</option>
-                <option value="ru">RU</option>
+                @foreach (var lang in Model.LanguageModel.AvailableLanguages)
+                {
+                    <option value="@lang.TwoLetterISOName">@lang.Name</option>
+                }
             </select>
             <label class="control-label" for="langSelect">Language</label>
         </div>
@@ -134,7 +136,7 @@
     function applySettings() {
         // General settings
         var lang = Cookies.get('language');
-        $('#langSelect').val(lang != undefined ? parseInt(lang) : 1);
+        $('#langSelect').val(lang != undefined ? lang : 'en');
         $('#darkModeSwitch').prop('checked', readSetting('dark-mode'));
         $('#dateFormatText').val(readSetting('timestamp-format-date'));
         $('#timeFormatText').val(readSetting('timestamp-format-time'));
