@@ -236,8 +236,8 @@ function resetRangeFilterCheckedStatus() {
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var sellmin = parseInt(checkRangeFilterValue('sellmin'), 10);
-        var sellmax = parseInt(checkRangeFilterValue('sellmax'), 10);
+        var sellmin = parseFloat(checkRangeFilterValue('sellmin'), 10);
+        var sellmax = parseFloat(checkRangeFilterValue('sellmax'), 10);
         var sellprice = parseFloat(data[colIds.sellCol]) || 0;
 
         if ((isNaN(sellmin) && isNaN(sellmax)) ||
@@ -252,8 +252,8 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var buymin = parseInt(checkRangeFilterValue('buymin'), 10);
-        var buymax = parseInt(checkRangeFilterValue('buymax'), 10);
+        var buymin = parseFloat(checkRangeFilterValue('buymin'), 10);
+        var buymax = parseFloat(checkRangeFilterValue('buymax'), 10);
         var buyprice = parseFloat(data[colIds.buyCol]) || 0;
 
         if ((isNaN(buymin) && isNaN(buymax)) ||
@@ -268,8 +268,8 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt(checkRangeFilterValue('craftcostsellmin'), 10);
-        var marginmax = parseInt(checkRangeFilterValue('craftcostsellmax'), 10);
+        var marginmin = parseFloat(checkRangeFilterValue('craftcostsellmin'), 10);
+        var marginmax = parseFloat(checkRangeFilterValue('craftcostsellmax'), 10);
         var margin = parseFloat(data[colIds.craftCostSellCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
@@ -285,8 +285,8 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt(checkRangeFilterValue('craftcostbuymin'), 10);
-        var marginmax = parseInt(checkRangeFilterValue('craftcostbuymax'), 10);
+        var marginmin = parseFloat(checkRangeFilterValue('craftcostbuymin'), 10);
+        var marginmax = parseFloat(checkRangeFilterValue('craftcostbuymax'), 10);
         var margin = parseFloat(data[colIds.craftCostBuyCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
@@ -302,8 +302,8 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt(checkRangeFilterValue('carftingmarginmin'), 10);
-        var marginmax = parseInt(checkRangeFilterValue('carftingmarginmax'), 10);
+        var marginmin = parseFloat(checkRangeFilterValue('carftingmarginmin'), 10);
+        var marginmax = parseFloat(checkRangeFilterValue('carftingmarginmax'), 10);
         var margin = parseFloat(data[colIds.craftMarginCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
@@ -318,8 +318,8 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt(checkRangeFilterValue('marginmin'), 10);
-        var marginmax = parseInt(checkRangeFilterValue('marginmax'), 10);
+        var marginmin = parseFloat(checkRangeFilterValue('marginmin'), 10);
+        var marginmax = parseFloat(checkRangeFilterValue('marginmax'), 10);
         var margin = parseFloat(data[colIds.marginCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
@@ -334,8 +334,8 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt(checkRangeFilterValue('roimin'), 10);
-        var marginmax = parseInt(checkRangeFilterValue('roimax'), 10);
+        var marginmin = parseFloat(checkRangeFilterValue('roimin'), 10);
+        var marginmax = parseFloat(checkRangeFilterValue('roimax'), 10);
         var margin = parseFloat(data[colIds.roiCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
@@ -350,8 +350,8 @@ $.fn.dataTable.ext.search.push(
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        var marginmin = parseInt(checkRangeFilterValue('demandsupplymin'), 10);
-        var marginmax = parseInt(checkRangeFilterValue('demandsupplymax'), 10);
+        var marginmin = parseFloat(checkRangeFilterValue('demandsupplymin'), 10);
+        var marginmax = parseFloat(checkRangeFilterValue('demandsupplymax'), 10);
         var margin = parseFloat(data[colIds.demandSupplyRatioCol]) || 0;
 
         if ((isNaN(marginmin) && isNaN(marginmax)) ||
