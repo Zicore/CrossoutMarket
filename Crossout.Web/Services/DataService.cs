@@ -122,8 +122,8 @@ namespace Crossout.Web.Services
                     return WorkbenchItemId.Legendary_448;
                 case Rarity.Relic_5:
                     return WorkbenchItemId.Relic_449;
-                case Rarity.Skins_6:
-                    return WorkbenchItemId.Skins_466;
+                case Rarity.Special_6:
+                    return WorkbenchItemId.Special_466;
                 default: return WorkbenchItemId.Common_445;
             }
         }
