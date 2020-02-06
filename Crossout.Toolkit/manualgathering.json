@@ -1,0 +1,110 @@
+[
+  {
+    "name": "Res_Accumulators_10",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Batteries x10"
+  },
+  {
+    "name": "Res_Accumulators_100",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Batteries x100"
+  },
+  {
+    "name": "Res_ClanMoney_10",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Uranium ore x10"
+  },
+  {
+    "name": "Res_ClanMoney_100",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Uranium ore x100"
+  },
+  {
+    "name": "Res_Gasoline_100",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Fuel x100"
+  },
+  {
+    "name": "Res_Gasoline_1000",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Fuel x1000"
+  },
+  {
+    "name": "Res_Plastic_100",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Plastic x100"
+  },
+  {
+    "name": "Res_Plastic_1000",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Plastic x1000"
+  },
+  {
+    "name": "Res_Platinum_100",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Copper x100"
+  },
+  {
+    "name": "Res_Platinum_1000",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Copper x1000"
+  },
+  {
+    "name": "Res_Scrap_Common_100",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Scrap Metal x100"
+  },
+  {
+    "name": "Res_Scrap_Common_1000",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Scrap Metal x1000"
+  },
+  {
+    "name": "Res_Scrap_Rare_100",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Wires x100"
+  },
+  {
+    "name": "Res_Scrap_Rare_1000",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Wires x1000"
+  },
+  {
+    "name": "Res_Scrap_Epic_10",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Electronics x10"
+  },
+  {
+    "name": "Res_Scrap_Epic_100",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Electronics x100"
+  },
+  {
+    "name": "Res_Supply_10",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Coupons x10"
+  },
+  {
+    "name": "Res_Supply_100",
+    "subtype": "Resources",
+    "rarity": 1,
+    "locName": "Coupons x100"
+  }
+]
