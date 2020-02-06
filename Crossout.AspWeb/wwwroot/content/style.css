@@ -99,6 +99,11 @@ body {
     color: white;
 }
 
+.label-Special {
+    background: #33cccc;
+    color: white;
+}
+
 .label-md {
   display: block;
   font-size: 100%;
