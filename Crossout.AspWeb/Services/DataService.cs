@@ -169,7 +169,8 @@ namespace Crossout.AspWeb.Services
                     CategoryId = item.Item.CategoryId,
                     CategoryName = item.Item.CategoryName,
                     TypeId = item.Item.TypeId,
-                    TypeName = item.Item.TypeName
+                    TypeName = item.Item.TypeName,
+                    CraftingResultAmount = item.Item.CraftingResultAmount
                 }
             };
             ingredientSum.Parent = item;
@@ -208,8 +209,8 @@ namespace Crossout.AspWeb.Services
 
         private static void CalculateRecipe(RecipeItem item)
         {
-            item.SumBuy = item.Ingredients.Sum(x => x.BuyPriceTimesNumber);
-            item.SumSell = item.Ingredients.Sum(x => x.SellPriceTimesNumber);
+            item.SumBuy = item.Ingredients.Sum(x => x.BuyPriceTimesNumber) / Math.Max(item.Item.CraftingResultAmount, 1);
+            item.SumSell = item.Ingredients.Sum(x => x.SellPriceTimesNumber) / Math.Max(item.Item.CraftingResultAmount, 1);
         }
 
         public List<RecipeItem> SelectRecipe(RecipeCounter counter,Item item)
@@ -534,7 +535,7 @@ namespace Crossout.AspWeb.Services
 
         public static string BuildRecipeQuery()
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber,faction.name";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber,faction.name,recipe2.amount";
             string query =
                 $"SELECT {selectColumns} " +
                 "FROM recipe " +
@@ -560,7 +561,7 @@ namespace Crossout.AspWeb.Services
 
         public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems, bool showMetaItems, bool rmdItemsOnly)
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount,recipe.amount";
             if (count)
             {
                 selectColumns = "count(*)";
@@ -704,7 +705,7 @@ namespace Crossout.AspWeb.Services
 
         public static string BuildHtmlExport()
         {
-            string collumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount";
+            string collumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount,recipe.amount";
             string tables = "item LEFT JOIN rarity on rarity.id = item.raritynumber LEFT JOIN category on category.id = item.categorynumber LEFT JOIN type on type.id = item.typenumber LEFT JOIN recipe ON recipe.itemnumber = item.id LEFT JOIN faction ON faction.id = recipe.factionnumber";
             string query = $"SELECT {collumns} FROM {tables} WHERE removed=0 AND meta=0 ORDER BY item.id";
             return query;
