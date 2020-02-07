@@ -72,14 +72,15 @@ namespace Crossout.Model.Recipes
         [JsonProperty("sellPriceTimesNumber")]
         public decimal SellPriceTimesNumber => CalculatePriceByNumber(Item.SellPrice, Number, Item.Id);
 
-        [JsonProperty("isSumRow")]
-        public bool IsSumRow { get; set; } = false;
-
         [JsonProperty("formatBuyPriceTimesNumber")]
         public string FormatBuyPriceTimesNumber => PriceFormatter.FormatPrice(BuyPriceTimesNumber);
 
         [JsonProperty("formatSellPriceTimesNumber")]
         public string FormatSellPriceTimesNumber => PriceFormatter.FormatPrice(SellPriceTimesNumber);
+
+
+        [JsonProperty("isSumRow")]
+        public bool IsSumRow { get; set; } = false;
 
         static readonly HashSet<int> ResourceNumbers = new HashSet<int>()
         {
@@ -102,6 +103,11 @@ namespace Crossout.Model.Recipes
                 return price * number / 100m;
             }
             return price * number;
+        }
+
+        private static decimal CalculatePriceByCraftingResultAmount(decimal price, int amount)
+        {
+            return (price * amount) * 0.9m;
         }
 
         [JsonIgnore]
@@ -217,9 +223,12 @@ namespace Crossout.Model.Recipes
             recipeItem.FactionNumber = row[i++].ConvertTo<int>();
 
             item.FactionNumber = recipeItem.FactionNumber;
-            item.Faction = row[i].ConvertTo<string>();
+            item.Faction = row[i++].ConvertTo<string>();
+
+            item.CraftingResultAmount = row[i].ConvertTo<int>();
 
             recipeItem.Item = item;
+
 
 
             return recipeItem;

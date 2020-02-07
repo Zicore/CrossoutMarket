@@ -122,7 +122,7 @@ namespace Crossout.Model.Items
         [JsonProperty("craftingMargin")]
         public decimal CraftingMargin
         {
-            get { return (decimal)(SellPrice - CraftingBuySum - (SellPrice * 0.1m)); }
+            get { return (decimal)((SellPrice * CraftingResultAmount * 0.9m) - CraftingBuySum); }
         }
 
         [JsonProperty("formatDemandSupplyRatio")]
@@ -229,6 +229,9 @@ namespace Crossout.Model.Items
             }
         }
 
+        [JsonProperty("craftingResultAmount")]
+        public int CraftingResultAmount { get; set; }
+
         [JsonProperty("image")]
         public string Image
         {
@@ -294,7 +297,8 @@ namespace Crossout.Model.Items
                 WorkbenchRarity = row[i++].ConvertTo<int>(),
                 CraftingSellSum = row[i++].ConvertTo<decimal>(),
                 CraftingBuySum = row[i++].ConvertTo<decimal>(),
-                Amount = row[i].ConvertTo<int>()
+                Amount = row[i++].ConvertTo<int>(),
+                CraftingResultAmount = row[i].ConvertTo<int>()
             };
 
             return item;
