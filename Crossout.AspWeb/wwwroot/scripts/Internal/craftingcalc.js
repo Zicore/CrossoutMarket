@@ -411,8 +411,9 @@ function calculateAdvice(recipeId) {
     var ingredients = [];
     var recipe = {};
     craftingCalc.tree.topToBottom.forEach(function (e, i) {
-        if (inTarget && e.depth === targetDepth + 1) {
-            ingredients.push(e);
+        if (inTarget && e.depth > targetDepth) {
+            if (e.depth === targetDepth + 1)
+                ingredients.push(e);
         } else {
             inTarget = false;
         }
