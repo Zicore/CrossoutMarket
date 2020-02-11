@@ -535,7 +535,7 @@ namespace Crossout.AspWeb.Services
 
         public static string BuildRecipeQuery()
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber,faction.name,recipe2.amount";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber,faction.name,recipe2.amount,item.amount";
             string query =
                 $"SELECT {selectColumns} " +
                 "FROM recipe " +

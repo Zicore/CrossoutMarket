@@ -225,7 +225,8 @@ namespace Crossout.Model.Recipes
             item.FactionNumber = recipeItem.FactionNumber;
             item.Faction = row[i++].ConvertTo<string>();
 
-            item.CraftingResultAmount = row[i].ConvertTo<int>();
+            item.CraftingResultAmount = row[i++].ConvertTo<int>();
+            item.Amount = row[i].ConvertTo<int>();
 
             recipeItem.Item = item;
 
