@@ -42,10 +42,10 @@ function mapData() {
     var recipe = craftingCalcData.data.recipe.recipe;
     var currentDepth = 0;
     recipe.number = 1;
-    mapIngredient(recipe, recipe, currentDepth);
+    mapIngredient(recipe, null, recipe, currentDepth);
 }
 
-function mapIngredient(root, ingredient, currentDepth) {
+function mapIngredient(root, rootDisplayIngredient, ingredient, currentDepth) {
     var depth = currentDepth + 1;
 
     var displayIngredient = {
@@ -67,14 +67,15 @@ function mapIngredient(root, ingredient, currentDepth) {
         customPrice: 0,
         usedPrice: 'buy',
         totalPrice: 0,
-        usedSellPrice: 'sell'
+        usedSellPrice: 'sell',
+        rootDisplayIngredient: rootDisplayIngredient
     };
     var ingredients = ingredient.ingredients;
     if (ingredients.length > 0)
         displayIngredient.hasIngredients = true;
     craftingCalc.tree.topToBottom.push(displayIngredient);
     ingredients.forEach(function (e, i) {
-        mapIngredient(ingredient, e, depth);
+        mapIngredient(ingredient, displayIngredient, e, depth);
     });
 }
 
@@ -455,7 +456,15 @@ function chooseOptimalRoute() {
         if (e.hasIngredients) {
             var advice = calculateAdvice(e.recipeId);
             if (advice === 'Craft' || e.recipeId === 0)
-                collapseRecipe(e.recipeId, false);
+                if (e.rootDisplayIngredient !== null) {
+                    if (e.rootDisplayIngredient.expanded)
+                        collapseRecipe(e.recipeId, false);
+                    else
+                        collapseRecipe(e.recipeId, true);
+                } else {
+                    collapseRecipe(e.recipeId, false);
+                }
+
             else
                 collapseRecipe(e.recipeId, true);
         }
@@ -464,4 +473,25 @@ function chooseOptimalRoute() {
 
 function formatPrice(price) {
     return (price / 100).toFixed(2);
+}
+
+function getRootExpandedStatus(recipeId) {
+    var reversedTopToBottom = craftingCalc.tree.topToBottom.slice().reverse();
+    var inTarget = false;
+    var targetDepth = 0;
+    var expanded = true;
+    reversedTopToBottom.forEach(function (e, i) {
+        if (inTarget && e.depth > targetDepth) {
+            if (e.depth === targetDepth - 1)
+                expanded = e.expanded;
+        } else {
+            inTarget = false;
+        }
+
+        if (e.recipeId === recipeId) {
+            inTarget = true;
+            targetDepth = e.depth;
+        }
+    });
+    return expanded;
 }
