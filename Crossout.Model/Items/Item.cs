@@ -152,7 +152,7 @@ namespace Crossout.Model.Items
         [JsonProperty("craftVsBuy")]
         public string CraftVsBuy
         {
-            get { return (Craftable == 1 ? (BuyPrice <= CraftingBuySum ? "Buy" : "Craft") : "Uncraftable"); }
+            get { return (Craftable == 1 ? (BuyPrice <= CraftingBuySum / Math.Max(CraftingResultAmount, 1) ? "Buy" : "Craft") : "Uncraftable"); }
         }
 
         [JsonProperty("timestamp")]
