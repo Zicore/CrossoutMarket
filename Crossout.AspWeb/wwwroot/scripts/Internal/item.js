@@ -74,6 +74,7 @@ function updateSums(recipe, uniqueid) {
             var list = result.shoppinglist;
             var number;
             var item;
+            var craftingResultAmount = sumItem.item.craftingResultAmount;
             var rec;
             for (var k in list) {
                 if (list.hasOwnProperty(k)) {
@@ -87,6 +88,8 @@ function updateSums(recipe, uniqueid) {
                     sumBuy += filterResourcePrice(item.id, buy) * number;
                 }
             }
+            sumSell = sumSell / Math.max(craftingResultAmount, 1);
+            sumBuy = sumBuy / Math.max(craftingResultAmount, 1);
 
             var sellPrice = mainItem.item.sellPrice * Math.max(mainItem.rootNumber, 1);
             var buyPrice = mainItem.item.buyPrice * Math.max(mainItem.rootNumber, 1);
@@ -191,9 +194,9 @@ function updateSums(recipe, uniqueid) {
                     '</td><td>' +
                     '' +
                     '</td><td>' +
-                    htmlPriceSum(toPrice(0), 'sell', root.item.id) +
+                    htmlPriceSum(toPrice(0), 'sell', root.item.id, craftingResultAmount) +
                     '</td><td>' +
-                    htmlPriceSum(toPrice(0), 'buy', root.item.id) +
+                    htmlPriceSum(toPrice(0), 'buy', root.item.id, craftingResultAmount) +
                     '</td></tr>');
 
                 calculateShoppingList(root, result.shoppinglist);
@@ -232,8 +235,8 @@ function calculateShoppingList(root, list) {
     sumSell += sell * number;
     sumBuy += buy * number;
 
-    var sellPrice = (root.item.sellPrice * 0.9) / 100.0;
-    var buyPrice = (root.item.buyPrice * 0.9) / 100.0;
+    var sellPrice = (root.item.sellPrice * 0.9) / 100.0 * Math.max(root.item.craftingResultAmount, 1);
+    var buyPrice = (root.item.buyPrice * 0.9) / 100.0 * Math.max(root.item.craftingResultAmount, 1);
 
     var sellProfit = sellPrice - sumSell;
     var buyProfit = buyPrice - sumBuy;
@@ -310,9 +313,9 @@ function htmlNumber(value) {
     return '<div>' + value + '</div>';
 }
 
-function htmlPriceSum(value, side, id) {
+function htmlPriceSum(value, side, id, resultAmount) {
     var r = '<div class="d-flex justify-content-between"><div>' +
-        'Price -10 %' +
+        'Price -10% x' + resultAmount +
         '</div>' +
         '<div class="recipe-price">' +
         '<div class="text-right sum-value" id="sum-fee-' +
@@ -397,7 +400,7 @@ function updateSum(root, item, result, recipe) {
                     if (result.shoppinglist.hasOwnProperty(subItem.item.id)) {
                         result.shoppinglist[subItem.item.id].number += subItem.rootNumber;
                     } else {
-                        result.shoppinglist[subItem.item.id] = { number: subItem.rootNumber, item: subItem }
+                        result.shoppinglist[subItem.item.id] = { number: subItem.rootNumber, item: subItem };
                     }
                     valueSet = true;
                     foundItem = subItem;
@@ -405,8 +408,8 @@ function updateSum(root, item, result, recipe) {
             }
         }
     }
-
-    if (valueSet && foundItem !== null) {
+    // / Math.max(subItem.item.craftingResultAmount, 1)
+    if (valueSet && foundItem != null) {
         result.map[foundItem.parentUniqueId] = true;
     }
 }

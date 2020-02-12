@@ -122,8 +122,8 @@ namespace Crossout.Web.Services
                     return WorkbenchItemId.Legendary_448;
                 case Rarity.Relic_5:
                     return WorkbenchItemId.Relic_449;
-                case Rarity.Skins_6:
-                    return WorkbenchItemId.Skins_466;
+                case Rarity.Special_6:
+                    return WorkbenchItemId.Special_466;
                 default: return WorkbenchItemId.Common_445;
             }
         }
@@ -535,7 +535,7 @@ namespace Crossout.Web.Services
 
         public static string BuildRecipeQuery()
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber,faction.name";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber,faction.name,recipe2.amount";
             string query =
                 $"SELECT {selectColumns} " +
                 "FROM recipe " +
@@ -561,7 +561,7 @@ namespace Crossout.Web.Services
 
         public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems, bool showMetaItems)
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount,recipe.amount";
             if (count)
             {
                 selectColumns = "count(*)";

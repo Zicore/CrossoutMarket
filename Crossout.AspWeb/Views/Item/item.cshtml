@@ -175,7 +175,13 @@
                 @if (Model.Recipe.Recipe.Ingredients.Count > 0)
                 {
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#recipe" id="recipe-tab" role="tab" aria-controls="recipe" aria-selected="false">Recipe</a>
+                        <a class="nav-link" data-toggle="tab" href="#recipenew" id="recipenew-tab" role="tab" aria-controls="recipenew" aria-selected="false">Crafting <div class="badge badge-pill badge-secondary">New</div></a>
+                    </li>
+                }
+                @if (Model.Recipe.Recipe.Ingredients.Count > 0)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#recipe" id="recipe-tab" role="tab" aria-controls="recipe" aria-selected="false">Crafting <div class="badge badge-pill badge-secondary">Old</div></a>
                     </li>
                 }
                 @if (Model.IngredientUsage != null && Model.IngredientUsage.IngredientUsageList.Count > 0)
@@ -205,6 +211,13 @@
             <div class="tab-pane show active" id="chart" aria-labelledby="chart-tab">
                 <partial name="chart" model="@Model" />
             </div>
+
+            @if (Model.Recipe.Recipe.Ingredients.Count > 0)
+            {
+                <div class="tab-pane" id="recipenew" aria-labelledby="recipenew-tab">
+                    <partial name="craftingcalc" model="@Model.Recipe" />
+                </div>
+            }
 
             @if (Model.Recipe.Recipe.Ingredients.Count > 0)
             {
@@ -355,6 +368,7 @@
 </div>
 
 <script src="~/scripts/internal/item.js?@(CacheBuster.Once)"></script>
+<script src="~/scripts/internal/craftingcalc.js?@(CacheBuster.Once)"></script>
 <script>
     $(document).ready(function () {
         adjustTimeStamp();
@@ -366,11 +380,13 @@
     $.getJSON(location.origin + '/data/recipe/@(Model.Item.Id)?l=' + Cookies.get('language'),
         function (data) {
 
-           recipeData.data = data;
-           recipeData.loaded = true;
+            recipeData.data = data;
+            recipeData.loaded = true;
 
             $(".item-0").removeClass("disabled");
 
+            craftingCalcData.data = data;
+            craftingCalcData.loaded = true;
+            onDataLoaded();
         });
-
 </script>
