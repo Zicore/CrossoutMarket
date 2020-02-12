@@ -50,7 +50,7 @@ function mapIngredient(root, rootDisplayIngredient, ingredient, currentDepth) {
 
     var displayIngredient = {
         itemId: ingredient.item.id,
-        name: ingredient.item.name,
+        name: ingredient.item.availableName,
         show: true,
         expanded: true,
         depth: currentDepth,
