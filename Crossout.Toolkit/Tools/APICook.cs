@@ -35,7 +35,7 @@ namespace Crossout.Toolkit.Tools
             }
             Console.WriteLine($"Read {itemDefs.Count} Items from Loc Name File");
 
-            var manualGatheringString = FileReader.ReadFile("manualgathering.json");
+            var manualGatheringString = FileReader.ReadFile("Data\\APICook\\manualgathering.json");
             var manualGatheringObject = JsonConvert.DeserializeObject<JArray>(manualGatheringString);
             foreach (var item in manualGatheringObject)
             {
@@ -70,12 +70,13 @@ namespace Crossout.Toolkit.Tools
                 }
             }
             var resultSerialized = JsonConvert.SerializeObject(result);
-            using (StreamWriter sw = new StreamWriter("Output.json"))
+            using (StreamWriter sw = new StreamWriter("APICookOutput.json"))
             {
                 sw.Write(resultSerialized);
             }
 
-            Console.WriteLine($"Finished writing {result.Count} Items to Output.json");
+            Console.WriteLine($"Finished writing {result.Count} Items to APICookOutput.json");
+
         }
     }
 }

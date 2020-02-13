@@ -1,0 +1,164 @@
+﻿[
+  {
+    "name": "Res_Accumulators_10",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Batteries x10",
+    "ruName": "Аккумуляторы x10"
+  },
+  {
+    "name": "Res_Accumulators_100",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Batteries x100",
+    "ruName": "Аккумуляторы x100"
+  },
+  {
+    "name": "Res_ClanMoney_10",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Uranium ore x10",
+    "ruName": "Урановая руда x10"
+  },
+  {
+    "name": "Res_ClanMoney_100",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Uranium ore x100",
+    "ruName": "Урановая руда x100"
+  },
+  {
+    "name": "Res_Gasoline_100",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Fuel x100",
+    "ruName": "Бензин x100"
+  },
+  {
+    "name": "Res_Gasoline_1000",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Fuel x1000",
+    "ruName": "Бензин x1000"
+  },
+  {
+    "name": "Res_Plastic_100",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Plastic x100",
+    "ruName": "Пластик x100"
+  },
+  {
+    "name": "Res_Plastic_1000",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Plastic x1000",
+    "ruName": "Пластик x1000"
+  },
+  {
+    "name": "Res_Platinum_100",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Copper x100",
+    "ruName": "Медь x100"
+  },
+  {
+    "name": "Res_Platinum_1000",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Copper x1000",
+    "ruName": "Медь x1000"
+  },
+  {
+    "name": "Res_Scrap_Common_100",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Scrap Metal x100",
+    "ruName": "Металлолом x100"
+  },
+  {
+    "name": "Res_Scrap_Common_1000",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Scrap Metal x1000",
+    "ruName": "Металлолом x1000"
+  },
+  {
+    "name": "Res_Scrap_Rare_100",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Wires x100",
+    "ruName": "Провода x100"
+  },
+  {
+    "name": "Res_Scrap_Rare_1000",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Wires x1000",
+    "ruName": "Провода x1000"
+  },
+  {
+    "name": "Res_Scrap_Epic_10",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Electronics x10",
+    "ruName": "Электроника x10"
+  },
+  {
+    "name": "Res_Scrap_Epic_100",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Electronics x100",
+    "ruName": "Электроника x100"
+  },
+  {
+    "name": "Res_Supply_10",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Coupons x10",
+    "ruName": "Купоны x10"
+  },
+  {
+    "name": "Res_Supply_100",
+    "rarity": "NONE",
+    "subtype": "Resources",
+    "enUiType": null,
+    "ruUiType": null,
+    "enName": "Coupons x100",
+    "ruName": "Купоны x100"
+  }
+]

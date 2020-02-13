@@ -9,7 +9,7 @@ namespace Crossout.Toolkit.Helper
     {
         public static string ReadFile(string path)
         {
-            StreamReader sr = new StreamReader(path);
+            StreamReader sr = new StreamReader(path, Encoding.UTF8);
             string readString = sr.ReadToEnd();
             sr.Close();
             return readString;

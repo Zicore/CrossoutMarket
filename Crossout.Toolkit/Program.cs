@@ -12,7 +12,9 @@ namespace Crossout.Toolkit
 
             Console.WriteLine("Toolkit started!");
 
-            APICook.Execute("items.json");
+            //APICook.Execute("Data\\Shared\\items.json");
+            //LocNameImporter.Execute("Data\\Shared\\items.json");
+            //Reparser.Execute();
 
             Console.ReadKey();
         }
