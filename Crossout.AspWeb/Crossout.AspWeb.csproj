@@ -13,6 +13,7 @@
     <Content Remove="Resources\PremiumPackages\frostburndeluxe.json" />
     <Content Remove="Resources\PremiumPackages\horsemenofapocalypsepestilence.json" />
     <Content Remove="Resources\PremiumPackages\immortalwarrior.json" />
+    <Content Remove="Resources\PremiumPackages\notowar.json" />
     <Content Remove="Resources\PremiumPackages\polymorph.json" />
     <Content Remove="Views\edit.cshtml" />
     <Content Remove="Views\editpart.cshtml" />
@@ -396,6 +397,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\KnightRiders\teutonicstripes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\PremiumPackages\notowar.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\PremiumPackages\polymorph.json">
