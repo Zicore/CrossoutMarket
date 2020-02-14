@@ -15,6 +15,7 @@ namespace Crossout.AspWeb.Controllers
         {
             ToolsModel model = new ToolsModel();
             this.RegisterHit("Community Tools");
+
             return View("tools", model);
         }
     }
