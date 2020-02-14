@@ -170,7 +170,9 @@ namespace Crossout.Web.Services
                     CategoryId = item.Item.CategoryId,
                     CategoryName = item.Item.CategoryName,
                     TypeId = item.Item.TypeId,
-                    TypeName = item.Item.TypeName
+                    TypeName = item.Item.TypeName,
+                    CraftingResultAmount = item.Item.CraftingResultAmount,
+                    LocalizedName = item.Item.LocalizedName
                 }
             };
             ingredientSum.Parent = item;
@@ -535,7 +537,7 @@ namespace Crossout.Web.Services
 
         public static string BuildRecipeQuery()
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber,faction.name,recipe2.amount";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe2.id,recipeitem.number,recipeitem.id,recipe.factionnumber,faction.name,recipe2.amount,item.amount,itemlocalization.localizedname";
             string query =
                 $"SELECT {selectColumns} " +
                 "FROM recipe " +
@@ -546,6 +548,7 @@ namespace Crossout.Web.Services
                 "LEFT JOIN type ON type.id = item.typenumber " +
                 "LEFT JOIN recipe recipe2 ON recipe2.itemnumber = recipeitem.itemnumber " +
                 "LEFT JOIN faction faction ON faction.id = recipe.factionnumber " +
+                "LEFT JOIN itemlocalization ON itemlocalization.itemnumber = item.id AND itemlocalization.languagenumber = 1 " +
                 "WHERE recipe.id = @id";
 
             return query;
@@ -561,12 +564,12 @@ namespace Crossout.Web.Services
 
         public static string BuildSearchQuery(bool hasFilter, bool limit, bool count, bool hasId, bool hasRarity, bool hasCategory, bool hasFaction, bool showRemovedItems, bool showMetaItems)
         {
-            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount,recipe.amount";
+            string selectColumns = "item.id,item.name,item.sellprice,item.buyprice,item.selloffers,item.buyorders,item.datetime,rarity.id,rarity.name,category.id,category.name,type.id,type.name,recipe.id,item.removed,item.meta,faction.id,faction.name,item.popularity,item.workbenchrarity,item.craftingsellsum,item.craftingbuysum,item.amount,recipe.amount,itemlocalization.localizedname";
             if (count)
             {
                 selectColumns = "count(*)";
             }
-            string query = $"SELECT {selectColumns} FROM item LEFT JOIN rarity on rarity.id = item.raritynumber LEFT JOIN category on category.id = item.categorynumber LEFT JOIN type on type.id = item.typenumber LEFT JOIN recipe ON recipe.itemnumber = item.id LEFT JOIN faction ON faction.id = recipe.factionnumber ";
+            string query = $"SELECT {selectColumns} FROM item LEFT JOIN rarity on rarity.id = item.raritynumber LEFT JOIN category on category.id = item.categorynumber LEFT JOIN type on type.id = item.typenumber LEFT JOIN recipe ON recipe.itemnumber = item.id LEFT JOIN faction ON faction.id = recipe.factionnumber LEFT JOIN itemlocalization ON itemlocalization.itemnumber = item.id AND itemlocalization.languagenumber = 1 ";
 
             if (!hasId)
             {
@@ -629,7 +632,7 @@ namespace Crossout.Web.Services
             {
                 removedItems = "WHERE removed = 0";
             }
-            string query = $"SELECT item.id,item.name FROM item {removedItems} ORDER BY item.name ASC,item.id ASC;";
+            string query = $"SELECT item.id,item.name,itemlocalization.localizedname FROM item LEFT JOIN itemlocalization ON itemlocalization.itemnumber = item.id AND itemlocalization.languagenumber = 1 {removedItems} ORDER BY item.name ASC,item.id ASC;";
             return query;
         }
 
