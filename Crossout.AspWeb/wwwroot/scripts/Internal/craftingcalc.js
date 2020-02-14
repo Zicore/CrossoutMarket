@@ -274,7 +274,7 @@ function drawCalculationOverviewProfit(entries, wrapper, tldrWrapper) {
         '<div class="d-flex flex-row justify-content-between w-50 mr-1"><div class="font-weight-bold">Profit: </div><div class="' + (profit >= 0 ? 'sum-pos' : 'sum-neg') + '">' + formatPrice(profit) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
         '</div>';
 
-    var htmlTldr = '<div class="d-flex justify-content-around flex-row mx-1 mt-3 h4">' +
+    var htmlTldr = '<div class="d-flex justify-content-around flex-row mx-1 mt-2 h4">' +
         '<div class="d-inline-flex flex-row mr-1"><div class="font-weight-bold mr-1">Crafting Cost: </div><div>' + formatPrice(sum) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
         '<div class="d-inline-flex flex-row mr-1"><div class="font-weight-bold mr-1">Profit: </div><div class="' + (profit >= 0 ? 'sum-pos' : 'sum-neg') + '">' + formatPrice(profit) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
         '</div>' +
