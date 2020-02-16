@@ -58,6 +58,7 @@ function mapIngredient(root, rootDisplayIngredient, ingredient, currentDepth) {
         hasIngredients: false,
         bundleAmount: Math.max(ingredient.item.amount, 1),
         amount: ingredient.number,
+        totalAmount: calculateTotalAmount(ingredient.number, Math.max(displayIngredient ? displayIngredient.amount : 1, 1), rootDisplayIngredient),
         rootAmount: root.number,
         rootEffectiveAmount: root.number / Math.max(root.item.craftingResultAmount, 1),
         craftResultAmount: Math.max(ingredient.item.craftingResultAmount, 1),
@@ -183,20 +184,21 @@ function drawCalculationOverview(wrapper) {
         var entry = entries.find(x => x.itemId === e.itemId);
         if (entry === undefined && (!e.expanded || !e.hasIngredients)) {
             entry = Object.assign({}, e);
+            entry.totalAmount = calculateTotalAmount(entry.amount, entry.rootDisplayIngredient ? entry.rootDisplayIngredient.amount : 1, entry.rootDisplayIngredient);
             entries.push(entry);
         } else if (entry !== undefined && (!e.expanded || !e.hasIngredients)) {
-            entry.amount += e.rootEffectiveAmount * e.amount;
+            entry.totalAmount += calculateTotalAmount(e.amount, e.rootDisplayIngredient ? e.rootDisplayIngredient.amount : 1, e.rootDisplayIngredient);
         }
         if (entry !== undefined) {
             switch (entry.usedPrice) {
                 case 'buy':
-                    entry.totalPrice += entry.buyPrice * (e.amount / e.bundleAmount);
+                    entry.totalPrice += entry.buyPrice * (e.totalAmount / e.bundleAmount);
                     break;
                 case 'sell':
-                    entry.totalPrice += entry.sellPrice * (e.amount / e.bundleAmount);
+                    entry.totalPrice += entry.sellPrice * (e.totalAmount / e.bundleAmount);
                     break;
                 case 'custom':
-                    entry.totalPrice += entry.customPrice * (e.amount / e.bundleAmount);
+                    entry.totalPrice += entry.customPrice * (e.totalAmount / e.bundleAmount);
                     break;
             }
         }
@@ -231,7 +233,7 @@ function drawCalulationOverviewEntry(displayIngredient, wrapper) {
         '<div class="d-flex flex-row justify-content-between w-50">' +
         '<div class="d-flex flex-row">' +
         '<div>' +
-        displayIngredient.amount + ' x ' +
+        displayIngredient.totalAmount + ' x ' +
         '</div>' +
         '<div class="ml-1">' +
         formatPrice(displayIngredient.usedPrice === 'buy' ? displayIngredient.buyPrice : displayIngredient.sellPrice) +
@@ -252,7 +254,7 @@ function drawCalulationOverviewEntry(displayIngredient, wrapper) {
 
 function drawCalculationOverviewProfit(entries, wrapper, tldrWrapper) {
     $(wrapper).children().remove();
-    craftingCalc.calc.sum = calculateSum(entries);
+    craftingCalc.calc.sum = calculateSum(entries, false);
     var sum = craftingCalc.calc.sum;
     var sellPrice = craftingCalc.tree.topToBottom[0].usedSellPrice === 'sell' ? craftingCalcData.data.item.sellPrice : craftingCalcData.data.item.buyPrice;
     var fee = sellPrice * 0.1;
@@ -386,7 +388,7 @@ function setUsedSellPrice(usedSellPrice) {
     craftingCalc.tree.topToBottom.find(x => x.recipeId === 0).usedSellPrice = usedSellPrice;
 }
 
-function calculateSum(entries) {
+function calculateSum(entries, singleItem) {
     var sum = 0;
     entries.forEach(function (e, i) {
         var price = 0;
@@ -401,7 +403,10 @@ function calculateSum(entries) {
                 price = e.customPrice;
                 break;
         }
-        sum += price * e.amount / e.bundleAmount;
+        if (singleItem)
+            sum += price * e.amount / e.bundleAmount;
+        else
+            sum += price * e.totalAmount / e.bundleAmount;
     });
     return sum;
 }
@@ -426,7 +431,7 @@ function calculateAdvice(recipeId) {
         }
     });
 
-    var ingredientSum = calculateSum(ingredients);
+    var ingredientSum = calculateSum(ingredients, true);
     return recipe.buyPrice * recipe.craftResultAmount <= ingredientSum ? 'Buy' : 'Craft';
 }
 
@@ -448,7 +453,7 @@ function calculateRecipeSum(recipeId) {
         }
     });
 
-    return calculateSum(ingredients);
+    return calculateSum(ingredients, true);
 }
 
 function chooseOptimalRoute() {
@@ -494,4 +499,13 @@ function getRootExpandedStatus(recipeId) {
         }
     });
     return expanded;
+}
+
+function calculateTotalAmount(baseAmount, rootAmount, rootDisplayIngredient) {
+    var result = 0;
+    if (rootDisplayIngredient !== null && rootDisplayIngredient.recipeId !== 0)
+        result += baseAmount * rootDisplayIngredient.totalAmount / rootDisplayIngredient.craftResultAmount;
+    else
+        result += baseAmount * 1;
+    return result;
 }
