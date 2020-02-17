@@ -593,7 +593,7 @@ namespace Crossout.AspWeb.Services
             {
                 if (hasFilter)
                 {
-                    query += "WHERE item.name LIKE @filter ";
+                    query += "WHERE itemlocalization.localizedname LIKE @filter OR item.name LIKE @filter ";
                 }
                 else
                 {
