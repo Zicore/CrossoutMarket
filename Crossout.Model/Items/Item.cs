@@ -20,7 +20,7 @@ namespace Crossout.Model.Items
         Epic_3 = 3,
         Legendary_4 = 4,
         Relic_5 = 5,
-        Skins_6 = 6
+        Special_6 = 6
     }
 
     // Matches with DB Ids
@@ -38,7 +38,7 @@ namespace Crossout.Model.Items
         Epic_447 = 447,
         Legendary_448 = 448,
         Relic_449 = 449,
-        Skins_466 = 466,
+        Special_466 = 466,
     }
 
     [JsonObject("item")]
@@ -52,6 +52,12 @@ namespace Crossout.Model.Items
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("localizedName")]
+        public string LocalizedName { get; set; }
+
+        [JsonProperty("availableName")]
+        public string AvailableName { get { return LocalizedName != null ? LocalizedName : Name; } }
 
         [JsonProperty("description")]
         public string DescriptionText
@@ -122,7 +128,7 @@ namespace Crossout.Model.Items
         [JsonProperty("craftingMargin")]
         public decimal CraftingMargin
         {
-            get { return (decimal)(SellPrice - CraftingBuySum - (SellPrice * 0.1m)); }
+            get { return (decimal)((SellPrice * CraftingResultAmount * 0.9m) - CraftingBuySum); }
         }
 
         [JsonProperty("formatDemandSupplyRatio")]
@@ -152,7 +158,7 @@ namespace Crossout.Model.Items
         [JsonProperty("craftVsBuy")]
         public string CraftVsBuy
         {
-            get { return (Craftable == 1 ? (BuyPrice <= CraftingBuySum ? "Buy" : "Craft") : "Uncraftable"); }
+            get { return (Craftable == 1 ? (BuyPrice <= CraftingBuySum / Math.Max(CraftingResultAmount, 1) ? "Buy" : "Craft") : "Uncraftable"); }
         }
 
         [JsonProperty("timestamp")]
@@ -229,6 +235,9 @@ namespace Crossout.Model.Items
             }
         }
 
+        [JsonProperty("craftingResultAmount")]
+        public int CraftingResultAmount { get; set; }
+
         [JsonProperty("image")]
         public string Image
         {
@@ -294,7 +303,9 @@ namespace Crossout.Model.Items
                 WorkbenchRarity = row[i++].ConvertTo<int>(),
                 CraftingSellSum = row[i++].ConvertTo<decimal>(),
                 CraftingBuySum = row[i++].ConvertTo<decimal>(),
-                Amount = row[i].ConvertTo<int>()
+                Amount = row[i++].ConvertTo<int>(),
+                CraftingResultAmount = row[i++].ConvertTo<int>(),
+                LocalizedName = row[i].ConvertTo<string>()
             };
 
             return item;
@@ -323,7 +334,8 @@ namespace Crossout.Model.Items
                 Item item = new Item
                 {
                     Id = row[0].ConvertTo<int>(),
-                    Name = row[1].ConvertTo<string>()
+                    Name = row[1].ConvertTo<string>(),
+                    LocalizedName = row[2].ConvertTo<string>()
                 };
                 items.Add(item);
             }

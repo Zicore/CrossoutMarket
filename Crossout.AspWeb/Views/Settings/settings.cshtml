@@ -7,13 +7,35 @@
 <partial name="header" model="@Model" />
 
 <div class="half-hd-container px-3">
-    <div class="card my-1 p-1">
+    <div class="card my-1 p-3">
         <p class="text-secondary">General Settings</p>
+
+        <div class="form-inline my-1">
+            <select class="form-control form-control-sm mr-1" id="langSelect">
+                @foreach (var lang in Model.LanguageModel.AvailableLanguages)
+                {
+                    <option value="@lang.TwoLetterISOName">@lang.Name</option>
+                }
+            </select>
+            <label class="control-label" for="langSelect">Language</label>
+        </div>
 
         <div class="custom-control custom-switch my-1">
             <input type="checkbox" class="custom-control-input" id="darkModeSwitch">
             <label class="custom-control-label" for="darkModeSwitch">Dark Mode</label>
         </div>
+
+        <div class="form-inline my-1">
+            <input type="text" class="form-control form-control-sm mr-1" id="dateFormatText">
+            <label for="dateFormatText">Date Format (<a href="https://momentjs.com/docs/#/parsing/string-format/">Docs</a>)</label>
+        </div>
+
+        <div class="form-inline my-1">
+            <input type="text" class="form-control form-control-sm mr-1" id="timeFormatText">
+            <label for="timeFormatText">Time Format (<a href="https://momentjs.com/docs/#/parsing/string-format/">Docs</a>)</label>
+        </div>
+
+        <div class="test-timestamp">@DateTime.UtcNow.ToString("yyyy-mm-dd HH:mm:ss")</div>
 
         <hr />
 
@@ -24,9 +46,13 @@
             <label class="custom-control-label" for="fullSizeTable">Full Size Table</label>
         </div>
 
-        <div class="custom-control custom-switch my-1">
-            <input type="checkbox" class="custom-control-input" id="dropdownSwitch">
-            <label class="custom-control-label" for="dropdownSwitch">Dropdown Filter</label>
+        <div class="form-inline my-1">
+            <select class="form-control form-control-sm mr-1" id="filterStyleSelect">
+                <option value="dropdown">Dropdowns</option>
+                <option value="vertical-buttons">Buttons</option>
+                <option value="legacy-filters">Legacy</option>
+            </select>
+            <label class="control-label" for="filterStyleSelect">Filter Style</label>
         </div>
 
         <div class="custom-control custom-switch my-1">
@@ -108,11 +134,16 @@
 
 <script>
     function applySettings() {
-        // General settings darkModeSwitch
+        // General settings
+        var lang = Cookies.get('language');
+        $('#langSelect').val(lang != undefined ? lang : 'en');
         $('#darkModeSwitch').prop('checked', readSetting('dark-mode'));
+        $('#dateFormatText').val(readSetting('timestamp-format-date'));
+        $('#timeFormatText').val(readSetting('timestamp-format-time'));
+        updateTestTimestamp();
         // Search settings
         $('#fullSizeTable').prop('checked', readSetting('full-size-table'));
-        $('#dropdownSwitch').prop('checked', readSetting('dropdown'));
+        $('#filterStyleSelect').val(readFilterSettings());
         $('#rangeFiltersSwitch').prop('checked', readSetting('range-filters'));
         $('#exportButtonsSwitch').prop('checked', readSetting('export-buttons'));
         $('#lengthSelect').val(readSetting('length'));
@@ -131,7 +162,10 @@
         applySettings();
     });
 
-    // General settings darkModeSwitch
+    // General settings
+    $('#langSelect').change(function () {
+        Cookies.set('language', this.value, { expires: 365 });
+    });
     $('#darkModeSwitch').change(function () {
         writeSetting('dark-mode', this.checked);
         if (this.checked)
@@ -139,13 +173,28 @@
         else
             $('html').removeClass('dark-mode');
     });
+    $('#dateFormatText').change(function () {
+        writeSetting('timestamp-format-date', this.value);
+        updateTestTimestamp();
+    });
+    $('#timeFormatText').change(function () {
+        writeSetting('timestamp-format-time', this.value);
+        updateTestTimestamp();
+    });
+
+    function updateTestTimestamp() {
+        $('.test-timestamp').text(moment().format(readSetting('timestamp-format-date') + ' ' + readSetting('timestamp-format-time')));
+    }
 
     // Search settings
     $('#fullSizeTable').change(function () {
         writeSetting('full-size-table', this.checked);
     });
-    $('#dropdownSwitch').change(function () {
-        writeSetting('dropdown', this.checked);
+    $('#filterStyleSelect').change(function () {
+        writeSetting('dropdown', false);
+        writeSetting('vertical-buttons', false);
+        writeSetting('legacy-filters', false);
+        writeSetting(this.value, true);
     });
     $('#rangeFiltersSwitch').change(function () {
         writeSetting('range-filters', this.checked);

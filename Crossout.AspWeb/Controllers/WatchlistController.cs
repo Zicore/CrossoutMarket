@@ -58,7 +58,7 @@ namespace Crossout.AspWeb.Controllers
 
                 foreach (var id in result)
                 {
-                    var itemModel = db.SelectItem(id, true);
+                    var itemModel = db.SelectItem(id, true, 1);
                     itemModel.Item.SetImageExists(pathProvider);
                     itemList.Add(itemModel.Item);
                 }

@@ -46,7 +46,7 @@ namespace ZicoreConnector.Zicore.Connector.Base
             switch (type)
             {
                 case ConnectionType.MySql:
-                    return $"SERVER={Host};DATABASE={Database}; UID={Username};PASSWORD={Password};Port = {Port};";
+                    return $"SERVER={Host};DATABASE={Database}; UID={Username};PASSWORD={Password};Port = {Port};CharSet=utf8;";
                 case ConnectionType.MicrosoftSql:
                     return $"server={Host};database={Database};user id={Username};PASSWORD={Password}";
                 default:

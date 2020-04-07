@@ -39,7 +39,7 @@
             <div class="col-md-6 col-sm-12 pack-container @(package.AppPrices.OlderThan(180) ? "discontinued" : "available")" data-packagename="@(package.Name)" data-packagevalue="@(package.AppPrices.Prices[0].FormatSellPriceDividedByCurrency)" data-packagecoins="@(package.RawCoins)" data-packagetotal="@(package.FormatTotalSellSum)" data-packagesum="@(package.FormatSellSum)">
                 <div class="card my-1">
                     <div class="m-1 d-flex justify-content-between align-items-center">
-                        <div>
+                        <div class="px-3">
                             <a href="https://store.steampowered.com/app/@(package.SteamAppID)">@package.Name</a>
                         </div>
                         <div>
@@ -80,7 +80,7 @@
                                             {
                                                 <a href="~/item/@(id)"><img class="item-image-med" src="~/img/NoImage.png" /></a>
                                             }
-                                            <a href="~/item/@(id)">@Model.ContainedItems[id].Name</a>
+                                            <a href="~/item/@(id)">@Model.ContainedItems[id].AvailableName</a>
                                         </td>
                                         <td>
                                             <div class="mx-auto" style="color: red">@(Model.ContainedItems[id].FormatSellPrice) <img src="~/img/Coin.png" height="14" /></div>

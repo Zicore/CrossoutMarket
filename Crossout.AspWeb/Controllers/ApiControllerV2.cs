@@ -12,6 +12,8 @@ using Crossout.AspWeb.Services.API.v2;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
 using Crossout.Web.Modules.API.v2;
+using Crossout.AspWeb.Helper;
+using Crossout.AspWeb.Models.Language;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -36,6 +38,7 @@ namespace Crossout.AspWeb.Controllers
 
             var model = dataService.GetRarities();
 
+            this.RegisterHit("/api/v2/rarities");
             return Json(model);
         }
         
@@ -47,6 +50,7 @@ namespace Crossout.AspWeb.Controllers
 
             var model = dataService.GetFactions();
 
+            this.RegisterHit("/api/v2/factions");
             return Json(model);
         }
 
@@ -58,6 +62,7 @@ namespace Crossout.AspWeb.Controllers
 
             var model = dataService.GetItemTypes();
 
+            this.RegisterHit("/api/v2/types");
             return Json(model);
         }
 
@@ -69,6 +74,7 @@ namespace Crossout.AspWeb.Controllers
 
             var model = dataService.GetCategories();
 
+            this.RegisterHit("/api/v2/categories");
             return Json(model);
         }
 
@@ -78,6 +84,19 @@ namespace Crossout.AspWeb.Controllers
         //    return RouteSearch(null, 0, null, null, null, null, null, 0);
         //}
 
+        [Route("/api/v2/languages")]
+        public IActionResult LanguagesAction()
+        {
+            sql.Open(WebSettings.Settings.CreateDescription());
+
+            DataService db = new DataService(sql);
+
+            LanguageModel model = db.SelectLanguageModel();
+
+            this.RegisterHit("/api/v2/languages");
+            return Json(model);
+        }
+
         [Route("/api/v2/packs")]
         public IActionResult PacksAction()
         {
@@ -86,46 +105,71 @@ namespace Crossout.AspWeb.Controllers
 
             var model = dataService.GetPacks();
 
+            this.RegisterHit("/api/v2/packs");
             return Json(model);
         }
 
         [Route("/api/v2/items")]
-        public IActionResult ItemsAllSearchAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int id)
-        {
-            return RouteSearch(query, 0, rarity, category, faction, removedItems, metaItems, id);
-        }
-
-        [Route("/api/v2/item/{item}")]
-        public IActionResult ItemAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int item)
-        {
-            return RouteSearch(query, 0, rarity, category, faction, removedItems, metaItems, item);
-        }
-
-        [Route("/api/v2/recipe/{item}")]
-        public IActionResult RecipeAction(int item)
+        public IActionResult ItemsAllSearchAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int id, string language)
         {
             sql.Open(WebSettings.Settings.CreateDescription());
 
             DataService db = new DataService(sql);
 
-            var itemModel = db.SelectItem(item, true);
-            var recipeModel = db.SelectRecipeModel(itemModel.Item, false);
+            LanguageModel languageModel = db.SelectLanguageModel();
+            Language selectedLanguage = languageModel.VerifyLanguage(language);
 
+            this.RegisterHit("/api/v2/items");
+            return RouteSearch(query, 0, rarity, category, faction, removedItems, metaItems, id, selectedLanguage.Id);
+        }
+
+        [Route("/api/v2/item/{item}")]
+        public IActionResult ItemAction(string query, string rarity, string category, string faction, string removedItems, string metaItems, int item, string language)
+        {
+            sql.Open(WebSettings.Settings.CreateDescription());
+
+            DataService db = new DataService(sql);
+
+            LanguageModel languageModel = db.SelectLanguageModel();
+            Language selectedLanguage = languageModel.VerifyLanguage(language);
+
+            this.RegisterHit("/api/v2/item");
+            return RouteSearch(query, 0, rarity, category, faction, removedItems, metaItems, item, selectedLanguage.Id);
+        }
+
+        [Route("/api/v2/recipe/{item}")]
+        public IActionResult RecipeAction(int item, string language)
+        {
+            sql.Open(WebSettings.Settings.CreateDescription());
+
+            DataService db = new DataService(sql);
+
+            LanguageModel languageModel = db.SelectLanguageModel();
+            Language selectedLanguage = languageModel.VerifyLanguage(language);
+
+            var itemModel = db.SelectItem(item, true, selectedLanguage.Id);
+            var recipeModel = db.SelectRecipeModel(itemModel.Item, false, selectedLanguage.Id);
+
+            this.RegisterHit("/api/v2/recipe");
             return Json(recipeModel);
         }
 
         [Route("/api/v2/recipe-deep/{item}")]
-        public IActionResult RecipeDeepAction(int item)
+        public IActionResult RecipeDeepAction(int item, string language)
         {
             sql.Open(WebSettings.Settings.CreateDescription());
 
             DataService db = new DataService(sql);
 
-            var itemModel = db.SelectItem(item, true);
-            var recipeModel = db.SelectRecipeModel(itemModel.Item, true);
+            LanguageModel languageModel = db.SelectLanguageModel();
+            Language selectedLanguage = languageModel.VerifyLanguage(language);
+
+            var itemModel = db.SelectItem(item, true, selectedLanguage.Id);
+            var recipeModel = db.SelectRecipeModel(itemModel.Item, true, selectedLanguage.Id);
 
             itemModel.Recipe = recipeModel;
 
+            this.RegisterHit("/api/v2/recipe-deep");
             return Json(itemModel);
         }
 
@@ -137,6 +181,8 @@ namespace Crossout.AspWeb.Controllers
             HashSet<string> validMarkets = new HashSet<string>() { "sellprice", "buyprice", "selloffers", "buyorders" };
             
             string timestampColumn = "market.datetime";
+
+            this.RegisterHit("/api/v2/market");
 
             if (validMarkets.Contains(name))
             {
@@ -205,10 +251,11 @@ namespace Crossout.AspWeb.Controllers
 
             var ds = sql.SelectDataSet(query, parmeter);
 
+            this.RegisterHit("/api/v2/market-all");
             return Json(ds);
         }
 
-        private IActionResult RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string removedItems, string metaItems, int id)
+        private IActionResult RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string removedItems, string metaItems, int id, int language)
         {
             if (searchQuery == null)
             {
@@ -268,6 +315,8 @@ namespace Crossout.AspWeb.Controllers
                 var p = new Parameter { Identifier = "@id", Value = $"{id}" };
                 parmeter.Add(p);
             }
+
+            parmeter.Add(new Parameter { Identifier = "@language", Value = language });
 
             var ds = sql.SelectDataSet(sqlQuery, parmeter);
             var searchResult = new List<Item>();

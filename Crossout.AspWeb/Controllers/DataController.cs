@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Crossout.Model.Items;
 using Crossout.AspWeb.Helper;
 using Crossout.AspWeb.Services;
+using Crossout.AspWeb.Models.Language;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -23,9 +24,10 @@ namespace Crossout.AspWeb.Controllers
         }
 
         [Route("/data/search")]
-        public IActionResult SearchData()
+        public IActionResult SearchData(string l)
         {
-            return RouteSearchData();
+            Language lang = this.VerifyLanguage(sql, l);
+            return RouteSearchData(lang.Id);
         }
 
         [Route("/data/item/all/{id}")]
@@ -42,13 +44,16 @@ namespace Crossout.AspWeb.Controllers
 
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
 
-        private IActionResult RouteSearchData()
+        private IActionResult RouteSearchData(int language)
         {
             sql.Open(WebSettings.Settings.CreateDescription());
-
             string sqlQuery = DataService.BuildSearchQuery(false, true, false, false, false, false, false, true, true, false);
 
-            var ds = sql.SelectDataSet(sqlQuery);
+            language = Math.Max(language, 1);
+            var p = new Parameter { Identifier = "@language", Value = language };
+            List<Parameter> parameters = new List<Parameter> { p };
+
+            var ds = sql.SelectDataSet(sqlQuery, parameters);
             var model = new SearchDataContainer();
             foreach (var row in ds)
             {

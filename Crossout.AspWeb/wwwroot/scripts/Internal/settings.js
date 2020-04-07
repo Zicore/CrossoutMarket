@@ -1,7 +1,11 @@
 ﻿const defaultSettings = {
     'dark-mode': false,
+    'timestamp-format-date': 'YYYY-MM-DD',
+    'timestamp-format-time': 'HH:mm:ss',
     'full-size-table': false,
     'dropdown': true,
+    'vertical-buttons': false,
+    'legacy-filters': false,
     'range-filters': false,
     'export-buttons': false,
     'length': 10,
@@ -76,4 +80,14 @@ function importCookie() {
 function resetSettings() {
     settings = defaultSettings;
     writeCookie();
+}
+
+function readFilterSettings() {
+    if (readSetting('dropdown'))
+        return 'dropdown';
+    if (readSetting('vertical-buttons'))
+        return 'vertical-buttons';
+    if (readSetting('legacy-filters'))
+        return 'legacy-filters';
+    return 'dropdown';
 }

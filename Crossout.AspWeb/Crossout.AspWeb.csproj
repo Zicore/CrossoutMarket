@@ -13,6 +13,7 @@
     <Content Remove="Resources\PremiumPackages\frostburndeluxe.json" />
     <Content Remove="Resources\PremiumPackages\horsemenofapocalypsepestilence.json" />
     <Content Remove="Resources\PremiumPackages\immortalwarrior.json" />
+    <Content Remove="Resources\PremiumPackages\notowar.json" />
     <Content Remove="Resources\PremiumPackages\polymorph.json" />
     <Content Remove="Views\edit.cshtml" />
     <Content Remove="Views\editpart.cshtml" />
@@ -398,6 +399,9 @@
     <None Include="Resources\KnightRiders\teutonicstripes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\PremiumPackages\notowar.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PremiumPackages\polymorph.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -603,7 +607,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="newtonsoft.json" Version="12.0.2" />
-    <PackageReference Include="nlog" Version="4.6.7" />
+    <PackageReference Include="nlog" Version="4.6.8" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="4.6.0" />

@@ -90,14 +90,15 @@
     var order;
     var table;
     var cellWidth = (readSetting('full-size-table') ? '7.09%' : '10%')
+    var language = Cookies.get('language');
     $(document).ready(function () {
         order = [[getColumnIndexById('offersCol'), "desc"]];
         table = $('#ItemTable2').DataTable({
-            ajax: '/data/search',
+            ajax: '/data/search?l=' + language,
             deferRender: true,
             dataSrc: 'data',
             columns: [
-                { data: 'name' },
+                { data: 'availableName' },
                 { data: 'id' },
                 { data: 'imagePath' },
                 { data: 'rarityName' },
@@ -151,7 +152,7 @@
                     'targets': getColumnIndexesById(['lastUpdateCol']),
                     'render': function (data, type, row, meta) {
                         var adjustedTimestamp = getAdjustedTimestamp(data);
-                        return '<div class="item-timestamp ' + olderThan(adjustedTimestamp, 5) + ' ' + olderThan(adjustedTimestamp, 60) + '">' + adjustedTimestamp + '</div>';
+                        return '<div class="item-timestamp ' + olderThan(data, 5) + ' ' + olderThan(data, 60) + '">' + adjustedTimestamp + '</div>';
                     }
                 },
                 {
@@ -311,6 +312,6 @@
     }
 
     function olderThan(timestamp, minutes) {
-        return moment().subtract(minutes, 'minutes') > moment(timestamp, 'YYYY-MM-DD HH:mm:ss') ? 'item-older-than-' + minutes : '';
+        return moment.utc().subtract(minutes, 'minutes') > moment.utc(timestamp, 'YYYY-MM-DD HH:mm:ss') ? 'item-older-than-' + minutes : '';
     }
 </script>
