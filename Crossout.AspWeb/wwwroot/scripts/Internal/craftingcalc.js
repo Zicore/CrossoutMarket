@@ -24,6 +24,7 @@ $(document).ready(function () {
 });
 
 function onDataLoaded() {
+    buyOrCraftDecider(craftingCalcData.data.recipe.recipe);
     mapData();
     setDefaultTree();
     drawCalculator();
@@ -69,7 +70,8 @@ function mapIngredient(root, rootDisplayIngredient, ingredient, currentDepth) {
         usedPrice: 'buy',
         totalPrice: 0,
         usedSellPrice: 'sell',
-        rootDisplayIngredient: rootDisplayIngredient
+        rootDisplayIngredient: rootDisplayIngredient,
+        craftVsBuy: ingredient.item.craftVsBuy
     };
     var ingredients = ingredient.ingredients;
     if (ingredients.length > 0)
@@ -78,6 +80,42 @@ function mapIngredient(root, rootDisplayIngredient, ingredient, currentDepth) {
     ingredients.forEach(function (e, i) {
         mapIngredient(ingredient, displayIngredient, e, depth);
     });
+}
+
+// Optimal Route Calculator
+function buyOrCraftDecider(itemObject) {
+    if (itemObject.item.craftingResultAmount == 0) {
+        itemObject.item.craftVsBuy = "buy";
+        itemObject.itemCost = toFixed(parseFloat(itemObject.item.formatBuyPrice) / (itemObject.item.amount < 1 ? 1 : itemObject.item.amount) * itemObject.number);
+    }
+    else {
+        if (itemObject.ingredients == null || itemObject.ingredients.length < 1) {
+            itemObject.item.craftVsBuy = "buy";
+            //itemObject.itemCost = -44;
+        }
+        else {
+            $.each(itemObject.ingredients, function (key, val) {
+                buyOrCraftDecider(val);
+            });
+
+            var craftCost = 0;
+            $.each(itemObject.ingredients, function (key, val) {
+                craftCost = toFixed(parseFloat(craftCost) + parseFloat(val.itemCost));
+            });
+            var craftOrg = craftCost;
+            craftCost = toFixed(craftCost / itemObject.item.craftingResultAmount);
+
+            itemObject.itemCost = parseFloat(itemObject.item.formatBuyPrice);
+            if (itemObject.itemCost <= craftCost) {
+                itemObject.item.craftVsBuy = "buy";
+            }
+            else {
+                itemObject.item.craftVsBuy = "craft";
+                itemObject.itemCost = craftCost;
+            }
+            itemObject.itemCost = toFixed(itemObject.itemCost * (itemObject.number < 1 ? 1 : itemObject.number));
+        }
+    }
 }
 
 // DRAW
@@ -459,8 +497,9 @@ function calculateRecipeSum(recipeId) {
 function chooseOptimalRoute() {
     craftingCalc.tree.topToBottom.forEach(function (e, i) {
         if (e.hasIngredients) {
-            var advice = calculateAdvice(e.recipeId);
-            if (advice === 'Craft' || e.recipeId === 0)
+            //var advice = calculateAdvice(e.recipeId);
+            var advice = e.craftVsBuy;
+            if (advice === 'craft' || e.recipeId === 0)
                 if (e.rootDisplayIngredient !== null) {
                     if (e.rootDisplayIngredient.expanded)
                         collapseRecipe(e.recipeId, false);
@@ -508,4 +547,8 @@ function calculateTotalAmount(baseAmount, rootAmount, rootDisplayIngredient) {
     else
         result += baseAmount * 1;
     return result;
+}
+
+function toFixed(number) {
+    return number.toFixed(2);
 }
