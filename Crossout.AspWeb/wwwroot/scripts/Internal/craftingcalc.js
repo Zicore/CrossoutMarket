@@ -41,7 +41,7 @@ function setDefaultTree() {
     var defaultShownLayer = 1;
     craftingCalc.tree.topToBottom.forEach(function (e, i) {
         if (e.depth >= defaultShownLayer && e.hasIngredients)
-            collapseRecipe(e.recipeId, true);
+            collapseRecipe(e.uniqueId, true);
     });
 }
 
@@ -64,6 +64,7 @@ function mapIngredient(root, rootDisplayIngredient, ingredient, currentDepth) {
         expanded: true,
         depth: currentDepth,
         recipeId: ingredient.id,
+        uniqueId: ingredient.uniqueId,
         hasIngredients: false,
         bundleAmount: Math.max(ingredient.item.amount, 1),
         amount: ingredient.number,
@@ -198,7 +199,7 @@ function drawTreeEntry(displayIngredient, wrapper) {
         '</div > ' +
 
         '<div class="d-flex flex-row">' +
-        '<div>' + (displayIngredient.expanded && displayIngredient.hasIngredients ? 'Sum: ' + formatPrice(calculateRecipeSum(displayIngredient.recipeId)) + '<img class="ml-1" height = "14" src = "/img/Coin.png" />' : priceSelector) + '</div>' +
+        '<div>' + (displayIngredient.expanded && displayIngredient.hasIngredients ? 'Sum: ' + formatPrice(calculateRecipeSum(displayIngredient.uniqueId)) + '<img class="ml-1" height = "14" src = "/img/Coin.png" />' : priceSelector) + '</div>' +
         '</div > ' +
         '</div > ';
 
@@ -206,7 +207,7 @@ function drawTreeEntry(displayIngredient, wrapper) {
 
         '<div class="d-flex flex-row w-50">' +
         depthSpacer +
-        '<button class="btn btn-sm btn-outline-secondary recipe-expand-btn text-monospace ' + (displayIngredient.hasIngredients ? '' : 'invisible') + '" data-recipeid="' + displayIngredient.recipeId + '">' + (displayIngredient.expanded ? '-' : '+') + '</button>' +
+        '<button class="btn btn-sm btn-outline-secondary recipe-expand-btn text-monospace ' + (displayIngredient.hasIngredients ? '' : 'invisible') + '" data-uniqueid="' + displayIngredient.uniqueId + '">' + (displayIngredient.expanded ? '-' : '+') + '</button>' +
         '<a href="/item/' + displayIngredient.itemId + '">' +
         '<div class="d-flex flex-row">' +
         '<img class="ml-1 item-image-med" src="' +
@@ -351,7 +352,7 @@ function drawSnapshotManager(wrapper) {
 }
 
 // MANIPULATE
-function collapseRecipe(recipeId, collapse) {
+function collapseRecipe(uniqueId, collapse) {
     var inTarget = false;
     var targetDepth = 0;
     craftingCalc.tree.topToBottom.forEach(function (e, i) {
@@ -366,7 +367,7 @@ function collapseRecipe(recipeId, collapse) {
             inTarget = false;
         }
 
-        if (e.recipeId === recipeId) {
+        if (e.uniqueId === uniqueId) {
             inTarget = true;
             targetDepth = e.depth;
             e.expanded = !collapse;
@@ -375,19 +376,19 @@ function collapseRecipe(recipeId, collapse) {
 }
 
 // UPDATE
-function expandRecipe(recipeId, expand) {
-    collapseRecipe(recipeId, !expand);
+function expandRecipe(uniqueId, expand) {
+    collapseRecipe(uniqueId, !expand);
     drawCalculator();
 }
 
 // EVENT HANDLERS
 function bindEvents() {
     $('.recipe-expand-btn').click(function () {
-        var recipeId = parseInt($(this).attr('data-recipeid'));
-        if (getRecipeExpandedStatus(recipeId))
-            expandRecipe(recipeId, false);
+        var uniqueId = parseInt($(this).attr('data-uniqueid'));
+        if (getRecipeExpandedStatus(uniqueId))
+            expandRecipe(uniqueId, false);
         else {
-            expandRecipe(recipeId, true);
+            expandRecipe(uniqueId, true);
         }
     });
 
@@ -467,8 +468,8 @@ function bindEvents() {
 }
 
 // HELPERS
-function getRecipeExpandedStatus(recipeId) {
-    return craftingCalc.tree.topToBottom.find(x => x.recipeId === recipeId).expanded;
+function getRecipeExpandedStatus(uniqueId) {
+    return craftingCalc.tree.topToBottom.find(x => x.uniqueId === uniqueId).expanded;
 }
 
 function setRecipeUsedPrice(recipeId, usedPrice) {
@@ -531,7 +532,7 @@ function calculateAdvice(recipeId) {
     return recipe.buyPrice * recipe.craftResultAmount <= ingredientSum ? 'Buy' : 'Craft';
 }
 
-function calculateRecipeSum(recipeId) {
+function calculateRecipeSum(uniqueId) {
     var inTarget = false;
     var targetDepth = 0;
     var ingredients = [];
@@ -543,7 +544,7 @@ function calculateRecipeSum(recipeId) {
             inTarget = false;
         }
 
-        if (e.recipeId === recipeId) {
+        if (e.uniqueId === uniqueId) {
             inTarget = true;
             targetDepth = e.depth;
         }
@@ -560,15 +561,15 @@ function chooseOptimalRoute() {
             if (advice === 'craft' || e.recipeId === 0)
                 if (e.rootDisplayIngredient !== null) {
                     if (e.rootDisplayIngredient.expanded)
-                        collapseRecipe(e.recipeId, false);
+                        collapseRecipe(e.uniqueId, false);
                     else
-                        collapseRecipe(e.recipeId, true);
+                        collapseRecipe(e.uniqueId, true);
                 } else {
-                    collapseRecipe(e.recipeId, false);
+                    collapseRecipe(e.uniqueId, false);
                 }
 
             else
-                collapseRecipe(e.recipeId, true);
+                collapseRecipe(e.uniqueId, true);
         }
     });
 }
