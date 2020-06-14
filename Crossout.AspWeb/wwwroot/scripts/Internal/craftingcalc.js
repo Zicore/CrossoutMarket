@@ -29,7 +29,6 @@ $(document).ready(function () {
 
 function onDataLoaded() {
     buyOrCraftDecider(craftingCalcData.data.recipe.recipe);
-    console.log(craftingCalcData.data.recipe.recipe.itemCost);
     mapData();
     setDefaultTree();
     makeSnapshot('Current');
@@ -41,7 +40,7 @@ function setDefaultTree() {
     var defaultShownLayer = 1;
     craftingCalc.tree.topToBottom.forEach(function (e, i) {
         if (e.depth >= defaultShownLayer && e.hasIngredients)
-            collapseRecipe(e.uniqueId, true);
+            setCollapse(e.uniqueId, true);
     });
 }
 
@@ -53,7 +52,6 @@ function mapData() {
     mapIngredient(recipe, null, recipe, currentDepth);
 }
 
-// ToDo: Unique IDs anstatt Rezept IDs!!!
 function mapIngredient(root, rootDisplayIngredient, ingredient, currentDepth) {
     var depth = currentDepth + 1;
 
@@ -172,7 +170,7 @@ function drawTreeHeader(wrapper) {
 
 function drawTreeEntry(displayIngredient, wrapper) {
     var depthSpacer = '';
-    var advice = calculateAdvice(displayIngredient.recipeId);
+    var advice = calculateAdvice(displayIngredient.uniqueId);
     for (var i = 0; i < displayIngredient.depth; i++) {
         depthSpacer += '<div style="width: 24px;"></div>';
     }
@@ -352,7 +350,7 @@ function drawSnapshotManager(wrapper) {
 }
 
 // MANIPULATE
-function collapseRecipe(uniqueId, collapse) {
+function setCollapse(uniqueId, collapse) {
     var inTarget = false;
     var targetDepth = 0;
     craftingCalc.tree.topToBottom.forEach(function (e, i) {
@@ -377,7 +375,7 @@ function collapseRecipe(uniqueId, collapse) {
 
 // UPDATE
 function expandRecipe(uniqueId, expand) {
-    collapseRecipe(uniqueId, !expand);
+    setCollapse(uniqueId, !expand);
     drawCalculator();
 }
 
@@ -508,7 +506,7 @@ function calculateSum(entries, singleItem) {
     return sum;
 }
 
-function calculateAdvice(recipeId) {
+function calculateAdvice(uniqueId) {
     var inTarget = false;
     var targetDepth = 0;
     var ingredients = [];
@@ -521,7 +519,7 @@ function calculateAdvice(recipeId) {
             inTarget = false;
         }
 
-        if (e.recipeId === recipeId) {
+        if (e.uniqueId === uniqueId) {
             inTarget = true;
             targetDepth = e.depth;
             recipe = e;
@@ -559,17 +557,9 @@ function chooseOptimalRoute() {
             //var advice = calculateAdvice(e.recipeId);
             var advice = e.craftVsBuy;
             if (advice === 'craft' || e.recipeId === 0)
-                if (e.rootDisplayIngredient !== null) {
-                    if (e.rootDisplayIngredient.expanded)
-                        collapseRecipe(e.uniqueId, false);
-                    else
-                        collapseRecipe(e.uniqueId, true);
-                } else {
-                    collapseRecipe(e.uniqueId, false);
-                }
-
+                setCollapse(e.uniqueId, false);
             else
-                collapseRecipe(e.uniqueId, true);
+                setCollapse(e.uniqueId, true);
         }
     });
 }
