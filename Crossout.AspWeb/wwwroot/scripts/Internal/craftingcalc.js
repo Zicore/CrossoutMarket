@@ -18,6 +18,10 @@ var craftingCalc = {
     }
 };
 
+var snapshots = [];
+var selectedSnapshot = 1;
+var snapshotDeleteConfirmation = false;
+
 // INIT
 $(document).ready(function () {
 
@@ -25,8 +29,11 @@ $(document).ready(function () {
 
 function onDataLoaded() {
     buyOrCraftDecider(craftingCalcData.data.recipe.recipe);
+    console.log(craftingCalcData.data.recipe.recipe.itemCost);
     mapData();
     setDefaultTree();
+    makeSnapshot('Current');
+    readSnapshotSave();
     drawCalculator();
 }
 
@@ -46,6 +53,7 @@ function mapData() {
     mapIngredient(recipe, null, recipe, currentDepth);
 }
 
+// ToDo: Unique IDs anstatt Rezept IDs!!!
 function mapIngredient(root, rootDisplayIngredient, ingredient, currentDepth) {
     var depth = currentDepth + 1;
 
@@ -122,11 +130,13 @@ function buyOrCraftDecider(itemObject) {
 function drawCalculator() {
     var wrapper = $('#craftingCalcWrapper').append('<div>');
     wrapper.children().remove();
+    var snapshotWrapper = $('<div class="col-12"></div>').appendTo(wrapper);
     var tldrWrapper = $('<div class="col-12"></div>').appendTo(wrapper);
     var treeWrapper = $('<div class="col-12"></div>').appendTo(wrapper);
     var calcOverviewWrapper = $('<div class="col-12"></div>').appendTo(wrapper);
     var calcProfitWrapper = $('<div class="col-12"></div>').appendTo(wrapper);
     craftingCalc.tree.visible = [];
+    drawSnapshotManager(snapshotWrapper);
     drawTreeHeader(treeWrapper);
     craftingCalc.tree.topToBottom.forEach(function (e, i) {
         if (e.show) {
@@ -143,7 +153,7 @@ function drawTreeHeader(wrapper) {
     var html = '<div class="d-flex flex-row justify-content-between my-1 mx-1">' +
         '<div class="d-flex flex-row justify-content-between w-50">' +
         '<div class="font-weight-bold">' +
-        'Item' + 
+        'Item' +
         '</div>' +
         '</div>' +
         '<div class="d-flex flex-row justify-content-between w-50">' +
@@ -205,7 +215,7 @@ function drawTreeEntry(displayIngredient, wrapper) {
         '<div class="ml-1">' +
         displayIngredient.name +
         '</div>' +
-        (displayIngredient.hasIngredients ? '<div><div class="ml-1 badge badge-pill ' + (advice === 'Craft' && displayIngredient.expanded || advice === 'Buy' && !displayIngredient.expanded  ? 'badge-success' : 'badge-danger') + '">' + advice + '</div></div>' : '') +
+        (displayIngredient.hasIngredients ? '<div><div class="ml-1 badge badge-pill ' + (advice === 'Craft' && displayIngredient.expanded || advice === 'Buy' && !displayIngredient.expanded ? 'badge-success' : 'badge-danger') + '">' + advice + '</div></div>' : '') +
         '</div>' +
         '</a>' +
         '</div>' +
@@ -325,6 +335,21 @@ function drawCalculationOverviewProfit(entries, wrapper, tldrWrapper) {
     $(tldrWrapper).append(htmlTldr);
 }
 
+function drawSnapshotManager(wrapper) {
+    var html = '<div class="btn-group" role="group" aria-label="Snaphsots">';
+
+    snapshots.forEach(function (e, i) {
+        html += '<button type="button" class="btn btn-sm btn-outline-secondary choose-snapshot-btn ' + (e.id === selectedSnapshot ? 'active' : '') + '" data-snapshotid="' + e.id + '">' + e.name + '</button>';
+    });
+
+    html += '<button type="button" class="btn btn-sm btn-outline-secondary create-snapshot-btn">Create Snapshot</button>' +
+        '</div>';
+    if (selectedSnapshot !== 1) {
+        html += '<button type="button" class="btn btn-sm btn-outline-secondary ml-2 delete-snapshot-btn">' + (snapshotDeleteConfirmation ? 'Are you sure?' : 'Delete Snapshot') + '</button>';
+    }
+    $(wrapper).append(html);
+}
+
 // MANIPULATE
 function collapseRecipe(recipeId, collapse) {
     var inTarget = false;
@@ -404,6 +429,39 @@ function bindEvents() {
 
     $('.optimal-route-btn').click(function () {
         chooseOptimalRoute();
+        drawCalculator();
+    });
+
+    $('.create-snapshot-btn').click(function () {
+        if (snapshots.length <= 4) {
+            makeSnapshot(moment().format(readSetting('timestamp-format-date') + ' ' + readSetting('timestamp-format-time')));
+            updateSnapshotSave();
+            drawCalculator();
+        }
+    });
+
+    $('.choose-snapshot-btn').click(function () {
+        var snapshotId = parseInt($(this).attr('data-snapshotid'));
+        selectedSnapshot = snapshotId;
+        applySnapshot(snapshotId);
+        drawCalculator();
+    });
+
+    $('.delete-snapshot-btn').click(function () {
+        if (snapshotDeleteConfirmation) {
+            deleteSnapshot(selectedSnapshot);
+            selectedSnapshot = 1;
+            snapshotDeleteConfirmation = false;
+            applySnapshot(1);
+            drawCalculator();
+        } else {
+            snapshotDeleteConfirmation = true;
+            drawCalculator();
+        }
+    });
+
+    $('.delete-snapshot-btn').mouseleave(function () {
+        snapshotDeleteConfirmation = false;
         drawCalculator();
     });
 }
@@ -551,4 +609,84 @@ function calculateTotalAmount(baseAmount, rootAmount, rootDisplayIngredient) {
 
 function toFixed(number) {
     return number.toFixed(2);
+}
+
+function makeSnapshot(name) {
+    var newId = 1;
+    if (snapshots.length > 0) {
+        snapshots.sort(function (a, b) { return a.id - b.id })
+        newId = snapshots[snapshots.length - 1].id + 1;
+    }
+    var snapshot = {
+        id: newId,
+        name: name,
+        craftingCalcData: clone(craftingCalcData),
+        craftingCalc: clone(craftingCalc)
+    }
+
+    snapshots.push(snapshot);
+}
+
+function applySnapshot(snapshotId) {
+    var snapshot = snapshots.find(x => x.id === snapshotId);
+    craftingCalcData = clone(snapshot.craftingCalcData);
+    craftingCalc = clone(snapshot.craftingCalc);
+}
+
+function deleteSnapshot(snapshotId) {
+    var index = snapshots.findIndex(x => x.id === snapshotId);
+    snapshots.splice(index, 1);
+    updateSnapshotSave();
+}
+
+function updateSnapshotSave() {
+    var snapshotsClone = [];
+    snapshotsClone = clone(snapshots);
+    snapshotsClone.splice(snapshotsClone.findIndex(x => x.id === 1), 1);
+    if (snapshotsClone.length > 0)
+        localStorage.setItem('snapshots-' + craftingCalcData.data.item.id, JSON.stringify(snapshotsClone));
+    else
+        localStorage.removeItem('snapshots-' + craftingCalcData.data.item.id);
+}
+
+function readSnapshotSave() {
+    var readSnapshots = JSON.parse(localStorage.getItem('snapshots-' + craftingCalcData.data.item.id));
+    if (readSnapshots !== null)
+        readSnapshots.forEach(function (e, i) {
+            snapshots.push(e);
+        });
+}
+
+function clone(obj) {
+    var copy;
+
+    // Handle the 3 simple types, and null or undefined
+    if (null == obj || "object" != typeof obj) return obj;
+
+    // Handle Date
+    if (obj instanceof Date) {
+        copy = new Date();
+        copy.setTime(obj.getTime());
+        return copy;
+    }
+
+    // Handle Array
+    if (obj instanceof Array) {
+        copy = [];
+        for (var i = 0, len = obj.length; i < len; i++) {
+            copy[i] = clone(obj[i]);
+        }
+        return copy;
+    }
+
+    // Handle Object
+    if (obj instanceof Object) {
+        copy = {};
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+        }
+        return copy;
+    }
+
+    throw new Error("Unable to copy obj! Its type isn't supported.");
 }
