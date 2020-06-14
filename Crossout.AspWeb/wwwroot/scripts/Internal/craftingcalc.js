@@ -556,8 +556,17 @@ function chooseOptimalRoute() {
         if (e.hasIngredients) {
             //var advice = calculateAdvice(e.recipeId);
             var advice = e.craftVsBuy;
-            if (advice === 'craft' || e.recipeId === 0)
-                setCollapse(e.uniqueId, false);
+            if (advice === 'craft' || e.recipeId === 0) {
+                if (e.rootDisplayIngredient) {
+                    if (e.rootDisplayIngredient.expanded)
+                        setCollapse(e.uniqueId, false);
+                    else
+                        setCollapse(e.uniqueId, true);
+                } else {
+                    setCollapse(e.uniqueId, false);
+                }
+
+            }
             else
                 setCollapse(e.uniqueId, true);
         }
@@ -622,6 +631,7 @@ function applySnapshot(snapshotId) {
     var snapshot = snapshots.find(x => x.id === snapshotId);
     craftingCalcData = clone(snapshot.craftingCalcData);
     craftingCalc = clone(snapshot.craftingCalc);
+    referantiateRootDisplayIngredients();
 }
 
 function deleteSnapshot(snapshotId) {
@@ -646,6 +656,15 @@ function readSnapshotSave() {
         readSnapshots.forEach(function (e, i) {
             snapshots.push(e);
         });
+}
+
+function referantiateRootDisplayIngredients() {
+    craftingCalc.tree.topToBottom.forEach(function (e, i) {
+        if (e.rootDisplayIngredient) {
+            var rootDisplayIngredient = craftingCalc.tree.topToBottom.find(x => x.uniqueId === e.rootDisplayIngredient.uniqueId);
+            e.rootDisplayIngredient = rootDisplayIngredient;
+        }
+    });
 }
 
 function clone(obj) {
