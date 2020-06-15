@@ -14,6 +14,7 @@ using ZicoreConnector.Zicore.Connector.Base;
 using Crossout.Web.Modules.API.v1;
 using Crossout.AspWeb.Helper;
 using Crossout.AspWeb.Models.Language;
+using Crossout.AspWeb.Models.API.v1;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -28,6 +29,15 @@ namespace Crossout.AspWeb.Controllers
         public ApiController(RootPathHelper pathProvider)
         {
             this.pathProvider = pathProvider;
+        }
+
+        [Route("/api/v1/health")]
+        public IActionResult Health()
+        {
+            var model = new ApiHealth { Status = "OK" };
+
+            this.RegisterHit("/api/v1/health");
+            return Json(model);
         }
 
         [Route("/api/v1/languages")]
