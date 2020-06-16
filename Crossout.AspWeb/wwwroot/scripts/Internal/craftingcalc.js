@@ -79,7 +79,8 @@ function mapIngredient(root, rootDisplayIngredient, ingredient, currentDepth) {
         usedSellPrice: 'sell',
         rootDisplayIngredient: rootDisplayIngredient,
         craftVsBuy: ingredient.item.craftVsBuy,
-        factionId: ingredient.ingredients.length > 0 ? ingredient.ingredients[0].factionNumber : 0
+        factionId: ingredient.ingredients.length > 0 ? ingredient.ingredients[0].factionNumber : 0,
+        factionName: ingredient.ingredients.length > 0 ? ingredient.ingredients[0].item.faction : ''
     };
     var ingredients = ingredient.ingredients;
     if (ingredients.length > 0)
@@ -147,6 +148,8 @@ function drawCalculator() {
     drawCalculationOverview(calcOverviewWrapper);
     drawCalculationOverviewProfit(craftingCalc.calc.entries, calcProfitWrapper, tldrWrapper);
     bindEvents();
+
+    $('[data-toggle="tooltip"]').tooltip();
 }
 
 function drawTreeHeader(wrapper) {
@@ -215,7 +218,7 @@ function drawTreeEntry(displayIngredient, wrapper) {
         '<div class="ml-1">' +
         displayIngredient.name +
         '</div>' +
-        (displayIngredient.factionId && displayIngredient.factionId > 0 && displayIngredient.hasIngredients ? '<div class="ml-1">' + '<img class="faction-icon" width="32" height="32" src="/img/faction-icons/' + displayIngredient.factionId + '.png">' + '</div>' : '') +
+        (displayIngredient.factionId && displayIngredient.factionId > 0 && displayIngredient.hasIngredients ? '<div class="ml-1">' + '<img class="faction-icon" width="32" height="32" src="/img/faction-icons/' + displayIngredient.factionId + '.png" data-toggle="tooltip" data-placement="bottom" title="' + displayIngredient.factionName + '">' + '</div>' : '') +
         (displayIngredient.hasIngredients ? '<div><div class="ml-1 badge badge-pill ' + (advice === 'Craft' && displayIngredient.expanded || advice === 'Buy' && !displayIngredient.expanded ? 'badge-success' : 'badge-danger') + '">' + advice + '</div></div>' : '') +
         '</div>' +
         '</a>' +
