@@ -211,6 +211,11 @@ body {
     height: auto;
 }
 
+.item-image-highres {
+    width: 128px;
+    height: auto;
+}
+
 .item-removed {
     color: gray;
 }
