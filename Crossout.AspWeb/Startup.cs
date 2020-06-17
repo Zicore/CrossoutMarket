@@ -79,6 +79,7 @@ namespace Crossout.AspWeb
             });
 
             CrossoutDataService.Initialize(env);
+            ResourceService.Initialize(env);
             StatsService.Initialize();
         }
     }

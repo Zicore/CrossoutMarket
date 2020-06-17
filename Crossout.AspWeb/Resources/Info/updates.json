@@ -1,0 +1,57 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Founders Update",
+    "Timestamp": "2020-02-07T18:40:00Z",
+    "Notes": [
+      "Added new items",
+      "Added new rarity",
+      "Added new faction",
+      "Added new recipes (all founders recipes included)",
+      "Updated/Checked all existing recipes",
+      "Recipes resulting in more than one item now get calculated correctly (Wheels/Repair Kits)"
+    ]
+  },
+  {
+    "Id": 2,
+    "Name": "Update",
+    "Timestamp": "2020-02-11T16:38:00Z",
+    "Notes": [
+      "Added new Crafting Calculator",
+      "Fixed Crafting Advice Calculation"
+    ]
+  },
+  {
+    "Id": 3,
+    "Name": "Update",
+    "Timestamp": "2020-02-13T14:42:00Z",
+    "Notes": [
+      "Added russian localization for item names -> Check the settings",
+      "Added new items",
+      "Added new pack"
+    ]
+  },
+  {
+    "Id": 4,
+    "Name": "Doomsday Cars and Raven's Path Update",
+    "Timestamp": "2020-06-06T10:00:00Z",
+    "Notes": [
+      "Added new items",
+      "Added new packs",
+      "Added new recipes",
+      "Changed workbench costs"
+    ]
+  },
+  {
+    "Id": 5,
+    "Name": "Update",
+    "Timestamp": "2020-06-15T11:09:00Z",
+    "Notes": [
+      "Changed optimal route calculation. The optimal route now takes paths below \"buy\" advised ingredients into account. Big thanks to Anraton for providing code to solve this!",
+      "Added snapshot feature to the crafting calculator. This allows you to save the current state of the calculator. Data is saved locally in your browsers web storage.",
+      "Fixed an bug in the crafting calculator which caused unwanted expanding of similar items in the tree.",
+      "Added health check endpoint to API v1 and v2 ( https://crossoutdb.com/api/v2/health ). Please use this endpoint if you want to check if the service is running.",
+      "Updated localization table. New items should now also be available with russian localization."
+    ]
+  }
+]

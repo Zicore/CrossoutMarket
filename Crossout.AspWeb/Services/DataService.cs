@@ -15,6 +15,7 @@ using ZicoreConnector.Zicore.Connector.Base;
 using Crossout.Data.PremiumPackages;
 using Crossout.AspWeb.Models.Changes;
 using Crossout.AspWeb.Models.Language;
+using Crossout.AspWeb.Models.Info;
 
 namespace Crossout.AspWeb.Services
 {
@@ -363,6 +364,17 @@ namespace Crossout.AspWeb.Services
                 changesModel.Changes.Add(changeItem);
             }
             return changesModel;
+        }
+
+        public LastUpdateTime SelectLastUpdate()
+        {
+            string query = BuildLastUpdateQuery();
+            var ds = DB.SelectDataSet(query);
+            var lastUpdateTime = new LastUpdateTime();
+            lastUpdateTime.Id = 1;
+            lastUpdateTime.Name = "Crossout Price Update";
+            lastUpdateTime.Timestamp = ds.FirstOrDefault()[0].ConvertTo<DateTime>();
+            return lastUpdateTime;
         }
 
         public string TranslateFieldName(string toTranslate)
@@ -756,6 +768,14 @@ namespace Crossout.AspWeb.Services
             string collumns = "market.itemnumber, market.sellprice, market.buyprice, market.selloffers, market.buyorders, market.datetime";
             string tables = "market";
             string query = $"SELECT {collumns} FROM {tables} WHERE market.datetime = '{time.ToString("yyyy-MM-dd HH:mmm:ss")}'";
+            return query;
+        }
+
+        public static string BuildLastUpdateQuery()
+        {
+            string collumns = "item.datetime";
+            string tables = "item";
+            string query = $"SELECT {collumns} FROM {tables} ORDER BY datetime DESC LIMIT 1";
             return query;
         }
     }

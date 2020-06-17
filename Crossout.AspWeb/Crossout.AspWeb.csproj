@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
+    <Content Remove="Resources\Info\arachnophobia.json" />
     <Content Remove="Resources\PremiumPackages\assaultforcecharlie7.json" />
     <Content Remove="Resources\PremiumPackages\assaultforcetango1.json" />
     <Content Remove="Resources\PremiumPackages\bornfree.json" />
@@ -257,6 +258,9 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="Resources\Info\contributors.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\KnightRiders201809\armoredskull.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

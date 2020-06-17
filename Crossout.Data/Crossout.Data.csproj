@@ -59,7 +59,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UpdateNoteCollection.cs" />
+    <Compile Include="ContributorCollection.cs" />
     <Compile Include="Descriptions\ItemDescription.cs" />
+    <Compile Include="Info\Contributor.cs" />
+    <Compile Include="Info\UpdateNote.cs" />
     <Compile Include="KnightRiders\KnightRiders.cs" />
     <Compile Include="KnightRidersCollection.cs" />
     <Compile Include="PremiumPackagesColletion.cs" />
