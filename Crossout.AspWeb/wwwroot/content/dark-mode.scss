@@ -208,3 +208,7 @@ $table-info-hover: rgba(23, 162, 184, 0.15);
 .dark-mode .feather-input-clear:hover {
     stroke: rgba(255, 255, 255, 0.75);
 }
+
+.dark-mode .faction-icon {
+    filter: invert(1);
+}

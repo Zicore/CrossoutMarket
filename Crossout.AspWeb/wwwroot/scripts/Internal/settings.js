@@ -34,7 +34,7 @@ function writeSetting(setting, value) {
 function writeCookie() {
     var settingsJSON = JSON.stringify(settings);
     var settingsBase64 = btoa(settingsJSON);
-    Cookies.set('settings', settingsBase64, { expires: 365 });
+    Cookies.set('settings', settingsBase64, { expires: 365, sameSite: 'strict' });
 }
 
 function readCookie() {
@@ -72,7 +72,7 @@ function parseCookie() {
 function importCookie() {
     if (parseCookie()) {
         var value = $('#settingsStringBase64').val();
-        Cookies.set('settings', value, { expires: 365 });
+        Cookies.set('settings', value, { expires: 365, sameSite: 'strict' });
         readCookie();
     }
 }
