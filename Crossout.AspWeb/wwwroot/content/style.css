@@ -491,3 +491,27 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::
     max-height: 400px;
     overflow: hidden;
 }
+
+.feather-greencheck {
+    stroke: #3c763d;
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.feather-redx {
+    stroke: #a94442;
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.timestamp-older-than-10080 {
+    color: firebrick;
+}

@@ -16,6 +16,7 @@ using Crossout.Data.PremiumPackages;
 using Crossout.AspWeb.Models.Changes;
 using Crossout.AspWeb.Models.Language;
 using Crossout.AspWeb.Models.Info;
+using Crossout.AspWeb.Models.Drafts.BadgeExchange;
 
 namespace Crossout.AspWeb.Services
 {
@@ -375,6 +376,31 @@ namespace Crossout.AspWeb.Services
             lastUpdateTime.Name = "Crossout Price Update";
             lastUpdateTime.Timestamp = ds.FirstOrDefault()[0].ConvertTo<DateTime>();
             return lastUpdateTime;
+        }
+
+        public List<BadgeExchangeDeal> SelectBadgeExchange(int language)
+        {
+            string query = BuildBadgeExchangeQuery();
+            var ds = DB.SelectDataSet(query);
+            var badgeExchangeDeals = new List<BadgeExchangeDeal>();
+            var containedItems = new Dictionary<int, Item>();
+            foreach(var row in ds)
+            {
+                var badgeExchangeDeal = new BadgeExchangeDeal();
+                badgeExchangeDeal.Create(row);
+                if (!containedItems.ContainsKey(badgeExchangeDeal.RewardItemId))
+                {
+                    var item = SelectItem(badgeExchangeDeal.RewardItemId, false, language).Item;
+                    containedItems.Add(item.Id, item);
+                    badgeExchangeDeal.RewardItem = item;
+                }
+                else
+                {
+                    badgeExchangeDeal.RewardItem = containedItems[badgeExchangeDeal.RewardItemId];
+                }
+                badgeExchangeDeals.Add(badgeExchangeDeal);
+            }
+            return badgeExchangeDeals;
         }
 
         public string TranslateFieldName(string toTranslate)
@@ -776,6 +802,14 @@ namespace Crossout.AspWeb.Services
             string collumns = "item.datetime";
             string tables = "item";
             string query = $"SELECT {collumns} FROM {tables} ORDER BY datetime DESC LIMIT 1";
+            return query;
+        }
+
+        public static string BuildBadgeExchangeQuery()
+        {
+            string collumns = "badgeexchange.id, badgeexchange.rewarditem, badgeexchange.rewardamount, badgeexchange.badgecost, badgeexchange.active, badgeexchange.lastbeginactive";
+            string tables = "badgeexchange";
+            string query = $"SELECT {collumns} FROM {tables}";
             return query;
         }
     }

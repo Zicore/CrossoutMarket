@@ -71,7 +71,7 @@
             }
         </div>
 
-        <button class="btn btn-sm btn-outline-secondary update-notes-show-more-btn">Show more</button>
+        <button class="btn btn-sm btn-outline-secondary update-notes-show-more-btn">Show all</button>
     </div>
 </div>
 
@@ -81,6 +81,8 @@
     });
 
     $('.update-notes-show-more-btn').click(function () {
-        $('#updateCardText').removeClass('update-card-preview');
+        var updateCardText = $('#updateCardText')
+        updateCardText.removeClass('update-card-preview');
+        $(this).addClass('d-none');
     });
 </script>
