@@ -13,7 +13,7 @@
 
 <div class="half-hd-container px-3">
     <div class="card my-1">
-        <h4 class="card-title m-2">Update Times</h4>
+        <h4 class="card-title m-2">Data Update Times</h4>
 
         @foreach (var timestamp in Model.LastUpdateTimes)
         {
@@ -51,7 +51,7 @@
     </div>
 
     <div class="card my-1">
-        <h4 class="card-title m-2">Update Notes</h4>
+        <h4 class="card-title m-2">Patch Notes</h4>
 
         <div id="updateCardText" class="update-card-preview">
             @foreach (var update in Model.UpdateNotes)
@@ -71,7 +71,13 @@
             }
         </div>
 
-        <button class="btn btn-sm btn-outline-secondary update-notes-show-more-btn">Show more</button>
+        <div class="d-flex justify-content-center mb-1"><button class="btn btn-sm btn-outline-secondary update-notes-show-more-btn">Show all</button></div>
+    </div>
+
+    <div class="card my-1">
+        <h4 class="card-title m-2">Item Changes</h4>
+
+        <partial name="changesmodular" model="@Model.ChangesModel" />
     </div>
 </div>
 
@@ -82,5 +88,6 @@
 
     $('.update-notes-show-more-btn').click(function () {
         $('#updateCardText').removeClass('update-card-preview');
+        $(this).addClass('d-none');
     });
 </script>

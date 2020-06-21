@@ -9,6 +9,7 @@ using Crossout.AspWeb.Models.View;
 using Crossout.AspWeb.Models.General;
 using Crossout.AspWeb.Models.Items;
 using Crossout.Data.Info;
+using Crossout.AspWeb.Models.Changes;
 
 namespace Crossout.AspWeb.Models.Info
 {
@@ -21,5 +22,9 @@ namespace Crossout.AspWeb.Models.Info
         public List<Contributor> Contributors = new List<Contributor>();
 
         public List<UpdateNote> UpdateNotes = new List<UpdateNote>();
+
+        public ChangesModel ChangesModel = new ChangesModel();
+
+        public StatusModel StatusModel = new StatusModel();
     }
 }
