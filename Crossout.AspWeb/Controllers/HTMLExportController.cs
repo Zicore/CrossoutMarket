@@ -23,15 +23,15 @@ namespace Crossout.AspWeb.Controllers
         }
 
         [Route("export")]
-        public IActionResult Export(bool showTable, bool image, bool name, bool rarity, bool faction, bool category, bool type, bool popularity, bool sellPrice, bool sellOffers, bool buyPrice, bool buyOrders, bool margin, bool lastUpdate, bool craftingCostSell, bool craftingCostBuy, bool craftingMargin, bool craftVsBuy, bool link)
+        public IActionResult Export(bool showTable, bool image, bool name, bool rarity, bool faction, bool category, bool type, bool popularity, bool sellPrice, bool sellOffers, bool buyPrice, bool buyOrders, bool margin, bool lastUpdate, bool craftingCostSell, bool craftingCostBuy, bool craftingMargin, bool craftVsBuy, bool link, bool id, bool removedItems)
         {
             this.RegisterHit("Export");
-            return RouteHtmlExport(showTable, image, name, rarity, faction, category, type, popularity, sellPrice, sellOffers, buyPrice, buyOrders, margin, lastUpdate, craftingCostSell, craftingCostBuy, craftingMargin, craftVsBuy, link);
+            return RouteHtmlExport(showTable, image, name, rarity, faction, category, type, popularity, sellPrice, sellOffers, buyPrice, buyOrders, margin, lastUpdate, craftingCostSell, craftingCostBuy, craftingMargin, craftVsBuy, link, id, removedItems);
         }
 
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
 
-        private IActionResult RouteHtmlExport(bool showTable, bool showImage, bool showName, bool showRarity, bool showFaction, bool showCategory, bool showType, bool showPopulartiy, bool showSellPrice, bool showSellOffers, bool showBuyPrice, bool showBuyOrders, bool showMargin, bool showLastUpdate, bool showCraftingCostSell, bool showCraftingCostBuy, bool showCraftingMargin, bool showCraftVsBuy, bool showLink)
+        private IActionResult RouteHtmlExport(bool showTable, bool showImage, bool showName, bool showRarity, bool showFaction, bool showCategory, bool showType, bool showPopulartiy, bool showSellPrice, bool showSellOffers, bool showBuyPrice, bool showBuyOrders, bool showMargin, bool showLastUpdate, bool showCraftingCostSell, bool showCraftingCostBuy, bool showCraftingMargin, bool showCraftVsBuy, bool showLink, bool showId, bool showRemovedItems)
         {
             DataService db = new DataService(sql);
 
@@ -44,7 +44,7 @@ namespace Crossout.AspWeb.Controllers
                 Factions = SelectFactions(sql),
             };
 
-            string sqlQuery = DataService.BuildHtmlExport();
+            string sqlQuery = DataService.BuildHtmlExport(showRemovedItems);
 
             var ds = sql.SelectDataSet(sqlQuery);
             var items = new List<Item>();
@@ -77,7 +77,8 @@ namespace Crossout.AspWeb.Controllers
                 ShowCraftingCostBuy = showCraftingCostBuy,
                 ShowCraftingMargin = showCraftingMargin,
                 ShowCraftVsBuy = showCraftVsBuy,
-                ShowLink = showLink
+                ShowLink = showLink,
+                ShowId = showId
             };
 
             var statusModel = db.SelectStatus();

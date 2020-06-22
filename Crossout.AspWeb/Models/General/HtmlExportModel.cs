@@ -35,6 +35,7 @@ namespace Crossout.AspWeb.Models.General
         public bool ShowCraftingMargin { get; set; }
         public bool ShowCraftVsBuy { get; set; }
         public bool ShowLink { get; set; }
+        public bool ShowId { get; set; }
 
         public string Title => "HTML Export";
     }
