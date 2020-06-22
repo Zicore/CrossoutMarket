@@ -93,7 +93,7 @@ namespace Crossout.AspWeb.Controllers
             string name = "all";
 
             string query =
-                "(SELECT market.id,market.sellprice,market.buyprice,market.selloffers,market.buyorders,market.datetime FROM market where market.itemnumber = @id and market.datetime BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() ORDER BY market.Datetime desc LIMIT 5000) ORDER BY datetime ASC, id ASC";
+                "(SELECT marketrecent.id,marketrecent.sellprice,marketrecent.buyprice,marketrecent.selloffers,marketrecent.buyorders,marketrecent.datetime FROM marketrecent where marketrecent.itemnumber = @id and marketrecent.datetime BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() ORDER BY marketrecent.Datetime desc LIMIT 5000) ORDER BY datetime ASC, id ASC";
 
             var p = new Parameter { Identifier = "@id", Value = id };
             var parmeter = new List<Parameter>();

@@ -25,6 +25,7 @@
                     <h5>How to Use:</h5>
                     <ol>
                         <li>Check all collumns you want to be contained in your table</li>
+                        <li>Choose to include removed items or not. This setting is recommended if you rely on the item order</li>
                         <li>Choose to use comma or semicolon as separator. (This setting depends on the set language of your spreadsheet. If one doesn't work try the other)</li>
                         <li>Press the "Generate Function"- button</li>
                         <li>Copy the function into your spreadsheet</li>
@@ -121,6 +122,17 @@
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" id="checkbox-link"> Link
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-id"> ID
+                    </label>
+                </div>
+
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="checkbox-removedItems" checked> <b>Include Removed Items (recommended)</b>
                     </label>
                 </div>
 
@@ -257,6 +269,12 @@
                             Link
                         </th>
                     }
+                    @if (Model.ShowId)
+                    {
+                        <th>
+                            ID
+                        </th>
+                    }
                 </tr>
             </thead>
 
@@ -379,6 +397,12 @@
                                 <a href="https://crossoutdb.com/item/@item.Id">https://crossoutdb.com/item/@item.Id</a>
                             </td>
                         }
+                        @if (Model.ShowId)
+                        {
+                            <td>
+                                @item.Id
+                            </td>
+                        }
                     </tr>
                 }
             </tbody>
@@ -445,6 +469,12 @@
         }
         if ($('#checkbox-link').is(':checked')) {
             baseUrl += "&link=true";
+        }
+        if ($('#checkbox-id').is(':checked')) {
+            baseUrl += "&id=true";
+        }
+        if ($('#checkbox-removedItems').is(':checked')) {
+            baseUrl += "&removedItems=true";
         }
 
         if ($('#checkbox-comma').is(':checked')) {

@@ -26,5 +26,7 @@ namespace Crossout.AspWeb.Models.Changes
         public List<ChangeItem> Changes { get; set; } = new List<ChangeItem>();
 
         public StatusModel Status { get; set; } = new StatusModel();
+
+        public bool IsSingleItem { get; set; }
     }
 }

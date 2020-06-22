@@ -84,6 +84,8 @@ namespace Crossout.AspWeb.Controllers
                     changesModel.AllCategories = allCategories;
                     changesModel.AllTypes = allTypes;
                 }
+                changesModel.IsSingleItem = true;
+
                 itemModel.Recipe = recipeModel;
                 itemModel.Status = statusModel;
                 itemModel.Changes = changesModel;

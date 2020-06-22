@@ -51,6 +51,35 @@ namespace Crossout.AspWeb.Controllers
                 infoModel.UpdateNotes = resourceService.UpdateNoteCollection.UpdateNotes;
                 infoModel.UpdateNotes.Sort((a, b) => b.Timestamp.CompareTo(a.Timestamp));
 
+                infoModel.StatusModel = db.SelectStatus();
+
+                var changesModel = db.SelectChanges();
+
+                changesModel.Status = infoModel.StatusModel;
+
+                // Note: Only Ids and Names get filled in
+                var allItems = db.SelectAllActiveItems(language, false);
+                var allRarites = db.SelectAllRarities();
+                allRarites.Add(0, "None");
+                var allCategories = db.SelectAllCategories();
+                allCategories.Add(0, "None");
+                var allTypes = db.SelectAllTypes();
+                var itemDict = new Dictionary<int, Item>();
+
+                foreach (var item in allItems)
+                {
+                    item.SetImageExists(pathProvider);
+                    itemDict.Add(item.Id, item);
+                }
+                changesModel.ContainedItems = itemDict;
+                changesModel.AllRarites = allRarites;
+                changesModel.AllCategories = allCategories;
+                changesModel.AllTypes = allTypes;
+                changesModel.IsSingleItem = false;
+
+                infoModel.ChangesModel = changesModel;
+
+
                 return View("info", infoModel);
             }
             catch

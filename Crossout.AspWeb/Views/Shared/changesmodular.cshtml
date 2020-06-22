@@ -166,3 +166,19 @@
         }
     </tbody>
 </table>
+
+@if (!Model.IsSingleItem)
+{
+    <script>
+        $(document).ready(function () {
+            var changesTable = $('#ChangesTable').DataTable({
+                paging: true,
+                dom: '<tr><"mr-1"p>',
+                order: [[6, 'desc']],
+                columnDefs: [
+                    { targets: '_all', orderable: false }
+                ]
+            });
+        });
+    </script>
+}

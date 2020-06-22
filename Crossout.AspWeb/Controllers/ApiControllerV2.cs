@@ -265,6 +265,55 @@ namespace Crossout.AspWeb.Controllers
             return Json(ds);
         }
 
+        [Route("/api/v2/marketrecent-all/{id:int}")]
+        public IActionResult MarketRecentAllAction(MarketAllRequest request)
+        {
+            sql.Open(WebSettings.Settings.CreateDescription());
+
+            var startTimestamp = request.StartTimestamp;
+            var endTimestamp = request.EndTimestamp;
+
+            if (startTimestamp.HasValue && startTimestamp < 0)
+                return Json(new { ErrorMessage = "Parameter startTimestamp should be positive integer less than or equal to " + int.MaxValue }, HttpStatusCode.BadRequest);
+            if (endTimestamp.HasValue && endTimestamp < 0)
+                return Json(new { ErrorMessage = "Parameter endTimestamp should be positive integer less than or equal to " + int.MaxValue }, HttpStatusCode.BadRequest);
+
+            var whereClause = "where marketrecent.itemnumber = @id";
+
+            if (startTimestamp.HasValue && endTimestamp.HasValue)
+            {
+                whereClause += " AND marketrecent.datetime BETWEEN CONVERT_TZ(FROM_UNIXTIME(@startTimestamp), @@global.time_zone, '+00:00') AND CONVERT_TZ(FROM_UNIXTIME(@endTimestamp), @@global.time_zone, '+00:00')";
+            }
+            else
+            {
+                if (startTimestamp.HasValue)
+                    whereClause += " AND marketrecent.datetime >= CONVERT_TZ(FROM_UNIXTIME(@startTimestamp), @@global.time_zone, '+00:00')";
+                if (endTimestamp.HasValue)
+                    whereClause += " AND marketrecent.datetime <= CONVERT_TZ(FROM_UNIXTIME(@endTimestamp), @@global.time_zone, '+00:00')";
+            }
+
+            string query = "(" +
+                           "SELECT marketrecent.id,marketrecent.sellprice,marketrecent.buyprice,marketrecent.selloffers,marketrecent.buyorders,marketrecent.datetime,UNIX_TIMESTAMP(CONVERT_TZ(marketrecent.datetime, '+00:00', @@global.time_zone)) as unixdatetime " +
+                           "FROM marketrecent " +
+                           $"{whereClause} " +
+                           "ORDER BY marketrecent.Datetime desc LIMIT 40000" +
+                           ") ORDER BY id ASC;";
+
+            var p = new Parameter { Identifier = "@id", Value = request.Id };
+            var parmeter = new List<Parameter>();
+            parmeter.Add(p);
+
+            if (startTimestamp.HasValue)
+                parmeter.Add(new Parameter("startTimestamp", startTimestamp.Value));
+            if (endTimestamp.HasValue)
+                parmeter.Add(new Parameter("endTimestamp", endTimestamp.Value));
+
+            var ds = sql.SelectDataSet(query, parmeter);
+
+            this.RegisterHit("/api/v2/marketrecent-all");
+            return Json(ds);
+        }
+
         private IActionResult RouteSearch(string searchQuery, int page, string rarity, string category, string faction, string removedItems, string metaItems, int id, int language)
         {
             if (searchQuery == null)
