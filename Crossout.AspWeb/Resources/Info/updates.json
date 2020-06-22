@@ -53,5 +53,19 @@
       "Added health check endpoint to API v1 and v2 ( https://crossoutdb.com/api/v2/health ). Please use this endpoint if you want to check if the service is running.",
       "Updated localization table. New items should now also be available with russian localization."
     ]
+  },
+  {
+    "Id": 6,
+    "Name": "Update",
+    "Timestamp": "2020-06-22T08:00:00Z",
+    "Notes": [
+      "Added faction icons to the crafting calculator.",
+      "Updated/Added new high resolution images to item pages. Thanks to Maxim Zelenkin for providing the images!",
+      "Optimized item chart data storage. Item charts should now load significantly faster.",
+      "Added new API endpoint ( api/v2/marketrecent-all ). This endpoint uses the new market history storage. It contains the last 30 days of market data and is significantly faster.",
+      "Added option to show the ID of items in the HTML Export table.",
+      "Added option to show removed items in the HTML Export table. This setting should be used if you rely on the item order.",
+      "Replaced changes page with info page ( https://crossoutdb.com/info ). Changes can still be found on the info page."
+    ]
   }
 ]
