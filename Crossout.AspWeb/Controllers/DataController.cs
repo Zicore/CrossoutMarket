@@ -115,7 +115,8 @@ namespace Crossout.AspWeb.Controllers
 
             //string targetTimeEnd = (highResData.Count > 0) ? ConvertDateTimeToDBString(highResData.First().Timestamp) : ConvertDateTimeToDBString(DateTime.UtcNow);
             var targetTimeEnd = (highResData.Count > 0) ? highResData.First().Timestamp : DateTime.UtcNow;
-            query = "(SELECT marketgrouped.id,marketgrouped.sellprice,marketgrouped.buyprice,marketgrouped.selloffers,marketgrouped.buyorders,marketgrouped.datetime FROM marketgrouped where marketgrouped.itemnumber = @id AND marketgrouped.datetime < @time AND marketgrouped.datetime > DATE_SUB(@time, INTERVAL @interval DAY) ORDER BY marketgrouped.Datetime desc LIMIT 11000) ORDER BY id ASC;";
+            var additionalWhereClause = (highResData.Count > 0) ? "AND marketgrouped.datetime > DATE_SUB(@time, INTERVAL @interval DAY) " : "";
+            query = $"(SELECT marketgrouped.id,marketgrouped.sellprice,marketgrouped.buyprice,marketgrouped.selloffers,marketgrouped.buyorders,marketgrouped.datetime FROM marketgrouped where marketgrouped.itemnumber = @id AND marketgrouped.datetime < @time {additionalWhereClause}ORDER BY marketgrouped.Datetime desc LIMIT 11000) ORDER BY id ASC;";
             p = new Parameter { Identifier = "@id", Value = id };
             var p2 = new Parameter { Identifier = "@time", Value = targetTimeEnd };
             var p3 = new Parameter { Identifier = "@interval", Value = interval };
