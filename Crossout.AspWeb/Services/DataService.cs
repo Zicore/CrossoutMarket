@@ -17,6 +17,7 @@ using Crossout.AspWeb.Models.Changes;
 using Crossout.AspWeb.Models.Language;
 using Crossout.AspWeb.Models.Info;
 using Crossout.AspWeb.Models.Drafts.BadgeExchange;
+using Crossout.AspWeb.Models.Drafts.Snipe;
 
 namespace Crossout.AspWeb.Services
 {
@@ -401,6 +402,39 @@ namespace Crossout.AspWeb.Services
                 badgeExchangeDeals.Add(badgeExchangeDeal);
             }
             return badgeExchangeDeals;
+        }
+
+        public List<SnipeItem> SelectSnipeItems(int language)
+        {
+            string query = BuildSnipeQuery(language);
+            var ds = DB.SelectDataSet(query);
+            var snipeItems = new Dictionary<int, SnipeItem>();
+            foreach (var row in ds)
+            {
+                var marketEntry = new MarketEntry();
+                marketEntry.Create(row);
+                if (!snipeItems.ContainsKey(marketEntry.ItemNumber))
+                {
+                    var me = marketEntry;
+                    snipeItems.Add(me.ItemNumber, new SnipeItem { 
+                        Id = me.ItemNumber,
+                        Name = me.ItemName,
+                        LocalizedName = me.ItemLocalizedName,
+                        MarketEntries = new List<MarketEntry> { me }
+                    });
+                }
+                else
+                {
+                    var me = snipeItems[marketEntry.ItemNumber].MarketEntries;
+                    me.Add(marketEntry);
+                }
+            }
+            foreach (var item in snipeItems)
+            {
+                item.Value.MarketEntries.Sort((a, b) => b.Timestamp.CompareTo(a.Timestamp));
+                item.Value.CalculatePriceEdge();
+            }
+            return snipeItems.Values.ToList();
         }
 
         public string TranslateFieldName(string toTranslate)
@@ -811,6 +845,16 @@ namespace Crossout.AspWeb.Services
             string collumns = "badgeexchange.id, badgeexchange.rewarditem, badgeexchange.rewardamount, badgeexchange.badgecost, badgeexchange.active, badgeexchange.lastbeginactive";
             string tables = "badgeexchange";
             string query = $"SELECT {collumns} FROM {tables}";
+            return query;
+        }
+
+        public static string BuildSnipeQuery(int lang)
+        {
+            string collumns = "marketrecent.id, marketrecent.itemnumber, marketrecent.sellprice, marketrecent.buyprice, marketrecent.selloffers, marketrecent.buyorders, marketrecent.datetime, item.name, itemlocalization.localizedname";
+            string tables = "marketrecent";
+            string whereClause = $"marketrecent.datetime >= (SELECT datetime FROM (SELECT DISTINCT datetime FROM marketrecent ORDER BY datetime DESC LIMIT 5) as marketrecenttop2 ORDER BY datetime ASC LIMIT 1) AND itemlocalization.languagenumber={lang}";
+            string join = "LEFT JOIN itemlocalization ON itemlocalization.itemnumber = marketrecent.itemnumber LEFT JOIN item ON item.id = marketrecent.itemnumber";
+            string query = $"SELECT {collumns} FROM {tables} {join} WHERE {whereClause} ORDER BY id DESC;";
             return query;
         }
     }

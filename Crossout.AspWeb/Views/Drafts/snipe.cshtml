@@ -1,0 +1,184 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@using Crossout.AspWeb.Models.Drafts.Snipe
+@model SnipeModel
+
+<partial name="header" model="@Model" />
+
+<div class="half-hd-container px-3">
+    <div class="card my-1">
+        <h4 class="card-title m-2">Item Sniper <span data-toggle="collapse" data-target="#helpWrapper"><svg class="feather-help-circle"><use xlink:href="/icons/feather-sprite.svg#help-circle" /></svg></span></h4>
+
+        <div id="helpWrapper" class="collapse">
+            <h5 class="m-2">How it works</h5>
+            <p class="m-2">This tool scans the recent 25 minutes of market data for large price changes. If an items sell price drops so much that it would be profitable to buy it for the new price and sell it afterwards for the old price, it gets listed here.</p>
+            <p class="m-2">Keep in mind that these price drops can also be caused by a unusual price increase beforehand. Always double check before you decide to buy something!</p>
+            <ul class="list-unstyled m-2">
+                <li><b>Item:</b> The affected item</li>
+                <li><b>Highest Sell Price:</b> The highest recorded sell price of the last 25 minutes</li>
+                <li><b>Current Sell Price:</b> The current sell price</li>
+                <li><b>Current Buy Price:</b> The current buy price</li>
+                <li><b>Margin:</b> The difference between "Highest Sell Price" and "Current Sell Price" minus market fee</li>
+                <li><b>ROI:</b> The <a href="https://en.wikipedia.org/wiki/Return_on_investment">Return on Investment</a> based on "Margin" and "Current Sell Price"</li>
+            </ul>
+        </div>
+
+
+        <div class="m-2 d-flex flex-row">
+            <div>Data from: </div>
+            <div class="ml-1 item-timestamp">@Model.FormatTimestamp</div>
+        </div>
+
+        <div class="custom-control custom-switch m-2">
+            <input type="checkbox" class="custom-control-input" id="autoRefreshSwitch" checked>
+            <label class="custom-control-label" for="autoRefreshSwitch">Auto Refresh</label>
+        </div>
+
+        <div class="m-2 d-flex flex-row">
+            <div>Seconds until Refresh: </div>
+            <div id="countdown" class="ml-1"></div>
+        </div>
+
+        <div>
+            <table class="table table-borderless table-hover dt-responsive" id="SniperTable">
+                <thead>
+                    <tr>
+                        <th data-priority="1">
+                            Item
+                        </th>
+                        <th data-priority="2">
+                            Highest Sell Price
+                        </th>
+                        <th data-priority="2">
+                            Current Sell Price
+                        </th>
+                        <th data-priority="2">
+                            Current Buy Price
+                        </th>
+                        <th data-priority="1">
+                            Margin
+                        </th>
+                        <th data-priority="1">
+                            ROI
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var snipeItem in Model.SnipeItems)
+                    {
+                        if (snipeItem.Margin > 0)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div>
+                                            @if (snipeItem.ImageExists) //(RootPathHelper.ImageExists(Url,Model.Image))
+                                            {
+                                                <a href="~/item/@snipeItem.Id">
+                                                    <img class="pull-left item-image-med lazy" style="margin-right: 8px;" src="~/icons/Spinner-1s-64px.svg" data-src="/img/items/@snipeItem.Image" />
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a href="~/item/@snipeItem.Id">
+                                                    <img class="pull-left item-image-med" style="margin-right: 8px;" src="~/img/NoImage.png" />
+                                                </a>
+                                            }
+                                        </div>
+                                        <a href="~/item/@snipeItem.Id">@snipeItem.AvailableName</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    @snipeItem.HighEntry.FormatSellPrice <img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    @snipeItem.CurrentEntry.FormatSellPrice <img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    @snipeItem.CurrentEntry.FormatBuyPrice <img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    @snipeItem.FormatMargin <img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    @snipeItem.FromatROI%
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    var table = {};
+    $(document).ready(function () {
+        table = $('#SniperTable').DataTable({
+            dom: '<tr>',
+            order: [[4, 'desc']],
+            searching: true,
+            lengthChange: false,
+            paging: false,
+            info: false,
+            autoWidth: false,
+            responsive: {
+                details: {
+                    type: 'inline',
+                    renderer: function (api, rowIdx, columns) {
+                        var data = $.map(columns, function (col, i) {
+                            return col.hidden ?
+                                '<div class="d-inline-flex flex-column card p-1 px-2 m-2" data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+                                '<div class="font-weight-bold">' + col.title + '' + '</div> ' +
+                                '<div>' + col.data + '</div>' +
+                                '</div>' :
+                                '';
+                        }).join('');
+
+                        return data ?
+                            $('<div/>').append(data) :
+                            false;
+                    }
+                }
+            }
+        });
+
+        adjustTimeStamp();
+
+        startAutoRefreshTimer();
+    });
+
+    var snipeTimestamp = '@Model.FormatTimestamp';
+    var timer;
+    var countdown;
+
+    $('#autoRefreshSwitch').change(function () {
+        if (this.checked)
+            startAutoRefreshTimer();
+        else
+            cancelTimer();
+    });
+
+    function startAutoRefreshTimer() {
+        timer = setTimeout(function () {
+            location.reload();
+        }, calculateRemainingTime());
+        countdown = setInterval(function () {
+            $('#countdown').text((calculateRemainingTime() / 1000).toFixed(0));
+        }, 1000);
+    }
+
+    function cancelTimer() {
+        clearTimeout(timer);
+        clearInterval(countdown);
+    }
+
+    function calculateRemainingTime() {
+        var nextRefresh = moment.utc(snipeTimestamp, 'YYYY-MM-DD HH:mm:ss').add(360, 'seconds');
+        var diff = nextRefresh.diff(moment(), 'milliseconds');
+        return diff;
+    }
+</script>

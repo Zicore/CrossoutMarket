@@ -512,6 +512,20 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::
     fill: none;
 }
 
+.feather-help-circle {
+    stroke: rgba(0, 0, 0, 0.5);
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.feather-help-circle:hover {
+    stroke: rgba(0, 0, 0, 1);
+}
+
 .timestamp-older-than-10080 {
     color: firebrick;
 }

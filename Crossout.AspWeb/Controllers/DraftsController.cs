@@ -12,6 +12,7 @@ using ZicoreConnector.Zicore.Connector.Base;
 using Crossout.AspWeb.Models.Language;
 using Crossout.AspWeb.Models.Drafts;
 using Crossout.AspWeb.Models.Drafts.BadgeExchange;
+using Crossout.AspWeb.Models.Drafts.Snipe;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -37,20 +38,54 @@ namespace Crossout.AspWeb.Controllers
         [Route("drafts/badgeexchange")]
         public IActionResult BadgeExchange()
         {
-            this.RegisterHit("Drafts/BadgeExchange");
-
-            sql.Open(WebSettings.Settings.CreateDescription());
-            DataService db = new DataService(sql);
-            Language lang = this.ReadLanguageCookie(sql);
-
-            var badgeExchangeModel = new BadgeExchangeModel();
-            badgeExchangeModel.BadgeExchangeDeals = db.SelectBadgeExchange(lang.Id);
-            foreach (var deal in badgeExchangeModel.BadgeExchangeDeals)
+            try
             {
-                deal.RewardItem.SetImageExists(pathProvider);
-            }
+                this.RegisterHit("Drafts/BadgeExchange");
 
-            return View("badgeexchange", badgeExchangeModel);
+                sql.Open(WebSettings.Settings.CreateDescription());
+                DataService db = new DataService(sql);
+                Language lang = this.ReadLanguageCookie(sql);
+
+                var badgeExchangeModel = new BadgeExchangeModel();
+                badgeExchangeModel.BadgeExchangeDeals = db.SelectBadgeExchange(lang.Id);
+                foreach (var deal in badgeExchangeModel.BadgeExchangeDeals)
+                {
+                    deal.RewardItem.SetImageExists(pathProvider);
+                }
+
+                return View("badgeexchange", badgeExchangeModel);
+            }
+            catch
+            {
+                return Redirect("/");
+            }
+        }
+
+        [Route("drafts/sniper")]
+        public IActionResult Snipe()
+        {
+            try
+            {
+                this.RegisterHit("Drafts/Sniper");
+
+                sql.Open(WebSettings.Settings.CreateDescription());
+                DataService db = new DataService(sql);
+                Language lang = this.ReadLanguageCookie(sql);
+
+                var snipeModel = new SnipeModel();
+                snipeModel.SnipeItems = db.SelectSnipeItems(lang.Id);
+
+                foreach (var item in snipeModel.SnipeItems)
+                {
+                    item.SetImageExists(pathProvider);
+                }
+
+                return View("snipe", snipeModel);
+            }
+            catch
+            {
+                return Redirect("/");
+            }
         }
 
     }

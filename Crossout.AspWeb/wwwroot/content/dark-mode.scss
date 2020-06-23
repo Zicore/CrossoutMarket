@@ -209,6 +209,14 @@ $table-info-hover: rgba(23, 162, 184, 0.15);
     stroke: rgba(255, 255, 255, 0.75);
 }
 
+.dark-mode .feather-help-circle {
+    stroke: rgba(255, 255, 255, 0.5);
+}
+
+.dark-mode .feather-help-circle:hover {
+    stroke: rgba(255, 255, 255, 1);
+}
+
 .dark-mode .faction-icon {
     filter: invert(1);
 }
