@@ -336,7 +336,7 @@ body {
     }
 }
 
-.navbar-nav li a {
+.navbar-nav li a.nav-link {
     line-height: 60px;
     padding-top: 0px;
     padding-bottom: 0px;
