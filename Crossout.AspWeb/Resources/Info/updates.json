@@ -67,5 +67,17 @@
       "Added option to show removed items in the HTML Export table. This setting should be used if you rely on the item order.",
       "Replaced changes page with info page ( https://crossoutdb.com/info ). Changes can still be found on the info page."
     ]
+  },
+  {
+    "Id": 7,
+    "Name": "Update",
+    "Timestamp": "2020-07-01T15:00:00Z",
+    "Notes": [
+      "Added Badge Exchange draft page.",
+      "Added Item Sniper draft page",
+      "Fix filter options getting ignored when providing a search string to the items API endpoint",
+      "Fix last price update time on info page not showing the correct date",
+      "Fix chart not showing historic data for old/removed items"
+    ]
   }
 ]
