@@ -40,7 +40,7 @@ namespace Crossout.AspWeb.Controllers
         {
             try
             {
-                this.RegisterHit("Drafts/BadgeExchange");
+                this.RegisterHit("BadgeExchange");
 
                 sql.Open(WebSettings.Settings.CreateDescription());
                 DataService db = new DataService(sql);
@@ -66,7 +66,7 @@ namespace Crossout.AspWeb.Controllers
         {
             try
             {
-                this.RegisterHit("Drafts/Sniper");
+                this.RegisterHit("Sniper");
 
                 sql.Open(WebSettings.Settings.CreateDescription());
                 DataService db = new DataService(sql);

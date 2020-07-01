@@ -18,9 +18,9 @@ namespace Crossout.AspWeb.Services
         {
             ServiceStartTime = DateTime.UtcNow;
 
-            CombinedHitLocations.Add(new CombinedHitLocation(packageInterval, "Frontend", "Changes|Home|HtmlExport|PremiumPackages|Settings|Stats|Tools", ".*", ".*", ServiceStartTime));
+            CombinedHitLocations.Add(new CombinedHitLocation(packageInterval, "Frontend", "Changes|Home|PremiumPackages|Settings|Stats|Tools|Drafts|Sniper|BadgeExchange|Info", ".*", ".*", ServiceStartTime));
             CombinedHitLocations.Add(new CombinedHitLocation(packageInterval, "Items", "Item", "Item", ".*", ServiceStartTime));
-            CombinedHitLocations.Add(new CombinedHitLocation(packageInterval, "API", "Api", ".*", ".*", ServiceStartTime));
+            CombinedHitLocations.Add(new CombinedHitLocation(packageInterval, "API", "Api|HtmlExport", ".*", ".*", ServiceStartTime));
         }
 
         public void AddHit(Hit hit)
