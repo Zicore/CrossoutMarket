@@ -17,12 +17,12 @@ namespace Crossout.AspWeb.Models.Drafts.BadgeExchange
             var monday = DateTime.UtcNow.AddDays(-(int)DateTime.UtcNow.DayOfWeek + (int)DayOfWeek.Monday).Date;
             foreach (var deal in BadgeExchangeDeals)
             {
-                if (deal.Active && deal.LastBeginActive.CompareTo(monday) < 0)
+                if (deal.Active && deal.LastBeginActive.CompareTo(monday) >= 0)
                 {
-                    return false;
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
     }
 }
