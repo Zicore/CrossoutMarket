@@ -16,5 +16,6 @@ namespace Crossout.AspWeb.Models.Info
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime Timestamp { get; set; }
+        public string FormatTimestamp { get => Timestamp.ToString("yyyy-MM-dd HH:mm:ss"); }
     }
 }
