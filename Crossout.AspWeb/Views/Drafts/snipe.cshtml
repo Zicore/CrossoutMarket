@@ -165,7 +165,7 @@
     function startAutoRefreshTimer() {
         timer = setTimeout(function () {
             location.reload();
-        }, calculateRemainingTime());
+        }, Math.max(calculateRemainingTime(), 10000));
         countdown = setInterval(function () {
             $('#countdown').text((calculateRemainingTime() / 1000).toFixed(0));
         }, 1000);
