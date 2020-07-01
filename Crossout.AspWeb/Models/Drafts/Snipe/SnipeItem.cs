@@ -20,7 +20,7 @@ namespace Crossout.AspWeb.Models.Drafts.Snipe
         public decimal Margin { get => CalculateMargin(); }
         public string FormatMargin { get => PriceFormatter.FormatPrice(Margin); }
         
-        public decimal ROI { get => HighEntry.SellPrice != 0 ? Margin / HighEntry.SellPrice : 0m ; }
+        public decimal ROI { get => CurrentEntry.SellPrice != 0 ? Margin / CurrentEntry.SellPrice : 0m ; }
         public string FromatROI { get => PriceFormatter.FormatRatio(ROI); }
 
         public MarketEntry HighEntry { get; set; }
