@@ -70,7 +70,7 @@
         }
 
         function adjustTimeStamp() {
-            $('.item-timestamp').each(function (i, element) {
+            $('.item-timestamp, .timestamp').each(function (i, element) {
                 $(element).text(function (i, text) {
                     return getAdjustedTimestamp(text);
                 });

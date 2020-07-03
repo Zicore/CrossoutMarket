@@ -25,9 +25,9 @@ namespace Crossout.AspWeb.Controllers
         [Route("changes")]
         public IActionResult Changes()
         {
-            Language lang = this.ReadLanguageCookie(sql);
-            this.RegisterHit("Changes");
-            return RouteItem(lang.Id);
+            //Language lang = this.ReadLanguageCookie(sql);
+            //this.RegisterHit("Changes");
+            return Redirect("/info");
         }
 
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);

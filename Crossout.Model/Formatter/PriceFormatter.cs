@@ -23,5 +23,15 @@ namespace Crossout.Model.Formatter
         {
             return string.Format(CultureInfo.InvariantCulture, "{0:0.00}", ratio * 100m);
         }
+
+        public static string FormatResultPrice(decimal price)
+        {
+            return string.Format(CultureInfo.InvariantCulture, "{0:0.00}", price);
+        }
+
+        public static string FormatProfitPerBadgePrice(decimal price)
+        {
+            return string.Format(CultureInfo.InvariantCulture, "{0:0.000}", price);
+        }
     }
 }

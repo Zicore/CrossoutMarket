@@ -134,5 +134,11 @@
 .dark-mode .feather-input-clear:hover {
   stroke: rgba(255, 255, 255, 0.75); }
 
+.dark-mode .feather-help-circle {
+  stroke: rgba(255, 255, 255, 0.5); }
+
+.dark-mode .feather-help-circle:hover {
+  stroke: white; }
+
 .dark-mode .faction-icon {
   filter: invert(1); }

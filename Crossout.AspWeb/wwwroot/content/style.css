@@ -211,6 +211,11 @@ body {
     height: auto;
 }
 
+.item-image-highres {
+    width: 128px;
+    height: auto;
+}
+
 .item-removed {
     color: gray;
 }
@@ -331,7 +336,7 @@ body {
     }
 }
 
-.navbar-nav li a {
+.navbar-nav li a.nav-link {
     line-height: 60px;
     padding-top: 0px;
     padding-bottom: 0px;
@@ -480,4 +485,47 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::
 
 .feather-input-clear:hover {
     stroke: rgba(0, 0, 0, 0.75);
+}
+
+.update-card-preview {
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.feather-greencheck {
+    stroke: #3c763d;
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.feather-redx {
+    stroke: #a94442;
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.feather-help-circle {
+    stroke: rgba(0, 0, 0, 0.5);
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+.feather-help-circle:hover {
+    stroke: rgba(0, 0, 0, 1);
+}
+
+.timestamp-older-than-10080 {
+    color: firebrick;
 }

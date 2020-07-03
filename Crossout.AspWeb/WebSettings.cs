@@ -41,6 +41,9 @@ namespace Crossout.AspWeb
         public string DirectoryPremiumPackages { get; set; } = @"Resources\PremiumPackages";
         public string DirectoryKnightRiders { get; set; } = @"Resources\KnightRiders";
 
+        public string FileContributors { get; set; } = @"Resources\Info\contributors.json";
+        public string FileUpdateNotes { get; set; } = @"Resources\Info\updates.json";
+
         public static string Title => "Crossout DB - Crossout Market and Crafting Calculator";
 
         public void Load()
