@@ -13,6 +13,9 @@ using Crossout.AspWeb.Models.Language;
 using Crossout.AspWeb.Models.Drafts;
 using Crossout.AspWeb.Models.Drafts.BadgeExchange;
 using Crossout.AspWeb.Models.Drafts.Snipe;
+using Crossout.AspWeb.Models.Drafts.Salvage;
+using NLog;
+using Crossout.Data;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -84,6 +87,45 @@ namespace Crossout.AspWeb.Controllers
             }
             catch
             {
+                return Redirect("/");
+            }
+        }
+
+        [Route("drafts/salvage")]
+        public IActionResult Salvage()
+        {
+            try
+            {
+                this.RegisterHit("Salvager");
+
+                sql.Open(WebSettings.Settings.CreateDescription());
+                DataService db = new DataService(sql);
+                Language lang = this.ReadLanguageCookie(sql);
+
+                var salvageModel = new SalvageModel();
+                salvageModel.SalvageItems = db.SelectSalvageItems(lang.Id);
+                salvageModel.SalvageRewards = db.SelectSalvageRewards(lang.Id);
+
+                foreach (var reward in salvageModel.SalvageRewards)
+                {
+                    reward.Item.SetImageExists(pathProvider);
+                }
+
+                foreach (var item in salvageModel.SalvageItems)
+                {
+                    item.SalvageRewards = salvageModel.SalvageRewards.FindAll(x => x.RarityNumber == item.RarityNumber);
+                }
+
+                foreach (var item in salvageModel.SalvageItems)
+                {
+                    item.SetImageExists(pathProvider);
+                }
+
+                return View("salvage", salvageModel);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
                 return Redirect("/");
             }
         }

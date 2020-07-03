@@ -1,0 +1,364 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@using Crossout.AspWeb.Pocos
+@using Crossout.AspWeb.Models.Drafts.Salvage
+@model SalvageModel
+
+<partial name="header" model="@Model" />
+
+<div class="half-hd-container px-3">
+    <div class="card my-1">
+        <h4 class="card-title m-2">Salvager <span data-toggle="collapse" data-target="#helpWrapper"><svg class="feather-help-circle"><use xlink:href="/icons/feather-sprite.svg#help-circle" /></svg></span></h4>
+
+        <div id="helpWrapper" class="collapse">
+            <h5 class="m-2">How it works</h5>
+            <p class="m-2">This tool filters the market for items which can yield a profit when salvaged. Since salvage rewards are based on the rarity, you can also view the resulting resources in their corresponding rarity tabs.</p>
+            <p class="m-2">The price selectors can be used to filter for specific combinations of sell and buy prices.</p>
+            <ul class="list-unstyled m-2">
+                <li><b>Item:</b> The salvageable item</li>
+                <li><b>Rarity:</b> The rarity of the salvageable item</li>
+                <li><b>Sell Price:</b> The sell price of the salvageable item</li>
+                <li><b>Buy Pirce:</b> The buy price of the salvageable item</li>
+                <li><b>Resources (Sell):</b> The sum of the resources sell price. Doesn't include market fee.</li>
+                <li><b>Resources (Buy):</b> The sum of the resources buy price. Doesn't include market fee.</li>
+                <li><b>Margin (X|X):</b> The margin based on the selected prices. Includes market fee.</li>
+            </ul>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+            <div class="d-md-block d-none">
+                <div class="btn-group m-2" role="group">
+                    @foreach (var rarity in Model.SalvageRewards.GroupBy(x => x.Rarity.Name))
+                    {
+                        <button class="btn btn-outline-secondary rarity-collapse-btn" data-target="collapse@(rarity.Key)"><div class="badge label-@rarity.Key">@rarity.Key</div></button>
+                    }
+                </div>
+            </div>
+            <div class="d-md-none d-sm-block">
+                <div class="btn-group btn-group-sm m-2">
+                    @foreach (var rarity in Model.SalvageRewards.GroupBy(x => x.Rarity.Name))
+                    {
+                        <button class="btn btn-outline-secondary rarity-collapse-btn" data-target="collapse@(rarity.Key)"><div class="badge label-@rarity.Key">@rarity.Key</div></button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row justify-content-center">
+            @foreach (var rarity in Model.SalvageRewards.GroupBy(x => x.Rarity.Name))
+            {
+                decimal sellPrice = 0m;
+                decimal buyPrice = 0m;
+                <div class="hideable" id="collapse@(rarity.Key)" style="display: none">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Item
+                                </th>
+                                <th>
+                                    Amount
+                                </th>
+                                <th>
+                                    Sell Price
+                                </th>
+                                <th>
+                                    Buy Price
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var reward in rarity)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                @if (reward.Item.ImageExists) //(RootPathHelper.ImageExists(Url,Model.Image))
+                                                {
+                                                    <a href="~/item/@reward.Item.Id">
+                                                        <img class="pull-left item-image-med lazy" style="margin-right: 8px;" src="~/icons/Spinner-1s-64px.svg" data-src="/img/items/@reward.Item.Image" />
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="~/item/@reward.Item.Id">
+                                                        <img class="pull-left item-image-med" style="margin-right: 8px;" src="~/img/NoImage.png" />
+                                                    </a>
+                                                }
+                                            </div>
+                                            <a href="~/item/@reward.Item.Id">@reward.Item.AvailableName</a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @reward.RewardAmount
+                                    </td>
+                                    <td>
+                                        @reward.FormatRewardSellPrice <img height="14" src="/img/Coin.png" />
+                                    </td>
+                                    <td>
+                                        @reward.FormatRewardBuyPrice <img height="14" src="/img/Coin.png" />
+                                    </td>
+                                </tr>
+                                { sellPrice += reward.RewardSellPrice; }
+                                { buyPrice += reward.RewardBuyPrice; }
+                            }
+                            <tr>
+                                <td><b>TOTAL</b></td>
+                                <td></td>
+                                <td>
+                                    <b>@Crossout.Model.Formatter.PriceFormatter.FormatPrice(sellPrice) </b><img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    <b>@Crossout.Model.Formatter.PriceFormatter.FormatPrice(buyPrice) </b><img height="14" src="/img/Coin.png" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>TOTAL -10% Fee</b></td>
+                                <td></td>
+                                <td>
+                                    <b>@Crossout.Model.Formatter.PriceFormatter.FormatPrice(sellPrice * 0.9m) </b><img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    <b>@Crossout.Model.Formatter.PriceFormatter.FormatPrice(buyPrice * 0.9m) </b><img height="14" src="/img/Coin.png" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            }
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12 d-flex flex-row align-items-center justify-content-center">
+                <div class="m-2">
+                    Buy Item for:
+                    <div class="btn-group">
+                        <button class="btn btn-outline-secondary btn-radio-prices" id="buyItemForSell">Sell Price</button>
+                        <button class="btn btn-outline-secondary btn-radio-prices active" id="buyItemForBuy">Buy Price</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 d-flex flex-row align-items-center justify-content-center">
+                <div class="m-2">
+                    Sell Resoruces for:
+                    <div class="btn-group">
+                        <button class="btn btn-outline-secondary btn-radio-prices active" id="sellResourcesForSell">Sell Price</button>
+                        <button class="btn btn-outline-secondary btn-radio-prices" id="sellResourcesForBuy">Buy Price</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-borderless table-hover dt-responsive" id="SalvageItemTable">
+            <thead>
+                <tr>
+                    <th data-priority="1">
+                        Item
+                    </th>
+                    <th data-priority="3">
+                        Rarity
+                    </th>
+                    <th data-priority="2">
+                        Sell Price
+                    </th>
+                    <th data-priority="2">
+                        Buy Price
+                    </th>
+                    <th data-priority="2">
+                        Resources (Sell)
+                    </th>
+                    <th data-priority="2">
+                        Resources (Buy)
+                    </th>
+                    <th data-priority="1">
+                        Margin (Sell|Buy)
+                    </th>
+                    <th data-priority="1">
+                        Margin (Buy|Sell)
+                    </th>
+                    <th data-priority="1">
+                        Margin (Sell|Sell)
+                    </th>
+                    <th data-priority="1">
+                        Margin (Buy|Buy)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.SalvageItems)
+                {
+                    @if (item.SalvageMargin > 0)
+                    {
+
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        @if (item.ImageExists) //(RootPathHelper.ImageExists(Url,Model.Image))
+                                        {
+                                            <a href="~/item/@item.Id">
+                                                <img class="pull-left item-image-med lazy" style="margin-right: 8px;" src="~/icons/Spinner-1s-64px.svg" data-src="/img/items/@item.Image" />
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="~/item/@item.Id">
+                                                <img class="pull-left item-image-med" style="margin-right: 8px;" src="~/img/NoImage.png" />
+                                            </a>
+                                        }
+                                    </div>
+                                    <a href="~/item/@item.Id">@item.AvailableName</a>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="badge label-@item.Rarity?.Name">
+                                    @item.Rarity?.Name
+                                </div>
+                            </td>
+                            <td>
+                                @item.FormatSellPrice <img height="14" src="/img/Coin.png" />
+                            </td>
+                            <td>
+                                @item.FormatBuyPrice <img height="14" src="/img/Coin.png" />
+                            </td>
+                            <td>
+                                @item.FormatSalvageSellPrice <img height="14" src="/img/Coin.png" />
+                            </td>
+                            <td>
+                                @item.FormatSalvageBuyPrice <img height="14" src="/img/Coin.png" />
+                            </td>
+                            <td>
+                                @item.FormatCalculateSalvageMargin(PriceType.Sell, PriceType.Buy) <img height="14" src="/img/Coin.png" />
+                            </td>
+                            <td>
+                                @item.FormatCalculateSalvageMargin(PriceType.Buy, PriceType.Sell) <img height="14" src="/img/Coin.png" />
+                            </td>
+                            <td>
+                                @item.FormatCalculateSalvageMargin(PriceType.Sell, PriceType.Sell) <img height="14" src="/img/Coin.png" />
+                            </td>
+                            <td>
+                                @item.FormatCalculateSalvageMargin(PriceType.Buy, PriceType.Buy) <img height="14" src="/img/Coin.png" />
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var table = {};
+    $(document).ready(function () {
+        table = $('#SalvageItemTable').DataTable({
+            dom: '<tr>',
+            order: [[6, 'desc']],
+            searching: true,
+            lengthChange: false,
+            paging: false,
+            info: false,
+            autoWidth: false,
+            responsive: {
+                details: {
+                    type: 'inline',
+                    renderer: function (api, rowIdx, columns) {
+                        var data = $.map(columns, function (col, i) {
+                            return col.hidden ?
+                                '<div class="d-inline-flex flex-column card p-1 px-2 m-2" data-dt-row="' + col.rowIndex + '" data-dt-column="' + col.columnIndex + '">' +
+                                '<div class="font-weight-bold">' + col.title + '' + '</div> ' +
+                                '<div>' + col.data + '</div>' +
+                                '</div>' :
+                                '';
+                        }).join('');
+
+                        return data ?
+                            $('<div/>').append(data) :
+                            false;
+                    }
+                }
+            }
+        });
+
+        filterPriceColumns();
+
+        adjustTimeStamp();
+    });
+
+    $('.rarity-collapse-btn').click(function () {
+        if ($(this).hasClass('active')) {
+            var targetId = $(this).attr('data-target');
+            $('#' + targetId).hide();
+            $(this).removeClass('active');
+        }
+        else {
+            $('.rarity-collapse-btn').removeClass('active');
+            $(this).addClass('active');
+            $('.hideable').hide();
+            $('.rarity-collapse-btn').each(function (i, e) {
+                if ($(e).hasClass('active')) {
+                    var targetId = $(e).attr('data-target');
+                    $('#' + targetId).show();
+                }
+            });
+        }
+    });
+
+    $('.btn-radio-prices').click(function () {
+        $(this).siblings('.btn-radio-prices').removeClass('active');
+        $(this).addClass('active');
+        filterPriceColumns();
+    })
+
+    function filterPriceColumns() {
+        // 2 = Sell Price
+        // 3 = Buy Price
+        // 4 = Reward(Sell)
+        // 5 = Reward(Buy)
+        // 6 = Margin(Sell / Buy)
+        // 7 = Margin(Buy / Sell)
+        // 8 = Margin(Sell / Sell)
+        // 9 = Margin(Buy / Buy)
+        table.columns([2, 3, 4, 5, 6, 7, 8, 9]).visible(false, false);
+        var state = 0;
+        if (isActive('buyItemForSell') && isActive('sellResourcesForSell')) {
+            state = 0;
+        }
+        if (isActive('buyItemForBuy') && isActive('sellResourcesForBuy')) {
+            state = 1;
+        }
+        if (isActive('buyItemForSell') && isActive('sellResourcesForBuy')) {
+            state = 2;
+        }
+        if (isActive('buyItemForBuy') && isActive('sellResourcesForSell')) {
+            state = 3;
+        }
+
+        switch (state) {
+            case 0:
+                table.columns([2, 4, 8]).visible(true, true);
+                table.order([8, 'desc']).draw();
+                break;
+            case 1:
+                table.columns([3, 5, 9]).visible(true, true);
+                table.order([9, 'desc']).draw();
+                break;
+            case 2:
+                table.columns([2, 5, 6]).visible(true, true);
+                table.order([6, 'desc']).draw();
+                break;
+            case 3:
+                table.columns([3, 4, 7]).visible(true, true);
+                table.order([7, 'desc']).draw();
+                break;
+        }
+    }
+
+    function isActive(id) {
+        return $('#' + id).hasClass('active');
+    }
+</script>

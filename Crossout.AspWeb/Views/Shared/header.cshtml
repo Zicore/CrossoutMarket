@@ -46,6 +46,7 @@
                         <div class="dropdown-menu" aria-labelledby="draftsDropdown">
                             <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "BadgeExchange" ? "active" : "")" href="~/drafts/badgeexchange">Badge Exchange</a>
                             <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Snipe" ? "active" : "")" href="~/drafts/sniper">Item Sniper</a>
+                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Salvage" ? "active" : "")" href="~/drafts/salvage">Salvager</a>
                         </div>
                     </li>
                     <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Tools" ? "active" : "")"><a class="nav-link" href="~/tools">Community Tools</a></li>
