@@ -154,101 +154,103 @@
             </div>
         </div>
 
-        <table class="table table-borderless table-hover dt-responsive" id="SalvageItemTable">
-            <thead>
-                <tr>
-                    <th data-priority="1">
-                        Item
-                    </th>
-                    <th data-priority="3">
-                        Rarity
-                    </th>
-                    <th data-priority="2">
-                        Sell Price
-                    </th>
-                    <th data-priority="2">
-                        Buy Price
-                    </th>
-                    <th data-priority="2">
-                        Resources (Sell)
-                    </th>
-                    <th data-priority="2">
-                        Resources (Buy)
-                    </th>
-                    <th data-priority="1">
-                        Margin (Sell|Buy)
-                    </th>
-                    <th data-priority="1">
-                        Margin (Buy|Sell)
-                    </th>
-                    <th data-priority="1">
-                        Margin (Sell|Sell)
-                    </th>
-                    <th data-priority="1">
-                        Margin (Buy|Buy)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.SalvageItems)
-                {
-                    @if (item.SalvageMargin > 0)
+        <div id="tableWrapper" style="display: none">
+            <table class="table table-borderless table-hover dt-responsive" id="SalvageItemTable">
+                <thead>
+                    <tr>
+                        <th data-priority="1">
+                            Item
+                        </th>
+                        <th data-priority="3">
+                            Rarity
+                        </th>
+                        <th data-priority="2">
+                            Sell Price
+                        </th>
+                        <th data-priority="2">
+                            Buy Price
+                        </th>
+                        <th data-priority="2">
+                            Resources (Sell)
+                        </th>
+                        <th data-priority="2">
+                            Resources (Buy)
+                        </th>
+                        <th data-priority="1">
+                            Margin (Sell|Buy)
+                        </th>
+                        <th data-priority="1">
+                            Margin (Buy|Sell)
+                        </th>
+                        <th data-priority="1">
+                            Margin (Sell|Sell)
+                        </th>
+                        <th data-priority="1">
+                            Margin (Buy|Buy)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.SalvageItems)
                     {
+                        @if (item.SalvageMargin > 0)
+                        {
 
-                        <tr>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        @if (item.ImageExists) //(RootPathHelper.ImageExists(Url,Model.Image))
-                                        {
-                                            <a href="~/item/@item.Id">
-                                                <img class="pull-left item-image-med lazy" style="margin-right: 8px;" src="~/icons/Spinner-1s-64px.svg" data-src="/img/items/@item.Image" />
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <a href="~/item/@item.Id">
-                                                <img class="pull-left item-image-med" style="margin-right: 8px;" src="~/img/NoImage.png" />
-                                            </a>
-                                        }
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div>
+                                            @if (item.ImageExists) //(RootPathHelper.ImageExists(Url,Model.Image))
+                                            {
+                                                <a href="~/item/@item.Id">
+                                                    <img class="pull-left item-image-med lazy" style="margin-right: 8px;" src="~/icons/Spinner-1s-64px.svg" data-src="/img/items/@item.Image" />
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a href="~/item/@item.Id">
+                                                    <img class="pull-left item-image-med" style="margin-right: 8px;" src="~/img/NoImage.png" />
+                                                </a>
+                                            }
+                                        </div>
+                                        <a href="~/item/@item.Id">@item.AvailableName</a>
                                     </div>
-                                    <a href="~/item/@item.Id">@item.AvailableName</a>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="badge label-@item.Rarity?.Name">
-                                    @item.Rarity?.Name
-                                </div>
-                            </td>
-                            <td>
-                                @item.FormatSellPrice <img height="14" src="/img/Coin.png" />
-                            </td>
-                            <td>
-                                @item.FormatBuyPrice <img height="14" src="/img/Coin.png" />
-                            </td>
-                            <td>
-                                @item.FormatSalvageSellPrice <img height="14" src="/img/Coin.png" />
-                            </td>
-                            <td>
-                                @item.FormatSalvageBuyPrice <img height="14" src="/img/Coin.png" />
-                            </td>
-                            <td>
-                                @item.FormatCalculateSalvageMargin(PriceType.Sell, PriceType.Buy) <img height="14" src="/img/Coin.png" />
-                            </td>
-                            <td>
-                                @item.FormatCalculateSalvageMargin(PriceType.Buy, PriceType.Sell) <img height="14" src="/img/Coin.png" />
-                            </td>
-                            <td>
-                                @item.FormatCalculateSalvageMargin(PriceType.Sell, PriceType.Sell) <img height="14" src="/img/Coin.png" />
-                            </td>
-                            <td>
-                                @item.FormatCalculateSalvageMargin(PriceType.Buy, PriceType.Buy) <img height="14" src="/img/Coin.png" />
-                            </td>
-                        </tr>
+                                </td>
+                                <td>
+                                    <div class="badge label-@item.Rarity?.Name">
+                                        @item.Rarity?.Name
+                                    </div>
+                                </td>
+                                <td>
+                                    @item.FormatSellPrice <img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    @item.FormatBuyPrice <img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    @item.FormatSalvageSellPrice <img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    @item.FormatSalvageBuyPrice <img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    @item.FormatCalculateSalvageMargin(PriceType.Sell, PriceType.Buy) <img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    @item.FormatCalculateSalvageMargin(PriceType.Buy, PriceType.Sell) <img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    @item.FormatCalculateSalvageMargin(PriceType.Sell, PriceType.Sell) <img height="14" src="/img/Coin.png" />
+                                </td>
+                                <td>
+                                    @item.FormatCalculateSalvageMargin(PriceType.Buy, PriceType.Buy) <img height="14" src="/img/Coin.png" />
+                                </td>
+                            </tr>
+                        }
                     }
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -287,6 +289,8 @@
         filterPriceColumns();
 
         adjustTimeStamp();
+
+        $('#tableWrapper').show();
     });
 
     $('.rarity-collapse-btn').click(function () {
