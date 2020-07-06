@@ -1,4 +1,6 @@
-﻿namespace Crossout.Data.Stats.Main
+﻿using System;
+
+namespace Crossout.Data.Stats.Main
 {
     public partial class PartStatsCore : PartStatsBase
     {
@@ -93,7 +95,7 @@
         [Stat("Ammo Multiplier", 120, Type = StatType.Hidden, ShowPercentage = true, OverrideDescriptionStat = "ammo_mul")]
         public double StatAmmoMultiplier
         {
-            get { return ammo_mul * 100.0f; }
+            get { return Math.Round(ammo_mul * 100.0f, 2); }
         }
 
         [Stat("Active Duration", 130, Type = StatType.Hidden)]
