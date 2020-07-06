@@ -10,6 +10,6 @@ namespace Crossout.AspWeb.Models.General
 {
     public class ToolsModel : IViewTitle
     {
-        public string Title => "Community Tools";
+        public string Title => "Community Links";
     }
 }

@@ -39,6 +39,12 @@ namespace Crossout.AspWeb.Controllers
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
 
         [Route("drafts/badgeexchange")]
+        public IActionResult BadgeExchangeRedirect()
+        {
+            return Redirect("/tools/badgeexchange");
+        }
+
+        [Route("tools/badgeexchange")]
         public IActionResult BadgeExchange()
         {
             try
@@ -65,6 +71,12 @@ namespace Crossout.AspWeb.Controllers
         }
 
         [Route("drafts/sniper")]
+        public IActionResult SnipeRedirect()
+        {
+            return Redirect("/tools/sniper");
+        }
+
+        [Route("tools/sniper")]
         public IActionResult Snipe()
         {
             try
@@ -92,6 +104,12 @@ namespace Crossout.AspWeb.Controllers
         }
 
         [Route("drafts/salvage")]
+        public IActionResult SalvageRedirect()
+        {
+            return Redirect("/tools/salvage");
+        }
+
+        [Route("tools/salvage")]
         public IActionResult Salvage()
         {
             try

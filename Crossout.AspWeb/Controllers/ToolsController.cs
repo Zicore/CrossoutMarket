@@ -11,10 +11,19 @@ namespace Crossout.AspWeb.Controllers
     public class ToolsController : Controller
     {
         [Route("tools")]
+        public IActionResult ToolsRedirect()
+        {
+            ToolsModel model = new ToolsModel();
+            this.RegisterHit("Community Tools (deprecated)");
+
+            return View("toolsredirect", model);
+        }
+
+        [Route("links")]
         public IActionResult Tools()
         {
             ToolsModel model = new ToolsModel();
-            this.RegisterHit("Community Tools");
+            this.RegisterHit("Community Links");
 
             return View("tools", model);
         }

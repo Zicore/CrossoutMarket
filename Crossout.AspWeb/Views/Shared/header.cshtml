@@ -41,15 +41,15 @@
                     <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Packages" ? "active" : "")"><a class="nav-link" href="~/packs">Packs</a></li>
                     <li role="presentation" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="draftsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Drafts
+                            Tools
                         </a>
                         <div class="dropdown-menu" aria-labelledby="draftsDropdown">
-                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "BadgeExchange" ? "active" : "")" href="~/drafts/badgeexchange">Badge Exchange</a>
-                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Snipe" ? "active" : "")" href="~/drafts/sniper">Item Sniper</a>
-                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Salvage" ? "active" : "")" href="~/drafts/salvage">Salvager</a>
+                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "BadgeExchange" ? "active" : "")" href="~/tools/badgeexchange">Badge Exchange</a>
+                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Snipe" ? "active" : "")" href="~/tools/sniper">Item Sniper</a>
+                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Salvage" ? "active" : "")" href="~/tools/salvage">Salvager</a>
                         </div>
                     </li>
-                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Tools" ? "active" : "")"><a class="nav-link" href="~/tools">Community Tools</a></li>
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Tools" ? "active" : "")"><a class="nav-link" href="~/links">Community Links</a></li>
                     <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Info" ? "active" : "")"><a class="nav-link" href="~/info">Info</a></li>
                     <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Settings" ? "active" : "")">
                         <a class="nav-link" href="~/settings">
