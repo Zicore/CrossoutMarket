@@ -7,6 +7,7 @@
 
 @{
     Layout = "_Layout";
+    bool enableOldCraftingCalc = false;
 }
 
 <partial name="header" model="@Model" />
@@ -175,10 +176,10 @@
                 @if (Model.Recipe.Recipe.Ingredients.Count > 0)
                 {
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#recipenew" id="recipenew-tab" role="tab" aria-controls="recipenew" aria-selected="false">Crafting <div class="badge badge-pill badge-secondary">New</div></a>
+                        <a class="nav-link" data-toggle="tab" href="#recipenew" id="recipenew-tab" role="tab" aria-controls="recipenew" aria-selected="false">Crafting</a>
                     </li>
                 }
-                @if (Model.Recipe.Recipe.Ingredients.Count > 0)
+                @if (Model.Recipe.Recipe.Ingredients.Count > 0 && enableOldCraftingCalc)
                 {
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#recipe" id="recipe-tab" role="tab" aria-controls="recipe" aria-selected="false">Crafting <div class="badge badge-pill badge-secondary">Old</div></a>
@@ -219,7 +220,7 @@
                 </div>
             }
 
-            @if (Model.Recipe.Recipe.Ingredients.Count > 0)
+            @if (Model.Recipe.Recipe.Ingredients.Count > 0 && enableOldCraftingCalc)
             {
                 <div class="tab-pane" id="recipe" aria-labelledby="recipe-tab">
                     <div style="min-width: 740px">
