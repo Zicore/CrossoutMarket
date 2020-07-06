@@ -134,7 +134,20 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6 col-sm-12 d-flex flex-row align-items-center justify-content-center">
+            <div class="col-md-2 col-sm-12 d-flex flex-row align-items-center justify-content-center">
+                <div class="m-2">
+                    <button id="rarityDropdown" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="rarityDropdown">
+                        @foreach (var rarity in Model.SalvageRewards.GroupBy(x => x.Rarity.Name))
+                        {
+                            <a class="dropdown-item item-filter filter-rarity">@rarity.Key</a>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12 d-flex flex-row align-items-center justify-content-center">
                 <div class="m-2">
                     Buy Item for:
                     <div class="btn-group">
@@ -143,7 +156,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-12 d-flex flex-row align-items-center justify-content-center">
+            <div class="col-md-5 col-sm-12 d-flex flex-row align-items-center justify-content-center">
                 <div class="m-2">
                     Sell Resoruces for:
                     <div class="btn-group">
@@ -364,5 +377,22 @@
 
     function isActive(id) {
         return $('#' + id).hasClass('active');
+    }
+
+    $('.filter-rarity').click(function (e) {
+        $(this).toggleClass('active');
+        filterRarity();
+        e.stopPropagation();
+    });
+
+    function filterRarity() {
+        var searchString = '';
+        $('.filter-rarity.active').each(function (i, e) {
+            var name = $(e).text();
+            if (i > 0)
+                searchString += '|';
+            searchString += name;
+        })
+        table.column(1).search(searchString, true, false).draw();
     }
 </script>
