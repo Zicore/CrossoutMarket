@@ -205,11 +205,15 @@ function drawTreeEntry(displayIngredient, wrapper) {
         '</div > ' +
         '</div > ';
 
+    var expandButton = '<button class="btn btn-sm btn-outline-secondary recipe-expand-btn text-monospace ' + (displayIngredient.hasIngredients ? '' : 'invisible') + '" data-uniqueid="' + displayIngredient.uniqueId + '">' + (displayIngredient.expanded ? '-' : '+') + '</button>';
+
+    var adviceBadge = (displayIngredient.hasIngredients ? '<div><div class="ml-1 badge badge-pill ' + (advice === 'Craft' && displayIngredient.expanded || advice === 'Buy' && !displayIngredient.expanded ? 'badge-success' : 'badge-danger') + '">' + advice + '</div></div>' : '');
+
     var html = '<div class="d-flex flex-row justify-content-between my-1 mx-1"">' +
 
         '<div class="d-flex flex-row w-50">' +
         depthSpacer +
-        '<button class="btn btn-sm btn-outline-secondary recipe-expand-btn text-monospace ' + (displayIngredient.hasIngredients ? '' : 'invisible') + '" data-uniqueid="' + displayIngredient.uniqueId + '">' + (displayIngredient.expanded ? '-' : '+') + '</button>' +
+        (displayIngredient.rootDisplayIngredient !== null ? expandButton : '') +
         '<a href="/item/' + displayIngredient.itemId + '">' +
         '<div class="d-flex flex-row">' +
         '<img class="ml-1 item-image-med" src="' +
@@ -219,7 +223,7 @@ function drawTreeEntry(displayIngredient, wrapper) {
         displayIngredient.name +
         '</div>' +
         (displayIngredient.factionId && displayIngredient.factionId > 0 && displayIngredient.hasIngredients ? '<div class="ml-1">' + '<img class="faction-icon" width="32" height="32" src="/img/faction-icons/' + displayIngredient.factionId + '.png" data-toggle="tooltip" data-placement="bottom" title="' + displayIngredient.factionName + '">' + '</div>' : '') +
-        (displayIngredient.hasIngredients ? '<div><div class="ml-1 badge badge-pill ' + (advice === 'Craft' && displayIngredient.expanded || advice === 'Buy' && !displayIngredient.expanded ? 'badge-success' : 'badge-danger') + '">' + advice + '</div></div>' : '') +
+        (displayIngredient.rootDisplayIngredient !== null ? adviceBadge : '') +
         '</div>' +
         '</a>' +
         '</div>' +
