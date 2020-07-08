@@ -95,6 +95,7 @@ namespace Crossout.AspWeb.Controllers
                 {
                     item.SetImageExists(pathProvider);
                 }
+                snipeModel.Localizations = db.SelectFrontendLocalizations(lang.Id, "sniper");
 
                 return View("snipe", snipeModel);
             }

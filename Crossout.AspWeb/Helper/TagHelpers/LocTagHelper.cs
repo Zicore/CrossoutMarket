@@ -23,23 +23,25 @@ namespace Crossout.AspWeb.Helper.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            output.TagName = "div";
+            output.TagName = "span";
 
-            var loc = LocModel.FirstOrDefault(x => x.Category == Category && x.Name == Name);
+            if (LocModel != null)
+            {
+                var loc = LocModel.FirstOrDefault(x => x.Category == Category && x.Name == Name);
 
+                if (loc != null && loc.Localization != string.Empty)
+                {
+                    output.Content.SetContent(loc.Localization);
+                    output.AddClass("localized", HtmlEncoder.Default);
+                }
+                else
+                {
+                    output.AddClass("needs-localization", HtmlEncoder.Default);
+                }
+            }
 
             output.AddClass("localization", HtmlEncoder.Default);
             output.Attributes.Add("data-locname", Category + "." + Name);
-
-            if (loc != null && loc.Localization != string.Empty)
-            {
-                output.Content.SetContent(loc.Localization);
-                output.AddClass("localized", HtmlEncoder.Default);
-            }
-            else
-            {
-                output.AddClass("needs-localization", HtmlEncoder.Default);
-            }
         }
     }
 }

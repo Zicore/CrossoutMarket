@@ -11,6 +11,8 @@ function showLocalizationHelp() {
         if ($(e).hasClass('needs-localization')) {
             $(e).addClass('bg-red');
         }
-        $(e).tooltip({ title: e.dataset.locname });
+        $(e).tooltip({
+            title: e.dataset.locname
+        });
     });
 }

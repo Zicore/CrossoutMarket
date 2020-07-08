@@ -7,7 +7,9 @@
 @using Crossout.AspWeb.Models
 @using Crossout.Data.PremiumPackages
 @model Crossout.AspWeb.Models.General.PremiumPackagesModel
-
+@{ 
+    var loc = Model.Localizations;
+}
 
 <partial name="header" model="@Model" />
 <partial name="status" model="@Model.Status" />
@@ -17,13 +19,13 @@
         <div class="d-flex justify-content-end">
             <div class="dropdown">
                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sort
+                    <loc model="loc" category="shared" name="button.sort">Sort</loc>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="sortButton">
-                    <a class="dropdown-item sort-dropdown" id="nameSort" onclick="sortPacks('name', 'asc')">Name</a>
-                    <a class="dropdown-item sort-dropdown" id="sumSort" onclick="sortPacks('sum', 'desc')">Item Sum</a>
-                    <a class="dropdown-item sort-dropdown" id="coinsSort" onclick="sortPacks('coins', 'desc')">+ Coins</a>
-                    <a class="dropdown-item sort-dropdown" id="totalSort" onclick="sortPacks('total', 'desc')">Total</a>
+                    <a class="dropdown-item sort-dropdown" id="nameSort" onclick="sortPacks('name', 'asc')"><loc model="loc" category="packs" name="label.name">Name</loc></a>
+                    <a class="dropdown-item sort-dropdown" id="sumSort" onclick="sortPacks('sum', 'desc')"><loc model="loc" category="packs" name="label.sum">Item Sum</loc></a>
+                    <a class="dropdown-item sort-dropdown" id="coinsSort" onclick="sortPacks('coins', 'desc')"><loc model="loc" category="packs" name="label.addcoins">+ Coins</loc></a>
+                    <a class="dropdown-item sort-dropdown" id="totalSort" onclick="sortPacks('total', 'desc')"><loc model="loc" category="packs" name="label.total">Total</loc></a>
                     <a class="dropdown-item sort-dropdown" id="valueSort" onclick="sortPacks('value', 'desc')"><img src="~/img/Coin.png" height="14" />/USD</a>
                 </div>
             </div>
@@ -43,7 +45,7 @@
                             <a href="https://store.steampowered.com/app/@(package.SteamAppID)">@package.Name</a>
                         </div>
                         <div>
-                            <button class="btn btn-outline-secondary btn-sm content-button" id="@(package.Key)">Show Content</button>
+                            <button class="btn btn-outline-secondary btn-sm content-button" id="@(package.Key)"><loc model="loc" category="packs" name="button.showcontent">Show Content</loc></button>
                         </div>
                     </div>
 
@@ -61,9 +63,9 @@
                         <table class="table table-borderless table-condensed pack-table mx-1">
                             <thead>
                                 <tr>
-                                    <th>Item</th>
-                                    <th>Sell</th>
-                                    <th>Buy</th>
+                                    <th><loc model="loc" category="shared" name="tablehead.item">Item</loc></th>
+                                    <th><loc model="loc" category="shared" name="tablehead.sell">Sell</loc></th>
+                                    <th><loc model="loc" category="shared" name="tablehead.buy">Buy</loc></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -98,13 +100,13 @@
                         <thead>
                             <tr>
                                 <td></td>
-                                <td class="font-weight-bold">Sell</td>
-                                <td class="font-weight-bold">Buy</td>
+                                <td class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.sell">Sell</loc></td>
+                                <td class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.buy">Buy</loc></td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="font-weight-bold text-right pr-3">Item Sum</td>
+                                <td class="font-weight-bold text-right pr-3"><loc model="loc" category="packs" name="label.sum">Item Sum</loc></td>
                                 <td style="color: red">
                                     @package.FormatSellSum
                                     <img src="~/img/Coin.png" height="14" />
@@ -115,7 +117,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="font-weight-bold text-right pr-3">+ Coins</td>
+                                <td class="font-weight-bold text-right pr-3"><loc model="loc" category="packs" name="label.addcoins">+ Coins</loc></td>
                                 <td>
                                     @package.RawCoins
                                     <img src="~/img/Coin.png" height="14" />
@@ -126,7 +128,7 @@
                                 </td>
                             </tr>
                             <tr class="mb-2">
-                                <td class="font-weight-bold text-right pr-3">Total</td>
+                                <td class="font-weight-bold text-right pr-3"><loc model="loc" category="packs" name="label.total">Total</loc></td>
                                 <td style="color: red">
                                     @package.FormatTotalSellSum
                                     <img src="~/img/Coin.png" height="14" />
@@ -171,7 +173,7 @@
                             </div>*@
                         <div class="d-inline-flex text-right">
                             <div class="mx-1">
-                                Last Currency Update:
+                                <loc model="loc" category="packs" name="label.lastupdate">Last Currency Update</loc>:
                             </div>
                             <div class="item-timestamp @(package.AppPrices.OlderThan(60) ? "item-older-than-5" : "") @(package.AppPrices.OlderThan(180) ? "item-older-than-60" : "")">
                                 @package.AppPrices.FormatSuccessTimestamp

@@ -2,9 +2,12 @@
 @using Crossout.AspWeb.Helper
 @using Crossout.AspWeb.Models
 @using Crossout.AspWeb.Models.General
+@using Crossout.AspWeb.Models.View
 @model Crossout.AspWeb.Models.View.IViewTitle
 @{
     SearchModel m = Model as SearchModel;
+    BaseViewModel bvm = Model as BaseViewModel;
+    var loc = bvm?.Localizations;
 }
 
 <div class="bg-dark sticky-top">
@@ -38,19 +41,19 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="nav navbar-nav">
-                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Packages" ? "active" : "")"><a class="nav-link" href="~/packs">Packs</a></li>
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Packages" ? "active" : "")"><a class="nav-link" href="~/packs"><loc model="loc" category="shared" name="header.nav.packs">Packs</loc></a></li>
                     <li role="presentation" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="draftsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Tools
+                            <loc model="loc" category="shared" name="header.nav.tools">Tools</loc>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="draftsDropdown">
-                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "BadgeExchange" ? "active" : "")" href="~/tools/badgeexchange">Badge Exchange</a>
-                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Snipe" ? "active" : "")" href="~/tools/sniper">Item Sniper</a>
-                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Salvage" ? "active" : "")" href="~/tools/salvage">Salvager</a>
+                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "BadgeExchange" ? "active" : "")" href="~/tools/badgeexchange"><loc model="loc" category="shared" name="header.nav.badgeexchange">Badge Exchange</loc></a>
+                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Snipe" ? "active" : "")" href="~/tools/sniper"><loc model="loc" category="shared" name="header.nav.sniper">Item Sniper</loc></a>
+                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Salvage" ? "active" : "")" href="~/tools/salvage"><loc model="loc" category="shared" name="header.nav.salvager">Salvager</loc></a>
                         </div>
                     </li>
-                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Tools" ? "active" : "")"><a class="nav-link" href="~/links">Community Links</a></li>
-                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Info" ? "active" : "")"><a class="nav-link" href="~/info">Info</a></li>
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Tools" ? "active" : "")"><a class="nav-link" href="~/links"><loc model="loc" category="shared" name="header.nav.community">Community Links</loc></a></li>
+                    <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Info" ? "active" : "")"><a class="nav-link" href="~/info"><loc model="loc" category="shared" name="header.nav.info">Info</loc></a></li>
                     <li role="presentation" class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Settings" ? "active" : "")">
                         <a class="nav-link" href="~/settings">
                             <svg class="feather">

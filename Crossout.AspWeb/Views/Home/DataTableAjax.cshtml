@@ -1,10 +1,13 @@
 ﻿@model Crossout.AspWeb.Models.General.SearchModel
+@{ 
+    var loc = Model.Localizations;
+} 
 
 <table class="table table-striped table-borderless table-hover dt-responsive" id="ItemTable2">
     <thead>
         <tr onclick="updateLocationHash(table)">
             <th class="dt-col" id="itemCol" data-priority="1">
-                Item
+                <loc model="loc" category="shared" name="tablehead.item">Item</loc>
             </th>
             <th class="dt-col never" id="idCol">
                 ID
@@ -13,64 +16,64 @@
                 Image Path
             </th>
             <th class="dt-col none" id="rarityCol">
-                Rarity
+                <loc model="loc" category="shared" name="tablehead.rarity">Rarity</loc>
             </th>
             <th class="dt-col none" id="factionCol">
-                Faction
+                <loc model="loc" category="shared" name="tablehead.faction">Faction</loc>
             </th>
             <th class="dt-col none" id="categoryCol">
-                Category
+                <loc model="loc" category="shared" name="tablehead.category">Category</loc>
             </th>
             <th class="dt-col none" id="typeCol">
-                Type
+                <loc model="loc" category="shared" name="tablehead.type">Type</loc>
             </th>
             <th class="dt-col none" id="removedCol">
-                Available
+                <loc model="loc" category="shared" name="tablehead.available">Available</loc>
             </th>
             <th class="dt-col none" id="craftableCol">
-                Craftable
+                <loc model="loc" category="shared" name="tablehead.craftable">Craftable</loc>
             </th>
             <th class="dt-col none" id="metaCol">
-                Meta
+                <loc model="loc" category="shared" name="tablehead.meta">Meta</loc>
             </th>
             <th class="dt-col none" id="popularityCol">
-                Popularity
+                <loc model="loc" category="shared" name="tablehead.popularity">Popularity</loc>
             </th>
             <th class="dt-col" id="sellCol" data-priority="1">
-                Sell
+                <loc model="loc" category="shared" name="tablehead.sell">Sell</loc>
             </th>
             <th class="dt-col" id="offersCol" data-priority="2">
-                Offers
+                <loc model="loc" category="shared" name="tablehead.offers">Offers</loc>
             </th>
             <th class="dt-col" id="craftCostSellCol">
-                Craft Cost (Sell)
+                <loc model="loc" category="shared" name="tablehead.craftcostsell">Craft Cost (Sell)</loc>
             </th>
             <th class="dt-col" id="buyCol" data-priority="1">
-                Buy
+                <loc model="loc" category="shared" name="tablehead.buy">Buy</loc>
             </th>
             <th class="dt-col" id="ordersCol" data-priority="2">
-                Orders
+                <loc model="loc" category="shared" name="tablehead.orders">Orders</loc>
             </th>
             <th class="dt-col" id="craftCostBuyCol">
-                Craft Cost (Buy)
+                <loc model="loc" category="shared" name="tablehead.craftcostbuy">Craft Cost (Buy)</loc>
             </th>
             <th class="dt-col" id="demandSupplyRatioCol" data-priority="2">
-                Demand/Supply
+                <loc model="loc" category="shared" name="tablehead.demandsupply">Demand/Supply</loc>
             </th>
             <th class="dt-col" id="marginCol" data-priority="2">
-                Margin
+                <loc model="loc" category="shared" name="tablehead.margin">Margin</loc>
             </th>
             <th class="dt-col" id="roiCol" data-priority="2">
-                ROI
+                <loc model="loc" category="shared" name="tablehead.roi">ROI</loc>
             </th>
             <th class="dt-col" id="craftMarginCol">
-                Crafting Margin
+                <loc model="loc" category="shared" name="tablehead.craftingmargin">Crafting Margin</loc>
             </th>
             <th class="dt-col" id="craftAdviceCol">
-                Crafting Advice
+                <loc model="loc" category="shared" name="tablehead.craftingadvice">Crafting Advice</loc>
             </th>
             <th class="dt-col" id="lastUpdateCol">
-                Last Update
+                <loc model="loc" category="shared" name="tablehead.lastupdate">Last Update</loc>
             </th>
         </tr>
     </thead>

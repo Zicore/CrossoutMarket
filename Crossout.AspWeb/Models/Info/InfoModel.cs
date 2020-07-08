@@ -13,7 +13,7 @@ using Crossout.AspWeb.Models.Changes;
 
 namespace Crossout.AspWeb.Models.Info
 {
-    public class InfoModel : IViewTitle
+    public class InfoModel : BaseViewModel, IViewTitle
     {
         public string Title => "Info";
 

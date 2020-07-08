@@ -11,7 +11,7 @@ using Crossout.AspWeb.Models.View;
 
 namespace Crossout.AspWeb.Models.General
 {
-    public class PremiumPackagesModel : IViewTitle
+    public class PremiumPackagesModel : BaseViewModel, IViewTitle
     {
         public string Title => "Packs";
 

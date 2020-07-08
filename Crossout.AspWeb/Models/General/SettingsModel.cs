@@ -9,7 +9,7 @@ using Crossout.AspWeb.Models.View;
 
 namespace Crossout.AspWeb.Models.General
 {
-    public class SettingsModel : IViewTitle
+    public class SettingsModel : BaseViewModel, IViewTitle
     {
         public LanguageModel LanguageModel { get; set; }
 

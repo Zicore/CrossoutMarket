@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace Crossout.AspWeb.Models.Drafts.BadgeExchange
 {
-    public class BadgeExchangeModel : IViewTitle
+    public class BadgeExchangeModel : BaseViewModel, IViewTitle
     {
         public string Title => "Badge Exchange";
-
-        public List<FrontendLocalizationPoco> Localizations = new List<FrontendLocalizationPoco>();
 
         public List<BadgeExchangeDeal> BadgeExchangeDeals = new List<BadgeExchangeDeal>();
 

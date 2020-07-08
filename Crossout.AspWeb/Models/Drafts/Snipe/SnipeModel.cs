@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Crossout.AspWeb.Models.Drafts.Snipe
 {
-    public class SnipeModel : IViewTitle
+    public class SnipeModel : BaseViewModel, IViewTitle
     {
         public string Title => "Item Sniper";
 

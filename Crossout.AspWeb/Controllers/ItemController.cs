@@ -91,6 +91,8 @@ namespace Crossout.AspWeb.Controllers
                 itemModel.Changes = changesModel;
                 itemModel.IngredientUsage = ingredientUsageModel;
 
+                itemModel.Localizations = db.SelectFrontendLocalizations(language, "item");
+
                 return View("item", itemModel);
             }
             catch

@@ -466,6 +466,7 @@ namespace Crossout.AspWeb.Services
         {
             NPoco.Connection.Open();
             var locs = NPoco.Fetch<FrontendLocalizationPoco>("SELECT * FROM frontendlocalization LEFT JOIN language ON language.id = frontendlocalization.languagenumber WHERE frontendlocalization.languagenumber = @0 AND (frontendlocalization.category = @1 OR frontendlocalization.category = @2)", language, "shared", category);
+            NPoco.Connection.Close();
             return locs;
         }
 
