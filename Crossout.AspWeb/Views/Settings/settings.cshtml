@@ -115,6 +115,15 @@
 
         <hr />
 
+        <p class="text-secondary">Advanced Settings</p>
+
+        <div class="custom-control custom-switch my-1">
+            <input type="checkbox" class="custom-control-input" id="localizationHelper">
+            <label class="custom-control-label" for="localizationHelper">Localization Helper</label>
+        </div>
+
+        <hr />
+
         <p class="text-secondary">Export / Import</p>
 
         <div class="input-group">
@@ -155,6 +164,9 @@
         $('#recipeOtherCostsBuyPriceText').val(readSetting('recipe-other-costs-buyprice'));
         // Packs Settings
         $('#fullSizePacks').prop('checked', readSetting('full-size-packs'));
+        // Advanced Settings
+        $('#localizationHelper').prop('checked', readSetting('localization-helper'));
+
     }
 
     // Apply current settings
@@ -227,4 +239,10 @@
     $('#fullSizePacks').change(function () {
         writeSetting('full-size-packs', this.checked);
     });
+
+    // Advanced Settings
+    $('#localizationHelper').change(function () {
+        writeSetting('localization-helper', this.checked);
+    });
+
 </script>

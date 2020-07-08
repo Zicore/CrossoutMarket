@@ -9,7 +9,7 @@
 
 <div class="half-hd-container px-3">
     <div class="card my-1">
-        <h4 class="card-title m-2">Badge Exchange</h4>
+        <h4 class="card-title m-2"><loc model="Model.Localizations" category="badgeexchange" name="title">Badge Exchange</loc></h4>
 
         @if (!Model.IsUpToDate())
         {
@@ -37,7 +37,7 @@
                             Active Flag
                         </th>
                         <th data-priority="2">
-                            Sell Price
+                            <loc model="Model.Localizations" category="shared" name="sellprice">Sell Price</loc>
                         </th>
                         <th data-priority="2">
                             Amount

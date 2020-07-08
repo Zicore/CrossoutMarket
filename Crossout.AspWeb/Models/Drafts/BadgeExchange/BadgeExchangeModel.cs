@@ -1,4 +1,5 @@
 ﻿using Crossout.AspWeb.Models.View;
+using Crossout.AspWeb.Pocos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace Crossout.AspWeb.Models.Drafts.BadgeExchange
     public class BadgeExchangeModel : IViewTitle
     {
         public string Title => "Badge Exchange";
+
+        public List<FrontendLocalizationPoco> Localizations = new List<FrontendLocalizationPoco>();
 
         public List<BadgeExchangeDeal> BadgeExchangeDeals = new List<BadgeExchangeDeal>();
 

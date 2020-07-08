@@ -61,6 +61,7 @@ namespace Crossout.AspWeb.Controllers
                 {
                     deal.RewardItem.SetImageExists(pathProvider);
                 }
+                badgeExchangeModel.Localizations = db.SelectFrontendLocalizations(lang.Id, "badgeexchange");
 
                 return View("badgeexchange", badgeExchangeModel);
             }
