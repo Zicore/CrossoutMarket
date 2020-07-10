@@ -337,7 +337,6 @@ body {
 }
 
 .navbar-nav li a.nav-link {
-    line-height: 60px;
     padding-top: 0px;
     padding-bottom: 0px;
 }
@@ -468,7 +467,7 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::
 
 .input-clear {
     position: absolute;
-    top: 4px;
+    top: 10px;
     right: 12px;
     z-index: 10;
 }
