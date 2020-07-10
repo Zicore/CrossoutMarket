@@ -1,10 +1,15 @@
-﻿<footer class="bg-dark mt-auto">
+﻿@model Crossout.AspWeb.Models.View.BaseViewModel
+@{ 
+    var loc = Model.Localizations;
+}
+
+<footer class="bg-dark mt-auto">
     <div class="half-hd-container">
         <div class="mt-1 p-3 row">
             <div class="col">
                 <h5 class="text-white-50">CrossoutDB</h5>
-                <h6 class="text-white-50">Made with <svg class="feather-footer"><use xlink:href="/icons/feather-sprite.svg#coffee" /></svg> and <svg class="feather-footer"><use xlink:href="/icons/feather-sprite.svg#heart" /></svg></h6>
-                <h6 class="text-white-50">by Zicore and Stiffi136</h6>
+                <h6 class="text-white-50"><loc model="loc" category="shared" name="footer.desc.authors.p1">Made with</loc> <svg class="feather-footer"><use xlink:href="/icons/feather-sprite.svg#coffee" /></svg> <loc model="loc" category="shared" name="footer.desc.authors.p2">and</loc> <svg class="feather-footer"><use xlink:href="/icons/feather-sprite.svg#heart" /></svg></h6>
+                <h6 class="text-white-50"><loc model="loc" category="shared" name="footer.desc.authors.p3">by</loc> Zicore <loc model="loc" category="shared" name="footer.desc.authors.p4">and</loc> Stiffi136</h6>
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                     <input type="hidden" name="cmd" value="_s-xclick">
                     <input type="hidden" name="hosted_button_id" value="DLKDL7UX9L5NN">
@@ -13,7 +18,7 @@
                 </form>
             </div>
             <div class="col">
-                <h5 class="text-white-50">Links</h5>
+                <h5 class="text-white-50"><loc model="loc" category="shared" name="footer.title.links">Links</loc></h5>
                 <div class="row">
                     <div class="col">
                         <h6 class="text-white-50"><a class="text-white-50" href="https://discord.gg/D3TQtm5">Discord</a></h6>
@@ -26,8 +31,8 @@
                 </div>
             </div>
             <div class="col">
-                <h5 class="text-white-50">Disclaimer</h5>
-                <h6 class="text-white-50">CrossoutDB is a community website and is not affiliated with Targem, Gaijin or Crossout</h6>
+                <h5 class="text-white-50"><loc model="loc" category="shared" name="footer.title.disclaimer">Disclaimer</loc></h5>
+                <h6 class="text-white-50"><loc model="loc" category="shared" name="footer.desc.disclaimer">CrossoutDB is a community website and is not affiliated with Targem, Gaijin or Crossout</loc></h6>
             </div>
         </div>
     </div>

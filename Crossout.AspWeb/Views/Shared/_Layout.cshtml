@@ -1,6 +1,5 @@
 ﻿@using Crossout.AspWeb.Helper
 @model Crossout.AspWeb.Models.View.IViewTitle
-<!DOCTYPE html>
 <html class="h-100" lang="en">
 <head>
     <meta charset="utf-8" />
@@ -123,7 +122,7 @@
         @RenderBody()
     </main>
 
-    <partial name="footer" />
+    <partial name="footer" model="Model"/>
 
     <button class="btn btn-secondary d-none" onclick="topFunction()" id="topButton" title="Go to top">Top</button>
 
