@@ -141,6 +141,8 @@ namespace Crossout.AspWeb.Controllers
                     item.SetImageExists(pathProvider);
                 }
 
+                salvageModel.Localizations = db.SelectFrontendLocalizations(lang.Id, "salvager");
+
                 return View("salvage", salvageModel);
             }
             catch (Exception ex)

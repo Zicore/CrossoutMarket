@@ -12,6 +12,7 @@ using Crossout.Model.Items;
 using Crossout.AspWeb.Helper;
 using Crossout.AspWeb.Services;
 using Crossout.AspWeb.Models.Language;
+using Crossout.AspWeb.Pocos;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -28,6 +29,16 @@ namespace Crossout.AspWeb.Controllers
         {
             Language lang = this.VerifyLanguage(sql, l);
             return RouteSearchData(lang.Id);
+        }
+
+        [Route("/data/localization/frontend")]
+        public IActionResult FrontendLocalization(string category, string l)
+        {
+            Language lang = this.VerifyLanguage(sql, l);
+            sql.Open(WebSettings.Settings.CreateDescription());
+            DataService db = new DataService(sql);
+            var localizations = db.SelectFrontendLocalizations(lang.Id, category);
+            return Json(localizations);
         }
 
         [Route("/data/item/all/{id}")]

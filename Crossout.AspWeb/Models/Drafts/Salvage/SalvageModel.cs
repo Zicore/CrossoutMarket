@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Crossout.AspWeb.Models.Drafts.Salvage
 {
-    public class SalvageModel : IViewTitle
+    public class SalvageModel : BaseViewModel, IViewTitle
     {
         public string Title => "Salvager";
 

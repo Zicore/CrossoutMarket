@@ -1,7 +1,11 @@
 ﻿$(document).ready(function () {
+    applyLocalizationHelper();
+});
+
+function applyLocalizationHelper() {
     if (readSetting('localization-helper'))
         showLocalizationHelp();
-});
+}
 
 function showLocalizationHelp() {
     $('.localization').each(function (i, e) {
@@ -12,7 +16,12 @@ function showLocalizationHelp() {
             $(e).addClass('bg-red');
         }
         $(e).tooltip({
-            title: e.dataset.locname
+            title: e.dataset.locname,
+            trigger: 'manual'
         });
+    });
+    $('.localization').hover(function () {
+        $('.localization').tooltip('hide');
+        $(this).tooltip('show');
     });
 }

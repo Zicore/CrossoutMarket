@@ -5,25 +5,28 @@
 @using Crossout.AspWeb.Pocos
 @using Crossout.AspWeb.Models.Drafts.Salvage
 @model SalvageModel
+@{ 
+    var loc = Model.Localizations;
+}
 
 <partial name="header" model="@Model" />
 
 <div class="half-hd-container px-3">
     <div class="card my-1">
-        <h4 class="card-title m-2">Salvager <span data-toggle="collapse" data-target="#helpWrapper"><svg class="feather-help-circle"><use xlink:href="/icons/feather-sprite.svg#help-circle" /></svg></span></h4>
+        <h4 class="card-title m-2"><loc model="loc" category="salvager" name="title">Salvager</loc> <span data-toggle="collapse" data-target="#helpWrapper"><svg class="feather-help-circle"><use xlink:href="/icons/feather-sprite.svg#help-circle" /></svg></span></h4>
 
         <div id="helpWrapper" class="collapse">
-            <h5 class="m-2">How it works</h5>
-            <p class="m-2">This tool filters the market for items which can yield a profit when salvaged. Since salvage rewards are based on the rarity, you can also view the resulting resources in their corresponding rarity tabs.</p>
-            <p class="m-2">The price selectors can be used to filter for specific combinations of sell and buy prices.</p>
+            <h5 class="m-2"><loc model="loc" category="shared" name="title.howitworks">How it works</loc></h5>
+            <p class="m-2"><loc model="loc" category="salvager" name="desc.howitworks.p1">This tool filters the market for items which can yield a profit when salvaged. Since salvage rewards are based on the rarity, you can also view the resulting resources in their corresponding rarity tabs.</loc></p>
+            <p class="m-2"><loc model="loc" category="salvager" name="desc.howitworks.p2">The price selectors can be used to filter for specific combinations of sell and buy prices.</loc></p>
             <ul class="list-unstyled m-2">
-                <li><b>Item:</b> The salvageable item</li>
-                <li><b>Rarity:</b> The rarity of the salvageable item</li>
-                <li><b>Sell Price:</b> The sell price of the salvageable item</li>
-                <li><b>Buy Pirce:</b> The buy price of the salvageable item</li>
-                <li><b>Resources (Sell):</b> The sum of the resources sell price. Doesn't include market fee.</li>
-                <li><b>Resources (Buy):</b> The sum of the resources buy price. Doesn't include market fee.</li>
-                <li><b>Margin (X|X):</b> The margin based on the selected prices. Includes market fee.</li>
+                <li><b><loc model="loc" category="shared" name="tablehead.item">Item</loc>:</b> <loc model="loc" category="salvager" name="desc.tablehead.item">The salvageable item</loc></li>
+                <li><b><loc model="loc" category="shared" name="tablehead.rarity">Rarity</loc>:</b> <loc model="loc" category="salvager" name="desc.tablehead.rarity">The rarity of the salvageable item</loc></li>
+                <li><b><loc model="loc" category="shared" name="tablehead.sellprice">Sell Price</loc>:</b> <loc model="loc" category="salvager" name="desc.tablehead.sellprice">The sell price of the salvageable item</loc></li>
+                <li><b><loc model="loc" category="shared" name="tablehead.buyprice">Buy Price</loc>:</b> <loc model="loc" category="salvager" name="desc.tablehead.buyprice">The buy price of the salvageable item</loc></li>
+                <li><b><loc model="loc" category="salvager" name="tablehead.resourcessell">Resources (Sell)</loc>:</b> <loc model="loc" category="salvager" name="desc.tablehead.resourcessell">The sum of the resources sell price. Doesn't include market fee.</loc></li>
+                <li><b><loc model="loc" category="salvager" name="tablehead.resourcesbuy">Resources (Buy)</loc>:</b> <loc model="loc" category="salvager" name="desc.tablehead.resourcesbuy">The sum of the resources buy price. Doesn't include market fee.</loc></li>
+                <li><b><loc model="loc" category="salvager" name="tablehead.marginxx">Margin (X|X)</loc>:</b> <loc model="loc" category="salvager" name="desc.tablehead.marginxx">The margin based on the selected prices. Includes market fee.</loc></li>
             </ul>
         </div>
 
@@ -56,16 +59,16 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Item
+                                    <loc model="loc" category="shared" name="tablehead.item">Item</loc>
                                 </th>
                                 <th>
-                                    Amount
+                                    <loc model="loc" category="shared" name="tablehead.amount">Amount</loc>
                                 </th>
                                 <th>
-                                    Sell Price
+                                    <loc model="loc" category="shared" name="tablehead.sellprice">Sell Price</loc>
                                 </th>
                                 <th>
-                                    Buy Price
+                                    <loc model="loc" category="shared" name="tablehead.buyprice">Buy Price</loc>
                                 </th>
                             </tr>
                         </thead>
@@ -137,7 +140,7 @@
             <div class="col-md-2 col-sm-12 d-flex flex-row align-items-center justify-content-center">
                 <div class="m-2">
                     <button id="rarityDropdown" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Filter
+                        <loc model="loc" category="shared" name="button.filter">Filter</loc>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="rarityDropdown">
                         @foreach (var rarity in Model.SalvageRewards.GroupBy(x => x.Rarity.Name))
@@ -149,19 +152,19 @@
             </div>
             <div class="col-md-5 col-sm-12 d-flex flex-row align-items-center justify-content-center">
                 <div class="m-2">
-                    Buy Item for:
+                    <loc model="loc" category="salvager" name="label.buyitemfor">Buy Item for</loc>:
                     <div class="btn-group">
-                        <button class="btn btn-outline-secondary btn-radio-prices" id="buyItemForSell">Sell Price</button>
-                        <button class="btn btn-outline-secondary btn-radio-prices active" id="buyItemForBuy">Buy Price</button>
+                        <button class="btn btn-outline-secondary btn-radio-prices" id="buyItemForSell"><loc model="loc" category="shared" name="tablehead.sellprice">Sell Price</loc></button>
+                        <button class="btn btn-outline-secondary btn-radio-prices active" id="buyItemForBuy"><loc model="loc" category="shared" name="tablehead.buyprice">Buy Price</loc></button>
                     </div>
                 </div>
             </div>
             <div class="col-md-5 col-sm-12 d-flex flex-row align-items-center justify-content-center">
                 <div class="m-2">
-                    Sell Resoruces for:
+                    <loc model="loc" category="salvager" name="label.sellresourcesfor">Sell Resoruces for</loc>:
                     <div class="btn-group">
-                        <button class="btn btn-outline-secondary btn-radio-prices active" id="sellResourcesForSell">Sell Price</button>
-                        <button class="btn btn-outline-secondary btn-radio-prices" id="sellResourcesForBuy">Buy Price</button>
+                        <button class="btn btn-outline-secondary btn-radio-prices active" id="sellResourcesForSell"><loc model="loc" category="shared" name="tablehead.sellprice">Sell Price</loc></button>
+                        <button class="btn btn-outline-secondary btn-radio-prices" id="sellResourcesForBuy"><loc model="loc" category="shared" name="tablehead.buyprice">Buy Price</loc></button>
                     </div>
                 </div>
             </div>
@@ -172,34 +175,34 @@
                 <thead>
                     <tr>
                         <th data-priority="1">
-                            Item
+                            <loc model="loc" category="shared" name="tablehead.item">Item</loc>
                         </th>
                         <th data-priority="3">
-                            Rarity
+                            <loc model="loc" category="shared" name="tablehead.rarity">Rarity</loc>
                         </th>
                         <th data-priority="2">
-                            Sell Price
+                            <loc model="loc" category="shared" name="tablehead.sellprice">Sell Price</loc>
                         </th>
                         <th data-priority="2">
-                            Buy Price
+                            <loc model="loc" category="shared" name="tablehead.buyprice">Buy Price</loc>
                         </th>
                         <th data-priority="2">
-                            Resources (Sell)
+                            <loc model="loc" category="salvager" name="tablehead.resourcessell">Resources (Sell)</loc>
                         </th>
                         <th data-priority="2">
-                            Resources (Buy)
+                            <loc model="loc" category="salvager" name="tablehead.resourcesbuy">Resources (Buy)</loc>
                         </th>
                         <th data-priority="1">
-                            Margin (Sell|Buy)
+                            <loc model="loc" category="salvager" name="tablehead.marginsellbuy">Margin (Sell|Buy)</loc>
                         </th>
                         <th data-priority="1">
-                            Margin (Buy|Sell)
+                            <loc model="loc" category="salvager" name="tablehead.marginbuysell">Margin (Buy|Sell)</loc>
                         </th>
                         <th data-priority="1">
-                            Margin (Sell|Sell)
+                            <loc model="loc" category="salvager" name="tablehead.marginsellsell">Margin (Sell|Sell)</loc>
                         </th>
                         <th data-priority="1">
-                            Margin (Buy|Buy)
+                            <loc model="loc" category="salvager" name="tablehead.marginbuybuy">Margin (Buy|Buy)</loc>
                         </th>
                     </tr>
                 </thead>

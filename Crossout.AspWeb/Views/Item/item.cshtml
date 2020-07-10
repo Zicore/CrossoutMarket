@@ -371,6 +371,7 @@
 
 <script src="~/scripts/internal/item.js?@(CacheBuster.Once)"></script>
 <script src="~/scripts/internal/craftingcalc.js?@(CacheBuster.Once)"></script>
+<script src="~/scripts/internal/scriptlocalization.js?@(CacheBuster.Once)"></script>
 <script>
     $(document).ready(function () {
         adjustTimeStamp();
@@ -380,8 +381,7 @@
         $('#itemTabsWrapper').removeClass('half-hd-container');
 
     $.getJSON(location.origin + '/data/recipe/@(Model.Item.Id)?l=' + Cookies.get('language'),
-        function (data) {
-
+        async function (data) {
             recipeData.data = data;
             recipeData.loaded = true;
 
@@ -389,6 +389,12 @@
 
             craftingCalcData.data = data;
             craftingCalcData.loaded = true;
-            onDataLoaded();
+
+            await getLocalizations('item', Cookies.get('language'));
         });
+
+    function onLocalizationLoaded() {
+        localize();
+        onDataLoaded();
+    }
 </script>
