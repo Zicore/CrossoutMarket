@@ -6,7 +6,7 @@ using Crossout.AspWeb.Models.View;
 
 namespace Crossout.AspWeb.Models.Items
 {
-    public class ItemCollection : IViewTitle
+    public class ItemCollection : BaseViewModel, IViewTitle
     {
         public List<Item> Items { get; set; } = new List<Item>();
         public List<Item> AllItems { get; set; } = new List<Item>();

@@ -9,7 +9,7 @@ using Crossout.AspWeb.Models.View;
 
 namespace Crossout.AspWeb.Models.General
 {
-    public class WatchlistModel : IViewTitle
+    public class WatchlistModel : BaseViewModel, IViewTitle
     {
         public string Title => "Watchlist";
 

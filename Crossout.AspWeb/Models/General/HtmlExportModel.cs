@@ -10,7 +10,7 @@ using Crossout.AspWeb.Models.View;
 
 namespace Crossout.AspWeb.Models.General
 {
-    public class HtmlExportModel : IViewTitle
+    public class HtmlExportModel : BaseViewModel, IViewTitle
     {
         public List<Item> Items { get; set; }
         public FilterModel FilterModel { get; set; } = new FilterModel();
