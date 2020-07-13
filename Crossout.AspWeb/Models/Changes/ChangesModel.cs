@@ -11,7 +11,7 @@ using Crossout.AspWeb.Models.Items;
 
 namespace Crossout.AspWeb.Models.Changes
 {
-    public class ChangesModel : IViewTitle
+    public class ChangesModel : BaseViewModel, IViewTitle
     {
         public string Title => "Changes";
 

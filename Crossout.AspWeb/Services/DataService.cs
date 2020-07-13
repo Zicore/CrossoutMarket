@@ -18,16 +18,21 @@ using Crossout.AspWeb.Models.Language;
 using Crossout.AspWeb.Models.Info;
 using Crossout.AspWeb.Models.Drafts.BadgeExchange;
 using Crossout.AspWeb.Models.Drafts.Snipe;
+using Crossout.AspWeb.Pocos;
+using NPoco;
+using System.Data.Common;
 
 namespace Crossout.AspWeb.Services
 {
     public class DataService
     {
         protected SqlConnector DB { get; set; }
+        protected IDatabase NPoco { get; set; }
 
         public DataService(SqlConnector sql)
         {
             DB = sql;
+            NPoco = new Database(sql.CreateConnection());
         }
 
         public ItemModel SelectItem(int id, bool addData, int language)
@@ -435,6 +440,34 @@ namespace Crossout.AspWeb.Services
                 item.Value.CalculatePriceEdge();
             }
             return snipeItems.Values.ToList();
+        }
+
+        public List<ItemPoco> SelectSalvageItems(int language)
+        {
+            NPoco.Connection.Open();
+            string query = "SELECT * FROM item LEFT JOIN itemlocalization ON itemlocalization.itemnumber = item.id LEFT JOIN rarity ON rarity.id = item.raritynumber WHERE item.removed = 0 AND itemlocalization.languagenumber = @0";
+            var items = NPoco.Fetch<ItemPoco>(query, language);
+            var ignoredCategories = new List<int> { 5, 7, 8, 9 };
+            items = items.Where(x => !ignoredCategories.Contains(x.CategoryNumber)).ToList();
+            NPoco.Connection.Close();
+            return items;
+        }
+
+        public List<SalvageRewardPoco> SelectSalvageRewards(int language)
+        {
+            NPoco.Connection.Open();
+            // [... , rarity.*, rarity.* ...] is mandatory
+            var salvageRewards = NPoco.Fetch<SalvageRewardPoco>("SELECT salvagereward.*, item.*, itemlocalization.*, rarity.*, rarity.* FROM salvagereward LEFT JOIN rarity ON rarity.id = salvagereward.raritynumber LEFT JOIN item ON item.id = salvagereward.rewarditem LEFT JOIN itemlocalization ON itemlocalization.itemnumber = item.id WHERE itemlocalization.languagenumber = @0", language);
+            NPoco.Connection.Close();
+            return salvageRewards;
+        }
+
+        public List<FrontendLocalizationPoco> SelectFrontendLocalizations(int language, string category)
+        {
+            NPoco.Connection.Open();
+            var locs = NPoco.Fetch<FrontendLocalizationPoco>("SELECT * FROM frontendlocalization LEFT JOIN language ON language.id = frontendlocalization.languagenumber WHERE frontendlocalization.languagenumber = @0 AND (frontendlocalization.category = @1 OR frontendlocalization.category = @2)", language, "shared", category);
+            NPoco.Connection.Close();
+            return locs;
         }
 
         public string TranslateFieldName(string toTranslate)

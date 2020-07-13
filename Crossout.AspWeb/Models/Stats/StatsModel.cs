@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Crossout.AspWeb.Models.Stats
 {
-    public class StatsModel : IViewTitle
+    public class StatsModel : BaseViewModel, IViewTitle
     {
         public DateTime ServiceStart { get; set; }
         public TimeSpan TimeSpanSinceStart

@@ -8,7 +8,7 @@ using Crossout.AspWeb.Models.View;
 
 namespace Crossout.AspWeb.Models.General
 {
-    public class SearchModel : IViewTitle
+    public class SearchModel : BaseViewModel, IViewTitle
     {
         public List<Item> SearchResult { get; set; }
         public PagerModel Pager { get; set; } = new PagerModel();

@@ -4,40 +4,43 @@
 
 @using Crossout.AspWeb.Models.Drafts.Snipe
 @model SnipeModel
+@{ 
+    var loc = Model.Localizations;
+}
 
 <partial name="header" model="@Model" />
 
 <div class="half-hd-container px-3">
     <div class="card my-1">
-        <h4 class="card-title m-2">Item Sniper <span data-toggle="collapse" data-target="#helpWrapper"><svg class="feather-help-circle"><use xlink:href="/icons/feather-sprite.svg#help-circle" /></svg></span></h4>
+        <h4 class="card-title m-2"><loc model="loc" category="sniper" name="title">Item Sniper</loc> <span data-toggle="collapse" data-target="#helpWrapper"><svg class="feather-help-circle"><use xlink:href="/icons/feather-sprite.svg#help-circle" /></svg></span></h4>
 
         <div id="helpWrapper" class="collapse">
-            <h5 class="m-2">How it works</h5>
-            <p class="m-2">This tool scans the recent 25 minutes of market data for large price changes. If an items sell price drops so much that it would be profitable to buy it for the new price and sell it afterwards for the old price, it gets listed here.</p>
-            <p class="m-2">Keep in mind that these price drops can also be caused by a unusual price increase beforehand. Always double check before you decide to buy something!</p>
+            <h5 class="m-2"><loc model="loc" category="shared" name="title.howitworks">How it works</loc></h5>
+            <p class="m-2"><loc model="loc" category="sniper" name="desc.howitworks.p1">This tool scans the recent 25 minutes of market data for large price changes. If an items sell price drops so much that it would be profitable to buy it for the new price and sell it afterwards for the old price, it gets listed here.</loc></p>
+            <p class="m-2"><loc model="loc" category="sniper" name="desc.howitworks.p2">Keep in mind that these price drops can also be caused by a unusual price increase beforehand. Always double check before you decide to buy something!</loc></p>
             <ul class="list-unstyled m-2">
-                <li><b>Item:</b> The affected item</li>
-                <li><b>Highest Sell Price:</b> The highest recorded sell price of the last 25 minutes</li>
-                <li><b>Current Sell Price:</b> The current sell price</li>
-                <li><b>Current Buy Price:</b> The current buy price</li>
-                <li><b>Margin:</b> The difference between "Highest Sell Price" and "Current Sell Price" minus market fee</li>
-                <li><b>ROI:</b> The <a href="https://en.wikipedia.org/wiki/Return_on_investment">Return on Investment</a> based on "Margin" and "Current Sell Price"</li>
+                <li><b><loc model="loc" category="shared" name="tablehead.item">Item</loc>:</b> <loc model="loc" category="sniper" name="desc.tablehead.item">The affected item</loc></li>
+                <li><b><loc model="loc" category="sniper" name="tablehead.highestsell">Highest Sell Price</loc>:</b> <loc model="loc" category="sniper" name="desc.tablehead.highestsell">The highest recorded sell price of the last 25 minutes</loc></li>
+                <li><b><loc model="loc" category="sniper" name="tablehead.currentsell">Current Sell Price</loc>:</b> <loc model="loc" category="sniper" name="desc.tablehead.currentsell">The current sell price</loc></li>
+                <li><b><loc model="loc" category="sniper" name="tablehead.currentbuy">Current Buy Price</loc>:</b> <loc model="loc" category="sniper" name="desc.tablehead.currentbuy">The current buy price</loc></li>
+                <li><b><loc model="loc" category="shared" name="tablehead.margin">Margin</loc>:</b> <loc model="loc" category="sniper" name="desc.tablehead.margin">The difference between "Highest Sell Price" and "Current Sell Price" minus market fee</loc></li>
+                <li><b><loc model="loc" category="shared" name="tablehead.roi">ROI</loc>:</b> <loc model="loc" category="sniper" name="desc.tablehead.roi.p1">The</loc> <a href="https://en.wikipedia.org/wiki/Return_on_investment"><loc model="loc" category="sniper" name="desc.tablehead.roi.p2">Return on Investment</loc></a> <loc model="loc" category="sniper" name="desc.tablehead.roi.p3">based on "Margin" and "Current Sell Price"</loc></li>
             </ul>
         </div>
 
 
         <div class="m-2 d-flex flex-row">
-            <div>Data from: </div>
+            <div><loc model="Model.Localizations" category="sniper" name="label.datafrom">Data from</loc>: </div>
             <div class="ml-1 item-timestamp">@Model.FormatTimestamp</div>
         </div>
 
         <div class="custom-control custom-switch m-2">
             <input type="checkbox" class="custom-control-input" id="autoRefreshSwitch" checked>
-            <label class="custom-control-label" for="autoRefreshSwitch">Auto Refresh</label>
+            <label class="custom-control-label" for="autoRefreshSwitch"><loc model="loc" category="shared" name="label.autorefresh">Auto Refresh</loc></label>
         </div>
 
         <div class="m-2 d-flex flex-row">
-            <div>Seconds until Refresh: </div>
+            <div><loc model="loc" category="shared" name="label.refreshtimer">Seconds until Refresh</loc>: </div>
             <div id="countdown" class="ml-1"></div>
         </div>
 
@@ -46,22 +49,22 @@
                 <thead>
                     <tr>
                         <th data-priority="1">
-                            Item
+                            <loc model="loc" category="shared" name="tablehead.item">Item</loc>
                         </th>
                         <th data-priority="2">
-                            Highest Sell Price
+                            <loc model="loc" category="sniper" name="tablehead.highestsell">Highest Sell Price</loc>
                         </th>
                         <th data-priority="2">
-                            Current Sell Price
+                            <loc model="loc" category="sniper" name="tablehead.currentsell">Current Sell Price</loc>
                         </th>
                         <th data-priority="2">
-                            Current Buy Price
+                            <loc model="loc" category="sniper" name="tablehead.currentbuy">Current Buy Price</loc>
                         </th>
                         <th data-priority="1">
-                            Margin
+                            <loc model="loc" category="shared" name="tablehead.margin">Margin</loc>
                         </th>
                         <th data-priority="1">
-                            ROI
+                            <loc model="loc" category="shared" name="tablehead.roi">ROI</loc>
                         </th>
                     </tr>
                 </thead>

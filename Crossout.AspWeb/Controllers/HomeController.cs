@@ -12,6 +12,7 @@ using Crossout.AspWeb.Models.Pagination;
 using Crossout.AspWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
+using Crossout.AspWeb.Models.Language;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -45,9 +46,11 @@ namespace Crossout.AspWeb.Controllers
 
         private IActionResult RouteSearchAjax()
         {
+            sql.Open(WebSettings.Settings.CreateDescription());
+
             DataService db = new DataService(sql);
 
-            sql.Open(WebSettings.Settings.CreateDescription());
+            Language lang = this.ReadLanguageCookie(sql);
 
             var parmeter = new List<Parameter>();
 
@@ -62,6 +65,8 @@ namespace Crossout.AspWeb.Controllers
 
             var statusModel = db.SelectStatus();
             searchModel.Status = statusModel;
+
+            searchModel.Localizations = db.SelectFrontendLocalizations(lang.Id, "search");
 
             return View("search", searchModel);
         }

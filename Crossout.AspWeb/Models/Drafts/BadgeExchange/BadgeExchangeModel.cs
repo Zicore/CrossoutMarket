@@ -1,4 +1,5 @@
 ﻿using Crossout.AspWeb.Models.View;
+using Crossout.AspWeb.Pocos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Crossout.AspWeb.Models.Drafts.BadgeExchange
 {
-    public class BadgeExchangeModel : IViewTitle
+    public class BadgeExchangeModel : BaseViewModel, IViewTitle
     {
         public string Title => "Badge Exchange";
 
@@ -14,7 +15,8 @@ namespace Crossout.AspWeb.Models.Drafts.BadgeExchange
 
         public bool IsUpToDate()
         {
-            var monday = DateTime.UtcNow.AddDays(-(int)DateTime.UtcNow.DayOfWeek + (int)DayOfWeek.Monday).Date;
+            var daysOffset = (7 + (DateTime.UtcNow.DayOfWeek - DayOfWeek.Monday)) % 7;
+            var monday = DateTime.UtcNow.AddDays(-1 * daysOffset).Date;
             foreach (var deal in BadgeExchangeDeals)
             {
                 if (deal.Active && deal.LastBeginActive.CompareTo(monday) >= 0)

@@ -31,7 +31,7 @@ function onDataLoaded() {
     buyOrCraftDecider(craftingCalcData.data.recipe.recipe);
     mapData();
     setDefaultTree();
-    makeSnapshot('Current');
+    makeSnapshot(localizeSingle('item.craftcalc.currentsnapshot', 'Current'));
     readSnapshotSave();
     drawCalculator();
 }
@@ -148,7 +148,6 @@ function drawCalculator() {
     drawCalculationOverview(calcOverviewWrapper);
     drawCalculationOverviewProfit(craftingCalc.calc.entries, calcProfitWrapper, tldrWrapper);
     bindEvents();
-
     $('[data-toggle="tooltip"]').tooltip();
 }
 
@@ -168,7 +167,7 @@ function drawTreeHeader(wrapper) {
         '</div>' +
         '</div>' +
         '</div>' +
-        '<div class="d-flex flex-row justify-content-between my-1 mx-1"><button class="btn btn-outline-secondary btn-sm optimal-route-btn">Optimal Route</button></div>';
+        '<div class="d-flex flex-row justify-content-between my-1 mx-1"><button class="btn btn-outline-secondary btn-sm optimal-route-btn"><span class="localization" data-locname="item.craftcalc.button.optimalroute">' + localizeSingle('item.craftcalc.button.optimalroute', 'Optimal Route') + '</span></button></div>';
     $(wrapper).append(html);
 }
 
@@ -184,32 +183,36 @@ function drawTreeEntry(displayIngredient, wrapper) {
         '</div>';
     var rootItemSelector = '<div class="d-flex flex-row justify-content-between w-50">' +
         '<div class="d-flex flex-row">' +
-        '<div>Results in ' + displayIngredient.craftResultAmount + '</div>' +
+        '<div><span class="localization" data-locname="item.craftcalc.label.resultsin">' + localizeSingle('item.craftcalc.label.resultsin', 'Results in') + '</span> ' + displayIngredient.craftResultAmount + '</div>' +
         '</div > ' +
 
         '<div class="d-flex flex-row">' +
         '<div class="btn-group">' +
-        '<button class="btn btn-sm btn-outline-secondary root-price-select-sell-btn ' + (displayIngredient.usedPrice === 'sell' ? 'active' : '') + '" data-recipeid="' + displayIngredient.recipeId + '">All Sell</button>' +
-        '<button class="btn btn-sm btn-outline-secondary root-price-select-buy-btn ' + (displayIngredient.usedPrice === 'buy' ? 'active' : '') + '" data-recipeid="' + displayIngredient.recipeId + '">All Buy</button>' +
+        '<button class="btn btn-sm btn-outline-secondary root-price-select-sell-btn ' + (displayIngredient.usedPrice === 'sell' ? 'active' : '') + '" data-recipeid="' + displayIngredient.recipeId + '"><span class="localization" data-locname="item.craftcalc.button.allsell">' + localizeSingle('item.craftcalc.button.allsell', 'All Sell') + '</span></button>' +
+        '<button class="btn btn-sm btn-outline-secondary root-price-select-buy-btn ' + (displayIngredient.usedPrice === 'buy' ? 'active' : '') + '" data-recipeid="' + displayIngredient.recipeId + '"><span class="localization" data-locname="item.craftcalc.button.allbuy">' + localizeSingle('item.craftcalc.button.allbuy', 'All Buy') + '</span></button>' +
         '</div>' +
         '</div > ' +
         '</div > ';
 
     var ingredientItemSelector = '<div class="d-flex flex-row justify-content-between w-50">' +
         '<div class="d-flex flex-row">' +
-        '<div>' + (displayIngredient.expanded && displayIngredient.hasIngredients ? 'Craft ' + displayIngredient.craftEffectiveAmount : 'Buy ' + displayIngredient.amount) + '</div>' +
+        '<div>' + (displayIngredient.expanded && displayIngredient.hasIngredients ? '<span class="localization" data-locname="item.craftcalc.label.craft">' + localizeSingle('item.craftcalc.label.craft', 'Craft') + '</span> ' + displayIngredient.craftEffectiveAmount : '<span class="localization" data-locname="item.craftcalc.label.buy">' + localizeSingle('item.craftcalc.label.buy', 'Buy') + '</span> ' + displayIngredient.amount) + '</div>' +
         '</div > ' +
 
         '<div class="d-flex flex-row">' +
-        '<div>' + (displayIngredient.expanded && displayIngredient.hasIngredients ? 'Sum: ' + formatPrice(calculateRecipeSum(displayIngredient.uniqueId)) + '<img class="ml-1" height = "14" src = "/img/Coin.png" />' : priceSelector) + '</div>' +
+        '<div>' + (displayIngredient.expanded && displayIngredient.hasIngredients ? '<span class="localization" data-locname="item.craftcalc.label.sum">' + localizeSingle('item.craftcalc.label.sum', 'Sum') + '</span>: ' + formatPrice(calculateRecipeSum(displayIngredient.uniqueId)) + '<img class="ml-1" height = "14" src = "/img/Coin.png" />' : priceSelector) + '</div>' +
         '</div > ' +
         '</div > ';
+
+    var expandButton = '<button class="btn btn-sm btn-outline-secondary recipe-expand-btn text-monospace ' + (displayIngredient.hasIngredients ? '' : 'invisible') + '" data-uniqueid="' + displayIngredient.uniqueId + '">' + (displayIngredient.expanded ? '-' : '+') + '</button>';
+
+    var adviceBadge = (displayIngredient.hasIngredients ? '<div><div class="ml-1 badge badge-pill ' + (advice === 'Craft' && displayIngredient.expanded || advice === 'Buy' && !displayIngredient.expanded ? 'badge-success' : 'badge-danger') + '">' + (advice === 'Buy' ? '<span class="localization" data-locname="item.craftcalc.label.buy">' + localizeSingle('item.craftcalc.label.buy', 'Buy') + '</span>' : '<span class="localization" data-locname="item.craftcalc.label.craft">' + localizeSingle('item.craftcalc.label.craft', 'Craft') + '</span>') + '</div></div>' : '');
 
     var html = '<div class="d-flex flex-row justify-content-between my-1 mx-1"">' +
 
         '<div class="d-flex flex-row w-50">' +
         depthSpacer +
-        '<button class="btn btn-sm btn-outline-secondary recipe-expand-btn text-monospace ' + (displayIngredient.hasIngredients ? '' : 'invisible') + '" data-uniqueid="' + displayIngredient.uniqueId + '">' + (displayIngredient.expanded ? '-' : '+') + '</button>' +
+        (displayIngredient.rootDisplayIngredient !== null ? expandButton : '') +
         '<a href="/item/' + displayIngredient.itemId + '">' +
         '<div class="d-flex flex-row">' +
         '<img class="ml-1 item-image-med" src="' +
@@ -219,7 +222,7 @@ function drawTreeEntry(displayIngredient, wrapper) {
         displayIngredient.name +
         '</div>' +
         (displayIngredient.factionId && displayIngredient.factionId > 0 && displayIngredient.hasIngredients ? '<div class="ml-1">' + '<img class="faction-icon" width="32" height="32" src="/img/faction-icons/' + displayIngredient.factionId + '.png" data-toggle="tooltip" data-placement="bottom" title="' + displayIngredient.factionName + '">' + '</div>' : '') +
-        (displayIngredient.hasIngredients ? '<div><div class="ml-1 badge badge-pill ' + (advice === 'Craft' && displayIngredient.expanded || advice === 'Buy' && !displayIngredient.expanded ? 'badge-success' : 'badge-danger') + '">' + advice + '</div></div>' : '') +
+        (displayIngredient.rootDisplayIngredient !== null ? adviceBadge : '') +
         '</div>' +
         '</a>' +
         '</div>' +
@@ -258,7 +261,7 @@ function drawCalculationOverview(wrapper) {
 
     craftingCalc.calc.entries = entries;
 
-    var calculationOverviewHeader = '<div class="mx-1"><hr></div><div class="d-flex flex-row justify-content-between mx-1"><div class="font-weight-bold">Item</div><div class="justify-content-between d-flex flex-row w-50"><div class="font-weight-bold">Amount x Price / Bundle Size</div><div class="font-weight-bold">Resulting Price</div></div></div></div>';
+    var calculationOverviewHeader = '<div class="mx-1"><hr></div><div class="d-flex flex-row justify-content-between mx-1"><div class="font-weight-bold"><span class="localization" data-locname="shared.tablehead.item">' + localizeSingle('shared.tablehead.item', 'Item') + '</span></div><div class="justify-content-between d-flex flex-row w-50"><div class="font-weight-bold"><span class="localization" data-locname="shared.tablehead.amount">' + localizeSingle('shared.tablehead.amount', 'Amount') + '</span> x <span class="localization" data-locname="item.craftcalc.tablehead.price">' + localizeSingle('item.craftcalc.tablehead.price', 'Price') + '</span> / <span class="localization" data-locname="item.craftcalc.tablehead.bundlesize">' + localizeSingle('item.craftcalc.tablehead.bundlesize', 'Bundle Size') + '</span></div><div class="font-weight-bold"><span class="localization" data-locname="item.craftcalc.tablehead.resultingprice">' + localizeSingle('item.craftcalc.tablehead.resultingprice', 'Resulting Price') + '</span></div></div></div></div>';
     $(wrapper).append(calculationOverviewHeader);
 
     entries.forEach(function (e, i) {
@@ -316,21 +319,21 @@ function drawCalculationOverviewProfit(entries, wrapper, tldrWrapper) {
     var profit = totalSellPrice - sum;
     var htmlSpacer = '<div class="px-1"><hr></div>';
     var html = '<div class="d-flex align-items-end flex-column">' +
-        '<div class="d-flex flex-row justify-content-between w-50 mr-1"><div class="font-weight-bold">Sell Price: </div>' +
+        '<div class="d-flex flex-row justify-content-between w-50 mr-1"><div class="font-weight-bold"><span class="localization" data-locname="shared.tablehead.sellprice">' + localizeSingle('shared.tablehead.sellprice', 'Sell Price') + '</span>: </div>' +
         '<div class="btn-group">' +
         '<button class="btn btn-sm btn-outline-secondary btn-sm sell-price-select-sell-btn ' + (craftingCalc.tree.topToBottom[0].usedSellPrice === 'sell' ? 'active' : '') + '">' + formatPrice(craftingCalc.tree.topToBottom[0].sellPrice) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></button>' +
         '<button class="btn btn-sm btn-outline-secondary btn-sm sell-price-select-buy-btn ' + (craftingCalc.tree.topToBottom[0].usedSellPrice === 'buy' ? 'active' : '') + '">' + formatPrice(craftingCalc.tree.topToBottom[0].buyPrice) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></button>' +
         '</div>' +
         '</div>' +
-        '<div class="d-flex flex-row justify-content-between w-50 mr-1"><div class="font-weight-bold">- Fee (' + formatPrice(fee) + ') : </div><div>' + formatPrice(sellPriceMinusFee) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
-        '<div class="d-flex flex-row justify-content-between w-50 mr-1"><div class="font-weight-bold">x Resulting Amount (' + resultingAmount + '): </div><div>' + formatPrice(totalSellPrice) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
-        '<div class="d-flex flex-row justify-content-between w-50 mr-1"><div class="font-weight-bold">- Ingredient Sum: </div><div>' + formatPrice(sum) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
-        '<div class="d-flex flex-row justify-content-between w-50 mr-1"><div class="font-weight-bold">Profit: </div><div class="' + (profit >= 0 ? 'sum-pos' : 'sum-neg') + '">' + formatPrice(profit) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
+        '<div class="d-flex flex-row justify-content-between w-50 mr-1"><div class="font-weight-bold">- <span class="localization" data-locname="item.craftcalc.label.fee">' + localizeSingle('item.craftcalc.label.fee', 'Fee') + '</span> (' + formatPrice(fee) + ') : </div><div>' + formatPrice(sellPriceMinusFee) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
+        '<div class="d-flex flex-row justify-content-between w-50 mr-1"><div class="font-weight-bold">x <span class="localization" data-locname="item.craftcalc.label.resultingamount">' + localizeSingle('item.craftcalc.label.resultingamount', 'Resulting Amount') + '</span> (' + resultingAmount + '): </div><div>' + formatPrice(totalSellPrice) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
+        '<div class="d-flex flex-row justify-content-between w-50 mr-1"><div class="font-weight-bold">- <span class="localization" data-locname="item.craftcalc.label.ingredientsum">' + localizeSingle('item.craftcalc.label.ingredientsum', 'Ingredient Sum') + '</span>: </div><div>' + formatPrice(sum) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
+        '<div class="d-flex flex-row justify-content-between w-50 mr-1"><div class="font-weight-bold"><span class="localization" data-locname="item.craftcalc.label.profit">' + localizeSingle('item.craftcalc.label.profit', 'Profit') + '</span>: </div><div class="' + (profit >= 0 ? 'sum-pos' : 'sum-neg') + '">' + formatPrice(profit) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
         '</div>';
 
     var htmlTldr = '<div class="d-flex justify-content-around flex-row mx-1 mt-2 h4">' +
-        '<div class="d-inline-flex flex-row mr-1"><div class="font-weight-bold mr-1">Crafting Cost: </div><div>' + formatPrice(sum) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
-        '<div class="d-inline-flex flex-row mr-1"><div class="font-weight-bold mr-1">Profit: </div><div class="' + (profit >= 0 ? 'sum-pos' : 'sum-neg') + '">' + formatPrice(profit) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
+        '<div class="d-inline-flex flex-row mr-1"><div class="font-weight-bold mr-1"><span class="localization" data-locname="item.craftcalc.label.craftcost">' + localizeSingle('item.craftcalc.label.craftcost', 'Crafting Cost') + '</span>: </div><div>' + formatPrice(sum) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
+        '<div class="d-inline-flex flex-row mr-1"><div class="font-weight-bold mr-1"><span class="localization" data-locname="item.craftcalc.label.profit">' + localizeSingle('item.craftcalc.label.profit', 'Profit') + '</span>: </div><div class="' + (profit >= 0 ? 'sum-pos' : 'sum-neg') + '">' + formatPrice(profit) + '<img class="ml-1" height = "14" src = "/img/Coin.png" /></div></div>' +
         '</div>' +
         htmlSpacer;
 
@@ -346,14 +349,13 @@ function drawSnapshotManager(wrapper) {
         html += '<button type="button" class="btn btn-sm btn-outline-secondary choose-snapshot-btn ' + (e.id === selectedSnapshot ? 'active' : '') + '" data-snapshotid="' + e.id + '">' + e.name + '</button>';
     });
 
-    html += '<button type="button" class="btn btn-sm btn-outline-secondary create-snapshot-btn">Create Snapshot</button>' +
+    html += '<button type="button" class="btn btn-sm btn-outline-secondary create-snapshot-btn"><span class="localization" data-locname="item.craftcalc.button.createsnapshot">' + localizeSingle('item.craftcalc.button.createsnapshot', 'Create Snapshot')  + '</span></button>' +
         '</div>';
     if (selectedSnapshot !== 1) {
-        html += '<button type="button" class="btn btn-sm btn-outline-secondary ml-2 delete-snapshot-btn">' + (snapshotDeleteConfirmation ? 'Are you sure?' : 'Delete Snapshot') + '</button>';
+        html += '<button type="button" class="btn btn-sm btn-outline-secondary ml-2 delete-snapshot-btn">' + (snapshotDeleteConfirmation ? '<span class="localization" data-locname="item.craftcalc.button.confirmdelete">' + localizeSingle('item.craftcalc.button.confirmdelete', 'Are you sure?') + '</span>' : '<span class="localization" data-locname="item.craftcalc.button.deletesnapshot">' + localizeSingle('item.craftcalc.button.deletesnapshot', 'Delete Snapshot') + '</span>') + '</button>';
     }
     $(wrapper).append(html);
 }
-
 // MANIPULATE
 function setCollapse(uniqueId, collapse) {
     var inTarget = false;

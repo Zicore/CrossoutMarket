@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Crossout.AspWeb.Models.Items
 {
-    public class ItemModel : IViewTitle
+    public class ItemModel : BaseViewModel, IViewTitle
     {
         [JsonProperty("item")]
         public Item Item { get; set; } = new Item() {};

@@ -27,6 +27,10 @@ namespace Crossout.AspWeb.Controllers
             SettingsModel model = new SettingsModel();
             model.LanguageModel = languageModel;
 
+            Language lang = this.ReadLanguageCookie(sql);
+
+            model.Localizations = db.SelectFrontendLocalizations(lang.Id, "settings");
+
             this.RegisterHit("Settings");
             return View("settings", model);
         }

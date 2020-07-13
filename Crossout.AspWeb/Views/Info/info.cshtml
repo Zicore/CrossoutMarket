@@ -8,12 +8,15 @@
 }
 
 @model Crossout.AspWeb.Models.Info.InfoModel
+@{ 
+    var loc = Model.Localizations;
+}
 
 <partial name="header" model="@Model" />
 
 <div class="half-hd-container px-3">
     <div class="card my-1">
-        <h4 class="card-title m-2">Data Update Times</h4>
+        <h4 class="card-title m-2"><loc model="loc" category="info" name="title.dataupdatetimes">Data Update Times</loc></h4>
 
         @foreach (var timestamp in Model.LastUpdateTimes)
         {
@@ -29,7 +32,7 @@
     </div>
 
     <div class="card my-1">
-        <h4 class="card-title m-2">Special Thanks to our Contributors!</h4>
+        <h4 class="card-title m-2"><loc model="loc" category="info" name="title.thankscontributors">Special Thanks to our Contributors!</loc></h4>
 
         <div class="row">
             @foreach (var contributor in Model.Contributors)
@@ -51,7 +54,7 @@
     </div>
 
     <div class="card my-1">
-        <h4 class="card-title m-2">Patch Notes</h4>
+        <h4 class="card-title m-2"><loc model="loc" category="info" name="title.patchnotes">Patch Notes</loc></h4>
 
         <div id="updateCardText" class="update-card-preview">
             @foreach (var update in Model.UpdateNotes)
@@ -59,7 +62,7 @@
                 <div class="m-2">
                     <h5>
                         @update.Name
-                        <small class="text-muted">from <span class="timestamp">@update.FormatTimestamp</span></small>
+                        <small class="text-muted"><loc model="loc" category="info" name="label.timestamp.from">from</loc> <span class="timestamp">@update.FormatTimestamp</span></small>
                     </h5>
                     <ul>
                         @foreach (var note in update.Notes)
@@ -71,11 +74,11 @@
             }
         </div>
 
-        <div class="d-flex justify-content-center mb-1"><button class="btn btn-sm btn-outline-secondary update-notes-show-more-btn">Show all</button></div>
+        <div class="d-flex justify-content-center mb-1"><button class="btn btn-sm btn-outline-secondary update-notes-show-more-btn"><loc model="loc" category="info" name="button.showallnotes">Show all</loc></button></div>
     </div>
 
     <div class="card my-1">
-        <h4 class="card-title m-2">Item Changes</h4>
+        <h4 class="card-title m-2"><loc model="loc" category="info" name="title.itemchanges">Item Changes</loc></h4>
 
         <partial name="changesmodular" model="@Model.ChangesModel" />
     </div>

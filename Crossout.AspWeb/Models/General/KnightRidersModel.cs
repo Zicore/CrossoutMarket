@@ -11,7 +11,7 @@ using Crossout.AspWeb.Models.View;
 
 namespace Crossout.AspWeb.Models.General
 {
-    public class KnightRidersModel : IViewTitle
+    public class KnightRidersModel : BaseViewModel, IViewTitle
     {
         public string Title => "Event";
 

@@ -101,7 +101,7 @@ namespace Crossout.AspWeb.Controllers
 
                     packagesModel.Packages.Add(package);
                 }
-
+                packagesModel.Localizations = db.SelectFrontendLocalizations(language, "packs");
 
                 packagesModel.Status = statusModel;
 

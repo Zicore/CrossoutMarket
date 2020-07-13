@@ -7,6 +7,8 @@
 
 @{
     Layout = "_Layout";
+    bool enableOldCraftingCalc = false;
+    var loc = Model.Localizations;
 }
 
 <partial name="header" model="@Model" />
@@ -48,7 +50,7 @@
         <div>
             <div class="p-1">
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Rarity</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.rarity">Rarity</loc></span>
                     <div class="align-items-center">
                         <span class="badge label-@Model.Item.RarityName">
                             @Model.Item.RarityName
@@ -56,37 +58,37 @@
                     </div>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Faction</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.faction">Faction</loc></span>
                     <span>
                         @Model.Item.Faction
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Category</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.category">Category</loc></span>
                     <span>
                         @Model.Item.CategoryName
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Type</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.type">Type</loc></span>
                     <span>
                         @Model.Item.TypeName
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Available</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.available">Available</loc></span>
                     <span>
                         @(Model.Item.Removed == 0 ? "Yes" : "No")
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Craftable</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.craftable">Craftable</loc></span>
                     <span>
                         @(Model.Item.Craftable == 1 ? "Yes" : "No")
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Meta</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.meta">Meta</loc></span>
                     <span>
                         @(Model.Item.Meta == 1 ? "Yes" : "No")
                     </span>
@@ -99,49 +101,49 @@
         <div>
             <div class="p-1">
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Sell</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.sell">Sell</loc></span>
                     <span>
                         @Model.Item.FormatSellPrice <img height="14" src="~/img/Coin.png" />
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Offers</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.offers">Offers</loc></span>
                     <span>
                         @Model.Item.SellOffers
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Buy</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.buy">Buy</loc></span>
                     <span>
                         @Model.Item.FormatBuyPrice <img height="14" src="~/img/Coin.png" />
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Orders</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.orders">Orders</loc></span>
                     <span>
                         @Model.Item.BuyOrders
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Demand/Supply</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.demandsupply">Demand/Supply</loc></span>
                     <span>
                         @(Model.Item.FormatDemandSupplyRatio)%
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Margin</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.margin">Margin</loc></span>
                     <span>
                         @Model.Item.FormatMargin <img height="14" src="~/img/Coin.png" />
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">ROI</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.roi">ROI</loc></span>
                     <span>
                         @(Model.Item.FormatROI)%
                     </span>
                 </div>
                 <div class="card d-inline-flex flex-column p-1 px-2 m-2">
-                    <span class="font-weight-bold">Last Update</span>
+                    <span class="font-weight-bold"><loc model="loc" category="shared" name="tablehead.lastupdate">Last Update</loc></span>
                     <span class="item-timestamp @(Model.Item.OlderThan(5) ? "item-older-than-5" : Model.Item.OlderThan(60) ? "item-older-than-60" : "")">
                         @(Model.Item.LastUpdateTime)
                     </span>
@@ -170,36 +172,36 @@
         <div class="card-header">
             <ul class="nav nav-tabs card-header-tabs" id="itemTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#chart" id="chart-tab" role="tab" aria-controls="chart" aria-selected="true">Chart</a>
+                    <a class="nav-link active" data-toggle="tab" href="#chart" id="chart-tab" role="tab" aria-controls="chart" aria-selected="true"><loc model="loc" category="item" name="tab.chart">Chart</loc></a>
                 </li>
                 @if (Model.Recipe.Recipe.Ingredients.Count > 0)
                 {
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#recipenew" id="recipenew-tab" role="tab" aria-controls="recipenew" aria-selected="false">Crafting <div class="badge badge-pill badge-secondary">New</div></a>
+                        <a class="nav-link" data-toggle="tab" href="#recipenew" id="recipenew-tab" role="tab" aria-controls="recipenew" aria-selected="false"><loc model="loc" category="item" name="tab.crafting">Crafting</loc></a>
                     </li>
                 }
-                @if (Model.Recipe.Recipe.Ingredients.Count > 0)
+                @if (Model.Recipe.Recipe.Ingredients.Count > 0 && enableOldCraftingCalc)
                 {
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#recipe" id="recipe-tab" role="tab" aria-controls="recipe" aria-selected="false">Crafting <div class="badge badge-pill badge-secondary">Old</div></a>
+                        <a class="nav-link" data-toggle="tab" href="#recipe" id="recipe-tab" role="tab" aria-controls="recipe" aria-selected="false"><loc model="loc" category="item" name="tab.crafting">Crafting</loc> <div class="badge badge-pill badge-secondary">Old</div></a>
                     </li>
                 }
                 @if (Model.IngredientUsage != null && Model.IngredientUsage.IngredientUsageList.Count > 0)
                 {
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#ingredient" id="ingredient-tab" role="tab" aria-controls="ingredient" aria-selected="false">Usage</a>
+                        <a class="nav-link" data-toggle="tab" href="#ingredient" id="ingredient-tab" role="tab" aria-controls="ingredient" aria-selected="false"><loc model="loc" category="item" name="tab.usage">Usage</loc></a>
                     </li>
                 }
                 @if (Model.Item.Stats != null && Model.Item.Stats.SortedStats.Count > 0)
                 {
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#stats" id="stats-tab" role="tab" aria-controls="stats" aria-selected="false">Stats</a>
+                        <a class="nav-link" data-toggle="tab" href="#stats" id="stats-tab" role="tab" aria-controls="stats" aria-selected="false"><loc model="loc" category="item" name="tab.stats">Stats</loc></a>
                     </li>
                 }
                 @if (Model.Changes.Changes.Count > 0)
                 {
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#changes" id="changes-tab" role="tab" aria-controls="changes" aria-selected="false">Changes</a>
+                        <a class="nav-link" data-toggle="tab" href="#changes" id="changes-tab" role="tab" aria-controls="changes" aria-selected="false"><loc model="loc" category="item" name="tab.changes">Changes</loc></a>
                     </li>
                 }
 
@@ -219,7 +221,7 @@
                 </div>
             }
 
-            @if (Model.Recipe.Recipe.Ingredients.Count > 0)
+            @if (Model.Recipe.Recipe.Ingredients.Count > 0 && enableOldCraftingCalc)
             {
                 <div class="tab-pane" id="recipe" aria-labelledby="recipe-tab">
                     <div style="min-width: 740px">
@@ -286,10 +288,10 @@
                         <thead>
                             <tr>
                                 <th>
-                                    Item
+                                    <loc model="loc" category="shared" name="tablehead.item">Item</loc>
                                 </th>
                                 <th>
-                                    Amount
+                                    <loc model="loc" category="shared" name="tablehead.amount">Amount</loc>
                                 </th>
                             </tr>
                         </thead>
@@ -325,7 +327,7 @@
                 <div class="tab-pane" id="stats" aria-labelledby="stats-tab">
 
                     <div class="text-center alert-warning">
-                        The stats are outdated and can't be updated anymore. Stats version: 0.9.135.91921
+                        <loc model="loc" category="item" name="warning.stats">The stats are outdated and can't be updated anymore. Stats version</loc>: 0.9.135.91921
                     </div>
 
                     <table class="table table-hover table-striped table-borderless">
@@ -369,6 +371,7 @@
 
 <script src="~/scripts/internal/item.js?@(CacheBuster.Once)"></script>
 <script src="~/scripts/internal/craftingcalc.js?@(CacheBuster.Once)"></script>
+<script src="~/scripts/internal/scriptlocalization.js?@(CacheBuster.Once)"></script>
 <script>
     $(document).ready(function () {
         adjustTimeStamp();
@@ -378,8 +381,7 @@
         $('#itemTabsWrapper').removeClass('half-hd-container');
 
     $.getJSON(location.origin + '/data/recipe/@(Model.Item.Id)?l=' + Cookies.get('language'),
-        function (data) {
-
+        async function (data) {
             recipeData.data = data;
             recipeData.loaded = true;
 
@@ -387,6 +389,12 @@
 
             craftingCalcData.data = data;
             craftingCalcData.loaded = true;
-            onDataLoaded();
+
+            await getLocalizations('item', Cookies.get('language'));
         });
+
+    function onLocalizationLoaded() {
+        localize();
+        onDataLoaded();
+    }
 </script>

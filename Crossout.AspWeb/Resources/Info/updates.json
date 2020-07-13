@@ -79,5 +79,20 @@
       "Fix last price update time on info page not showing the correct date",
       "Fix chart not showing historic data for old/removed items"
     ]
+  },
+  {
+    "Id": 8,
+    "Name": "Steel Championship Update",
+    "Timestamp": "2020-07-06T08:00:00Z",
+    "Notes": [
+      "Added new items",
+      "Added salvager tool page",
+      "Renamed 'Drafts' to 'Tools'",
+      "Renamed 'Community Tools' to 'Community Links'",
+      "Fixed badge exchange incorrectly showing outdated warning",
+      "Fixed ammo box decimals",
+      "Fixed chart titles not getting displayed correctly",
+      "Disabled old crafting calculator"
+    ]
   }
 ]

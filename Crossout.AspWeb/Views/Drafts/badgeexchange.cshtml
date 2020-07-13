@@ -9,18 +9,18 @@
 
 <div class="half-hd-container px-3">
     <div class="card my-1">
-        <h4 class="card-title m-2">Badge Exchange</h4>
+        <h4 class="card-title m-2"><loc model="Model.Localizations" category="badgeexchange" name="title">Badge Exchange</loc></h4>
 
         @if (!Model.IsUpToDate())
         {
             <div class="alert alert-warning m-2" role="alert">
-                <strong>Warning:</strong> Deals marked as active might not be active anymore!
+                <strong><loc model="Model.Localizations" category="shared" name="message.warning">Warning</loc>:</strong> <loc model="Model.Localizations" category="badgeexchange" name="message.notactiveanymore">Deals marked as active might not be active anymore!</loc>
             </div>
         }
 
         <div class="custom-control custom-switch m-2">
             <input type="checkbox" class="custom-control-input" id="activeOnlySwitch" checked>
-            <label class="custom-control-label" for="activeOnlySwitch">Only show currently active deals</label>
+            <label class="custom-control-label" for="activeOnlySwitch"><loc model="Model.Localizations" category="badgeexchange" name="label.activeonlyswitch">Only show currently active deals</loc></label>
         </div>
 
         <div>
@@ -28,31 +28,31 @@
                 <thead>
                     <tr>
                         <th data-priority="1">
-                            Item
+                            <loc model="Model.Localizations" category="shared" name="tablehead.item">Item</loc>
                         </th>
                         <th data-priority="2">
-                            Active
+                            <loc model="Model.Localizations" category="badgeexchange" name="tablehead.active">Active</loc>
                         </th>
                         <th class="never">
                             Active Flag
                         </th>
                         <th data-priority="2">
-                            Sell Price
+                            <loc model="Model.Localizations" category="shared" name="tablehead.sellprice">Sell Price</loc>
                         </th>
                         <th data-priority="2">
-                            Amount
+                            <loc model="Model.Localizations" category="shared" name="tablehead.amount">Amount</loc>
                         </th>
                         <th data-priority="2">
-                            Badge Cost
+                            <loc model="Model.Localizations" category="badgeexchange" name="tablehead.badgecost">Badge Cost</loc>
                         </th>
                         <th data-priority="2">
-                            Profit
+                            <loc model="Model.Localizations" category="shared" name="tablehead.profit">Profit</loc>
                         </th>
                         <th data-priority="1">
-                            Profit / Badge
+                            <loc model="Model.Localizations" category="badgeexchange" name="tablehead.profitperbadge">Profit / Badge</loc>
                         </th>
                         <th class="none">
-                            Last Begin Active
+                            <loc model="Model.Localizations" category="badgeexchange" name="tablehead.lastbeginactive">Last Begin Active</loc>
                         </th>
                     </tr>
                 </thead>

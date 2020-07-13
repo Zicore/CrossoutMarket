@@ -79,6 +79,8 @@ namespace Crossout.AspWeb.Controllers
 
                 infoModel.ChangesModel = changesModel;
 
+                infoModel.Localizations = db.SelectFrontendLocalizations(language, "info");
+
 
                 return View("info", infoModel);
             }

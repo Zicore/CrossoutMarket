@@ -13,6 +13,9 @@ using Crossout.AspWeb.Models.Language;
 using Crossout.AspWeb.Models.Drafts;
 using Crossout.AspWeb.Models.Drafts.BadgeExchange;
 using Crossout.AspWeb.Models.Drafts.Snipe;
+using Crossout.AspWeb.Models.Drafts.Salvage;
+using NLog;
+using Crossout.Data;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -36,6 +39,12 @@ namespace Crossout.AspWeb.Controllers
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);
 
         [Route("drafts/badgeexchange")]
+        public IActionResult BadgeExchangeRedirect()
+        {
+            return Redirect("/tools/badgeexchange");
+        }
+
+        [Route("tools/badgeexchange")]
         public IActionResult BadgeExchange()
         {
             try
@@ -52,6 +61,7 @@ namespace Crossout.AspWeb.Controllers
                 {
                     deal.RewardItem.SetImageExists(pathProvider);
                 }
+                badgeExchangeModel.Localizations = db.SelectFrontendLocalizations(lang.Id, "badgeexchange");
 
                 return View("badgeexchange", badgeExchangeModel);
             }
@@ -62,6 +72,12 @@ namespace Crossout.AspWeb.Controllers
         }
 
         [Route("drafts/sniper")]
+        public IActionResult SnipeRedirect()
+        {
+            return Redirect("/tools/sniper");
+        }
+
+        [Route("tools/sniper")]
         public IActionResult Snipe()
         {
             try
@@ -79,11 +95,59 @@ namespace Crossout.AspWeb.Controllers
                 {
                     item.SetImageExists(pathProvider);
                 }
+                snipeModel.Localizations = db.SelectFrontendLocalizations(lang.Id, "sniper");
 
                 return View("snipe", snipeModel);
             }
             catch
             {
+                return Redirect("/");
+            }
+        }
+
+        [Route("drafts/salvage")]
+        public IActionResult SalvageRedirect()
+        {
+            return Redirect("/tools/salvage");
+        }
+
+        [Route("tools/salvage")]
+        public IActionResult Salvage()
+        {
+            try
+            {
+                this.RegisterHit("Salvager");
+
+                sql.Open(WebSettings.Settings.CreateDescription());
+                DataService db = new DataService(sql);
+                Language lang = this.ReadLanguageCookie(sql);
+
+                var salvageModel = new SalvageModel();
+                salvageModel.SalvageItems = db.SelectSalvageItems(lang.Id);
+                salvageModel.SalvageRewards = db.SelectSalvageRewards(lang.Id);
+
+                foreach (var reward in salvageModel.SalvageRewards)
+                {
+                    reward.Item.SetImageExists(pathProvider);
+                }
+
+                foreach (var item in salvageModel.SalvageItems)
+                {
+                    item.SalvageRewards = salvageModel.SalvageRewards.FindAll(x => x.RarityNumber == item.RarityNumber);
+                }
+
+                foreach (var item in salvageModel.SalvageItems)
+                {
+                    item.SetImageExists(pathProvider);
+                }
+
+                salvageModel.Localizations = db.SelectFrontendLocalizations(lang.Id, "salvager");
+
+                return View("salvage", salvageModel);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
                 return Redirect("/");
             }
         }
