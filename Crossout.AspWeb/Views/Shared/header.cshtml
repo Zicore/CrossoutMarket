@@ -87,7 +87,7 @@
 <script>
 
     var lang = Cookies.get('language');
-    $('#languageDropdown').text((lang != '' ? lang : 'en').toUpperCase())
+    $('#languageDropdown').text((lang != undefined ? lang : 'en').toUpperCase())
     $('.lang-select').each(function (i, e) {
         if (this.dataset.lang === lang)
             $(e).addClass('active');
