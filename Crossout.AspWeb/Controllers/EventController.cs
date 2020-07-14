@@ -9,6 +9,7 @@ using Crossout.AspWeb.Models.General;
 using Crossout.AspWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using ZicoreConnector.Zicore.Connector.Base;
+using Crossout.AspWeb.Models.Language;
 
 namespace Crossout.AspWeb.Controllers
 {
@@ -39,6 +40,8 @@ namespace Crossout.AspWeb.Controllers
 
                 DataService db = new DataService(sql);
 
+                Language lang = this.ReadLanguageCookie(sql);
+
                 var knightRidersCollection = CrossoutDataService.Instance.KnightRidersCollection;
                 var statusModel = db.SelectStatus();
 
@@ -60,7 +63,7 @@ namespace Crossout.AspWeb.Controllers
                         containedItemIDs.Add((int)item.Id);
                     }
                 }
-                knightRidersModel.ContainedItems = db.SelectListOfItems(containedItemIDs, 1);
+                knightRidersModel.ContainedItems = db.SelectListOfItems(containedItemIDs, lang.Id);
                 foreach (var item in knightRidersModel.ContainedItems)
                 {
                     item.Value.SetImageExists(pathProvider);
@@ -72,7 +75,7 @@ namespace Crossout.AspWeb.Controllers
                     decimal buySum = 0;
                     foreach (var ingredient in item.Ingredients)
                     {
-                        ingredient.Name = knightRidersModel.ContainedItems[ingredient.Id].Name;
+                        ingredient.Name = knightRidersModel.ContainedItems[ingredient.Id].AvailableName;
                         ingredient.SellPrice = knightRidersModel.ContainedItems[ingredient.Id].SellPrice;
                         ingredient.BuyPrice = knightRidersModel.ContainedItems[ingredient.Id].BuyPrice;
                         ingredient.FormatSellPrice = PriceFormatter.FormatPrice(ingredient.SellPrice);
@@ -83,6 +86,7 @@ namespace Crossout.AspWeb.Controllers
 
                     if (item.Id != null)
                     {
+                        item.Name = knightRidersModel.ContainedItems[(int)item.Id].AvailableName;
                         item.SellPrice = knightRidersModel.ContainedItems[(int)item.Id].SellPrice;
                         item.BuyPrice = knightRidersModel.ContainedItems[(int)item.Id].BuyPrice;
                         item.FormatSellPrice = PriceFormatter.FormatPrice(item.SellPrice);
