@@ -1,0 +1,18 @@
+﻿{
+  "Id": 1180,
+  "Key": "number13",
+  "Name": "Number “13”",
+  "Talers": 100,
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 150
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 50
+    }
+  ]
+}

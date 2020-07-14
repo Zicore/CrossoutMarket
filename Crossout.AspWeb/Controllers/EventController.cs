@@ -24,10 +24,8 @@ namespace Crossout.AspWeb.Controllers
         [Route("event")]
         public IActionResult Event()
         {
-            return Redirect("/");
-
-            // Deactivated until next event
-            //return RouteEvent();
+            this.RegisterHit("Event");
+            return RouteEvent();
         }
 
         SqlConnector sql = new SqlConnector(ConnectionType.MySql);

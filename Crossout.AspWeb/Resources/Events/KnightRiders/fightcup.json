@@ -1,0 +1,18 @@
+﻿{
+  "Id": null,
+  "Key": "fightcup",
+  "Name": "Fight cup",
+  "Talers": 100,
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 450
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 150
+    }
+  ]
+}

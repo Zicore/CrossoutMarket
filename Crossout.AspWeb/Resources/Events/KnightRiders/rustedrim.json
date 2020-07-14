@@ -1,0 +1,18 @@
+﻿{
+  "Id": null,
+  "Key": "rustedrim",
+  "Name": "Rusted rim",
+  "Talers": 200,
+  "Ingredients": [
+    /* Scrap x100 */
+    {
+      "Id": 53,
+      "Amount": 450
+    },
+    /* Copper x100 */
+    {
+      "Id": 43,
+      "Amount": 150
+    }
+  ]
+}
