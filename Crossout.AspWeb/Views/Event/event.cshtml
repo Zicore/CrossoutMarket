@@ -12,10 +12,32 @@
 <partial name="status" model="@Model.Status" />
 
 <div class="half-hd-container">
+
     <div class="row">
+        <div class="col-md-6 col-sm-12 d-flex flex-row align-items-center justify-content-center">
+            <div class="m-2">
+                Buy Resources for:
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary btn-radio-prices" id="buyResorucesForSell">Sell Price</button>
+                    <button class="btn btn-outline-secondary btn-radio-prices active" id="buyResorucesForBuy">Buy Price</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 d-flex flex-row align-items-center justify-content-center">
+            <div class="m-2">
+                Sell Item for:
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary btn-radio-prices active" id="sellItemForSell">Sell Price</button>
+                    <button class="btn btn-outline-secondary btn-radio-prices" id="sellItemForBuy">Buy Price</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="itemWrapper">
         @foreach (EventItem item in Model.EventItems)
         {
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 item-container" data-profit="-999">
                 <div class="card p-2 my-2">
                     <div class="d-flex flex-row justify-content-between">
                         <div class="d-flex flex-row align-items-center">
@@ -152,6 +174,25 @@
                                 <td>@item.Talers</td>
                                 <td>@item.Talers</td>
                             </tr>
+                            <tr>
+                                <td><b>Profit</b></td>
+                                @if (item.Id != null)
+                                {
+                                    <td>
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div data-sellprice="@item.SellPrice" data-buyprice="@item.BuyPrice" data-sellsum="@item.TotalSellSum" data-buysum="@item.TotalBuySum" class="profit-value mr-1">
+
+                                            </div>
+                                            <img src="~/img/Coin.png" height="14" />
+                                        </div>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+                                <td></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -162,15 +203,62 @@
 
 <script>
     $(document).ready(function () {
-        $('.content-button').click(function (e) {
-            var content = $('#content-wrapper-' + $(this).attr('id'));
-            if (content.is(":visible")) {
-                $(this).text("Show Ingredients");
-                content.slideUp();
-            } else {
-                $(this).text("Hide Ingredients");
-                content.slideDown();
-            }
-        });
+        calculateProfit();
+        sortItems('profit', 'desc');
     });
+
+    $('.content-button').click(function (e) {
+        var content = $('#content-wrapper-' + $(this).attr('id'));
+        if (content.is(":visible")) {
+            $(this).text("Show Ingredients");
+            content.slideUp();
+        } else {
+            $(this).text("Hide Ingredients");
+            content.slideDown();
+        }
+    });
+
+    $('.btn-radio-prices').click(function () {
+        $(this).siblings('.btn-radio-prices').removeClass('active');
+        $(this).addClass('active');
+        calculateProfit();
+        sortItems('profit', 'desc');
+    })
+
+    function calculateProfit() {
+        $('.profit-value').each(function (i, e) {
+            var resourcePrice = 0;
+            var itemPrice = 0;
+            if ($('#buyResorucesForSell').hasClass('active')) {
+                resourcePrice = parseFloat(this.dataset.sellsum);
+            }
+            if ($('#buyResorucesForBuy').hasClass('active')) {
+                resourcePrice = parseFloat(this.dataset.buysum);
+            }
+            if ($('#sellItemForSell').hasClass('active')) {
+                itemPrice = parseFloat(this.dataset.sellprice);
+            }
+            if ($('#sellItemForBuy').hasClass('active')) {
+                itemPrice = parseFloat(this.dataset.buyprice);
+            }
+            var profit = itemPrice - resourcePrice - (itemPrice * 0.1);
+            profit = profit / 100;
+            profit = profit.toFixed(2);
+            $(e).text(profit);
+            $(e).parents('.item-container').attr('data-profit', profit);
+        });
+    }
+
+    function sortItems(type, order) {
+        var $wrapper = $('#itemWrapper');
+        $wrapper.find('.item-container').sort(function (a, b) {
+            if (type === 'profit') {
+                if (order === 'asc') {
+                    return +a.dataset.profit - +b.dataset.profit;
+                } else {
+                    return +b.dataset.profit - +a.dataset.profit;
+                }
+            }
+        }).appendTo($wrapper);
+    }
 </script>
