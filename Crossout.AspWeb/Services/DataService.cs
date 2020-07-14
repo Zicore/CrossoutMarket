@@ -445,7 +445,7 @@ namespace Crossout.AspWeb.Services
         public List<ItemPoco> SelectSalvageItems(int language)
         {
             NPoco.Connection.Open();
-            string query = "SELECT * FROM item LEFT JOIN itemlocalization ON itemlocalization.itemnumber = item.id LEFT JOIN rarity ON rarity.id = item.raritynumber WHERE item.removed = 0 AND itemlocalization.languagenumber = @0";
+            string query = "SELECT * FROM item LEFT JOIN itemlocalization ON itemlocalization.itemnumber = item.id LEFT JOIN rarity ON rarity.id = item.raritynumber WHERE item.removed = 0 AND item.meta = 0 AND itemlocalization.languagenumber = @0";
             var items = NPoco.Fetch<ItemPoco>(query, language);
             var ignoredCategories = new List<int> { 5, 7, 8, 9 };
             items = items.Where(x => !ignoredCategories.Contains(x.CategoryNumber)).ToList();

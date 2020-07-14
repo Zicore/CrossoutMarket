@@ -94,5 +94,20 @@
       "Fixed chart titles not getting displayed correctly",
       "Disabled old crafting calculator"
     ]
+  },
+  {
+    "Id": 9,
+    "Name": "Update",
+    "Timestamp": "2020-07-14T10:00:00Z",
+    "Notes": [
+      "Added steel championship event page (Tools -> Event)",
+      "Added rarity filter to salvager",
+      "Added language selector to header",
+      "Added base for further frontend localization",
+      "Updated some images",
+      "Fixed salvager showing bench cost items",
+      "Removed plus-button from root recipe",
+      "Removed crafting advice from root recipe"
+    ]
   }
 ]

@@ -7,6 +7,40 @@
 
   <ItemGroup>
     <Content Remove="compilerconfig.json" />
+    <Content Remove="Resources\Events\KnightRiders\aerodynamicheadlight.json" />
+    <Content Remove="Resources\Events\KnightRiders\azuresurf.json" />
+    <Content Remove="Resources\Events\KnightRiders\bobbleball.json" />
+    <Content Remove="Resources\Events\KnightRiders\brightgreenery.json" />
+    <Content Remove="Resources\Events\KnightRiders\caramelclouds.json" />
+    <Content Remove="Resources\Events\KnightRiders\ckformulau.json" />
+    <Content Remove="Resources\Events\KnightRiders\crossflare.json" />
+    <Content Remove="Resources\Events\KnightRiders\cyan.json" />
+    <Content Remove="Resources\Events\KnightRiders\fanenforcer.json" />
+    <Content Remove="Resources\Events\KnightRiders\fightcup.json" />
+    <Content Remove="Resources\Events\KnightRiders\flareshow.json" />
+    <Content Remove="Resources\Events\KnightRiders\freshturf.json" />
+    <Content Remove="Resources\Events\KnightRiders\goathand.json" />
+    <Content Remove="Resources\Events\KnightRiders\number0.json" />
+    <Content Remove="Resources\Events\KnightRiders\number1.json" />
+    <Content Remove="Resources\Events\KnightRiders\number12.json" />
+    <Content Remove="Resources\Events\KnightRiders\number13.json" />
+    <Content Remove="Resources\Events\KnightRiders\number2.json" />
+    <Content Remove="Resources\Events\KnightRiders\number3.json" />
+    <Content Remove="Resources\Events\KnightRiders\number33.json" />
+    <Content Remove="Resources\Events\KnightRiders\number4.json" />
+    <Content Remove="Resources\Events\KnightRiders\number5.json" />
+    <Content Remove="Resources\Events\KnightRiders\number7.json" />
+    <Content Remove="Resources\Events\KnightRiders\number8.json" />
+    <Content Remove="Resources\Events\KnightRiders\number9.json" />
+    <Content Remove="Resources\Events\KnightRiders\numberonehand.json" />
+    <Content Remove="Resources\Events\KnightRiders\oakwood.json" />
+    <Content Remove="Resources\Events\KnightRiders\orangesky.json" />
+    <Content Remove="Resources\Events\KnightRiders\pinksunrise.json" />
+    <Content Remove="Resources\Events\KnightRiders\redglade.json" />
+    <Content Remove="Resources\Events\KnightRiders\rivetedball.json" />
+    <Content Remove="Resources\Events\KnightRiders\rustedrim.json" />
+    <Content Remove="Resources\Events\KnightRiders\summersunset.json" />
+    <Content Remove="Resources\Events\KnightRiders\warmtwilight.json" />
     <Content Remove="Resources\Info\arachnophobia.json" />
     <Content Remove="Resources\PremiumPackages\assaultforcecharlie7.json" />
     <Content Remove="Resources\PremiumPackages\assaultforcetango1.json" />
@@ -154,54 +188,54 @@
     <Content Remove="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_weapons_ex.lua" />
     <Content Remove="Resources\Data\0.9.135.91921\gamedata\def\ex\car_editor_wheels.lua" />
     <Content Remove="Resources\Data\0.9.135.91921\strings\english\string.txt" />
-    <Content Remove="Resources\KnightRiders201809\armoredskull.json" />
-    <Content Remove="Resources\KnightRiders201809\bludgeon.json" />
-    <Content Remove="Resources\KnightRiders201809\contact2m.json" />
-    <Content Remove="Resources\KnightRiders201809\corvo.json" />
-    <Content Remove="Resources\KnightRiders201809\drainknight.json" />
-    <Content Remove="Resources\KnightRiders201809\fleurdelis.json" />
-    <Content Remove="Resources\KnightRiders201809\gunmountwheel.json" />
-    <Content Remove="Resources\KnightRiders201809\gunmountwheelst.json" />
-    <Content Remove="Resources\KnightRiders201809\helios.json" />
-    <Content Remove="Resources\KnightRiders201809\huntsmanshorn.json" />
-    <Content Remove="Resources\KnightRiders201809\ironlily.json" />
-    <Content Remove="Resources\KnightRiders201809\jouster.json" />
-    <Content Remove="Resources\KnightRiders201809\knightrider.json" />
-    <Content Remove="Resources\KnightRiders201809\lanceknightshield.json" />
-    <Content Remove="Resources\KnightRiders201809\lionrampant.json" />
-    <Content Remove="Resources\KnightRiders201809\materialplatesteel.json" />
-    <Content Remove="Resources\KnightRiders201809\nidhogg.json" />
-    <Content Remove="Resources\KnightRiders201809\oculusvi.json" />
-    <Content Remove="Resources\KnightRiders201809\spike1.json" />
-    <Content Remove="Resources\KnightRiders201809\teutoniccross.json" />
-    <Content Remove="Resources\KnightRiders201809\teutoniceagle.json" />
-    <Content Remove="Resources\KnightRiders201809\teutonicstripes.json" />
-    <Content Remove="Resources\KnightRiders\armoredskull.json" />
-    <Content Remove="Resources\KnightRiders\bastion.json" />
-    <Content Remove="Resources\KnightRiders\bludgeon.json" />
-    <Content Remove="Resources\KnightRiders\contact2m.json" />
-    <Content Remove="Resources\KnightRiders\corvo.json" />
-    <Content Remove="Resources\KnightRiders\drainknight.json" />
-    <Content Remove="Resources\KnightRiders\fleurdelis.json" />
-    <Content Remove="Resources\KnightRiders\gunmountwheel.json" />
-    <Content Remove="Resources\KnightRiders\gunmountwheelst.json" />
-    <Content Remove="Resources\KnightRiders\harpy.json" />
-    <Content Remove="Resources\KnightRiders\huntsmanshorn.json" />
-    <Content Remove="Resources\KnightRiders\ironlily.json" />
-    <Content Remove="Resources\KnightRiders\jouster.json" />
-    <Content Remove="Resources\KnightRiders\knightrider.json" />
-    <Content Remove="Resources\KnightRiders\lanceknightshield.json" />
-    <Content Remove="Resources\KnightRiders\lionrampant.json" />
-    <Content Remove="Resources\KnightRiders\m29protector.json" />
-    <Content Remove="Resources\KnightRiders\materialplatesteel.json" />
-    <Content Remove="Resources\KnightRiders\mg14arbiter.json" />
-    <Content Remove="Resources\KnightRiders\photon.json" />
-    <Content Remove="Resources\KnightRiders\pulsar.json" />
-    <Content Remove="Resources\KnightRiders\rift2m.json" />
-    <Content Remove="Resources\KnightRiders\spike1.json" />
-    <Content Remove="Resources\KnightRiders\teutoniccross.json" />
-    <Content Remove="Resources\KnightRiders\teutoniceagle.json" />
-    <Content Remove="Resources\KnightRiders\teutonicstripes.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\armoredskull.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\bludgeon.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\contact2m.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\corvo.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\drainknight.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\fleurdelis.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\gunmountwheel.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\gunmountwheelst.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\helios.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\huntsmanshorn.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\ironlily.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\jouster.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\knightrider.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\lanceknightshield.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\lionrampant.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\materialplatesteel.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\nidhogg.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\oculusvi.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\spike1.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\teutoniccross.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\teutoniceagle.json" />
+    <Content Remove="Resources\Events\KnightRiders201809\teutonicstripes.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\armoredskull.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\bastion.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\bludgeon.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\contact2m.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\corvo.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\drainknight.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\fleurdelis.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\gunmountwheel.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\gunmountwheelst.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\harpy.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\huntsmanshorn.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\ironlily.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\jouster.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\knightrider.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\lanceknightshield.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\lionrampant.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\m29protector.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\materialplatesteel.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\mg14arbiter.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\photon.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\pulsar.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\rift2m.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\spike1.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\teutoniccross.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\teutoniceagle.json" />
+    <Content Remove="Resources\Events\KnightRiders2019\teutonicstripes.json" />
     <Content Remove="Resources\NoImage.xcf" />
     <Content Remove="Resources\PremiumPackages\arachnophobia.json" />
     <Content Remove="Resources\PremiumPackages\arsonist.json" />
@@ -258,151 +292,253 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="Resources\Events\KnightRiders\number33.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\number13.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\number12.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\number9.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\number8.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\number7.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\number5.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\number4.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\number3.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\number2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\number1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\number0.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\rivetedball.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\fightcup.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\crossflare.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\fanenforcer.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\flareshow.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\redglade.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\freshturf.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\cyan.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\pinksunrise.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\caramelclouds.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\oakwood.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\warmtwilight.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\summersunset.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\orangesky.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\brightgreenery.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\azuresurf.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\rustedrim.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\goathand.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\numberonehand.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\aerodynamicheadlight.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\ckformulau.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Events\KnightRiders\bobbleball.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\Info\contributors.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\armoredskull.json">
+    <None Include="Resources\Events\KnightRiders201809\armoredskull.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\bludgeon.json">
+    <None Include="Resources\Events\KnightRiders201809\bludgeon.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\contact2m.json">
+    <None Include="Resources\Events\KnightRiders201809\contact2m.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\corvo.json">
+    <None Include="Resources\Events\KnightRiders201809\corvo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\drainknight.json">
+    <None Include="Resources\Events\KnightRiders201809\drainknight.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\fleurdelis.json">
+    <None Include="Resources\Events\KnightRiders201809\fleurdelis.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\gunmountwheel.json">
+    <None Include="Resources\Events\KnightRiders201809\gunmountwheel.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\gunmountwheelst.json">
+    <None Include="Resources\Events\KnightRiders201809\gunmountwheelst.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\helios.json">
+    <None Include="Resources\Events\KnightRiders201809\helios.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\huntsmanshorn.json">
+    <None Include="Resources\Events\KnightRiders201809\huntsmanshorn.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\ironlily.json">
+    <None Include="Resources\Events\KnightRiders201809\ironlily.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\jouster.json">
+    <None Include="Resources\Events\KnightRiders201809\jouster.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\knightrider.json">
+    <None Include="Resources\Events\KnightRiders201809\knightrider.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\lanceknightshield.json">
+    <None Include="Resources\Events\KnightRiders201809\lanceknightshield.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\lionrampant.json">
+    <None Include="Resources\Events\KnightRiders201809\lionrampant.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\materialplatesteel.json">
+    <None Include="Resources\Events\KnightRiders201809\materialplatesteel.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\nidhogg.json">
+    <None Include="Resources\Events\KnightRiders201809\nidhogg.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\oculusvi.json">
+    <None Include="Resources\Events\KnightRiders201809\oculusvi.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\spike1.json">
+    <None Include="Resources\Events\KnightRiders201809\spike1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\teutoniccross.json">
+    <None Include="Resources\Events\KnightRiders201809\teutoniccross.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\teutoniceagle.json">
+    <None Include="Resources\Events\KnightRiders201809\teutoniceagle.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders201809\teutonicstripes.json">
+    <None Include="Resources\Events\KnightRiders201809\teutonicstripes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\armoredskull.json">
+    <None Include="Resources\Events\KnightRiders2019\armoredskull.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\bastion.json">
+    <None Include="Resources\Events\KnightRiders2019\bastion.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\bludgeon.json">
+    <None Include="Resources\Events\KnightRiders2019\bludgeon.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\contact2m.json">
+    <None Include="Resources\Events\KnightRiders2019\contact2m.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\corvo.json">
+    <None Include="Resources\Events\KnightRiders2019\corvo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\drainknight.json">
+    <None Include="Resources\Events\KnightRiders2019\drainknight.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\fleurdelis.json">
+    <None Include="Resources\Events\KnightRiders2019\fleurdelis.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\gunmountwheel.json">
+    <None Include="Resources\Events\KnightRiders2019\gunmountwheel.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\gunmountwheelst.json">
+    <None Include="Resources\Events\KnightRiders2019\gunmountwheelst.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\harpy.json">
+    <None Include="Resources\Events\KnightRiders2019\harpy.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\huntsmanshorn.json">
+    <None Include="Resources\Events\KnightRiders2019\huntsmanshorn.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\ironlily.json">
+    <None Include="Resources\Events\KnightRiders2019\ironlily.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\jouster.json">
+    <None Include="Resources\Events\KnightRiders2019\jouster.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\knightrider.json">
+    <None Include="Resources\Events\KnightRiders2019\knightrider.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\lanceknightshield.json">
+    <None Include="Resources\Events\KnightRiders2019\lanceknightshield.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\lionrampant.json">
+    <None Include="Resources\Events\KnightRiders2019\lionrampant.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\m29protector.json">
+    <None Include="Resources\Events\KnightRiders2019\m29protector.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\materialplatesteel.json">
+    <None Include="Resources\Events\KnightRiders2019\materialplatesteel.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\mg14arbiter.json">
+    <None Include="Resources\Events\KnightRiders2019\mg14arbiter.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\photon.json">
+    <None Include="Resources\Events\KnightRiders2019\photon.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\pulsar.json">
+    <None Include="Resources\Events\KnightRiders2019\pulsar.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\rift2m.json">
+    <None Include="Resources\Events\KnightRiders2019\rift2m.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\spike1.json">
+    <None Include="Resources\Events\KnightRiders2019\spike1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\teutoniccross.json">
+    <None Include="Resources\Events\KnightRiders2019\teutoniccross.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\teutoniceagle.json">
+    <None Include="Resources\Events\KnightRiders2019\teutoniceagle.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\KnightRiders\teutonicstripes.json">
+    <None Include="Resources\Events\KnightRiders2019\teutonicstripes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\PremiumPackages\assaultforcecharlie7.json">

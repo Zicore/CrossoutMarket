@@ -11,35 +11,72 @@
 <partial name="header" model="@Model" />
 <partial name="status" model="@Model.Status" />
 
-<div class="container-space">
+<div class="half-hd-container">
+
     <div class="row">
+        <div class="col-md-6 col-sm-12 d-flex flex-row align-items-center justify-content-center">
+            <div class="m-2">
+                Buy Resources for:
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary btn-radio-prices" id="buyResorucesForSell">Sell Price</button>
+                    <button class="btn btn-outline-secondary btn-radio-prices active" id="buyResorucesForBuy">Buy Price</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12 d-flex flex-row align-items-center justify-content-center">
+            <div class="m-2">
+                Sell Item for:
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary btn-radio-prices active" id="sellItemForSell">Sell Price</button>
+                    <button class="btn btn-outline-secondary btn-radio-prices" id="sellItemForBuy">Buy Price</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="itemWrapper">
         @foreach (EventItem item in Model.EventItems)
         {
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="panel panel-default" style="padding: 8px">
-                    <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 item-container" data-profit="-999">
+                <div class="card p-2 my-2">
+                    <div class="d-flex flex-row justify-content-between">
+                        <div class="d-flex flex-row align-items-center">
+                            <div class="mr-1">
+                                @if (item.Id != null)
+                                {
+                                    @if (Model.ContainedItems[(int)item.Id].ImageExists)
+                                    {
+                                        <a href="~/item/@(item.Id)"><img class="item-image-search" src="~/img/items/@(item.Id).png" /></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="~/item/@(item.Id)"><img class="item-image-search" src="~/img/NoImage.png" /></a>
+                                    }
+                                }
+                                else
+                                {
+                                    <img class="item-image-search" src="~/img/event/@(item.Key).png" />
+                                }
+                            </div>
 
-                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                            @if (Model.ContainedItems[(int)item.Id].ImageExists)
-                            {
-                                <a href="~/item/@(item.Id)"><img class="item-image-search" src="~/img/items/@(item.Id).png" style="width: 32px; height: 32px" /></a>
-                            }
-                            else
-                            {
-                                <a href="~/item/@(item.Id)"><img class="item-image-search" src="~/img/NoImage.png" style="width: 32px; height: 32px" /></a>
-                            }
+                            <div>
+                                @if (item.Id != null)
+                                {
+                                    <a href="~/item/@(item.Id)">@item.Name</a>
+                                }
+                                else
+                                {
+                                    @item.Name
+                                }
+                            </div>
                         </div>
-
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                            <a href="~/item/@(item.Id)"><h4>@item.Name</h4></a>
-                        </div>
-                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                            <button class="btn btn-default content-button pull-right" id="@(item.Key)">Show Ingredients</button>
+                        <div>
+                            <button class="btn btn-outline-secondary btn-sm content-button pull-right" id="@(item.Key)">Show Ingredients</button>
                         </div>
                     </div>
 
                     <div id="content-wrapper-@(item.Key)" style="display: none; margin-bottom: 8px; margin-right: 8px">
-                        <table class="table table-hover table-condensed">
+                        <table class="table table-borderless table-compact">
                             <thead>
                                 <tr>
                                     <th>
@@ -48,10 +85,10 @@
                                     <th>
                                         Amount
                                     </th>
-                                    <th class="text-right">
+                                    <th>
                                         Sell Price
                                     </th>
-                                    <th class="text-right">
+                                    <th>
                                         Buy Price
                                     </th>
                                 </tr>
@@ -60,77 +97,104 @@
                             {
                                 <tr>
                                     <td>
-                                        @if (Model.ContainedItems[(int)ingredient.Id].ImageExists)
-                                        {
-                                            <a href="~/item/@(ingredient.Id)"><img class="item-image-search" src="~/img/items/@(ingredient.Id).png" /></a>
-                                        }
-                                        else
-                                        {
-                                            <a href="~/item/@(ingredient.Id)"><img class="item-image-search" src="~/img/NoImage.png" /></a>
-                                        }
+                                        <div class="d-flex flex-row align-items-center my-1">
+                                            @if (Model.ContainedItems[(int)ingredient.Id].ImageExists)
+                                            {
+                                                <a href="~/item/@(ingredient.Id)"><img class="item-image-med" src="~/img/items/@(ingredient.Id).png" /></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="~/item/@(ingredient.Id)"><img class="item-image-med" src="~/img/NoImage.png" /></a>
+                                            }
+                                            <a href="~/item/@(ingredient.Id)"><span class="ml-1">@ingredient.Name</span></a>
+                                        </div>
                                     </td>
-                                    <td>
-                                        <div class="label-md-left">x @ingredient.Amount</div>
+                                    <td class="align-middle">
+                                        x @ingredient.Amount
                                     </td>
-                                    <td class="text-right">
-                                        <div class="label-md">@(ingredient.FormatSellPrice) <img src="~/img/Coin.png" height="14" /></div>
+                                    <td class="align-middle">
+                                        <div>@(ingredient.FormatSellPrice) <img src="~/img/Coin.png" height="14" /></div>
                                     </td>
-                                    <td class="text-right">
-                                        <div class="label-md">@(ingredient.FormatBuyPrice) <img src="~/img/Coin.png" height="14" /></div>
+                                    <td class="align-middle">
+                                        <div>@(ingredient.FormatBuyPrice) <img src="~/img/Coin.png" height="14" /></div>
                                     </td>
                                 </tr>
                             }
                         </table>
                     </div>
-                    <div class="row" style="margin-bottom: 8px">
-                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <table class="table table-borderless table-compact">
+                        <thead>
+                            <tr>
+                                <th>
 
-                        </div>
-                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            Sell
-                        </div>
-                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            Buy
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            Price
-                        </div>
-                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
-                            @item.FormatSellPrice
-                            <img src="~/img/Coin.png" height="14" />
-                        </div>
-                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
-                            @item.FormatBuyPrice
-                            <img src="~/img/Coin.png" height="14" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            Ingredient Sum
-                        </div>
-                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: red">
-                            @item.FormatSellSum
-                            <img src="~/img/Coin.png" height="14" />
-                        </div>
-                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4" style="color: green">
-                            @item.FormatBuySum
-                            <img src="~/img/Coin.png" height="14" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="label-md-left col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                            Talers
-                        </div>
-                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            @item.Talers
-                        </div>
-                        <div class="label-md-left col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            @item.Talers
-                        </div>
-                    </div>
+                                </th>
+                                <th>
+                                    Sell
+                                </th>
+                                <th>
+                                    Buy
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Price</td>
+                                <td>
+                                    @if (item.Id != null)
+                                    {
+                                        <span style="color: red">@item.FormatSellPrice</span> <img src="~/img/Coin.png" height="14" />
+                                    }
+                                    else
+                                    {
+                                        <span>Untradeable</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.Id != null)
+                                    {
+                                        <span style="color: green">@item.FormatBuyPrice</span> <img src="~/img/Coin.png" height="14" />
+                                    }
+                                    else
+                                    {
+                                        <span>Untradeable</span>
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Ingredient Sum</td>
+                                <td>
+                                    <span style="color: red">@item.FormatSellSum</span> <img src="~/img/Coin.png" height="14" />
+                                </td>
+                                <td>
+                                    <span style="color: green">@item.FormatBuySum</span> <img src="~/img/Coin.png" height="14" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Badges</td>
+                                <td>@item.Talers</td>
+                                <td>@item.Talers</td>
+                            </tr>
+                            <tr>
+                                <td><b>Profit</b></td>
+                                @if (item.Id != null)
+                                {
+                                    <td>
+                                        <div class="d-flex flex-row align-items-center">
+                                            <div data-sellprice="@item.SellPrice" data-buyprice="@item.BuyPrice" data-sellsum="@item.TotalSellSum" data-buysum="@item.TotalBuySum" class="profit-value mr-1">
 
+                                            </div>
+                                            <img src="~/img/Coin.png" height="14" />
+                                        </div>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         }
@@ -139,15 +203,62 @@
 
 <script>
     $(document).ready(function () {
-        $('.content-button').click(function (e) {
-            var content = $('#content-wrapper-' + $(this).attr('id'));
-            if (content.is(":visible")) {
-                $(this).text("Show Ingredients");
-                content.slideUp();
-            } else {
-                $(this).text("Hide Ingredients");
-                content.slideDown();
-            }
-        });
+        calculateProfit();
+        sortItems('profit', 'desc');
     });
+
+    $('.content-button').click(function (e) {
+        var content = $('#content-wrapper-' + $(this).attr('id'));
+        if (content.is(":visible")) {
+            $(this).text("Show Ingredients");
+            content.slideUp();
+        } else {
+            $(this).text("Hide Ingredients");
+            content.slideDown();
+        }
+    });
+
+    $('.btn-radio-prices').click(function () {
+        $(this).siblings('.btn-radio-prices').removeClass('active');
+        $(this).addClass('active');
+        calculateProfit();
+        sortItems('profit', 'desc');
+    })
+
+    function calculateProfit() {
+        $('.profit-value').each(function (i, e) {
+            var resourcePrice = 0;
+            var itemPrice = 0;
+            if ($('#buyResorucesForSell').hasClass('active')) {
+                resourcePrice = parseFloat(this.dataset.sellsum);
+            }
+            if ($('#buyResorucesForBuy').hasClass('active')) {
+                resourcePrice = parseFloat(this.dataset.buysum);
+            }
+            if ($('#sellItemForSell').hasClass('active')) {
+                itemPrice = parseFloat(this.dataset.sellprice);
+            }
+            if ($('#sellItemForBuy').hasClass('active')) {
+                itemPrice = parseFloat(this.dataset.buyprice);
+            }
+            var profit = itemPrice - resourcePrice - (itemPrice * 0.1);
+            profit = profit / 100;
+            profit = profit.toFixed(2);
+            $(e).text(profit);
+            $(e).parents('.item-container').attr('data-profit', profit);
+        });
+    }
+
+    function sortItems(type, order) {
+        var $wrapper = $('#itemWrapper');
+        $wrapper.find('.item-container').sort(function (a, b) {
+            if (type === 'profit') {
+                if (order === 'asc') {
+                    return +a.dataset.profit - +b.dataset.profit;
+                } else {
+                    return +b.dataset.profit - +a.dataset.profit;
+                }
+            }
+        }).appendTo($wrapper);
+    }
 </script>

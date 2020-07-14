@@ -536,3 +536,10 @@ table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child::
 .bg-red {
     background-color: red;
 }
+
+.table-compact tr td {
+    padding: 0px;
+}
+.table-compact tr th {
+    padding: 0px;
+}

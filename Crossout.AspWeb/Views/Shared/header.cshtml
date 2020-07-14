@@ -50,6 +50,7 @@
                             <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "BadgeExchange" ? "active" : "")" href="~/tools/badgeexchange"><loc model="loc" category="shared" name="header.nav.badgeexchange">Badge Exchange</loc></a>
                             <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Snipe" ? "active" : "")" href="~/tools/sniper"><loc model="loc" category="shared" name="header.nav.sniper">Item Sniper</loc></a>
                             <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Salvage" ? "active" : "")" href="~/tools/salvage"><loc model="loc" category="shared" name="header.nav.salvager">Salvager</loc></a>
+                            <a class="dropdown-item @(ViewContext.RouteData.Values["Action"].ToString() == "Event" ? "active" : "")" href="~/event"><loc model="loc" category="shared" name="header.nav.event">Event</loc></a>
                         </div>
                     </li>
                     <li role="presentation" class="my-1 my-lg-0 nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Tools" ? "active" : "")"><a class="nav-link" href="~/links"><loc model="loc" category="shared" name="header.nav.community">Community Links</loc></a></li>
@@ -94,7 +95,7 @@
     });
 
     $('.lang-select').click(function () {
-        Cookies.set('language', this.dataset.lang);
+        Cookies.set('language', this.dataset.lang, { expires: 365 });
         location.reload();
     });
     
