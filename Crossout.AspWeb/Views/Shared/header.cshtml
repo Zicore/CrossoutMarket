@@ -95,7 +95,7 @@
     });
 
     $('.lang-select').click(function () {
-        Cookies.set('language', this.dataset.lang);
+        Cookies.set('language', this.dataset.lang, { expires: 365 });
         location.reload();
     });
     
